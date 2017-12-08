@@ -1,0 +1,91 @@
+{
+	"id": "com.uc.heimdall",
+	"sdk": 2,
+	"permissions": [
+		"homey:manager:api"
+	  ],
+	"name": { "en": "Heimdall"},
+    "description": { "en": "This app turns homey into a simple alarm system" },
+    "category": "tools",
+    "images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
+	"version": "0.0.1",
+	"compatibility": "1.x >=1.5.0",
+	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
+    "tags": { "en": [ "Alarm", "Tools"] },
+	"flow": {
+		"triggers": [{
+			"id": "Alarm_Activated",
+			"title": {
+				"en": "The alarm is activated.",
+				"nl": "Het alarm is geactiveerd."
+			},
+			"tokens": [
+				{
+					"name": "Reason",
+					"type": "string",
+					"title": {
+						"en": "Reason",
+						"nl": "Reden"
+					}
+				}
+			]
+		}
+		],
+		"conditions": [{
+			"id": "SurveillanceActivated",
+			"title": {
+				"en": "!{{Surveillance mode active|Surveillance mode not active}}",
+				"nl": "!{{Toezicht mode is actief|Toezicht mode is niet actief}}"
+			}
+		}
+		],
+		"actions": [{
+			"id": "Send_Info",
+			"title": {
+				"en": "Send information to Heimdall.",
+				"nl": "Stuur informatie naar Heimdall."
+			},
+			"args": [{
+				"name": "log",
+				"type": "text"
+			}]
+		},
+		{
+			"id": "Clear_Log",
+			"title": {
+				"en": "Clear Heimdall log data.",
+				"nl": "Verwijder Heimdall log gegevens."
+			}
+		},
+		{
+			"id": "Activate_Surveillance",
+			"title": {
+				"en": "Activate Surveillance",
+				"nl": "Activeer toezicht"
+			}
+		},
+		{
+			"id": "Deactivate_Surveillance",
+			"title": {
+				"en": "Deactivate Surveillance",
+				"nl": "Deactiveer toezicht"
+			}
+		},
+		{
+			"id": "Activate_Alarm",
+			"title": {
+				"en": "Activate Alarm",
+				"nl": "Activeer Alarm"
+			}
+		},
+		{
+			"id": "Deactivate_Alarm",
+			"title": {
+				"en": "Deactivate Alarm",
+				"nl": "Deactiveer Alarm"
+			}
+		}
+
+		]
+	}
+}

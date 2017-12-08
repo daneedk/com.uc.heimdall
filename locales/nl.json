@@ -1,0 +1,34 @@
+{
+    "settings": {
+		"title": "Heimdall",
+        "benefit": "Laat Homey je huis in de gaten houden."
+    },
+    "tab1": {
+        "title": "Dashboard", 
+        "status": {
+            "title": "Status",
+            "smode": "Toezicht Modus",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "Geschiedenis",
+            "showDate": "Toon datum",
+            "showTime": "Toon tijd",
+            "autoRefresh": "Automatisch verversen (elke seconde)",
+            "btnClearLog": "Verwijder log",
+            "btnDownload": "Download"
+        }
+    },
+    "tab2": {
+        "title": "Instellingen",
+        "settings": {
+            "title": "Instellingen"
+        }
+    },
+    "hidden": {
+        "surveillance": {
+            "activated": "Dashboard || Toezicht mode geactiveerd.",
+            "deactivated": "Dashboard || Toezicht mode gedeactiveerd."
+        }
+    }
+}

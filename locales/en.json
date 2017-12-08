@@ -1,0 +1,34 @@
+{
+    "settings": {
+		"title": "Heimdall",
+        "benefit": "Let Homey watch over your home."
+    },
+    "tab1": {
+        "title": "Dashboard", 
+        "status": {
+            "title": "Status",
+            "smode": "Surveillance Mode",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "History",
+            "showDate": "Show Date",
+            "showTime": "Show Time",
+            "autoRefresh": "Auto refresh (every 1 Sec)",
+            "btnClearLog": "Clear log",
+            "btnDownload": "Download"
+        }
+    },
+    "tab2": {
+        "title": "Settings",
+        "settings": {
+            "title": "Settings"
+        }
+    },
+    "hidden": {
+        "surveillance": {
+            "activated": "Dashboard || Surveilllance Mode activated.",
+            "deactivated": "Dashboard || Surveilllance Mode deactivated."
+        }
+    }
+}

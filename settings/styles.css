@@ -1,0 +1,85 @@
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+  }
+body {
+    margin: 0;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.btn {
+  display: inline-block;
+  width: 130px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.42857;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-image: initial;
+  border-radius: 4px;
+}
+
+.btn-active {
+  color: rgb(0, 0, 0);
+  background-color: rgb(92, 184, 92);
+  border-color: rgb(76, 174, 76);
+}
+
+.btn-inactive {
+  color: rgb(0, 0, 0);
+  background-color: rgb(220, 220 , 220);
+  border-color: rgb(220, 220, 220);
+}
+
+.btn-alarm {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 0, 0);
+  border-color: rgb(255, 0, 0);
+}
+
+.tab {
+
+  width: 130px;
+  margin-bottom: 0px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.42857;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  border-left: 1px solid rgb(200,200,200);
+  border-top: 1px solid rgb(200,200,200);
+  border-right: 1px solid rgb(200,200,200);
+}
+
+.tab-active {
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255 , 255);
+  border-bottom: 4px solid rgb(255,255,255);
+}
+
+.tab-inactive {
+  color: rgb(0, 0, 0);
+  background-color: rgb(220, 220 , 220);
+  border-bottom: 1px solid rgb(200,200,200); 
+}
+
+.tab-unused {
+
+  border-bottom: 1px solid rgb(200,200,200);   
+}

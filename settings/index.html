@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+        <!-- Line below for development - ->
+        <script src="vue.js" data-origin="settings"></script>
+        <!-- line below for production
+        <script src="vue.min.js" data-origin="settings"></script>
+        -->
+        <script type="text/javascript" src="settings.js" data-origin="settings"></script>
+
+    </head>
+    <body>
+        <h1 data-i18n="settings.title">-Heimdall-</h1>
+        <p data-i18n="settings.benefit"></p>
+
+        <table width="100%">
+            <tr>
+                <td id="tab1b" class="tab tab-active" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
+                <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
+                <td class="tab-unused">&nbsp;</td>
+            </tr>
+        </table>
+        <div style="height:8px"></div>
+        <div id="tab1">
+            <fieldset class="listContainer">
+                <legend data-i18n="tab1.status.title">-Status-</legend>
+                <table>
+                    <tr>
+                        <td><button id="surveillanceMode" onclick="setSurveillanceMode()" class="btn btn-inactive" data-i18n="tab1.status.smode">-Surveillance mode-</button></td>
+                        <td><button id="alarmMode" class="btn btn-inactive" data-i18n="tab1.status.alarm">-Alarm-</td>
+                    </tr>
+                </table>
+            </fieldset>
+            
+            <fieldset class="listContainer">
+                <legend data-i18n="tab1.history.title">-History-</legend>
+                <table width=100%>
+                    <tr>
+                        <!--td><input type="checkbox" id="show_date" onClick="show_log()" checked ><span data-i18n="tab1.history.showDate">-Show Date-</span></td>
+                        <td><input type="checkbox" id="show_time" onClick="show_log()" checked ><span data-i18n="tab1.history.showTime">-Show Time-</span></td-->
+                        <td><input type="checkbox" id="show_refresh" onClick="show_log()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
+                    </tr>
+                </table> 
+                <textarea id="logtextarea" style="margin: 0px; width: 98%; height: 700px;"></textarea>
+                <button id="clear_simpleLOG" class="left" onclick="clear_simpleLOG()" data-i18n="tab1.history.btnClearLog">-Clear Log-</button>
+                <button id="download_simpleLOG" class="left" onclick="download_simpleLOG()"  data-i18n="tab1.history.btnDownload">-Download-</button>
+            </fieldset>
+        </div>
+        <div id="tab2" style="display:none">
+            <fieldset class="listContainer">
+                <legend data-i18n="tab2.settings.title">-Settings-</legend>
+
+                <div class="columns is-multiline" v-if="currentPage == 'devices'">
+                    <input v-model="search" class="input" style="margin-left:10px;margin-right:10px;" type="text" placeholder="Filter...">
+                    <div class="column is-3 " v-for="device in filteredItems" v-if="device.capabilities.onoff || device.capabilities.alarm_motion || device.capabilities.locked">
+                      <div class="box">
+                        <center>
+                          <img :src="device.icon" style="height:30px;width:auto;"/><br/>
+                          <b>{{device.name}}</b><br/>
+                          <small>{{device.zone.name}}</small><br/>
+                          <a v-if="!isAdded(device)" @click="addDevice(device)" class="button is-success is-outlined " style="margin:5px;" data-i18n="device.add">Add</a>
+                          <a v-if="isAdded(device)" @click="removeDevice(device)" class="button is-outlined is-danger" style="margin:5px;" data-i18n="device.delete">Delete</a>
+                        </center>
+                      </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <div id="hidden" style="display:none">
+            <span id="spanSurvActivated" data-i18n="hidden.surveillance.activated"></span>
+            <span id="spanSurvDeactivated" data-i18n="hidden.surveillance.deactivated"></span>
+        </div>
+    </body>
+</html>
