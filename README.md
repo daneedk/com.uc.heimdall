@@ -1,6 +1,6 @@
 # Heimdall
 
-This app makes it a bit easier to use your homey as a surveillance system.
+This app is intended to make it a bit easier to use your homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in Surveillance Mode he will trigger the alarm.
 
 ## How do I get it to work?
