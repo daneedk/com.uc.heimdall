@@ -8,7 +8,7 @@
     "description": { "en": "This app turns homey into a simple alarm system" },
     "category": "tools",
     "images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
     "tags": { "en": [ "Alarm", "Tools"] },
