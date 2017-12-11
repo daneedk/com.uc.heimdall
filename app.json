@@ -26,10 +26,23 @@
 					"title": {
 						"en": "Reason",
 						"nl": "Reden"
-					},
-					"example": "-"
+					}
 				}
 			]
+		},
+		{
+			"id": "Surveillance_Activated",
+			"title": {
+				"en": "Surveillance is activated.",
+				"nl": "Toezicht is geactiveerd."
+			}
+		},
+		{
+			"id": "Surveillance_Deactivated",
+			"title": {
+				"en": "Surveillance is deactivated.",
+				"nl": "Toezicht is gedeactiveerd."
+			}
 		}
 		],
 		"conditions": [{
@@ -88,5 +101,47 @@
 		}
 
 		]
-	}
+	},
+
+	"drivers": [
+		{
+			"id": "surveillanceModeSwitch",
+			"name": {
+				"en": "Mode",
+				"nl": "Modus"
+				},
+			"class": "other",
+			"capabilities": [ "onoff" ],
+			"pair": [
+				{
+					"id": "list_triggers",
+					"template": "list_devices",
+					"navigation": {
+					  "next": "add_triggers"
+					}
+				},
+				{
+					"id": "add_triggers",
+					"template": "add_devices"
+				}
+			  ],
+			  "mobile": {
+				"components": [
+				  {
+					"id": "icon",
+					"capabilities": [
+					  "onoff"
+					]
+				  },
+				  {
+					"id": "toggle",
+					"capabilities": [
+					  "onoff"
+					]
+				  }
+				]
+			  }
+		}
+	]
+
 }

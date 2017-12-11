@@ -57,8 +57,6 @@ function setSurveillanceMode() {
     if( surveillance) {
         document.getElementById("surveillanceMode").className = "btn btn-active";
         writeLogline(document.getElementById("spanSurvActivated").innerText);
-        writeLogline( Homey.__("hidden.surveillance.activated") );
-        
     }
     else {
         document.getElementById("surveillanceMode").className = "btn btn-inactive";
@@ -103,14 +101,6 @@ function refreshLog(){
 function show_log() {
   Homey.get('myLog', function(err, logging){
       if( err ) return console.error('show_log: Could not get log', err);
-      /*
-      if (document.getElementById("show_date").checked === false){
-         logging = logging.replace(/[0-9][0-9]\-[0-9][0-9]\-[0-9][0-9][0-9][0-9]  \|\|  /g, "");
-      }
-      if (document.getElementById("show_time").checked === false){
-         logging = logging.replace(/[0-2][0-9]\:[0-9][0-9]\:[0-9][0-9]\.[0-9][0-9][0-9]  \|\|  /g, "");
-      }
-      */
       if (_myLog !== logging){
         _myLog = logging
         document.getElementById('logtextarea').value = logging;

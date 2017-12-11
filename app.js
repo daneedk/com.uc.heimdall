@@ -2,9 +2,12 @@
 
 const Homey = require('homey');
 const { HomeyAPI  } = require('athom-api')
+const _ = require('lodash');
 
 // Flow triggers
 let triggerAlarmActivated = new Homey.FlowCardTrigger('Alarm_Activated');
+let triggerSurveillanceActivated = new Homey.FlowCardTrigger('Surveillance_Activated');
+let triggerSurveillanceDeactivated = new Homey.FlowCardTrigger('Surveillance_Deactivated');
 
 // Flow conditions
 const conditionSurveillanceActivated = new Homey.FlowCardCondition('SurveillanceActivated');
@@ -17,15 +20,11 @@ const actionDeactivateSurveillance = new Homey.FlowCardAction('Deactivate_Survei
 const actionActivateAlarm = new Homey.FlowCardAction('Activate_Alarm');
 const actionDeactivateAlarm = new Homey.FlowCardAction('Deactivate_Alarm');
 
-
-
-const _ = require('lodash');
-
 var surveillance = true;
 var alarm = false;
 var allDevices
 
-class heimdallClass extends Homey.App {
+class Heimdall extends Homey.App {
     // Get API control function
     getApi() {
         if (!this.api) {
@@ -49,11 +48,11 @@ class heimdallClass extends Homey.App {
             // Subscribe to realtime events and set all devices global
             await api.devices.subscribe();
             api.devices.on('device.create', async(id) => {
-            await console.log('New device found!')
-            const device = await api.devices.getDevice({
-                id: id
-            })
-            await this.addDevice(device);
+                await console.log('New device found!')
+                const device = await api.devices.getDevice({
+                    id: id
+                })
+                await this.addDevice(device);
             });
             allDevices = await api.devices.getDevices();
 
@@ -65,7 +64,7 @@ class heimdallClass extends Homey.App {
     
 	onInit() {
         this.startingServer();
-		this.log('init heimdallClass')
+		this.log('init Heimdall')
     }
 
     // Add device function, only motion- and contact sensors are added
@@ -83,8 +82,36 @@ class heimdallClass extends Homey.App {
         }
     }
 
+    setSurveillanceMode(value, source) {
+        console.log('setSurveilanceMode: ' + value);
+        let nu = getDateTime();
+        let logNew;
+        Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
+            if( err ) return Homey.alert( err );
+        });
+        if (value) {
+            logNew = nu + value + " || " + source + " || Surveillance mode is activated.";
+            triggerSurveillanceActivated.trigger( function(err, result){
+                if( err ) {
+                    return Homey.error(err)} ;
+                } );
+        }
+        else {
+            logNew = nu + value + " || " + source + " || Surveillance mode is deactivated.";
+            triggerSurveillanceDeactivated.trigger( function(err, result){
+                if( err ) {
+                    return Homey.error(err)} ;
+                } );
+        }
+        console.log('Logging: ' + logNew);
+        const logOld = Homey.ManagerSettings.get('myLog');
+        if (logOld != undefined) { 
+            logNew = logNew+"\n" + logOld;
+        }
+        Homey.ManagerSettings.set('myLog', logNew );
+    }
 }
-module.exports = heimdallClass;
+module.exports = Heimdall;
 
 surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
 console.log('surveillance: ' + surveillance);
@@ -95,6 +122,30 @@ if ( surveillance == null ) {
 // Flow triggers functions
 triggerAlarmActivated
     .register()
+    .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
+triggerSurveillanceActivated
+    .register()
+    .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
+triggerSurveillanceDeactivated
+.register()
     .on('run', ( args, state, callback ) => {
         console.log(args)
         if ( true ) {
@@ -225,17 +276,18 @@ function stateChange(device,state,sensorType) {
     };
     let logNew = nu + surveillance + " || Heimdall || " + device.name + ": " + sensorState;
     if (surveillance == true && sensorState == true) {
+        // alarm is tripped
         alarm=true;
         logNew = nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
         Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
             if( err ) return Homey.alert( err );
         });
-        //alarm
         var tokens= {'Reason': device.name + ': '+ sensorState };
         triggerAlarmActivated.trigger(tokens, state, function(err, result){
             if( err ) {
                 return Homey.error(err)} ;
-            } )
+            } );
+        // Add code to check if AlarmOff device exists en switch accordingly
 
     }
     console.log('Logging: ' + logNew);
