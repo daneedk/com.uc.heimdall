@@ -111,6 +111,10 @@
 				"en": "Mode",
 				"nl": "Modus"
 				},
+			"images": {
+				"large": "drivers/surveillanceModeSwitch/assets/images/large.png",
+				"small": "drivers/surveillanceModeSwitch/assets/images/small.png"
+			},
 			"class": "other",
 			"capabilities": [ "onoff" ],
 			"pair": [
