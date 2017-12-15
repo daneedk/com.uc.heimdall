@@ -22,7 +22,9 @@ const actionDeactivateAlarm = new Homey.FlowCardAction('Deactivate_Alarm');
 
 var surveillance = true;
 var alarm = false;
-var allDevices
+var allDevices;
+var devicesMonitored = [];
+var devicesDelayed = [];
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -63,8 +65,10 @@ class Heimdall extends Homey.App {
     }
     
 	onInit() {
+        getMonitoredDevices();
+        getDelayedDevices();
         this.startingServer();
-		this.log('init Heimdall')
+        this.log('init Heimdall')
     }
 
     // Add device function, only motion- and contact sensors are added
@@ -254,14 +258,51 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     callback( null,true );
 });
 
+// Get devices that should be monitored function
+function getMonitoredDevices() {
+    devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
+    console.log('getMonitoredDevices: ' + devicesMonitored);
+}
+
+// Get devices that have a delayed trigger function
+function getDelayedDevices() {
+    devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
+    console.log('getDelayedDevices: ' + devicesDelayed);
+}
+
+// Should this device be monitored
+function isMonitored(obj) {
+    var i;
+    for (i = 0; i < devicesMonitored.length; i++) {
+        if (devicesMonitored[i] && devicesMonitored[i].id == obj.id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Should this trigger be delayed
+function isDelayed(obj) {
+    var i;
+    for (i = 0; i < devicesDelayed.length; i++) {
+        if (devicesDelayed[i] && devicesDelayed[i].id == obj.id) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // this function attaches en eventlistner to a device
 function attachEventListner(device,sensorType) {
-    if(device.name.includes('[H]')) {
+    if ( isMonitored(device) ) {
         device.on('$state', _.debounce(state => { 
             stateChange(device,state,sensorType)
         }));
-        console.log('Attached Eventlistner: ' + ' - ' + device.name)
+        console.log('Attached Eventlistner: ' + device.name)
     }
+    /*if(device.name.includes('[H]')) {
+        console.log('Attached Eventlistner: ' + ' - ' + device.name)
+    }*/
 }
 
 // this function gets called when a device with an attached eventlistner fires an event.

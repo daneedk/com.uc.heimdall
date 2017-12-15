@@ -11,9 +11,12 @@ body {
     font-weight: 400;
 }
 
+th {
+  background-color: rgb(220, 220 , 220);
+}
+
 .btn {
   display: inline-block;
-  width: 130px;
   margin-bottom: 0px;
   font-size: 12px;
   font-weight: 400;
@@ -32,6 +35,13 @@ body {
   border-radius: 4px;
 }
 
+.wide {
+  width: 130px;
+}
+
+.narrow {
+  width: 35px;
+}
 .btn-active {
   color: rgb(0, 0, 0);
   background-color: rgb(92, 184, 92);
@@ -41,6 +51,12 @@ body {
 .btn-inactive {
   color: rgb(0, 0, 0);
   background-color: rgb(220, 220 , 220);
+  border-color: rgb(200, 200, 200);
+}
+
+.btn-disable {
+  color: rgb(220, 220, 220);
+  background-color: rgb(240, 240 , 240);
   border-color: rgb(220, 220, 220);
 }
 
@@ -83,3 +99,51 @@ body {
 
   border-bottom: 1px solid rgb(200,200,200);   
 }
+
+.rTable {   	
+  display: table;   	
+  width: calc(100% - 2px); } 
+
+.rTableRow {   	
+  display: table-row; 
+  margin: 0;
+  border-top: 1px solid rgb(220,220,220);
+  border-left: 1px solid rgb(220,220,220);
+  border-right: 1px solid rgb(220,220,220);            
+  } 
+
+.rTableHeading {   	
+  display: table-header-group;   	
+  background-color: #ddd; } 
+
+.rTableCell{   	
+  display: table-cell;   	
+  padding: 6px 4px;
+  vertical-align: middle;
+  border-top: 1px solid rgb(220,220,220);
+  white-space: nowrap;
+  }
+.rTableCellLast{
+  width: 30%;
+}
+
+.rTableHead {
+  background: rgb(240,240,240);
+  font-weight: bold;
+}
+
+.rTableHeading {   	
+  display: table-header-group;   	
+  background-color: #ddd;   	
+  font-weight: bold; } 
+
+.rTableFoot {   	
+  display: table-footer-group;   	
+  font-weight: bold;   	
+  background-color: #ddd; } 
+  
+.rTableBody {   	
+  display: table-row-group; }
+
+
+

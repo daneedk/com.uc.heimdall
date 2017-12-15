@@ -22,7 +22,13 @@
     "tab2": {
         "title": "Settings",
         "settings": {
-            "title": "Settings"
+            "title": "Settings",
+            "zone": "Zone",
+            "device": "Device",
+            "monitor": "Monitor",
+            "dTrigger": "Delayed Trigger",
+            "no": "No",
+            "yes": "Yes"
         }
     },
     "hidden": {

@@ -4,11 +4,163 @@ let surveillance;
 let alarm;
 var allDevices;
 
-function onHomeyReady( homeyReady ){
+function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
     getSettings();
     refreshLog();
+
+    new Vue({
+        el: '#app',
+        data: {
+          devices: {},
+          search: '',
+          devicesMonitored: [],
+          devicesDelayed: [],
+          log: []
+        },
+        methods: {
+            getMonitoredDevices() {
+                Homey.get('monitoredDevices', (err, result) => {
+                  console.log(result);
+                  if (result) {
+                    this.devicesMonitored = result;
+                  }
+    
+                });
+            },
+            getDelayedDevices() {
+                Homey.get('delayedDevices', (err, result) => {
+                  console.log(result);
+                  if (result) {
+                    this.devicesDelayed = result;
+                  }
+    
+                });
+            },
+            getDevices() {
+                Homey.api('GET', '/devices', null, (err, result) => {
+                if (err)
+                    return Homey.alert('getDevices' + err);
+                var array = Object.keys(result).map(function (key) {
+                    return result[key];
+                });
+                this.devices = array.filter(this.filterArray);
+                });
+            },
+
+            async addMonitor(device) {
+                await console.log(device.id, device.name, device.class)
+                await this.devicesMonitored.push(device);
+                await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    }
+                )
+                
+                /*await Homey.api('PUT', '/devices/add', device, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    }
+                );*/
+                
+                console.log('Device added');
+              },
+            async addDelay(device) {
+                await console.log(device.id, device.name, device.class)
+                await this.devicesDelayed.push(device);
+                await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    }
+                )
+                
+                /*await Homey.api('PUT', '/devices/add', device, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    }
+                );*/
+                
+                console.log('Device added');
+            },
+            async removeMonitor(device) {
+                var i;
+                for (i = 0; i < this.devicesMonitored.length; i++) {
+                    if (this.devicesMonitored[i] && this.devicesMonitored[i].id == device.id) {
+                        this.devicesMonitored.splice(i, 1);
+                    }
+                }
+                await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    console.log(device.name + ' removed from monitoredDevices');
+                })
+                
+                /*Homey.api('DELETE', '/devices/delete', device, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+        
+                    console.log(device.name + ' removed from Homekit');
+                    }
+                );*/
+                
+            },
+            async removeDelay(device) {
+                var i;
+                for (i = 0; i < this.devicesDelayed.length; i++) {
+                    if (this.devicesDelayed[i] && this.devicesDelayed[i].id == device.id) {
+                        this.devicesDelayed.splice(i, 1);
+                    }
+                }
+                await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    console.log(device.name + ' removed from delayedDevices');
+                })
+                
+                /*Homey.api('DELETE', '/devices/delete', device, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+        
+                    console.log(device.name + ' removed from Homekit');
+                    }
+                );*/
+                
+            },
+            isMonitored(obj) {
+                var i;
+                for (i = 0; i < this.devicesMonitored.length; i++) {
+                    if (this.devicesMonitored[i] && this.devicesMonitored[i].id == obj.id) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            isDelayed(obj) {
+                var i;
+                for (i = 0; i < this.devicesDelayed.length; i++) {
+                    if (this.devicesDelayed[i] && this.devicesDelayed[i].id == obj.id) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            filterArray(device) {
+                if (device.class == "sensor" || device.class == "lock")
+                return device
+            }
+        },
+        mounted() {
+            this.getMonitoredDevices();
+            this.getDelayedDevices();
+            this.getDevices();
+        },
+        computed: {
+            filteredItems() {
+                return this.devices          
+            }
+        }
+      })
 }
 
 function showTab(tab){
@@ -31,20 +183,20 @@ function getSettings() {
         if( err ) return Homey.alert( err );
         surveillance = surveillanceStatus;
         if( surveillance ) {
-            document.getElementById("surveillanceMode").className = "btn btn-active";
+            document.getElementById("surveillanceMode").className = "btn wide btn-active";
         }
         else {
-            document.getElementById("surveillanceMode").className = "btn btn-inactive";
+            document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
         };
     });
     Homey.get('alarmStatus', function( err, alarmStatus ) {
         if( err ) return Homey.alert( err );
         alarm = alarmStatus;
         if( alarm) {
-            document.getElementById("alarmMode").className = "btn btn-alarm";
+            document.getElementById("alarmMode").className = "btn wide btn-alarm";
         }
         else {
-            document.getElementById("alarmMode").className = "btn btn-inactive";
+            document.getElementById("alarmMode").className = "btn wide btn-inactive";
         };
     });
 }
@@ -55,11 +207,11 @@ function setSurveillanceMode() {
         if( err ) return Homey.alert( err );
     });
     if( surveillance) {
-        document.getElementById("surveillanceMode").className = "btn btn-active";
+        document.getElementById("surveillanceMode").className = "btn wide btn-active";
         writeLogline(document.getElementById("spanSurvActivated").innerText);
     }
     else {
-        document.getElementById("surveillanceMode").className = "btn btn-inactive";
+        document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
         writeLogline(document.getElementById("spanSurvDeactivated").innerText);
         // Cleanup
         alarm=false;
