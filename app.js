@@ -42,44 +42,45 @@ class Heimdall extends Homey.App {
         return allDevices;
     }
 
-    // Start server function
-    async startingServer() {
+    // Get all devices and add them
+    async enumerateDevices() {
         
-            // Get the homey object
-            const api = await this.getApi();
-            // Subscribe to realtime events and set all devices global
-            await api.devices.subscribe();
-            api.devices.on('device.create', async(id) => {
-                await console.log('New device found!')
-                const device = await api.devices.getDevice({
-                    id: id
-                })
-                await this.addDevice(device);
-            });
-            allDevices = await api.devices.getDevices();
+        // Get the homey object
+        const api = await this.getApi();
+        // Subscribe to realtime events and set all devices global
+        await api.devices.subscribe();
+        api.devices.on('device.create', async(id) => {
+            await console.log('New device found!')
+            const device = await api.devices.getDevice({
+                id: id
+            })
+            await this.addDevice(device);
+        });
+        allDevices = await api.devices.getDevices();
 
-            // Loop devices
-            _.forEach(allDevices, (device) => {
-                this.addDevice(device, api);
-            });
+        // Loop devices
+        _.forEach(allDevices, (device) => {
+            this.addDevice(device, api);
+        });
+        this.log('Enumerating devices done.')
     }
     
 	onInit() {
         getMonitoredDevices();
         getDelayedDevices();
-        this.startingServer();
+        this.enumerateDevices();
         this.log('init Heimdall')
     }
 
     // Add device function, only motion- and contact sensors are added
     addDevice(device, api) {
         if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
-            console.log('Found motion sensor: ' + ' - ' + device.name)
-            attachEventListner(device,'motion')
+            console.log('Found motion sensor:    ' + device.name)
+            attachEventListener(device,'motion')
         } 
         else if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
-            console.log('Found contact sensor: ' + ' - ' + device.name)
-            attachEventListner(device,'contact')
+            console.log('Found contact sensor:   ' + device.name)
+            attachEventListener(device,'contact')
             }
         else {
             //console.log('No matching class found for: ' + ' - ' + device.name)
@@ -149,7 +150,7 @@ triggerSurveillanceActivated
     });
 
 triggerSurveillanceDeactivated
-.register()
+    .register()
     .on('run', ( args, state, callback ) => {
         console.log(args)
         if ( true ) {
@@ -261,17 +262,18 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
 // Get devices that should be monitored function
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
-    console.log('getMonitoredDevices: ' + devicesMonitored);
+    //console.log('getMonitoredDevices: ' + devicesMonitored);
 }
 
 // Get devices that have a delayed trigger function
 function getDelayedDevices() {
     devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-    console.log('getDelayedDevices: ' + devicesDelayed);
+    //console.log('getDelayedDevices: ' + devicesDelayed);
 }
 
 // Should this device be monitored
 function isMonitored(obj) {
+    getMonitoredDevices();
     var i;
     for (i = 0; i < devicesMonitored.length; i++) {
         if (devicesMonitored[i] && devicesMonitored[i].id == obj.id) {
@@ -292,51 +294,52 @@ function isDelayed(obj) {
     return false;
 }
 
-// this function attaches en eventlistner to a device
-function attachEventListner(device,sensorType) {
+    // this function attaches en eventlistener to a device
+function attachEventListener(device,sensorType) {
+    device.on('$state', _.debounce(state => { 
+        stateChange(device,state,sensorType)
+    }));
+    console.log('Attached Eventlistener: ' + device.name)
     if ( isMonitored(device) ) {
-        device.on('$state', _.debounce(state => { 
-            stateChange(device,state,sensorType)
-        }));
-        console.log('Attached Eventlistner: ' + device.name)
+        console.log('Monitored device:       ' + device.name)
     }
-    /*if(device.name.includes('[H]')) {
-        console.log('Attached Eventlistner: ' + ' - ' + device.name)
-    }*/
 }
 
-// this function gets called when a device with an attached eventlistner fires an event.
+// this function gets called when a device with an attached eventlistener fires an event.
 function stateChange(device,state,sensorType) {
     let nu = getDateTime();
-    let sensorState;
-    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    if (sensorType == 'motion') {
-        sensorState = state.alarm_motion
-    } else if (sensorType == 'contact') {
-        sensorState = state.alarm_contact
-    };
-    let logNew = nu + surveillance + " || Heimdall || " + device.name + ": " + sensorState;
-    if (surveillance == true && sensorState == true) {
-        // alarm is tripped
-        alarm=true;
-        logNew = nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
-        Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
-            if( err ) return Homey.alert( err );
-        });
-        var tokens= {'Reason': device.name + ': '+ sensorState };
-        triggerAlarmActivated.trigger(tokens, state, function(err, result){
-            if( err ) {
-                return Homey.error(err)} ;
-            } );
-        // Add code to check if AlarmOff device exists en switch accordingly
+    //console.log('stateChange: ' + device.name)
+    if ( isMonitored(device) ) {
+        let sensorState;
+        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        if (sensorType == 'motion') {
+            sensorState = state.alarm_motion
+        } else if (sensorType == 'contact') {
+            sensorState = state.alarm_contact
+        };
+        let logNew = nu + surveillance + " || Heimdall || " + device.name + ": " + sensorState;
+        if (surveillance == true && sensorState == true) {
+            // alarm is tripped
+            alarm=true;
+            logNew = nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
+            Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
+                if( err ) return Homey.alert( err );
+            });
+            var tokens= {'Reason': device.name + ': '+ sensorState };
+            triggerAlarmActivated.trigger(tokens, state, function(err, result){
+                if( err ) {
+                    return Homey.error(err)} ;
+                } );
+            // Add code to check if AlarmOff device exists en switch accordingly
 
+        }
+        //console.log(logNew);
+        const logOld = Homey.ManagerSettings.get('myLog');
+        if (logOld != undefined) { 
+            logNew = logNew+"\n"+logOld;
+        }
+        Homey.ManagerSettings.set('myLog', logNew );
     }
-    console.log('Logging: ' + logNew);
-    const logOld = Homey.ManagerSettings.get('myLog');
-    if (logOld != undefined) { 
-        logNew = logNew+"\n"+logOld;
-    }
-    Homey.ManagerSettings.set('myLog', logNew );
 }
 
 function getDateTime() {

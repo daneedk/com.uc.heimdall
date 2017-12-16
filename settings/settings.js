@@ -57,14 +57,8 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     }
                 )
-                
-                /*await Homey.api('PUT', '/devices/add', device, (err, result) => {
-                    if (err)
-                        return Homey.alert(err);
-                    }
-                );*/
-                
-                console.log('Device added');
+
+                console.log(device.name + ' added to monitoredDevices');
               },
             async addDelay(device) {
                 await console.log(device.id, device.name, device.class)
@@ -74,14 +68,7 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     }
                 )
-                
-                /*await Homey.api('PUT', '/devices/add', device, (err, result) => {
-                    if (err)
-                        return Homey.alert(err);
-                    }
-                );*/
-                
-                console.log('Device added');
+                console.log('Delay added to ' + device.name);
             },
             async removeMonitor(device) {
                 var i;
@@ -95,15 +82,6 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log(device.name + ' removed from monitoredDevices');
                 })
-                
-                /*Homey.api('DELETE', '/devices/delete', device, (err, result) => {
-                    if (err)
-                        return Homey.alert(err);
-        
-                    console.log(device.name + ' removed from Homekit');
-                    }
-                );*/
-                
             },
             async removeDelay(device) {
                 var i;
@@ -115,16 +93,8 @@ function onHomeyReady(homeyReady){
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log(device.name + ' removed from delayedDevices');
+                    console.log('Delay removed from' + device.name);
                 })
-                
-                /*Homey.api('DELETE', '/devices/delete', device, (err, result) => {
-                    if (err)
-                        return Homey.alert(err);
-        
-                    console.log(device.name + ' removed from Homekit');
-                    }
-                );*/
                 
             },
             isMonitored(obj) {

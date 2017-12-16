@@ -26,26 +26,14 @@ module.exports = [
         method: 'PUT',
         path: '/devices/add',
         fn: function(args, callback) {
-          Homey.app.addDevice(args.body).then(res => {
-              callback(null, true);
-            })
-            .catch(error => callback(error, null));
-    
+
         }
     },
     {
         method: 'DELETE',
         path: '/devices/delete',
         fn: function(args, callback) {
-          console.log('API call received, trying to remove ' + args.body.name, 'info');
-          Homey.app.deleteDevice(args.body).then(res => {
-              callback(null, true);
-            })
-            .catch(error => {
-              console.log(err, 'error')
-              callback(error, null);
-            });
-    
+            
         }
     }
 
