@@ -31,21 +31,21 @@ function onHomeyReady(homeyReady){
             },
             getDelayedDevices() {
                 Homey.get('delayedDevices', (err, result) => {
-                  console.log(result);
-                  if (result) {
-                    this.devicesDelayed = result;
-                  }
-    
+                    console.log(result);
+                    if (result) {
+                        this.devicesDelayed = result;
+                    }
+        
                 });
             },
             getDevices() {
                 Homey.api('GET', '/devices', null, (err, result) => {
-                if (err)
-                    return Homey.alert('getDevices' + err);
-                var array = Object.keys(result).map(function (key) {
-                    return result[key];
-                });
-                this.devices = array.filter(this.filterArray);
+                    if (err)
+                        return Homey.alert('getDevices' + err);
+                    var array = Object.keys(result).map(function (key) {
+                        return result[key];
+                    });
+                    this.devices = array.filter(this.filterArray);
                 });
             },
 

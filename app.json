@@ -1,20 +1,18 @@
 {
 	"id": "com.uc.heimdall",
 	"sdk": 2,
-	"permissions": [
-		"homey:manager:api"
-	  ],
+	"permissions": [ "homey:manager:api" ],
 	"name": { "en": "Heimdall"},
-    "description": { "en": "This app turns homey into a simple surveillance system" },
-    "category": "tools",
-    "images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.4",
+	"description": { "en": "This app turns homey into a simple surveillance system" },
+	"category": [ "security", "tools" ],
+	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
+	"version": "0.0.5",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
-    "developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
-  },
-    "tags": { "en": [ "Alarm", "Tools"] },
+		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
+	},
+	"tags": { "en": [ "Alarm", "Tools"] },
 	"flow": {
 		"triggers": [{
 			"id": "Alarm_Activated",
@@ -106,7 +104,6 @@
 
 		]
 	},
-
 	"drivers": [
 		{
 			"id": "surveillanceModeSwitch",
@@ -125,30 +122,30 @@
 					"id": "list_triggers",
 					"template": "list_devices",
 					"navigation": {
-					  "next": "add_triggers"
+						"next": "add_triggers"
 					}
 				},
 				{
 					"id": "add_triggers",
 					"template": "add_devices"
 				}
-			  ],
-			  "mobile": {
+				],
+			"mobile": {
 				"components": [
-				  {
+					{
 					"id": "icon",
 					"capabilities": [
-					  "onoff"
+						"onoff"
 					]
-				  },
-				  {
+					},
+					{
 					"id": "toggle",
 					"capabilities": [
-					  "onoff"
+						"onoff"
 					]
-				  }
+					}
 				]
-			  }
+			}
 		}
 	]
 }

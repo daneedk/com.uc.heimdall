@@ -25,6 +25,7 @@ var alarm = false;
 var allDevices;
 var devicesMonitored = [];
 var devicesDelayed = [];
+var sModeDevice;
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -56,6 +57,10 @@ class Heimdall extends Homey.App {
             })
             await this.addDevice(device);
         });
+        api.devices.on('device.delete', async(id) => {
+            await console.log('Device deleted!: ')
+            // how to determine which device is deleted....
+        });
         allDevices = await api.devices.getDevices();
 
         // Loop devices
@@ -74,6 +79,11 @@ class Heimdall extends Homey.App {
 
     // Add device function, only motion- and contact sensors are added
     addDevice(device, api) {
+        if (device.data.id === 'sMode') {
+            sModeDevice = device;
+            console.log('Found Mode Switch:      ' + device.name)
+            console.log('Variabele:              ' + sModeDevice.name)
+        }
         if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
             console.log('Found motion sensor:    ' + device.name)
             attachEventListener(device,'motion')
@@ -88,7 +98,7 @@ class Heimdall extends Homey.App {
     }
 
     setSurveillanceMode(value, source) {
-        console.log('setSurveilanceMode: ' + value);
+        //console.log('setSurveilanceMode: ' + value);
         let nu = getDateTime();
         let logNew;
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
@@ -199,6 +209,10 @@ actionActivateSurveillance.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('surveillanceStatus', surveillance, function( err ){
         if( err ) return Homey.alert( err );
     });
+    if ( sModeDevice ) {
+        sModeDevice.setCapabilityValue('onoff', surveillance) 
+            .catch(this.error);
+    }
     let logNew = nu + surveillance + " || Flowcard || Surveillance mode is activated.";
     console.log('Logging: ' + logNew);
     const logOld = Homey.ManagerSettings.get('myLog');
@@ -215,6 +229,10 @@ actionDeactivateSurveillance.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('surveillanceStatus', surveillance, function( err ){
         if( err ) return Homey.alert( err );
     });
+    if ( sModeDevice ) {
+        sModeDevice.setCapabilityValue('onoff', surveillance) 
+            .catch(this.error);
+    }
     let logNew = nu + surveillance + " || Flowcard || Surveillance mode is deactivated.";
     console.log('Logging: ' + logNew);
     const logOld = Homey.ManagerSettings.get('myLog');

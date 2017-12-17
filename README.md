@@ -11,8 +11,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Select the devices to monitor on the settings page.
 
 ## Known issues
-* The Surveillence Mode Switch does not get updated when the Surveillance mode is set with flow cards.
-* ~~Settings are saved but the app needs to be restarted to activate new settings.~~
+* ~~The Surveillance Mode Switch does not get updated when the Surveillance mode is set with flow cards.~~
 
 ## Planned features
 - [X] Button to activate/deactivate surveillance mode.
@@ -21,6 +20,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Trigger delay configurable per device.
 - [ ] Multiple 'armed' modes.
 - [ ] ..
+
+## Version 0.0.5
+* Surveillance Mode Switch gets updated when the Surveillance mode is set with flow cards.
 
 ## Version 0.0.4
 * Devices to monitor are monitored instantly after selecting, it is no longer needed to restart the app.
