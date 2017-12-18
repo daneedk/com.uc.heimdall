@@ -280,22 +280,24 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
 // Get devices that should be monitored function
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
-    //console.log('getMonitoredDevices: ' + devicesMonitored);
+    console.log('getMonitoredDevices: ' + devicesMonitored);
 }
 
 // Get devices that have a delayed trigger function
 function getDelayedDevices() {
     devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-    //console.log('getDelayedDevices: ' + devicesDelayed);
+    console.log('getDelayedDevices: ' + devicesDelayed);
 }
 
 // Should this device be monitored
 function isMonitored(obj) {
     getMonitoredDevices();
     var i;
-    for (i = 0; i < devicesMonitored.length; i++) {
-        if (devicesMonitored[i] && devicesMonitored[i].id == obj.id) {
-            return true;
+    if ( devicesMonitored !== null ) {
+        for (i = 0; i < devicesMonitored.length; i++) {
+            if (devicesMonitored[i] && devicesMonitored[i].id == obj.id) {
+                return true;
+            }
         }
     }
     return false;
@@ -304,15 +306,17 @@ function isMonitored(obj) {
 // Should this trigger be delayed
 function isDelayed(obj) {
     var i;
-    for (i = 0; i < devicesDelayed.length; i++) {
-        if (devicesDelayed[i] && devicesDelayed[i].id == obj.id) {
-            return true;
+    if ( devicesDelayed !== null) {
+        for (i = 0; i < devicesDelayed.length; i++) {
+            if (devicesDelayed[i] && devicesDelayed[i].id == obj.id) {
+                return true;
+            }
         }
     }
     return false;
 }
 
-    // this function attaches en eventlistener to a device
+// this function attaches en eventlistener to a device
 function attachEventListener(device,sensorType) {
     device.on('$state', _.debounce(state => { 
         stateChange(device,state,sensorType)
