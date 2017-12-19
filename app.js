@@ -280,13 +280,13 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
 // Get devices that should be monitored function
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
-    console.log('getMonitoredDevices: ' + devicesMonitored);
+    //console.log('getMonitoredDevices: ' + devicesMonitored);
 }
 
 // Get devices that have a delayed trigger function
 function getDelayedDevices() {
     devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-    console.log('getDelayedDevices: ' + devicesDelayed);
+    //console.log('getDelayedDevices: ' + devicesDelayed);
 }
 
 // Should this device be monitored

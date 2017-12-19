@@ -21,6 +21,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Multiple 'armed' modes.
 - [ ] ..
 
+## Version 0.0.6
+* Fixed bug that was introduced in 0.0.5 for first installations.   
+
 ## Version 0.0.5
 * Surveillance Mode Switch gets updated when the Surveillance mode is set with flow cards.
 
