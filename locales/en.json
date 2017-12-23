@@ -23,6 +23,9 @@
         "title": "Settings",
         "settings": {
             "title": "Settings",
+            "tDelay": "Trigger delay",
+            "seconds": "Seconds",
+            "save": "Save",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",
@@ -31,10 +34,20 @@
             "yes": "Yes"
         }
     },
+    "tab3": {
+        "title": "Instructions",
+        "instructions": {
+            "title": "Instructions"
+        }
+    },
     "hidden": {
         "surveillance": {
             "activated": "Dashboard || Surveilllance Mode activated.",
             "deactivated": "Dashboard || Surveilllance Mode deactivated."
+        },
+        "settings": {
+            "secondsFail": "The value is not valid, please enter a delay in the range of 0-120 seconds",
+            "saveSucces": "The new settings are saved."
         }
     }
 }

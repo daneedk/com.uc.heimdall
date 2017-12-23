@@ -20,6 +20,7 @@
                 <tr>
                     <td id="tab1b" class="tab tab-active" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
                     <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
+                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Instructions-</td>
                     <td class="tab-unused">&nbsp;</td>
                 </tr>
             </table>
@@ -50,8 +51,22 @@
             <div id="tab2" style="display:none">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab2.settings.title">-Settings-</legend>
+                    <table width="27%">
+                        <tr>
+                            <td class="rTableCell" data-i18n="tab2.settings.tDelay">-Trigger delay:-</td>
+                            <td class="rTableCell">
+                                <input id="triggerDelay" type="text" value="31" class="narrow">
+                            </td class="rTableCell">
+                            <td class="rTableCell" data-i18n="tab2.settings.seconds">-Seconds-</td>
+                            <td class="rTableCell">
+                                <button id="saveTriggerDelay" class="left" onclick="changeTriggerDelay()" data-i18n="tab2.settings.save">-Save-</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rTableCell" colspan="4">
+                        </tr>
+                     </table>
 
-    
                     <div class="rTable">
                         <div class="rTableRow">
                             <div class="rTableCell rTableHead" data-i18n="tab2.settings.zone">-Zone-</div>
@@ -75,8 +90,8 @@
                                 <a v-if="isMonitored(device)" @click="removeMonitor(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.yes">-Yes-</a>
                             </div>
                             <div class="rTableCell">
-                                <!--a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn narrow btn-inactive" style="margin:5px;" data-i18n="tab2.settings.no">-No-</a-->
-                                <a v-if="!isDelayed(device)" class="btn narrow btn-disable" style="margin:5px;" data-i18n="tab2.settings.no">-No-</a>
+                                <a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn narrow btn-inactive" style="margin:5px;" data-i18n="tab2.settings.no">-No-</a>
+                                <!--a v-if="!isDelayed(device)" class="btn narrow btn-disable" style="margin:5px;" data-i18n="tab2.settings.no">-No-</a-->
                                 <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.yes">-Yes-</a>
                             </div>
 
@@ -87,9 +102,61 @@
 
                 </fieldset>
             </div>
+            <div id="tab3" style="display:none">
+                <fieldset class="listContainer">
+                    <legend data-i18n="tab3.instructions.title">-Instructions-</legend>
+                    To configure Heimdall you have to do the following:<br />
+                    <br />
+                    <ul>
+                        <li>Select the device(s) you want to monitor</li>
+                        <ul><li>
+                            Go to the settings page and click on the <i>no</i> button in the Monitor column to select the device. 
+                            The button will change to <i>yes</i> indicating the device is monitored.<br />
+                            If you want to have a delay between the triggering of a device and activating the alarm you can 
+                            enable a delay by clicking on the <i>no</i> button in the Delayed Trigger column.<br />
+                            The delay that is used can be found on the top of the settings page, it is in seconds and ranges from 0-120 seconds.<br />
+                        </li></ul>
+                        <li>Create a flow to enable the Surveillance Mode</li>
+                        <ul><li>
+                            Heimdall will listen to the selected sensors and will log all state changes. 
+                            Only when Heimdall is in Surveillance Mode a trigger on a sensor will lead to an alarm.
+                            Go to the Homey Flow page and create a flow to enable the Surveillance Mode by using the <i>Activate Surveillance</i> card in the <i>...then</i> column.
+                        </li></ul>
+                        <li>Create a flow to disable the Surveillance Mode</li>
+                        <ul><li>
+                            To be able to disable the Surveillance Mode with a flow you have to create one and use the <i>Deactivate Surveillance</i> card in the <i>...then</i> column.
+                        </li></ul>
+                        <li>Create a flow to act on an alarm</li>
+                        <ul><li>
+                            You can decide for yourself what you want Homey to do when the alarm is activated. 
+                            Create a flow and use the <i>The alarm is activated.</i> card in the <i>when...</i> column and select your desired actions in the <i>then...</i> column.<br />
+                            You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
+                        </li></ul>
+                        <li>Create a flow to disable the alarm</li>
+                        <ul><li>
+                            To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> column.
+                        </li></ul>
+                        <li>Create a Surveillance Mode button</li>
+                        <ul><li>
+                            If you want to be able to use a button in the Homey smartphone app you can create one by going to the Homey Devices page.<br />
+                            Click on the <i>add a device</i> icon in your desired zone and select the <i>Mode</i> device from the Heimdall app.<br>
+                            You can rename the device, clicking on <i>next</i> will add it to Homey.
+                        </li></ul>
+                        <li>Log other information</li>
+                        <ul><li>
+                            If you like to log more information, for example presence information, 
+                            you can use the <i>Send information to Heimdall</i> card in a flow in the <i>...then</i> column.
+                        </li></ul>
+                    </ul>
+                   
+                   
+                </fieldset>
+            </div>
             <div id="hidden" style="display:none">
                 <span id="spanSurvActivated" data-i18n="hidden.surveillance.activated"></span>
                 <span id="spanSurvDeactivated" data-i18n="hidden.surveillance.deactivated"></span>
+                <span id="spanSecondsFail" data-i18n="hidden.settings.secondsFail"></span>
+                <span id="spanSaveSucces" data-i18n="hidden.settings.saveSucces"></span>
             </div>
         </div>
     </body>

@@ -3,10 +3,12 @@ let _myLog;
 let surveillance;
 let alarm;
 var allDevices;
+var triggerDelay = 30;
 
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
+    getTriggerDelay();
     getSettings();
     refreshLog();
 
@@ -22,7 +24,7 @@ function onHomeyReady(homeyReady){
         methods: {
             getMonitoredDevices() {
                 Homey.get('monitoredDevices', (err, result) => {
-                  console.log(result);
+                  console.log('getMonitoredDevices: ' + result);
                   if (result) {
                     this.devicesMonitored = result;
                   }
@@ -31,7 +33,7 @@ function onHomeyReady(homeyReady){
             },
             getDelayedDevices() {
                 Homey.get('delayedDevices', (err, result) => {
-                    console.log(result);
+                    console.log('getDelayedDevices: '+ result);
                     if (result) {
                         this.devicesDelayed = result;
                     }
@@ -48,27 +50,25 @@ function onHomeyReady(homeyReady){
                     this.devices = array.filter(this.filterArray);
                 });
             },
-
             async addMonitor(device) {
-                await console.log(device.id, device.name, device.class)
+                await console.log('addMonitor: ' + device.id, device.name, device.class)
                 await this.devicesMonitored.push(device);
                 await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-
-                console.log(device.name + ' added to monitoredDevices');
-              },
+                console.log('addMonitor: ' + device.name + ' added to monitoredDevices');
+            },
             async addDelay(device) {
-                await console.log(device.id, device.name, device.class)
+                await console.log('addDelay: ' + device.id, device.name, device.class)
                 await this.devicesDelayed.push(device);
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-                console.log('Delay added to ' + device.name);
+                console.log('addDelay: Delay added to ' + device.name);
             },
             async removeMonitor(device) {
                 var i;
@@ -80,7 +80,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log(device.name + ' removed from monitoredDevices');
+                    console.log('removeMonitor: ' + device.name + ' removed from monitoredDevices');
                 })
             },
             async removeDelay(device) {
@@ -93,7 +93,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('Delay removed from' + device.name);
+                    console.log('removeDelay: Delay removed from' + device.name);
                 })
                 
             },
@@ -134,18 +134,32 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    // clean this up!
     if( tab == "tab1") {
         document.getElementById("tab1").style="display:block";
         document.getElementById("tab2").style="display:none";
+        document.getElementById("tab3").style="display:none";
         document.getElementById("tab1b").className="tab tab-active";
         document.getElementById("tab2b").className="tab tab-inactive";
+        document.getElementById("tab3b").className="tab tab-inactive";
     }
-    else {
+    else if ( tab == "tab2" ) {
         document.getElementById("tab1").style="display:none";
         document.getElementById("tab2").style="display:block";
+        document.getElementById("tab3").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-active";
+        document.getElementById("tab3b").className="tab tab-inactive";
     }
+    else if ( tab == "tab3" ) {
+        document.getElementById("tab1").style="display:none";
+        document.getElementById("tab2").style="display:none";
+        document.getElementById("tab3").style="display:block";
+        document.getElementById("tab1b").className="tab tab-inactive";
+        document.getElementById("tab2b").className="tab tab-inactive";
+        document.getElementById("tab3b").className="tab tab-active";
+    }
+
 }
 
 function getSettings() {
@@ -157,8 +171,8 @@ function getSettings() {
         }
         else {
             document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
-        };
-    });
+        }
+    })
     Homey.get('alarmStatus', function( err, alarmStatus ) {
         if( err ) return Homey.alert( err );
         alarm = alarmStatus;
@@ -166,9 +180,24 @@ function getSettings() {
             document.getElementById("alarmMode").className = "btn wide btn-alarm";
         }
         else {
-            document.getElementById("alarmMode").className = "btn wide btn-inactive";
-        };
-    });
+            if (triggerDelay != null) {
+                document.getElementById("alarmMode").className = "btn wide btn-inactive";
+            }
+        }
+    })
+}
+
+function getTriggerDelay() {
+    Homey.get('triggerDelay', function ( err, savedTriggerDelay ) {
+        if (triggerDelay != null) {
+            triggerDelay = savedTriggerDelay;
+        }
+        else {
+            triggerDelay = 30;
+        }
+        console.log('get triggerdelay');
+        document.getElementById("triggerDelay").value = triggerDelay;
+    })
 }
 
 function setSurveillanceMode() {
@@ -202,6 +231,21 @@ function writeLogline(line) {
         Homey.set('myLog', logNew );
     })
     refreshLog();
+}
+
+function changeTriggerDelay() {
+    let newTriggerDelay = document.getElementById("triggerDelay").value;
+    console.log('Triggerdelay: ' + newTriggerDelay)
+    if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
+        document.getElementById("triggerDelay").value = triggerDelay;
+        Homey.alert(document.getElementById("spanSecondsFail").innerHTML);
+    } else {
+        triggerDelay = newTriggerDelay
+        Homey.set('triggerDelay', triggerDelay, function( err ){
+            if( err ) return Homey.alert( err );
+        });
+        Homey.alert(document.getElementById("spanSaveSucces").innerHTML);
+    }
 }
 
 function clear_simpleLOG(){
