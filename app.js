@@ -25,6 +25,7 @@ var alarm = false;
 var allDevices;
 var devicesMonitored = [];
 var devicesDelayed = [];
+var devicesLogged = [];
 var sModeDevice;
 var triggerDelay = 30;
 
@@ -74,10 +75,10 @@ class Heimdall extends Homey.App {
 	onInit() {
         getMonitoredDevices();
         getDelayedDevices();
+        getLoggedDevices();
         getTriggerDelay();
         this.enumerateDevices();
         this.log('init Heimdall')
-        //require('inspector').open(9229,'0.0.0.0')
     }
 
     // Add device function, only motion- and contact sensors are added
@@ -280,8 +281,6 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     callback( null,true );
 });
 
-
-
 // Get devices that should be monitored function
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
@@ -292,6 +291,12 @@ function getMonitoredDevices() {
 function getDelayedDevices() {
     devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
     //console.log('getDelayedDevices: ' + devicesDelayed);
+}
+
+// Get devices that should be logged function
+function getLoggedDevices() {
+    devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+    //console.log('getLoggedDevices: ' + devicesLogged);
 }
 
 // Get the duration of the trigger delay
@@ -310,6 +315,20 @@ function isMonitored(obj) {
     if ( devicesMonitored !== null ) {
         for (i = 0; i < devicesMonitored.length; i++) {
             if (devicesMonitored[i] && devicesMonitored[i].id == obj.id) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// Should this device be logged
+function isLogged(obj) {
+    getLoggedDevices();
+    var i;
+    if ( devicesLogged !== null ) {
+        for (i = 0; i < devicesLogged.length; i++) {
+            if (devicesLogged[i] && devicesLogged[i].id == obj.id) {
                 return true;
             }
         }
@@ -339,14 +358,19 @@ function attachEventListener(device,sensorType) {
     console.log('Attached Eventlistener: ' + device.name)
     if ( isMonitored(device) ) {
         console.log('Monitored device:       ' + device.name)
+    } 
+    else if ( isLogged(device) ) {
+        console.log('Logged device:          ' + device.name)
     }
 }
 
 // this function gets called when a device with an attached eventlistener fires an event.
 function stateChange(device,state,sensorType) {
     let nu = getDateTime();
-    console.log('stateChange: ' + device.name)
-    if ( isMonitored(device) ) {
+    //console.log('stateChange: ' + device.name)
+    //console.log('isMonitored: ' + isMonitored(device))
+    //console.log('isLogged:    ' + isLogged(device))
+    if ( isMonitored(device) || isLogged(device) ) {
         let sensorState;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         // get sensortype to set correct sensorState
@@ -356,16 +380,16 @@ function stateChange(device,state,sensorType) {
             sensorState = state.alarm_contact
         };
         // set logline for the statechange
-        let logNew = nu + surveillance + " || Heimdall || " + device.name + ": " + sensorState;
-        // if surveillance state is activate and sensorstate is true:
+        let logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorState;
+        // if surveillance state is activate and sensorstate is true and the device is monitored:
         //     - set other logline, check for delay
         //     - trigger alarm en send info to function
-        if (surveillance == true && sensorState == true) {
+        if (surveillance == true && sensorState == true && isMonitored(device) == true) {
             console.log('Alarm is triggered')
             alarm=true;
             triggerDelay = getTriggerDelay();
             console.log('delay: ' + triggerDelay)
-            logNew = nu + surveillance + " || Heimdall || " + device.name + ": " + sensorState + ' triggered Alarm.';
+            logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorState + ' triggered Alarm.';
 
             if ( isDelayed(device) ) {
                 logNew = nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + triggerDelay + ' seconds.' + '\n' +logNew
@@ -381,7 +405,7 @@ function stateChange(device,state,sensorType) {
             }
 
         }
-        //console.log(logNew);
+        console.log(logNew);
         const logOld = Homey.ManagerSettings.get('myLog');
         if (logOld != undefined) { 
             logNew = logNew+"\n"+logOld;

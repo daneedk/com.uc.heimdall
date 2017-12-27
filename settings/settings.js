@@ -4,11 +4,13 @@ let surveillance;
 let alarm;
 var allDevices;
 var triggerDelay = 30;
+//var language = "nl";
 
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
     getTriggerDelay();
+    getLanguage();
     getSettings();
     refreshLog();
 
@@ -19,6 +21,7 @@ function onHomeyReady(homeyReady){
           search: '',
           devicesMonitored: [],
           devicesDelayed: [],
+          devicesLogged: [],
           log: []
         },
         methods: {
@@ -40,6 +43,15 @@ function onHomeyReady(homeyReady){
         
                 });
             },
+            getLoggedDevices() {
+                Homey.get('loggedDevices', (err, result) => {
+                    console.log('getLoggedDevices: '+ result);
+                    if (result) {
+                        this.devicesLogged = result;
+                    }
+        
+                });
+            },
             getDevices() {
                 Homey.api('GET', '/devices', null, (err, result) => {
                     if (err)
@@ -51,14 +63,24 @@ function onHomeyReady(homeyReady){
                 });
             },
             async addMonitor(device) {
-                await console.log('addMonitor: ' + device.id, device.name, device.class)
-                await this.devicesMonitored.push(device);
-                await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
-                    if (err)
-                        return Homey.alert(err);
+                var i;
+                var addDeviceMonitor = true;
+                for (i = 0; i < this.devicesMonitored.length; i++) {
+                    if (this.devicesMonitored[i] && this.devicesMonitored[i].id == device.id) {
+                        addDeviceMonitor = false;
                     }
-                )
-                console.log('addMonitor: ' + device.name + ' added to monitoredDevices');
+                }
+                if ( addDeviceMonitor ) {
+                    await console.log('addMonitor: ' + device.id, device.name, device.class)
+                    await this.devicesMonitored.push(device);
+                    await Homey.set('monitoredDevices', this.devicesMonitored, (err, result) => {
+                        if (err)
+                            return Homey.alert(err);
+                        }
+                    )
+                    console.log('addMonitor: ' + device.name + ' added to monitoredDevices');
+                }
+                this.removeLog(device);
             },
             async addDelay(device) {
                 await console.log('addDelay: ' + device.id, device.name, device.class)
@@ -69,6 +91,18 @@ function onHomeyReady(homeyReady){
                     }
                 )
                 console.log('addDelay: Delay added to ' + device.name);
+                this.addMonitor(device);
+            },
+            async addLog(device) {
+                await console.log('addLog: ' + device.id, device.name, device.class)
+                await this.devicesLogged.push(device);
+                await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    }
+                )
+                console.log('addLog: Logging added to ' + device.name);
+                this.removeMonitor(device);
             },
             async removeMonitor(device) {
                 var i;
@@ -82,6 +116,7 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log('removeMonitor: ' + device.name + ' removed from monitoredDevices');
                 })
+                this.removeDelay(device);
             },
             async removeDelay(device) {
                 var i;
@@ -94,6 +129,20 @@ function onHomeyReady(homeyReady){
                     if (err)
                         return Homey.alert(err);
                     console.log('removeDelay: Delay removed from' + device.name);
+                })
+                
+            },
+            async removeLog(device) {
+                var i;
+                for (i = 0; i < this.devicesLogged.length; i++) {
+                    if (this.devicesLogged[i] && this.devicesLogged[i].id == device.id) {
+                        this.devicesLogged.splice(i, 1);
+                    }
+                }
+                await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
+                    if (err)
+                        return Homey.alert(err);
+                    console.log('removeLog: Logging removed from' + device.name);
                 })
                 
             },
@@ -115,6 +164,15 @@ function onHomeyReady(homeyReady){
                 }
                 return false;
             },
+            isLogged(obj) {
+                var i;
+                for (i = 0; i < this.devicesLogged.length; i++) {
+                    if (this.devicesLogged[i] && this.devicesLogged[i].id == obj.id) {
+                        return true;
+                    }
+                }
+                return false;
+            },
             filterArray(device) {
                 if (device.class == "sensor" || device.class == "lock")
                 return device
@@ -123,6 +181,7 @@ function onHomeyReady(homeyReady){
         mounted() {
             this.getMonitoredDevices();
             this.getDelayedDevices();
+            this.getLoggedDevices();
             this.getDevices();
         },
         computed: {
@@ -195,9 +254,13 @@ function getTriggerDelay() {
         else {
             triggerDelay = 30;
         }
-        console.log('get triggerdelay');
         document.getElementById("triggerDelay").value = triggerDelay;
     })
+}
+
+function getLanguage() {
+    console.log('language: ' + language);
+    document.getElementById("instructions"+language).style.display = "inline";
 }
 
 function setSurveillanceMode() {

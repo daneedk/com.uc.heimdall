@@ -6,13 +6,13 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
 		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
 	},
-	"tags": { "en": [ "Alarm", "Tools"] },
+	"tags": { "en": [ "Alarm", "Tools", "Log"] },
 	"flow": {
 		"triggers": [{
 			"id": "Alarm_Activated",

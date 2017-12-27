@@ -30,6 +30,7 @@
             "device": "Device",
             "monitor": "Monitor",
             "dTrigger": "Delayed Trigger",
+            "justLog": "Just log",
             "no": "No",
             "yes": "Yes"
         }

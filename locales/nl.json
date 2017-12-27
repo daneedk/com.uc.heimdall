@@ -23,18 +23,32 @@
         "title": "Instellingen",
         "settings": {
             "title": "Instellingen",
+            "tDelay": "Trigger vertraging",
+            "seconds": "Seconden",
+            "save": "Bewaar",
             "zone": "Zone",
             "device": "Apparaat",
             "monitor": "Controleer",
             "dTrigger": "Vertraagde trigger",
+            "justLog": "Alleen loggen",
             "no": "Nee",
             "yes": "Ja"
+        }
+    },
+    "tab3": {
+        "title": "Instructies",
+        "instructions": {
+            "title": "Instructies"
         }
     },
     "hidden": {
         "surveillance": {
             "activated": "Dashboard || Toezicht mode geactiveerd.",
             "deactivated": "Dashboard || Toezicht mode gedeactiveerd."
+        },
+        "settings": {
+            "secondsFail": "De waarde is ongeldig, geef een waarde van 0-120 seconden.",
+            "saveSucces": "De nieuwe instellingen zijn opgeslagen."
         }
     }
 }

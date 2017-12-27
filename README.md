@@ -25,6 +25,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Multiple 'armed' modes.
 - [ ] ..
 
+## Version 0.0.8
+* Added a 'Just log' option for devices so they can be logged without activating the alarm.
+* Added some intelligence to the selection of Monitor, Delayed Trigger and Just log options.
+* Added more Dutch translations.
+
 ## Version 0.0.7
 * Finished and enabled the 'Delayed Trigger' functionality.
 * Added instructions to the app page in Homeys settings.
