@@ -15,7 +15,7 @@
             "showDate": "Toon datum",
             "showTime": "Toon tijd",
             "autoRefresh": "Automatisch verversen (elke seconde)",
-            "btnClearLog": "Verwijder log",
+            "btnClearLog": "Verwijder geschiedenis",
             "btnDownload": "Download"
         }
     },
@@ -32,7 +32,10 @@
             "dTrigger": "Vertraagde trigger",
             "justLog": "Alleen loggen",
             "no": "Nee",
-            "yes": "Ja"
+            "yes": "Ja",
+            "log": "Log",
+            "full": "Volledig",
+            "partial": "Gedeeltelijk"
         }
     },
     "tab3": {

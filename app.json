@@ -6,13 +6,24 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
 		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
 	},
-	"tags": { "en": [ "Alarm", "Tools", "Log"] },
+	"contributing": {
+		"donate": {
+		  "paypal": {
+			"username": "daneedekruyff",
+			"currency": "EUR"
+		  }
+		}
+	  },
+	"tags": { 
+		"en": [ "Alarm", "Tools", "Log", "Surveillance"],
+		"nl": [ "Alarm", "Beveiliging", "Toezicht"] 
+	},
 	"flow": {
 		"triggers": [{
 			"id": "Alarm_Activated",
@@ -31,29 +42,34 @@
 					"example": "-"
 				}
 			]
-		},
-		{
-			"id": "Surveillance_Activated",
-			"title": {
-				"en": "Surveillance is activated.",
-				"nl": "Toezicht is geactiveerd."
+			},
+			{
+				"id": "Delay_Activated",
+				"title": {
+					"en": "The delay is activated.",
+					"nl": "Het vertraging is geactiveerd."
+				},
+				"tokens": [
+					{
+						"name": "Reason",
+						"type": "string",
+						"title": {
+							"en": "Reason",
+							"nl": "Reden"
+						},
+						"example": "-"
+					},
+					{
+						"name": "Duration",
+						"type": "number",
+						"title": {
+							"en": "Duration",
+							"nl": "Duur"
+						},
+						"example": 30
+					}
+				]
 			}
-		},
-		{
-			"id": "Surveillance_Deactivated",
-			"title": {
-				"en": "Surveillance is deactivated.",
-				"nl": "Toezicht is gedeactiveerd."
-			}
-		}
-		],
-		"conditions": [{
-			"id": "SurveillanceActivated",
-			"title": {
-				"en": "!{{Surveillance mode active|Surveillance mode not active}}",
-				"nl": "!{{Toezicht mode is actief|Toezicht mode is niet actief}}"
-			}
-		}
 		],
 		"actions": [{
 			"id": "Send_Info",
@@ -74,20 +90,6 @@
 			}
 		},
 		{
-			"id": "Activate_Surveillance",
-			"title": {
-				"en": "Activate Surveillance",
-				"nl": "Activeer toezicht"
-			}
-		},
-		{
-			"id": "Deactivate_Surveillance",
-			"title": {
-				"en": "Deactivate Surveillance",
-				"nl": "Deactiveer toezicht"
-			}
-		},
-		{
 			"id": "Activate_Alarm",
 			"title": {
 				"en": "Activate Alarm",
@@ -101,7 +103,6 @@
 				"nl": "Deactiveer Alarm"
 			}
 		}
-
 		]
 	},
 	"drivers": [
@@ -115,8 +116,8 @@
 				"large": "drivers/surveillanceModeSwitch/assets/images/large.png",
 				"small": "drivers/surveillanceModeSwitch/assets/images/small.png"
 			},
-			"class": "other",
-			"capabilities": [ "onoff" ],
+			"class": "homealarm",
+			"capabilities": [ "homealarm_state" ],
 			"pair": [
 				{
 					"id": "list_triggers",
@@ -129,23 +130,8 @@
 					"id": "add_triggers",
 					"template": "add_devices"
 				}
-				],
-			"mobile": {
-				"components": [
-					{
-					"id": "icon",
-					"capabilities": [
-						"onoff"
-					]
-					},
-					{
-					"id": "toggle",
-					"capabilities": [
-						"onoff"
-					]
-					}
-				]
-			}
+			]
 		}
+
 	]
 }

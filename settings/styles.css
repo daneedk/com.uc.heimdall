@@ -36,16 +36,27 @@ th {
 }
 
 .wide {
-  width: 130px;
+  width: 160px;
+}
+
+.middle {
+  width: 70px;
 }
 
 .narrow {
   width: 35px;
 }
+
 .btn-active {
   color: rgb(0, 0, 0);
   background-color: rgb(92, 184, 92);
   border-color: rgb(76, 174, 76);
+}
+
+.btn-semiactive {
+  color: rgb(0, 0, 0);
+  background-color: rgb(167, 211, 167);
+  border-color: rgb(157, 218, 157);
 }
 
 .btn-inactive {
@@ -124,7 +135,7 @@ th {
   white-space: nowrap;
   }
 .rTableCellLast{
-  width: 30%;
+  width: 25%;
 }
 
 .rTableHead {

@@ -12,7 +12,7 @@ class Heimdall extends Homey.Device {
         this.log('data:', this.getData());
 
         // register a capability listener
-        this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this))
+        this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmState.bind(this))
     }
 
     // this method is called when the Device is added
@@ -26,7 +26,7 @@ class Heimdall extends Homey.Device {
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
-    onCapabilityOnoff( value, opts, callback ) {
+    onCapabilityHomealarmState( value, opts, callback ) {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){

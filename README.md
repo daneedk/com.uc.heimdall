@@ -4,11 +4,12 @@ This app makes it a bit easier to use your Homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in Surveillance Mode the alarm will be triggered.
 
 ## How do I get it to work?
+* Add a Surveillance Mode button.
 * Select the devices to monitor on the settings page. 
-* Add flows to activate and deactivate the Surveillance Mode.
+* Add flows to activate and deactivate the desired Surveillance Mode.
 * Add a flow with the desired actions when the alarm is triggered.
 * Add a flow to deactivate the alarm.
-* Add a Surveillance Mode Switch to use in the Homey app.
+* Detailed instructions can be found on the Instructions tab in the apps settings.
 
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
@@ -21,9 +22,20 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Button to activate/deactivate surveillance mode.
 - [X] Settings page to select the motion and door/windows sensors to listen to.
 - [X] Trigger delay selectable for a monitored device.
+- [X] Triggercard when a Delayed Trigger starts.
+- [X] Multiple 'armed' modes.
 - [ ] Button to deactivate alarm.
-- [ ] Multiple 'armed' modes.
+- [ ] Redesign the Dashboard.
 - [ ] ..
+
+## version 0.0.9
+* Added multiple 'armed' modes.
+* Redesigned the device settings due to the multiple 'armed' modes.
+* Added new Surveillance Mode button due to the multiple 'armed' modes.
+* Removed flowcards due to the multiple 'armed' modes.
+* New flowcards available on the Surveillance Mode button.
+* Added more options what to log.
+* Added more Dutch translations.
 
 ## Version 0.0.8
 * Added a 'Just log' option for devices so they can be logged without activating the alarm.

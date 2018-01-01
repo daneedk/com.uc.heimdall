@@ -8,6 +8,8 @@
         "status": {
             "title": "Status",
             "smode": "Surveillance Mode",
+            "smodeFull": "Full Surveillance Mode",
+            "smodePartial": "Partial Surveillance Mode",
             "alarm": "Alarm"
         },
         "history": {
@@ -15,7 +17,7 @@
             "showDate": "Show Date",
             "showTime": "Show Time",
             "autoRefresh": "Auto refresh (every 1 Sec)",
-            "btnClearLog": "Clear log",
+            "btnClearLog": "Clear history",
             "btnDownload": "Download"
         }
     },
@@ -26,13 +28,18 @@
             "tDelay": "Trigger delay",
             "seconds": "Seconds",
             "save": "Save",
+            "logarmedonly": "Only log when a Surveillance mode is active",
+            "logtrueonly": "Do not log deactivating of sensors",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",
             "dTrigger": "Delayed Trigger",
             "justLog": "Just log",
             "no": "No",
-            "yes": "Yes"
+            "yes": "Yes",
+            "log": "Log",
+            "full": "Full",
+            "partial": "Partial"
         }
     },
     "tab3": {
