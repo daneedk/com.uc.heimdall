@@ -9,6 +9,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add flows to activate and deactivate the desired Surveillance Mode.
 * Add a flow with the desired actions when the alarm is triggered.
 * Add a flow to deactivate the alarm.
+* Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
 ## Known issues
@@ -27,6 +28,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Button to deactivate alarm.
 - [ ] Redesign the Dashboard.
 - [ ] ..
+
+## version 0.0.10
+* Added triggercard that gets fired every second during a delayed trigger.
+* Added more Dutch translations
+* Added Alarm Off Button (1st version, functional but needs UX improvement)
+* Added new icon to Surveillance Mode Button (Needs removing and readding)
+* Preparations for beta release
 
 ## version 0.0.9
 * Added multiple 'armed' modes.

@@ -7,6 +7,7 @@ const _ = require('lodash');
 // Flow triggers
 let triggerAlarmActivated = new Homey.FlowCardTrigger('Alarm_Activated');
 let triggerDelayActivated = new Homey.FlowCardTrigger('Delay_Activated');
+let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 
 // Flow actions
 const actionInputLog = new Homey.FlowCardAction('Send_Info');
@@ -126,6 +127,25 @@ class Heimdall extends Homey.App {
         }
         Homey.ManagerSettings.set('myLog', logNew );
     }
+
+    deactivateAlarm(value, source) {
+        if ( alarm === true ) {
+            let nu = getDateTime();
+            alarm = false
+            surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+            Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
+                if( err ) return Homey.alert( err );
+            });
+            let logNew = nu + surveillance + " || " + source + " || Alarm is deactivated.";
+            console.log(logNew);
+            const logOld = Homey.ManagerSettings.get('myLog');
+            if (logOld != undefined) { 
+                logNew = logNew+"\n" + logOld;
+            }
+            Homey.ManagerSettings.set('myLog', logNew );
+        }
+    }
+
 }
 module.exports = Heimdall;
 
@@ -148,8 +168,19 @@ triggerAlarmActivated
         } 
     });
 
-// Flow triggers functions
 triggerDelayActivated
+    .register()
+    .on('run', ( args, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
+triggerTimeTillAlarmChanged
     .register()
     .on('run', ( args, callback ) => {
         console.log(args)
@@ -409,6 +440,9 @@ function stateChange(device,state,sensorType) {
                     setTimeout(function(){
                         triggerAlarm(device,state,sensorState)
                     }, delay);
+                    // Trigger Time Till Alarm flow card
+                    let tta = triggerDelay - 1;
+                    ttaCountdown(tta);
                 }
                 else {
                     console.log('Trigger is delayed:     No')
@@ -481,6 +515,26 @@ function triggerAlarm(device,state,sensorState) {
 
 
     
+}
+
+function ttaCountdown(delay) {
+    console.log(' ttaCountdown: ' + delay)
+    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+    if ( surveillance != 'disarmed' ) {
+        var tokens = { 'AlarmTimer': delay * 1};
+        triggerTimeTillAlarmChanged.trigger(tokens, function(err, result){
+            if( err ) {
+                return Homey.error(err)} ;
+            });
+        if ( delay > 0 ) {
+            setTimeout(function(){
+                ttaCountdown(delay-1)
+            }, 1000);
+        }
+    }
+    else {
+        console.log(' ttaCountdown: canceled due to disarm')
+    }
 }
 
 function getDateTime() {

@@ -17,6 +17,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add flows to activate and deactivate the desired Surveillance Mode.
 * Add a flow with the desired actions when the alarm is triggered.
 * Add a flow to deactivate the alarm.
+* Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
 ## Need Help, Have questions or remarks?

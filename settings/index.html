@@ -143,7 +143,7 @@
                             </li></ul>
                             <li><b>Create a flow to enable the Surveillance Mode</li>
                             <ul><li>
-                                Heimdall will listen to the selected sensors and will log all state changes. 
+                                Heimdall will listen to the selected sensors and will log state changes, depending on the selected options on the settings page. 
                                 Only when Heimdall is in Surveillance Mode a trigger on a sensor will lead to an alarm.
                                 Go to the Homey Flow page and create a flow to enable the Surveillance Mode by using the <i>Set state</i> 
                                 card from the Surveillance Mode button and selecting the desired state in the <i>...then</i> column.
@@ -163,6 +163,10 @@
                             <ul><li>
                                 To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> column.
                             </li></ul>
+                            <li><b>Add an Alarm Off Button</b></li>
+                            <ul><li>
+                                To deactivate the alarm using the Homey app on your phone you need to add the <i>Alarm</i> button device in the zone you desire.
+                            </li></ul>
                             <li><b>Log other information</b></li>
                             <ul><li>
                                 If you like to log more information, for example presence information, 
@@ -176,45 +180,47 @@
                         <ul>
                             <li><b>Voeg de Surveillance Mode knop toe</b></li>
                             <ul><li>
-                                Klik op het <i>voeg een apparaat</i> icoon in de gewenste zone en selecteer het <i>Modus</i> apparaat van de Heimdall app.<br>
+                                Klik op het <i>voeg een apparaat toe</i> icoon in de gewenste zone en selecteer het <i>Modus</i> apparaat van de Heimdall app.<br>
                                 Je kan het apparaat een andere naam geven, als je op <i>volgend</i> klikt wordt het apparaat toegevoegd aan Homey. 
                             </li></ul>
                             <li><b>Selecteer de apparaten die je wilt controleren</b></li>
                             <ul><li>
-                                Go to the settings page and click on the <i>log</i> button if you just want a line in the log when the device state changes.
-                                Click on the <i>Full</i> button if you want the device included when the Surveillance mode is set to <i>Armed</i>
-                                If you want the device included when the Surveillance mode is set to <i>Partially Armed</i> click the <i>Partial</i> button.
-                                It is possible to select both <i>Full</i> and <i>Partial</i> for one device.
-                                If you want to have a delay between the triggering of a device and activating the alarm you can 
-                                enable a delay by clicking on the <i>no</i> button in the Delayed Trigger column.<br />
-                                The delay that is used can be found on the top of the settings page, it is in seconds and ranges from 0-120 seconds.<br />
+                                Ga naar de instellingen pagina en klik op de <i>Log</i> knop als je alleen een regel in de geschiedenis wil als de status van een
+                                sensor veranderd. Klik op de <i>Volledig</i> knop als je de sensor toe wilt voegen aan de <i>Ingeschakeld</i> Toezicht Mode.
+                                Als je de sensor op wil nemen in de <i>Gedeeltelijke</i> Toezicht Mode klik dan op de <i>Gedeeltelijk</i> knop.
+                                Het is mogelijk om zowel <i>Volledig</i> als <i>Gedeeltelijk</i> te selecteren voor 1 sensor.
+                                Als je een vertraging wilt hebben tussen het afgaan van een sensor en het inschakelen van het alarm klik dan op de <i>Vertraagde trigger</i> knop.
+                                De gewenste vertraging kan je op de instellingen pagina instellen van 0-120 seconden.<br />
                             </li></ul>
-                            <li><b>Create a flow to enable the Surveillance Mode</li>
+                            <li><b>Maak flows om een Toezicht Mode in te stellen</li>
                             <ul><li>
-                                Heimdall will listen to the selected sensors and will log all state changes. 
-                                Only when Heimdall is in Surveillance Mode a trigger on a sensor will lead to an alarm.
-                                Go to the Homey Flow page and create a flow to enable the Surveillance Mode by using the <i>Set state</i> 
-                                card from the Surveillance Mode button and selecting the desired state in the <i>...then</i> column.
+                                Heimdall zal naar de geselecteerde sensoren luisteren en afhankelijk van de instellingen op de instellingen pagina dit in de geschiedenis wegschrijven.
+                                Als er een Toezicht Mode ingeschakeld is zal een activeren van een sensor tot het activeren van het alarm leiden.
+                                Ga naar de Homey flow pagina en maak een flow waarin je de <i>Set state</i> kaart van de Toezicht Mode knop gebruikt om de gewenste mode te activeren.
                             </li></ul>
-                            <li><b>Create a flow to disable the Surveillance Mode</b></li>
+                            <li><b>Maak een flow om de Toezicht Mode uit te schakelen</b></li>
                             <ul><li>
-                                To be able to disable the Surveillance Mode with a flow you have to create one and use the <i>Set state</i> 
-                                card from the Surveillance Mode button and selecting the <i>Disarmed</i> state in the <i>...then</i> column.
+                                Om de Toezicht Mode uit te schakelen kan er naar de Toezicht Mode knop gebruik gemaakt worden van een flow. Selecteer de <i>Set state</i> kaart 
+                                van de Toezicht Mode Knop, plaats deze in de <i>...dan</i> kolom en selecteer <i>Uitgeschakeld.</i>
                             </li></ul>
-                            <li>Create a flow to act on an alarm</li>
+                            <li><b>Maak een flow met acties als het alarm geactiveerd wordt</b></li>
                             <ul><li>
-                                You can decide for yourself what you want Homey to do when the alarm is activated. 
-                                Create a flow and use the <i>The alarm is activated.</i> card in the <i>when...</i> column and select your desired actions in the <i>then...</i> column.<br />
-                                You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
+                                Je kan zelf kiezen wat Homey moet doen als het alarm geactiveerd wordt.
+                                Maak een flow en gebruik de <i>Het alarm is geactiveerd</i> kaart in de <i>als...</i> kolom en selecteer de gewenste acties in de <i>...dan</i> kolom.
+                                Je kan de tag <i>reden</i> van de kaart gebruiken om te informeren welke sensor het alarm activeerde.
                             </li></ul>
-                            <li>Create a flow to disable the alarm</li>
+                            <li><b>Maak een flow om het alarm uit te schakelen</b></li>
                             <ul><li>
-                                To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> column.
+                                Gebruik de <i>Deactiveer Alarm</i> kaart in een flow in de <i>...dan</i> kolom.
                             </li></ul>
-                            <li>Log other information</li>
+                            <li><b>Voeg een Alarm Uit Knop toe</b></li>
                             <ul><li>
-                                If you like to log more information, for example presence information, 
-                                you can use the <i>Send information to Heimdall</i> card in a flow in the <i>...then</i> column.
+                                Om het alarm uit te kunnen zetten in de Homey telefoon app moet je het <i>Alarm</i> apparaat in de gewenste zone toevoegen.
+                            </li></ul>
+                            <li><b>Log andere informatie</b></li>
+                            <ul><li>
+                                Als je meer informatie in de geschiedenis van Heimdall wilt loggen zoals bijvoorbeeld aanwezigheid gebruik dan de <i>Stuur informatie</i> kaart 
+                                in de <i>...dan</i> kolom met de gewenste informatie.
                             </li></ul>
                         </ul>
                     </div>

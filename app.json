@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -42,34 +42,52 @@
 					"example": "-"
 				}
 			]
+		},
+		{
+			"id": "Delay_Activated",
+			"title": {
+				"en": "The delay is activated.",
+				"nl": "Het vertraging is geactiveerd."
 			},
-			{
-				"id": "Delay_Activated",
-				"title": {
-					"en": "The delay is activated.",
-					"nl": "Het vertraging is geactiveerd."
-				},
-				"tokens": [
-					{
-						"name": "Reason",
-						"type": "string",
-						"title": {
-							"en": "Reason",
-							"nl": "Reden"
-						},
-						"example": "-"
+			"tokens": [
+				{
+					"name": "Reason",
+					"type": "string",
+					"title": {
+						"en": "Reason",
+						"nl": "Reden"
 					},
-					{
-						"name": "Duration",
-						"type": "number",
-						"title": {
-							"en": "Duration",
-							"nl": "Duur"
-						},
-						"example": 30
-					}
-				]
-			}
+					"example": "-"
+				},
+				{
+					"name": "Duration",
+					"type": "number",
+					"title": {
+						"en": "Duration",
+						"nl": "Duur"
+					},
+					"example": 30
+				}
+			]
+		},
+		{
+			"id": "TimeTillAlarm",
+			"title":{
+				"en": "The time untill alarm changed",
+				"nl": "De tijd tot alarm wijzigd"
+			},
+			"tokens": [
+				{
+					"name": "AlarmTimer",
+					"type": "number",
+					"title": {
+						"en": "Seconds untill alarm",
+						"nl": "Seconden tot alarm"
+					},
+					"example": 30
+				}
+			]
+		}
 		],
 		"actions": [{
 			"id": "Send_Info",
@@ -131,6 +149,53 @@
 					"template": "add_devices"
 				}
 			]
+		},
+		{
+			"id": "alarmOffSwitch",
+			"name": {
+				"en": "Alarm",
+				"nl": "Alarm"
+			},
+			"images": {
+				"large": "drivers/alarmOffSwitch/assets/images/large.png",
+				"small": "drivers/alarmOffSwitch/assets/images/small.png"
+			},
+			"class": "other",
+			"capabilities": [ "button", "onoff" ],
+			"capabilitiesOptions":  {
+				"button": {
+					"title":{
+						"en": "Turn off",
+						"nl": "Schakel uit"
+					}
+				}
+			},
+			"pair": [
+				{
+					"id": "list_triggers",
+					"template": "list_devices",
+					"navigation": {
+						"next": "add_triggers"
+					}
+				},
+				{
+					"id": "add_triggers",
+					"template": "add_devices"
+				}
+			],
+			"mobile": {
+				"components": [
+					{
+						"id": "icon",
+						"capabilities": [ ]
+					},
+					{
+						"id": "button",
+						"capabilities": [ "button" ]
+					}
+				]
+			}
+
 		}
 
 	]
