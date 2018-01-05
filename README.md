@@ -26,14 +26,14 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Triggercard when a Delayed Trigger starts.
 - [X] Multiple 'armed' modes.
 - [X] Arming delay.
-- [ ] Triggercard when a Arming is delayed.
+- [X] Triggercard when a Arming is delayed.
 - [ ] Button to deactivate alarm.
 - [ ] Redesign the Dashboard.
 - [ ] ..
 
 ## Version 0.0.11
 * Added 'Arming Delay'.
-* Added triggercard that gets fired every secons during the arming delay. 
+* Added triggercard that gets fired every second during the arming delay. 
 
 ## Version 0.0.10
 * Added triggercard that gets fired every second during a delayed trigger.
