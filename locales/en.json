@@ -30,6 +30,7 @@
             "save": "Save",
             "logarmedonly": "Only log when a Surveillance mode is active",
             "logtrueonly": "Do not log deactivating of sensors",
+            "delayarming": "Use delay also when enabling a Surveillance Mode",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",

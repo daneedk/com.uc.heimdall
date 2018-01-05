@@ -8,6 +8,7 @@ const _ = require('lodash');
 let triggerAlarmActivated = new Homey.FlowCardTrigger('Alarm_Activated');
 let triggerDelayActivated = new Homey.FlowCardTrigger('Delay_Activated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
+let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 
 // Flow actions
 const actionInputLog = new Homey.FlowCardAction('Send_Info');
@@ -24,9 +25,11 @@ var devicesMonitoredPartial = [];
 var devicesDelayed = [];
 var logArmedOnly = false;
 var logTrueOnly = false;
+var delayArming = false;
 var devicesLogged = [];
 var sModeDevice;
 var triggerDelay = 30;
+var armCounter = false;
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -103,29 +106,56 @@ class Heimdall extends Homey.App {
     }
 
     setSurveillanceMode(value, source) {
-        console.log('setSurveilanceMode:     ' + value);
+        console.log('setSurveillanceMode:    ' + value);
         let nu = getDateTime();
         let logNew;
-        Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
-            if( err ) return Homey.alert( err );
-        });
-        if ( value == 'armed' ) {
-            logNew = nu + value + " || " + source + " || Surveillance mode is armed.";
-        }
-        else if ( value == 'partially_armed' ) {
-            logNew = nu + value + " || " + source + " || Surveillance mode is partially armed.";
+        let logLine
+        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        
+        if ( value == 'disarmed' ) {
+            logNew = value + " || " + source + " || Surveillance mode is disarmed.";
+            setSurveillanceValue(value, logNew)
+            if ( armCounter ) {
+                // code to cancel an arm command during delayArming
+                console.log('Need to stop arming!')
+                armCounter = false;
+            }   
+        } else {
+            if ( value == 'armed' ) {
+                logLine = value + " || " + source + " || Surveillance mode is armed.";
+            } else { 
+                logLine = value + " || " + source + " || Surveillance mode is partially armed.";
+            }
+            if ( getDelayArming() ) {
+                triggerDelay = getTriggerDelay();
+                console.log('Arming is delayed:      Yes, ' + triggerDelay + ' seconden')
+                let delay = triggerDelay * 1000;
+                console.log('setSurveillanceValue in:' + triggerDelay + ' seconds.')
+                setTimeout(function(){
+                    setSurveillanceValue(value, logLine)
+                }, delay);
+                armCounter = true;
+                let tta = triggerDelay - 1;
+                ttArmedCountdown(tta);
 
-        }
-        else if ( value == 'disarmed' ) {
-            logNew = nu + value + " || " + source + " || Surveillance mode is disarmed.";
+                if ( value == 'armed' ) {
+                    logNew = nu + surveillance + " || " + source + " || Surveillance mode will be armed in " + triggerDelay + " seconds.";
+                } else { 
+                    logNew = nu + surveillance + " || " + source + " || Surveillance mode will be partially armed in " + triggerDelay + " seconds.";
+                }
+                console.log(logNew);
+                const logOld = Homey.ManagerSettings.get('myLog');
+                if (logOld != undefined) { 
+                    logNew = logNew+"\n" + logOld;
+                }
+                Homey.ManagerSettings.set('myLog', logNew );
+            } else {
+                console.log('setSurveillanceValue now')
+                armCounter = true;
+                setSurveillanceValue(value, logLine)
+            }
         }
 
-        console.log(logNew);
-        const logOld = Homey.ManagerSettings.get('myLog');
-        if (logOld != undefined) { 
-            logNew = logNew+"\n" + logOld;
-        }
-        Homey.ManagerSettings.set('myLog', logNew );
     }
 
     deactivateAlarm(value, source) {
@@ -145,7 +175,6 @@ class Heimdall extends Homey.App {
             Homey.ManagerSettings.set('myLog', logNew );
         }
     }
-
 }
 module.exports = Heimdall;
 
@@ -191,6 +220,18 @@ triggerTimeTillAlarmChanged
             callback( null, false );
         } 
     });
+
+triggerTimeTillArmedChanged
+    .register()
+    .on('run', ( args, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });    
 
 //Flow actions functions
 actionInputLog.register().on('run', ( args, state, callback ) => {
@@ -246,6 +287,27 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     callback( null,true );
 });
 
+function setSurveillanceValue(value, logLine) {
+    let nu = getDateTime();
+    let logNew;
+    logLine = nu + logLine;
+    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+    if ( armCounter || value === 'disarmed') {
+        Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
+            if( err ) return Homey.alert( err );
+        });
+        console.log('setSurveillanceValue:   '+ value)
+    } else {
+        logLine = nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
+    }   
+    const logOld = Homey.ManagerSettings.get('myLog');
+    if (logOld != undefined) { 
+        logNew = logLine+"\n" + logOld;
+    }
+    Homey.ManagerSettings.set('myLog', logNew );
+    armCounter = false;
+}
+
 // Get devices that should be monitored function
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
@@ -285,20 +347,28 @@ function getTriggerDelay() {
     return triggerDelay;
 }
 
-function getLogArmedOnly () {
+function getLogArmedOnly() {
     let newLogArmedOnly = Homey.ManagerSettings.get('logArmedOnly')
-    if ( logArmedOnly != null ) {
+    if ( newLogArmedOnly != null ) {
         logArmedOnly = newLogArmedOnly
     }
     return logArmedOnly;
 }
 
-function getLogTrueOnly () {
+function getLogTrueOnly() {
     let newLogTrueOnly = Homey.ManagerSettings.get('logTrueOnly')
-    if ( logTrueOnly != null ) {
+    if ( newLogTrueOnly != null ) {
         logTrueOnly = newLogTrueOnly
     }
     return logTrueOnly;
+}
+
+function getDelayArming() {
+    let newDelayArming = Homey.ManagerSettings.get('delayArming')
+    if ( newDelayArming != null ) {
+        delayArming = newDelayArming
+    }
+    return delayArming;
 }
 
 // Should this device be monitored
@@ -442,13 +512,12 @@ function stateChange(device,state,sensorType) {
                     }, delay);
                     // Trigger Time Till Alarm flow card
                     let tta = triggerDelay - 1;
-                    ttaCountdown(tta);
+                    ttAlarmCountdown(tta);
                 }
                 else {
                     console.log('Trigger is delayed:     No')
                     triggerAlarm(device,state,sensorState);
                 }
-
             }
             else {
                 console.log('Alarm is triggered:     No')
@@ -514,11 +583,11 @@ function triggerAlarm(device,state,sensorState) {
     // Add code to check if AlarmOff device exists en switch accordingly
 
 
-    
+
 }
 
-function ttaCountdown(delay) {
-    console.log(' ttaCountdown: ' + delay)
+function ttAlarmCountdown(delay) {
+    console.log(' ttAlarmCountdown:      ' + delay)
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     if ( surveillance != 'disarmed' ) {
         var tokens = { 'AlarmTimer': delay * 1};
@@ -528,12 +597,31 @@ function ttaCountdown(delay) {
             });
         if ( delay > 0 ) {
             setTimeout(function(){
-                ttaCountdown(delay-1)
+                ttAlarmCountdown(delay-1)
             }, 1000);
         }
     }
     else {
-        console.log(' ttaCountdown: canceled due to disarm')
+        console.log(' ttAlarmCountdown: canceled due to disarm')
+    }
+}
+
+function ttArmedCountdown(delay) {
+    console.log(' ttArmedCountdown:      ' + delay)
+    if ( armCounter ) {
+        var tokens = { 'ArmedTimer': delay * 1};
+        triggerTimeTillArmedChanged.trigger(tokens, function(err, result){
+            if( err ) {
+                return Homey.error(err)} ;
+            });
+        if ( delay > 0 ) {
+            setTimeout(function(){
+                ttArmedCountdown(delay-1)
+            }, 1000);
+        }
+    }
+    else {
+        console.log(' ttArmedCountdown:      armCounter = false')
     }
 }
 

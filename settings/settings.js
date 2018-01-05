@@ -14,6 +14,7 @@ function onHomeyReady(homeyReady){
     getTriggerDelay();
     getLogArmedOnly();
     getLogTrueOnly();
+    getDelayArming();
     getLanguage();
     getSettings();
     refreshLog();
@@ -362,6 +363,13 @@ function getLogTrueOnly() {
     })
 }
 
+function getDelayArming() {
+    Homey.get('delayArming', function( err, logTrueOnly ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("delayArming").checked = logTrueOnly;
+    })
+}
+
 function getLanguage() {
     console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
@@ -432,6 +440,13 @@ function changeLogArmedOnly() {
 function changeLogTrueOnly() {
     let newValue = document.getElementById("logTrueOnly").checked
     Homey.set('logTrueOnly', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeDelayArming() {
+    let newValue = document.getElementById("delayArming").checked
+    Homey.set('delayArming', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
 }

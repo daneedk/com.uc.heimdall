@@ -54,13 +54,11 @@
                     <legend data-i18n="tab2.settings.title">-Settings-</legend>
                     <table width="80%">
                         <tr>
-                            <td class="rTableCell" data-i18n="tab2.settings.tDelay">-Trigger delay:-</td>
-                            <td class="rTableCell">
-                                <input id="triggerDelay" type="text" value="31" class="narrow">
-                            </td class="rTableCell">
-                            <td class="rTableCell" data-i18n="tab2.settings.seconds">-Seconds-</td>
-                            <td class="rTableCell">
-                                <button id="saveTriggerDelay" class="left" onclick="changeTriggerDelay()" data-i18n="tab2.settings.save">-Save-</button>
+                            <td width="35%" class="rTableCell">
+                                <span data-i18n="tab2.settings.tDelay">-Trigger delay:-</span>&nbsp;
+                                <input id="triggerDelay" type="text" value="31" class="narrow">&nbsp;                            
+                                <span data-i18n="tab2.settings.seconds">-Seconds-</span>&nbsp;
+                                <button id="saveTriggerDelay" onclick="changeTriggerDelay()" data-i18n="tab2.settings.save">-Save-</button>
                             </td>
                             <td width="2%"></td>
                             <td width="35%" class="rTableCell">
@@ -72,7 +70,16 @@
                                 <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span></td>
                         </tr>
                         <tr>
-                            <td class="rTableCell" colspan="4"></td>
+                            <td>
+                                <input id="delayArming" type="checkbox" onclick="changeDelayArming()">
+                                <span data-i18n="tab2.settings.delayarming">-Use delay also when enabling a Surveillance mode-</td></span>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="rTableCell"></td>
                             <td></td>
                             <td class="rTableCell"></td>
                             <td></td>
@@ -201,7 +208,7 @@
                             <li><b>Maak een flow om de Toezicht Mode uit te schakelen</b></li>
                             <ul><li>
                                 Om de Toezicht Mode uit te schakelen kan er naar de Toezicht Mode knop gebruik gemaakt worden van een flow. Selecteer de <i>Set state</i> kaart 
-                                van de Toezicht Mode Knop, plaats deze in de <i>...dan</i> kolom en selecteer <i>Uitgeschakeld.</i>
+                                van de Toezicht Mode Knop, plaats deze in de <i>...dan</i> kolom en selecteer <i>Gedeactiveerd</i>
                             </li></ul>
                             <li><b>Maak een flow met acties als het alarm geactiveerd wordt</b></li>
                             <ul><li>

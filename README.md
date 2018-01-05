@@ -1,7 +1,7 @@
 # Heimdall
 
 This app makes it a bit easier to use your Homey as a surveillance system.
-All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in Surveillance Mode the alarm will be triggered.
+All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
 
 ## How do I get it to work?
 * Add a Surveillance Mode button.
@@ -25,18 +25,24 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Trigger delay selectable for a monitored device.
 - [X] Triggercard when a Delayed Trigger starts.
 - [X] Multiple 'armed' modes.
+- [X] Arming delay.
+- [ ] Triggercard when a Arming is delayed.
 - [ ] Button to deactivate alarm.
 - [ ] Redesign the Dashboard.
 - [ ] ..
 
-## version 0.0.10
-* Added triggercard that gets fired every second during a delayed trigger.
-* Added more Dutch translations
-* Added Alarm Off Button (1st version, functional but needs UX improvement)
-* Added new icon to Surveillance Mode Button (Needs removing and readding)
-* Preparations for beta release
+## Version 0.0.11
+* Added 'Arming Delay'.
+* Added triggercard that gets fired every secons during the arming delay. 
 
-## version 0.0.9
+## Version 0.0.10
+* Added triggercard that gets fired every second during a delayed trigger.
+* Added more Dutch translations.
+* Added Alarm Off Button. (1st version, functional but needs UX improvement)
+* Added new icon to Surveillance Mode Button. (Needs removing and readding)
+* Preparations for beta release.
+
+## Version 0.0.9
 * Added multiple 'armed' modes.
 * Redesigned the device settings due to the multiple 'armed' modes.
 * Added new Surveillance Mode button due to the multiple 'armed' modes.
