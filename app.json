@@ -39,7 +39,8 @@
 					"title": {
 						"en": "Surveillance Mode",
 						"nl": "Toezicht Modus"
-					}
+					},
+					"example": "Disarmed"
 				}
 			]
 		},	
