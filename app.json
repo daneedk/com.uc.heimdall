@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -25,8 +25,26 @@
 		"nl": [ "Alarm", "Beveiliging", "Toezicht"] 
 	},
 	"flow": {
-		"triggers": [{
-			"id": "Alarm_Activated",
+		"triggers": [
+		{
+			"id": "SurveillanceChanged",
+			"title": {
+				"en": "Surveillance Mode changed.",
+				"nl": "Toezicht modus is gewijzigt."
+			},
+			"tokens": [
+				{
+					"name": "mode",
+					"type": "string",
+					"title": {
+						"en": "Surveillance Mode",
+						"nl": "Toezicht Modus"
+					}
+				}
+			]
+		},	
+		{
+			"id": "AlarmActivated",
 			"title": {
 				"en": "The alarm is activated.",
 				"nl": "Het alarm is geactiveerd."
@@ -44,7 +62,7 @@
 			]
 		},
 		{
-			"id": "Delay_Activated",
+			"id": "DelayActivated",
 			"title": {
 				"en": "The delay is activated.",
 				"nl": "Het vertraging is geactiveerd."
@@ -107,8 +125,49 @@
 			]
 		}
 		],
+		
+		"conditions": [
+			{
+				"id": "SurveillanceIs",
+				"title": {
+					"en": "Surveillance mode is !{{ |not }}",
+					"nl": "Toezicht mode is !{{ |niet }}"
+				},
+				"args": [
+					{
+					  	"name": "surveillance",
+					  	"type": "dropdown",
+					  	"values": [
+							{
+								"id": "armed",
+								"label": {
+									"en": "Armed",
+									"nl": "Geactiveerd"
+								}
+							},
+						  	{
+								"id": "disarmed",
+								"label": {
+									"en": "Disarmed",
+									"nl": "Gedeactiveerd"
+								}
+						  	},
+						  
+						  	{
+								"id": "partially_armed",
+								"label": {
+									"en": "Partially Armed",
+									"nl": "Deels geactiveerd"
+								}
+						  	}
+					  	]
+					}
+			]
+			}
+		],
+
 		"actions": [{
-			"id": "Send_Info",
+			"id": "SendInfo",
 			"title": {
 				"en": "Send information to Heimdall.",
 				"nl": "Stuur informatie naar Heimdall."
@@ -119,21 +178,21 @@
 			}]
 		},
 		{
-			"id": "Clear_Log",
+			"id": "ClearLog",
 			"title": {
 				"en": "Clear Heimdall log data.",
 				"nl": "Verwijder Heimdall log gegevens."
 			}
 		},
 		{
-			"id": "Activate_Alarm",
+			"id": "ActivateAlarm",
 			"title": {
 				"en": "Activate Alarm",
 				"nl": "Activeer Alarm"
 			}
 		},
 		{
-			"id": "Deactivate_Alarm",
+			"id": "DeactivateAlarm",
 			"title": {
 				"en": "Deactivate Alarm",
 				"nl": "Deactiveer Alarm"

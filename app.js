@@ -5,16 +5,20 @@ const { HomeyAPI  } = require('athom-api')
 const _ = require('lodash');
 
 // Flow triggers
-let triggerAlarmActivated = new Homey.FlowCardTrigger('Alarm_Activated');
-let triggerDelayActivated = new Homey.FlowCardTrigger('Delay_Activated');
+let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
+let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
+let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 
+// Flow conditions
+const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
+
 // Flow actions
-const actionInputLog = new Homey.FlowCardAction('Send_Info');
-const actionClearLog = new Homey.FlowCardAction('Clear_Log');
-const actionActivateAlarm = new Homey.FlowCardAction('Activate_Alarm');
-const actionDeactivateAlarm = new Homey.FlowCardAction('Deactivate_Alarm');
+const actionInputLog = new Homey.FlowCardAction('SendInfo');
+const actionClearLog = new Homey.FlowCardAction('ClearLog');
+const actionActivateAlarm = new Homey.FlowCardAction('ActivateAlarm');
+const actionDeactivateAlarm = new Homey.FlowCardAction('DeactivateAlarm');
 
 var surveillance;
 var alarm = false;
@@ -185,6 +189,18 @@ if ( surveillance == null ) {
 }
 
 // Flow triggers functions
+triggerSurveillanceChanged
+    .register()
+    .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
 triggerAlarmActivated
     .register()
     .on('run', ( args, state, callback ) => {
@@ -232,6 +248,18 @@ triggerTimeTillArmedChanged
             callback( null, false );
         } 
     });    
+
+//Flow condition functions
+conditionSurveillanceIs
+    .register()
+    .on('run', ( args, state, callback ) => {
+        if (args.surveillance == Homey.ManagerSettings.get('surveillanceStatus')) {
+            callback( null, true )
+        }
+        else {
+            callback( null, false )
+        }
+    });
 
 //Flow actions functions
 actionInputLog.register().on('run', ( args, state, callback ) => {
@@ -297,6 +325,12 @@ function setSurveillanceValue(value, logLine) {
             if( err ) return Homey.alert( err );
         });
         console.log('setSurveillanceValue:   '+ value)
+        var tokens = { 'mode': value };
+        triggerSurveillanceChanged.trigger(tokens, function(err, result){
+            if( err ) {
+                return Homey.error(err)} ;
+            } );
+        
     } else {
         logLine = nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
     }   
