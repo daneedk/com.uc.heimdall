@@ -36,7 +36,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Version 0.0.13
 * Replaced Surveillance Mode device with new one that has the same functionality minus the trigger and condition flow cards
-* Fixed greyed-out 'Deactivate alarm button' (Needs removing an adding of the device)
+* Fixed greyed-out 'Deactivate alarm button' (Needs removing and adding of the device)
 
 ## Version 0.0.12
 * Added triggercard that fires when the Surveillance Mode changes.
