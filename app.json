@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -126,7 +126,6 @@
 			]
 		}
 		],
-		
 		"conditions": [
 			{
 				"id": "SurveillanceIs",
@@ -153,7 +152,6 @@
 									"nl": "Gedeactiveerd"
 								}
 						  	},
-						  
 						  	{
 								"id": "partially_armed",
 								"label": {
@@ -163,11 +161,52 @@
 						  	}
 					  	]
 					}
-			]
+				]
 			}
 		],
-
-		"actions": [{
+		"actions": [
+		{
+			"id": "SetSurveillance",
+			"title": {
+				"en": "Set Surveillance Mode",
+				"nl": "Stel Toezicht Modus in"
+			},
+			"args": [
+				{
+					  "name": "surveillance",
+					  "type": "dropdown",
+					  "values": [
+						{
+							"id": "armed",
+							"label": {
+								"en": "Armed",
+								"nl": "Geactiveerd"
+							}
+						},
+						  {
+							"id": "disarmed",
+							"label": {
+								"en": "Disarmed",
+								"nl": "Gedeactiveerd"
+							}
+						  },
+						  {
+							"id": "partially_armed",
+							"label": {
+								"en": "Partially Armed",
+								"nl": "Deels geactiveerd"
+							}
+						  }
+					  ]
+				},
+				{
+					"name": "device",
+					"type": "device",
+					"filter": "driver_id=surveillanceModeSwitch"
+				}
+			]
+		},
+		{
 			"id": "SendInfo",
 			"title": {
 				"en": "Send information to Heimdall.",
@@ -179,10 +218,10 @@
 			}]
 		},
 		{
-			"id": "ClearLog",
+			"id": "ClearHistory",
 			"title": {
-				"en": "Clear Heimdall log data.",
-				"nl": "Verwijder Heimdall log gegevens."
+				"en": "Clear Heimdall history.",
+				"nl": "Verwijder Heimdall geschiedenis."
 			}
 		},
 		{
@@ -212,7 +251,7 @@
 				"large": "drivers/surveillanceModeSwitch/assets/images/large.png",
 				"small": "drivers/surveillanceModeSwitch/assets/images/small.png"
 			},
-			"class": "homealarm",
+			"class": "other",
 			"capabilities": [ "homealarm_state" ],
 			"pair": [
 				{
@@ -226,7 +265,19 @@
 					"id": "add_triggers",
 					"template": "add_devices"
 				}
-			]
+			],
+			"mobile": {
+				"components": [
+					{
+						"id": "icon",
+						"capabilities": [ ]
+					},
+					{
+						"id": "picker",
+						"capabilities": [ "homealarm_state" ]
+					}
+				]
+			}
 		},
 		{
 			"id": "alarmOffSwitch",
@@ -239,7 +290,7 @@
 				"small": "drivers/alarmOffSwitch/assets/images/small.png"
 			},
 			"class": "other",
-			"capabilities": [ "button", "onoff" ],
+			"capabilities": [ "button" ],
 			"capabilitiesOptions":  {
 				"button": {
 					"title":{

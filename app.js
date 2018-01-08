@@ -15,8 +15,8 @@ let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
 
 // Flow actions
-const actionInputLog = new Homey.FlowCardAction('SendInfo');
-const actionClearLog = new Homey.FlowCardAction('ClearLog');
+const actionInputHistory = new Homey.FlowCardAction('SendInfo');
+const actionClearHistory = new Homey.FlowCardAction('ClearHistory');
 const actionActivateAlarm = new Homey.FlowCardAction('ActivateAlarm');
 const actionDeactivateAlarm = new Homey.FlowCardAction('DeactivateAlarm');
 
@@ -262,7 +262,8 @@ conditionSurveillanceIs
     });
 
 //Flow actions functions
-actionInputLog.register().on('run', ( args, state, callback ) => {
+
+actionInputHistory.register().on('run', ( args, state, callback ) => {
     let nu = getDateTime();
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     let logNew = nu + surveillance + " || Flowcard || " + args.log;
@@ -275,9 +276,9 @@ actionInputLog.register().on('run', ( args, state, callback ) => {
     callback( null, true );
 });
 
-actionClearLog.register().on('run', ( args, state, callback ) => {
+actionClearHistory.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('myLog', '' );
-    console.log (' Action.Clear_log: The log data is cleared.');
+    console.log ('actionClearHistory: The history data is cleared.');
     callback( null, true );
 }); 
 

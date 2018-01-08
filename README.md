@@ -15,10 +15,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 * Dutch translations incomplete.
-* Due to the adding of the Arming Delay in 0.0.11 the flowcards on the Surveillance Mode device are not representing the actual state. New flowcards are available from version 0.0.12, please replace the trigger and condition cards in your flows for the new cards that are available on the app icon in the flow editor.
 
 ## Fixed issues
 * The Surveillance Mode Switch does not get updated when the Surveillance mode is set with flow cards.
+* Due to the adding of the Arming Delay in 0.0.11 the flowcards on the Surveillance Mode device are not representing the actual state. New flowcards are available from version 0.0.12, please replace the trigger and condition cards in your flows for the new cards that are available on the app icon in the flow editor.
 
 ## Planned features
 - [X] Button to activate/deactivate surveillance mode.
@@ -29,10 +29,14 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Arming delay.
 - [X] Triggercard when a Arming is delayed.
 - [X] Button to deactivate alarm.
-- [ ] Replace current Surveillance Mode device with one with the same functionality but without the flow cards.
+- [X] Replace current Surveillance Mode device with one with the same functionality but without the flow cards.
 - [ ] Add alarm state indicator to the Deactivate Alarm button.
 - [ ] Redesign the Dashboard.
 - [ ] ..
+
+## Version 0.0.13
+* Replaced Surveillance Mode device with new one that has the same functionality minus the trigger and condition flow cards
+* Fixed greyed-out 'Deactivate alarm button' (Needs removing an adding of the device)
 
 ## Version 0.0.12
 * Added triggercard that fires when the Surveillance Mode changes.

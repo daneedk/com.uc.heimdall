@@ -26,12 +26,12 @@ class Heimdall extends Homey.Device {
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
-    onCapabilityHomealarmState( value, opts, callback ) {
+    onCapabilityHomealarmState( newState, opts, callback ) {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){
-            //console.log('Surveillance Mode device clicked: ' + value);
-            Homey.app.setSurveillanceMode(value, 'Mode Switch' ,function(err){
+            console.log('Surveillance Mode device clicked: ' + newState);
+            Homey.app.setSurveillanceMode(newState, 'Mode Switch' ,function(err){
                 if( err ) return Homey.alert( err );
             });
         }
@@ -43,6 +43,17 @@ class Heimdall extends Homey.Device {
         return Promise.reject( new Error('Switching the device failed!') );
     }
 
+    // this method is called from the driver by a action flowcard
+    setNewState(newState) {
+        this.log('setNewState: ', newState);
+        this.setCapabilityValue('homealarm_state', newState)
+          .catch( this.error );
+        
+        console.log('Surveillance Mode flow activated: ' + newState);
+        Homey.app.setSurveillanceMode(newState, 'Flowcard' ,function(err){
+            if( err ) return Homey.alert( err );
+        });
+    }
 }
 
 module.exports = Heimdall;
