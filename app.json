@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -240,6 +240,19 @@
 		}
 		]
 	},
+
+	"capabilities": {
+		"alarm_heimdall": {
+            "type": "boolean",
+            "title": {
+				"en": "Alarm",
+				"nl": "Alarm"
+            },
+            "getable": true,
+            "setable": true
+        }
+	},
+
 	"drivers": [
 		{
 			"id": "surveillanceModeSwitch",
@@ -290,7 +303,7 @@
 				"small": "drivers/alarmOffSwitch/assets/images/small.png"
 			},
 			"class": "other",
-			"capabilities": [ "button" ],
+			"capabilities": [ "button", "alarm_heimdall" ],
 			"capabilitiesOptions":  {
 				"button": {
 					"title":{
@@ -317,6 +330,29 @@
 					{
 						"id": "icon",
 						"capabilities": [ ]
+					},
+					{
+						"id": "sensor",
+						"capabilities": [ "alarm_heimdall" ],
+						"options": {
+							"icons": {
+								"alarm_heimdall": "drivers/alarmOffSwitch/assets/alarm.svg"
+							},
+							"alarm_heimdall": {
+								"noblink": false,
+								"invert": false, 
+								"label": {
+									"true": {
+										"en": "ALARM",
+										"nl": "ALARM"
+									},
+									"false": {
+										"en": "All is quiet",
+										"nl": "Alles ok"
+									}
+								}
+							}
+						}
 					},
 					{
 						"id": "button",

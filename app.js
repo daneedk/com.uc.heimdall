@@ -32,6 +32,7 @@ var logTrueOnly = false;
 var delayArming = false;
 var devicesLogged = [];
 var sModeDevice;
+var aModeDevice;
 var triggerDelay = 30;
 var armCounter = false;
 
@@ -95,6 +96,11 @@ class Heimdall extends Homey.App {
             sModeDevice = device;
             console.log('Found Mode Switch:      ' + device.name)
             console.log('Variabele:              ' + sModeDevice.name)
+        }
+        if (device.data.id === 'aMode') {
+            aModeDevice = device;
+            console.log('Found Alarm Button      ' + device.name)
+            console.log('Variabele:              ' + aModeDevice.name)
         }
         else if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
             console.log('Found motion sensor:    ' + device.name)
@@ -170,6 +176,10 @@ class Heimdall extends Homey.App {
             Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
                 if( err ) return Homey.alert( err );
             });
+            // Check if Alarm Off Button exists and turn off
+            if( aModeDevice != undefined) {
+                aModeDevice.setCapabilityValue('alarm_heimdall', false)
+            }
             let logNew = nu + surveillance + " || " + source + " || Alarm is deactivated.";
             console.log(logNew);
             const logOld = Homey.ManagerSettings.get('myLog');
@@ -615,10 +625,11 @@ function triggerAlarm(device,state,sensorState) {
         logNew = logNew+"\n"+logOld;
     }
     Homey.ManagerSettings.set('myLog', logNew );
-    // Add code to check if AlarmOff device exists en switch accordingly
 
-
-
+    // Check if Alarm Off Button exists and turn on 
+    if( aModeDevice != undefined) {
+        aModeDevice.setCapabilityValue('alarm_heimdall', true)
+    }
 }
 
 function ttAlarmCountdown(delay) {
