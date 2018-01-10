@@ -21,8 +21,8 @@
 		}
 	  },
 	"tags": { 
-		"en": [ "Alarm", "Tools", "Log", "Surveillance"],
-		"nl": [ "Alarm", "Beveiliging", "Toezicht"] 
+		"en": [ "Home", "Alarm", "System", "Tools", "Log", "Surveillance"],
+		"nl": [ "Huis", "Alarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht"] 
 	},
 	"flow": {
 		"triggers": [
