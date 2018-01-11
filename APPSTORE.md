@@ -1,6 +1,6 @@
-# Heimdall
+# Heimdall - Let Homey watch over your home
 
-This app makes it a bit easier to use your Homey as a surveillance system.
+This app enables you to use your Homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
 
 ## Supported Devices
