@@ -25,6 +25,6 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Version 0.1.0
 * Initial public beta version
 
-Thanks to all testes of the alpha version!
+Thanks to all testers of the alpha version!
 
 Please remember, Heimdall is not intended to be a full blown security system.
