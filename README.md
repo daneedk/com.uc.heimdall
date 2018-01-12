@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Redesign the Dashboard.
 - [ ] ..
 
+## Version 0.1.1
+* Code cleanup
+
 ## Version 0.1.0
 * Initial public beta version
 

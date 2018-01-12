@@ -22,6 +22,6 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Need Help, Have questions or remarks?
 
-Please visit the [Athom community forum](https://forum.athom.com)
+Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514)
 
 Changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)

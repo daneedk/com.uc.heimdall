@@ -17,7 +17,7 @@ function onHomeyReady(homeyReady){
     getDelayArming();
     getLanguage();
     getSettings();
-    refreshLog();
+    refreshHistory();
 
     new Vue({
         el: '#app',
@@ -382,11 +382,11 @@ function setSurveillanceMode() {
     });
     if( surveillance) {
         document.getElementById("surveillanceMode").className = "btn wide btn-active";
-        writeLogline(document.getElementById("spanSurvActivated").innerText);
+        writeHistory(document.getElementById("spanSurvActivated").innerText);
     }
     else {
         document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
-        writeLogline(document.getElementById("spanSurvDeactivated").innerText);
+        writeHistory(document.getElementById("spanSurvDeactivated").innerText);
         // Cleanup
         alarm=false;
         Homey.set('alarmStatus', alarm, function( err ){
@@ -395,17 +395,17 @@ function setSurveillanceMode() {
     } 
 }
 
-function writeLogline(line) {
+function writeHistory(line) {
     let nu = getDateTime();
     let logNew = nu + surveillance + " || " + line;
     Homey.get('myLog', function(err, logging){
-        if( err ) return console.error('writeLogline: Could not get log', err);
+        if( err ) return console.error('writeHistory: Could not get history', err);
         if (logging != undefined) { 
             logNew = logNew+"\n"+logging;
         }
         Homey.set('myLog', logNew );
     })
-    refreshLog();
+    refreshHistory();
 }
 
 function changeTriggerDelay() {
@@ -451,27 +451,28 @@ function changeDelayArming() {
     });
 }
 
-function clear_simpleLOG(){
+function clearHistory(){
     Homey.set('myLog', '');
 };
 
-function download_simpleLOG(){
+function downloadHistory(){
     download('Heimdall history.txt', document.getElementById('logtextarea').value);
 };
 
-function refreshLog(){
+function refreshHistory(){
   if (document.getElementById("show_refresh").checked === true){
-    show_log()
+    showHistory()
   }
   getSettings();
-  setTimeout(refreshLog, 1000);
+  setTimeout(refreshHistory, 1000);
 }
 
-function show_log() {
+function showHistory() {
   Homey.get('myLog', function(err, logging){
-      if( err ) return console.error('show_log: Could not get history', err);
+      if( err ) return console.error('showHistory: Could not get history', err);
       if (_myLog !== logging){
         _myLog = logging
+        // Need work here
         document.getElementById('logtextarea').value = logging;
       }
   });
