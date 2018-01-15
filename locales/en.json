@@ -17,7 +17,7 @@
             "showDate": "Show Date",
             "showTime": "Show Time",
             "autoRefresh": "Auto refresh (every 1 Sec)",
-            "btnClearLog": "Clear history",
+            "btnClearHistory": "Clear history",
             "btnDownload": "Download"
         }
     },

@@ -165,7 +165,6 @@ class Heimdall extends Homey.App {
                 setSurveillanceValue(value, logLine)
             }
         }
-
     }
 
     deactivateAlarm(value, source) {

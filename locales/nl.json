@@ -15,7 +15,7 @@
             "showDate": "Toon datum",
             "showTime": "Toon tijd",
             "autoRefresh": "Automatisch verversen (elke seconde)",
-            "btnClearLog": "Verwijder geschiedenis",
+            "btnClearHistory": "Verwijder geschiedenis",
             "btnDownload": "Download"
         }
     },

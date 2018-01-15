@@ -17,6 +17,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Planned features
 - [ ] Redesign the Dashboard.
+- [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
 ## Version 0.1.1
