@@ -58,5 +58,11 @@
             "secondsFail": "The value is not valid, please enter a delay in the range of 0-120 seconds",
             "saveSucces": "The new settings are saved."
         }
+    },
+    "states": {
+        "open": "Open",
+        "closed": "Closed",
+        "motion": "Motion detected",
+        "nomotion": "No motion detected"
     }
 }

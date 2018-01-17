@@ -521,16 +521,19 @@ function stateChange(device,state,sensorType) {
     if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
         console.log('Log/Full/Partial:       Yes')
         let sensorState;
+        let sensorStateReadable;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         // get sensortype to set correct sensorState
         if (sensorType == 'motion') {
             sensorState = state.alarm_motion
+            sensorStateReadable = readableState(sensorState, 'motion')
         } else if (sensorType == 'contact') {
             sensorState = state.alarm_contact
+            sensorStateReadable = readableState(sensorState, 'contact')
         };
-
+        console.log('sensorStateReadable:    ' + sensorStateReadable)
         // set logline for the statechange
-        let logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorState;
+        let logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
         // if surveillance state is activate and sensorstate is true and the device is monitored:
         //     - set other logline, check for delay
         //     - trigger alarm en send info to function
@@ -539,20 +542,20 @@ function stateChange(device,state,sensorType) {
                 alarm=true;
                 triggerDelay = getTriggerDelay();
                 console.log('Alarm is triggered:     Yes')
-                logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorState + ' triggered Alarm.';
+                logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
 
                 if ( isDelayed(device) ) {
                     logNew = nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + triggerDelay + ' seconds.' + '\n' +logNew
                     let delay = triggerDelay * 1000;
                     // Trigger delay flow card
-                    var tokens= { 'Reason': device.name + ': '+ sensorState , 'Duration': triggerDelay * 1 };
+                    var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Duration': triggerDelay * 1 };
                     triggerDelayActivated.trigger(tokens, function(err, result){
                         if( err ) {
                             return Homey.error(err)} ;
                         });  
                     console.log('Trigger is delayed:     Yes, ' + triggerDelay + ' seconden')
                     setTimeout(function(){
-                        triggerAlarm(device,state,sensorState)
+                        triggerAlarm(device,state,sensorStateReadable)
                     }, delay);
                     // Trigger Time Till Alarm flow card
                     let tta = triggerDelay - 1;
@@ -560,7 +563,7 @@ function stateChange(device,state,sensorType) {
                 }
                 else {
                     console.log('Trigger is delayed:     No')
-                    triggerAlarm(device,state,sensorState);
+                    triggerAlarm(device,state,sensorStateReadable);
                 }
             }
             else {
@@ -589,6 +592,30 @@ function stateChange(device,state,sensorType) {
             }
             Homey.ManagerSettings.set('myLog', logNew );
         }
+    }
+}
+
+function readableState(state, type) {
+    if (type == 'motion') {
+        if ( state ) {
+            return Homey.__("states.motion")
+            //return 'Motion detected'
+        } else {
+            return Homey.__("states.nomotion")
+            //return 'No motion detected'
+        }
+    } 
+    else if (type == 'contact') {
+        if ( state ) {
+            return Homey.__("states.open")
+            //return 'Open'
+        } else {
+            return Homey.__("states.closed")
+            //return 'Closed'
+        }
+    } 
+    else {
+        return 'unknown'
     }
 }
 

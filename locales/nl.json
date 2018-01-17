@@ -56,5 +56,11 @@
             "secondsFail": "De waarde is ongeldig, geef een waarde van 0-120 seconden.",
             "saveSucces": "De nieuwe instellingen zijn opgeslagen."
         }
+    },
+    "states": {
+        "open": "Geopend",
+        "closed": "Gesloten",
+        "motion": "Beweging gedetecteerd",
+        "nomotion": "Geen beweging gedetecteerd"
     }
 }

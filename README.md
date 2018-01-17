@@ -16,9 +16,14 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
 ## Planned features
+- [X] Make the Reason tag 'human friendly'
 - [ ] Redesign the Dashboard.
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.2
+* Reason tag 'human friendly'
+* states in history 'human friendly'
 
 ## Version 0.1.1
 * Code cleanup
