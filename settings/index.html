@@ -41,10 +41,15 @@
                     <legend data-i18n="tab1.history.title">-History-</legend>
                     <table width=100%>
                         <tr>
-                            <td><input type="checkbox" id="show_refresh" onClick="show_log()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
+                            <td><input type="checkbox" id="show_refresh" onClick="showHistory()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
                         </tr>
                     </table> 
-                    <textarea id="logtextarea" style="margin: 0px; width: 98%; height: 700px;"></textarea>
+                    <textarea style="display:none" id="logtextarea" style="margin: 0px; width: 98%; height: 100px;"></textarea>
+                    <div class="Overflow">
+                        <div class="rTable" id="historyTable">
+
+                        </div>
+                    </div>
                     <button id="clearHistory" class="left" onclick="clearHistory()" data-i18n="tab1.history.btnClearHistory">-Clear Log-</button>
                     <button id="downloadHistory" class="left" onclick="downloadHistory()"  data-i18n="tab1.history.btnDownload">-Download-</button>
                 </fieldset>

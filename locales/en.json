@@ -14,11 +14,14 @@
         },
         "history": {
             "title": "History",
-            "showDate": "Show Date",
-            "showTime": "Show Time",
             "autoRefresh": "Auto refresh (every 1 Sec)",
             "btnClearHistory": "Clear history",
-            "btnDownload": "Download"
+            "btnDownload": "Download",
+            "date": "Date",
+            "time": "Time",
+            "smode": "Surveillance Mode",
+            "source": "Source",
+            "action": "Action"
         }
     },
     "tab2": {

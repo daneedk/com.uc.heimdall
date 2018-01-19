@@ -474,6 +474,28 @@ function showHistory() {
         _myLog = logging
         // Need work here
         document.getElementById('logtextarea').value = logging;
+
+        let htmlstring ="" 
+        let historyArray = logging.split("\n")
+        let grey = false
+        let headerstring = '<div class="rTableRow"><div class="rTableCell rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
+      
+        historyArray.forEach(element => {
+            element = element.replace(/ \|\| /g,'</div><div class="rTableCell">')
+            if ( element != "") {
+                if ( grey ) {
+                    htmlstring = htmlstring + '<div class="rTableRow grey"><div class="rTableCell">' + element + "</div></div>"
+                    grey = false
+                } else {
+                    htmlstring = htmlstring + '<div class="rTableRow"><div class="rTableCell">' + element + "</div></div>"
+                    grey = true
+                }
+            }
+        });
+        htmlstring = headerstring + htmlstring
+
+        document.getElementById('historyTable').innerHTML = htmlstring
+
       }
   });
 }

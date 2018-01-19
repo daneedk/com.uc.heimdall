@@ -315,7 +315,7 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('alarmStatus', Alarm, function( err ){
         if( err ) return Homey.alert( err );
     });
-    let logNew = nu + surveillance + " || Flowcard || Alarm is deactivated.";
+    let logNew = nu + surveillance + "|| Flowcard || Alarm is deactivated.";
     console.log(logNew);
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 

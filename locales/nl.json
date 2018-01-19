@@ -7,16 +7,21 @@
         "title": "Dashboard", 
         "status": {
             "title": "Status",
-            "smode": "Toezicht Modus",
+            "smode": "Toezicht Mode",
+            "smodeFull": "Volledige Toezicht Mode",
+            "smodePartial": "Gedeeltelijke Toezicht Mode",
             "alarm": "Alarm"
         },
         "history": {
             "title": "Geschiedenis",
-            "showDate": "Toon datum",
-            "showTime": "Toon tijd",
             "autoRefresh": "Automatisch verversen (elke seconde)",
             "btnClearHistory": "Verwijder geschiedenis",
-            "btnDownload": "Download"
+            "btnDownload": "Download",
+            "date": "Datum",
+            "time": "Tijd",
+            "smode": "Toezicht Mode",
+            "source": "Bron",
+            "action": "Actie"
         }
     },
     "tab2": {
