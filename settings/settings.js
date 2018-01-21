@@ -460,42 +460,48 @@ function downloadHistory(){
 };
 
 function refreshHistory(){
-  if (document.getElementById("show_refresh").checked === true){
+  if (document.getElementById("showRefresh").checked === true){
     showHistory()
   }
   getSettings();
   setTimeout(refreshHistory, 1000);
 }
 
-function showHistory() {
-  Homey.get('myLog', function(err, logging){
+function showHistory(run) {
+    Homey.get('myLog', function(err, logging){
       if( err ) return console.error('showHistory: Could not get history', err);
-      if (_myLog !== logging){
+      if (_myLog !== logging || run == 1 ){
         _myLog = logging
-        // Need work here
+        // Need work here -> done!
         document.getElementById('logtextarea').value = logging;
-
-        let htmlstring ="" 
+        
+        let color = ""
+        let htmlstring = "" 
         let historyArray = logging.split("\n")
-        let grey = false
+        let dark = false
         let headerstring = '<div class="rTableRow"><div class="rTableCell rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
       
         historyArray.forEach(element => {
             element = element.replace(/ \|\| /g,'</div><div class="rTableCell">')
             if ( element != "") {
-                if ( grey ) {
-                    htmlstring = htmlstring + '<div class="rTableRow grey"><div class="rTableCell">' + element + "</div></div>"
-                    grey = false
+                if ( dark ) {
+                    color = element.substr(0,3)
+                    color = color.replace("-","d")
+                    dark = false
                 } else {
-                    htmlstring = htmlstring + '<div class="rTableRow"><div class="rTableCell">' + element + "</div></div>"
-                    grey = true
+                    color = element.substr(0,3)
+                    color = color.replace("-","l")
+                    dark = true
                 }
+                element = element.substr(3, element.length - 3 )
+                if (document.getElementById("useColors").checked === false){
+                    color = ""
+                }
+                htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell">' + element + "</div></div>"
             }
         });
         htmlstring = headerstring + htmlstring
-
         document.getElementById('historyTable').innerHTML = htmlstring
-
       }
   });
 }

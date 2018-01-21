@@ -169,7 +169,62 @@ th {
   overflow-x: auto;
 }
 
-.grey {
+.mal {
+  background-color: rgb(255, 230, 230);
+}
+
+.mad {
+  background-color: rgb(250, 215, 215);
+}
+
+.mdl {
+  background-color: rgb(255, 255, 255);
+}
+
+.mdd {
   background-color: rgb(250, 250, 250);
 }
 
+.mpl {
+  background-color: rgb(255, 240, 240);
+}
+
+.mpd {
+  background-color: rgb(250, 225, 225);
+}
+
+.al {
+  background-color: rgb(250, 96, 96);
+}
+
+.ad {
+  background-color: rgb(255, 140, 140);
+}
+
+.ao {
+  background-color: rgb(140, 255, 140);
+}
+
+.aa {
+  background-color: rgb(255, 190, 190);
+}
+
+.sa {
+  background-color: rgb(255, 190, 190);
+}
+
+.sd {
+  background-color: rgb(190, 255, 190);
+}
+
+.lh {
+  background-color: rgb(198, 237, 255);  
+}
+
+.ll {
+  background-color: rgb(227, 246, 255);
+}
+
+.ld {
+  background-color: rgb(215, 242, 255);
+}

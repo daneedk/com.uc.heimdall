@@ -7,6 +7,7 @@ const _ = require('lodash');
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
 let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
+let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
 let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
@@ -124,7 +125,7 @@ class Heimdall extends Homey.App {
         
         if ( value == 'disarmed' ) {
             logNew = value + " || " + source + " || Surveillance mode is disarmed.";
-            setSurveillanceValue(value, logNew)
+            setSurveillanceValue("sd ",value, logNew)
             if ( armCounter ) {
                 // code to cancel an arm command during delayArming
                 console.log('Need to stop arming!')
@@ -142,16 +143,16 @@ class Heimdall extends Homey.App {
                 let delay = triggerDelay * 1000;
                 console.log('setSurveillanceValue in:' + triggerDelay + ' seconds.')
                 setTimeout(function(){
-                    setSurveillanceValue(value, logLine)
+                    setSurveillanceValue("sa ",value, logLine)
                 }, delay);
                 armCounter = true;
                 let tta = triggerDelay - 1;
                 ttArmedCountdown(tta);
 
                 if ( value == 'armed' ) {
-                    logNew = nu + surveillance + " || " + source + " || Surveillance mode will be armed in " + triggerDelay + " seconds.";
+                    logNew = "st " + nu + surveillance + " || " + source + " || Surveillance mode will be armed in " + triggerDelay + " seconds.";
                 } else { 
-                    logNew = nu + surveillance + " || " + source + " || Surveillance mode will be partially armed in " + triggerDelay + " seconds.";
+                    logNew = "st " + nu + surveillance + " || " + source + " || Surveillance mode will be partially armed in " + triggerDelay + " seconds.";
                 }
                 console.log(logNew);
                 const logOld = Homey.ManagerSettings.get('myLog');
@@ -162,7 +163,7 @@ class Heimdall extends Homey.App {
             } else {
                 console.log('setSurveillanceValue now')
                 armCounter = true;
-                setSurveillanceValue(value, logLine)
+                setSurveillanceValue("sa ",value, logLine)
             }
         }
     }
@@ -179,7 +180,12 @@ class Heimdall extends Homey.App {
             if( aModeDevice != undefined) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false)
             }
-            let logNew = nu + surveillance + " || " + source + " || Alarm is deactivated.";
+            var tokens = { 'Source': source }
+            triggerAlarmDeactivated.trigger(tokens, function(err, result){
+                if( err ) {
+                    return Homey.error(err)} ;
+                }); 
+            let logNew = "ao "+ nu + surveillance + " || " + source + " || Alarm is deactivated.";
             console.log(logNew);
             const logOld = Homey.ManagerSettings.get('myLog');
             if (logOld != undefined) { 
@@ -213,6 +219,18 @@ triggerSurveillanceChanged
 triggerAlarmActivated
     .register()
     .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
+triggerAlarmDeactivated
+    .register()
+    .on('run', ( args, callback ) => {
         console.log(args)
         if ( true ) {
             callback( null, true );
@@ -275,7 +293,7 @@ conditionSurveillanceIs
 actionInputHistory.register().on('run', ( args, state, callback ) => {
     let nu = getDateTime();
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    let logNew = nu + surveillance + " || Flowcard || " + args.log;
+    let logNew = "lh " + nu + surveillance + " || Flowcard || " + args.log;
     console.log(logNew);
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 
@@ -298,7 +316,7 @@ actionActivateAlarm.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('alarmStatus', Alarm, function( err ){
         if( err ) return Homey.alert( err );
     });
-    let logNew = nu + surveillance + " || Flowcard || Alarm is activated.";
+    let logNew = "al " + nu + surveillance + " || Flowcard || Alarm is activated.";
     console.log(logNew);
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 
@@ -315,7 +333,12 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     Homey.ManagerSettings.set('alarmStatus', Alarm, function( err ){
         if( err ) return Homey.alert( err );
     });
-    let logNew = nu + surveillance + "|| Flowcard || Alarm is deactivated.";
+    var tokens = { 'Source': 'Flowcard' }
+    triggerAlarmDeactivated.trigger(tokens, function(err, result){
+        if( err ) {
+            return Homey.error(err)} ;
+        }); 
+    let logNew = "ao " + nu + surveillance + " || Flowcard || Alarm is deactivated.";
     console.log(logNew);
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 
@@ -325,10 +348,10 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     callback( null,true );
 });
 
-function setSurveillanceValue(value, logLine) {
+function setSurveillanceValue(color,value, logLine) {
     let nu = getDateTime();
     let logNew;
-    logLine = nu + logLine;
+    logLine = color + nu + logLine;
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     if ( armCounter || value === 'disarmed') {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
@@ -342,7 +365,7 @@ function setSurveillanceValue(value, logLine) {
             } );
         
     } else {
-        logLine = nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
+        logLine = color + nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
     }   
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 
@@ -505,6 +528,7 @@ function stateChange(device,state,sensorType) {
     let sourceDeviceFull = false;
     let sourceDevicePartial = false;
     let sourceDeviceLog = false;
+    let color = "   ";
     if ( isMonitoredFull(device) ) {
         sourceDeviceFull = true;    
     } 
@@ -533,7 +557,19 @@ function stateChange(device,state,sensorType) {
         };
         console.log('sensorStateReadable:    ' + sensorStateReadable)
         // set logline for the statechange
-        let logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
+        if ( surveillance == "disarmed" ) {
+            color = "md-"
+        } 
+        else if ( surveillance == "armed" ) {
+            color = "ma-"
+        }
+        else if ( surveillance == "partially_armed" ) {
+            color = "mp-"
+        }
+        if ( sourceDeviceLog ) {
+            color = "l- "
+        }
+        let logNew = color + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
         // if surveillance state is activate and sensorstate is true and the device is monitored:
         //     - set other logline, check for delay
         //     - trigger alarm en send info to function
@@ -542,10 +578,10 @@ function stateChange(device,state,sensorType) {
                 alarm=true;
                 triggerDelay = getTriggerDelay();
                 console.log('Alarm is triggered:     Yes')
-                logNew = nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
+                logNew = "al " + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
 
                 if ( isDelayed(device) ) {
-                    logNew = nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + triggerDelay + ' seconds.' + '\n' +logNew
+                    logNew = "ad "+ nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + triggerDelay + ' seconds.' + '\n' +logNew
                     let delay = triggerDelay * 1000;
                     // Trigger delay flow card
                     var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Duration': triggerDelay * 1 };
@@ -575,11 +611,11 @@ function stateChange(device,state,sensorType) {
         logTrueOnly = getLogTrueOnly();
         console.log('logArmedOnly:           ' + logArmedOnly + ', Surveillance Mode: ' + surveillance)
         console.log('logTrueOnly:            ' + logTrueOnly + ', Sensorstate: ' + sensorState)
-        if ( logArmedOnly && surveillance === 'disarmed')  {
+        if ( logArmedOnly && surveillance === 'disarmed' && !sourceDeviceLog)  {
             shouldLog = false;
             console.log('LogArmed is true and Surveillance is off, so no log line')
         }
-        if ( logTrueOnly && !sensorState ) {
+        if ( logTrueOnly && !sensorState && !sourceDeviceLog) {
             shouldLog = false;
             console.log('logTrue is true and sensorstate is false, so no log line')
         }
@@ -625,7 +661,7 @@ function triggerAlarm(device,state,sensorState) {
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     if ( surveillance != 'disarmed' ) {
         // Surveillance mode is active
-        logNew = nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
+        logNew = "al " + nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
         var tokens= {'Reason': device.name + ': '+ sensorState };
         triggerAlarmActivated.trigger(tokens, state, function(err, result){
             if( err ) {
@@ -634,7 +670,7 @@ function triggerAlarm(device,state,sensorState) {
     }
     else {
         // Surveillance mode is not active
-        logNew = nu + surveillance + " || Heimdall || Alarm is not activated."
+        logNew = "ao " + nu + surveillance + " || Heimdall || Alarm is not activated."
         alarm=false;
         Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
             if( err ) return Homey.alert( err );

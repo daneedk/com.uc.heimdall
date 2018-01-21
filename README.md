@@ -18,9 +18,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Planned features
 - [X] [Make the Reason tag 'human friendly'](https://github.com/daneedk/com.uc.heimdall/issues/3)
 - [X] Redesign the Dashboard.
-- [ ] Add 'The alarm is deactivated' flow card.
+- [X] Add 'The alarm is deactivated' flow card.
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.4
+* Added colors to History view
+* Added 'The alarm is deactivated' flow card
 
 ## Version 0.1.3
 * Improved History view
