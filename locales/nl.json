@@ -15,6 +15,7 @@
         "history": {
             "title": "Geschiedenis",
             "autoRefresh": "Automatisch verversen (elke seconde)",
+            "useColors": "Gebruik colors",
             "btnClearHistory": "Verwijder geschiedenis",
             "btnDownload": "Download",
             "date": "Datum",
@@ -67,5 +68,19 @@
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
         "nomotion": "Geen beweging gedetecteerd"
+    },
+    "history": {
+        "smodedisarmed": "Toezicht mode is gedeactiveerd.",
+        "smodearmed": "Toezicht mode is geactiveerd.",
+        "smodepartiallyarmed": "Toezicht mode is gedeeltelijk geactiveerd.",
+        "smodedelayarmed": "Toezicht mode wordt geactiveerd over ",
+        "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
+        "seconds": " seconden.",
+        "alarmdeactivated": "Alarm is gedeactiveerd.",
+        "alarmactivated": "Alarm is geactiveerd.",
+        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
+        "triggerdalarm": " activeerde Alarm.",
+        "alarmdelayed": "Alarm activatie is uitgesteld: ", 
+        "alarmnotactivated": "Alarm is niet geactiveerd."
     }
 }

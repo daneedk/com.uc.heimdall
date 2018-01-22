@@ -15,6 +15,7 @@
         "history": {
             "title": "History",
             "autoRefresh": "Auto refresh (every 1 Sec)",
+            "useColors": "Use colors",
             "btnClearHistory": "Clear history",
             "btnDownload": "Download",
             "date": "Date",
@@ -67,5 +68,19 @@
         "closed": "Closed",
         "motion": "Motion detected",
         "nomotion": "No motion detected"
+    },
+    "history": {
+        "smodedisarmed": "Surveillance mode is disarmed.",
+        "smodearmed": "Surveillance mode is armed.",
+        "smodepartiallyarmed": "Surveillance mode is partially armed.",
+        "smodedelayarmed": "Surveillance mode will be armed in ",
+        "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
+        "seconds": " seconds.",
+        "alarmdeactivated": "Alarm is deactivated.",
+        "alarmactivated": "Alarm is activated.",
+        "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
+        "triggerdalarm": " triggered Alarm.",
+        "alarmdelayed": "Alarmtrigger is delayed: ", 
+        "alarmnotactivated": "Alarm is not activated."
     }
 }

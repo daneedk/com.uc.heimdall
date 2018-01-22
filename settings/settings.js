@@ -33,20 +33,18 @@ function onHomeyReady(homeyReady){
         methods: {
             getMonitoredFullDevices() {
                 Homey.get('monitoredFullDevices', (err, result) => {
-                  console.log('getMonitoredFullDevices: ' + result);
-                  if (result) {
-                    this.devicesMonitoredFull = result;
-                  }
-    
+                    console.log('getMonitoredFullDevices: ' + result);
+                    if (result) {
+                        this.devicesMonitoredFull = result;
+                    }
                 });
             },
             getMonitoredPartialDevices() {
                 Homey.get('monitoredPartialDevices', (err, result) => {
-                  console.log('getMonitoredPartialDevices: ' + result);
-                  if (result) {
-                    this.devicesMonitoredPartial = result;
-                  }
-    
+                    console.log('getMonitoredPartialDevices: ' + result);
+                    if (result) {
+                        this.devicesMonitoredPartial = result;
+                    }
                 });
             },
             getDelayedDevices() {
@@ -55,7 +53,6 @@ function onHomeyReady(homeyReady){
                     if (result) {
                         this.devicesDelayed = result;
                     }
-        
                 });
             },
             getLoggedDevices() {
@@ -64,7 +61,6 @@ function onHomeyReady(homeyReady){
                     if (result) {
                         this.devicesLogged = result;
                     }
-        
                 });
             },
             getDevices() {
@@ -204,7 +200,6 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log('removeDelay: Delay removed from' + device.name);
                 })
-                
             },
             async removeLog(device) {
                 var i;
@@ -218,7 +213,6 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log('removeLog: Logging removed from: ' + device.name);
                 })
-                
             },
             isMonitoredFull(obj) {
                 var i;

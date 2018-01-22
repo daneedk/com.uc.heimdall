@@ -30,7 +30,7 @@
 			"id": "SurveillanceChanged",
 			"title": {
 				"en": "Surveillance Mode changed.",
-				"nl": "Toezicht modus is gewijzigt."
+				"nl": "Toezicht modus is gewijzigd."
 			},
 			"tokens": [
 				{
@@ -84,7 +84,7 @@
 			"id": "DelayActivated",
 			"title": {
 				"en": "The delay is activated.",
-				"nl": "Het vertraging is geactiveerd."
+				"nl": "De vertraging is geactiveerd."
 			},
 			"tokens": [
 				{

@@ -25,6 +25,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Version 0.1.4
 * Added colors to History view
 * Added 'The alarm is deactivated' flow card
+* More translations
 
 ## Version 0.1.3
 * Improved History view
