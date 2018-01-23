@@ -368,7 +368,7 @@ function getLanguage() {
     console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
 }
-
+/*
 function setSurveillanceMode() {
     surveillance = !surveillance;
     Homey.set('surveillanceStatus', surveillance, function( err ){
@@ -376,11 +376,13 @@ function setSurveillanceMode() {
     });
     if( surveillance) {
         document.getElementById("surveillanceMode").className = "btn wide btn-active";
-        writeHistory(document.getElementById("spanSurvActivated").innerText);
+        //writeHistory(document.getElementById("spanSurvActivated").innerText);
+        writeHistory(Homey.__("hidden.surveillance.activated"));
     }
     else {
         document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
-        writeHistory(document.getElementById("spanSurvDeactivated").innerText);
+        //writeHistory(document.getElementById("spanSurvDeactivated").innerText);
+        writeHistory(Homey.__("hidden.surveillance.deactivated"));
         // Cleanup
         alarm=false;
         Homey.set('alarmStatus', alarm, function( err ){
@@ -388,7 +390,7 @@ function setSurveillanceMode() {
         });
     } 
 }
-
+*/
 function writeHistory(line) {
     let nu = getDateTime();
     let logNew = nu + surveillance + " || " + line;
@@ -407,13 +409,13 @@ function changeTriggerDelay() {
     console.log('Triggerdelay: ' + newTriggerDelay)
     if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
         document.getElementById("triggerDelay").value = triggerDelay;
-        Homey.alert(document.getElementById("spanSecondsFail").innerHTML);
+        Homey.alert(Homey.__("tab2.settings.secondsFail") );
     } else {
         triggerDelay = newTriggerDelay
         Homey.set('triggerDelay', triggerDelay, function( err ){
             if( err ) return Homey.alert( err );
         });
-        Homey.alert(document.getElementById("spanSaveSucces").innerHTML);
+        Homey.alert(Homey.__("tab2.settings.saveSucces"));
     }
 }
 

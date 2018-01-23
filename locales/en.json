@@ -32,6 +32,8 @@
             "tDelay": "Trigger delay",
             "seconds": "Seconds",
             "save": "Save",
+            "secondsFail": "The value is not valid, please enter a delay in the range of 0-120 seconds",
+            "saveSucces": "The new settings are saved.",
             "logarmedonly": "Only log when a Surveillance mode is active",
             "logtrueonly": "Do not log deactivating of sensors",
             "delayarming": "Use delay also when enabling a Surveillance Mode",
@@ -51,16 +53,6 @@
         "title": "Instructions",
         "instructions": {
             "title": "Instructions"
-        }
-    },
-    "hidden": {
-        "surveillance": {
-            "activated": "Dashboard || Surveilllance Mode activated.",
-            "deactivated": "Dashboard || Surveilllance Mode deactivated."
-        },
-        "settings": {
-            "secondsFail": "The value is not valid, please enter a delay in the range of 0-120 seconds",
-            "saveSucces": "The new settings are saved."
         }
     },
     "states": {

@@ -258,7 +258,6 @@
 		}
 		]
 	},
-
 	"capabilities": {
 		"alarm_heimdall": {
             "type": "boolean",
@@ -270,7 +269,6 @@
             "setable": true
         }
 	},
-
 	"drivers": [
 		{
 			"id": "surveillanceModeSwitch",
