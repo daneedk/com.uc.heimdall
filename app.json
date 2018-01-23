@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.0.14",
+	"version": "0.1.4",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -30,7 +30,7 @@
 			"id": "SurveillanceChanged",
 			"title": {
 				"en": "Surveillance Mode changed.",
-				"nl": "Toezicht modus is gewijzigt."
+				"nl": "Toezicht modus is gewijzigd."
 			},
 			"tokens": [
 				{
@@ -63,10 +63,28 @@
 			]
 		},
 		{
+			"id": "AlarmDeactivated",
+			"title": {
+				"en": "The alarm is deactivated.",
+				"nl": "Het alarm is gedeactiveerd."
+			},
+			"tokens": [
+				{
+					"name": "Source",
+					"type": "string",
+					"title": {
+						"en": "Source",
+						"nl": "Bron"
+					},
+					"example": "-"
+				}
+			]
+		},
+		{
 			"id": "DelayActivated",
 			"title": {
 				"en": "The delay is activated.",
-				"nl": "Het vertraging is geactiveerd."
+				"nl": "De vertraging is geactiveerd."
 			},
 			"tokens": [
 				{
@@ -240,7 +258,6 @@
 		}
 		]
 	},
-
 	"capabilities": {
 		"alarm_heimdall": {
             "type": "boolean",
@@ -252,7 +269,6 @@
             "setable": true
         }
 	},
-
 	"drivers": [
 		{
 			"id": "surveillanceModeSwitch",
@@ -265,7 +281,7 @@
 				"small": "drivers/surveillanceModeSwitch/assets/images/small.png"
 			},
 			"class": "other",
-			"capabilities": [ "homealarm_state" ],
+			"capabilities": [ "homealarm_state", "alarm_tamper" ],
 			"pair": [
 				{
 					"id": "list_triggers",
