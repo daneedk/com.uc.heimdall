@@ -681,7 +681,7 @@ function triggerAlarm(device,state,sensorState) {
     }
     else {
         // Surveillance mode is not active
-        //logNew = "ao " + nu + surveillance + " || Heimdall || Alarm is not activated."
+        // logNew = "ao " + nu + surveillance + " || Heimdall || Alarm is not activated."
         logNew = "ao " + nu + surveillance + " || Heimdall || " + Homey.__("history.alarmnotactivated")
         alarm=false;
         Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
