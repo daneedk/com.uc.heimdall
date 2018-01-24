@@ -25,3 +25,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
 
 Changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
+
+## Donate
+If you like the app, consider buying me a beer!  
+[![Paypal donate][pp-donate-image]][pp-donate-link]
+
+[pp-donate-link]: https://www.paypal.me/daneedekruyff
+[pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
