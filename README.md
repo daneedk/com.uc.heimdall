@@ -52,7 +52,7 @@ Thanks to all testers of the alpha version!
 Please remember, Heimdall is not intended to be a full blown security system.
 
 ## Donate
-If you like the app, buy me a beer!  
+If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
