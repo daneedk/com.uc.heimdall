@@ -19,9 +19,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] [Make the Reason tag 'human friendly'](https://github.com/daneedk/com.uc.heimdall/issues/3)
 - [X] Redesign the Dashboard.
 - [X] Add 'The alarm is deactivated' flow card.
-- [ ] [Look into canceling? a tripped sensor when a delayed timer is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.5 Alpha
+* Added alarm_tamper to Surveillance Mode Device to test Homekit compatibility
 
 ## Version 0.1.4
 * Added colors to History view

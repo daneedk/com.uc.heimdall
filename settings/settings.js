@@ -17,7 +17,7 @@ function onHomeyReady(homeyReady){
     getDelayArming();
     getLanguage();
     getSettings();
-    refreshLog();
+    refreshHistory();
 
     new Vue({
         el: '#app',
@@ -33,20 +33,18 @@ function onHomeyReady(homeyReady){
         methods: {
             getMonitoredFullDevices() {
                 Homey.get('monitoredFullDevices', (err, result) => {
-                  console.log('getMonitoredFullDevices: ' + result);
-                  if (result) {
-                    this.devicesMonitoredFull = result;
-                  }
-    
+                    console.log('getMonitoredFullDevices: ' + result);
+                    if (result) {
+                        this.devicesMonitoredFull = result;
+                    }
                 });
             },
             getMonitoredPartialDevices() {
                 Homey.get('monitoredPartialDevices', (err, result) => {
-                  console.log('getMonitoredPartialDevices: ' + result);
-                  if (result) {
-                    this.devicesMonitoredPartial = result;
-                  }
-    
+                    console.log('getMonitoredPartialDevices: ' + result);
+                    if (result) {
+                        this.devicesMonitoredPartial = result;
+                    }
                 });
             },
             getDelayedDevices() {
@@ -55,7 +53,6 @@ function onHomeyReady(homeyReady){
                     if (result) {
                         this.devicesDelayed = result;
                     }
-        
                 });
             },
             getLoggedDevices() {
@@ -64,7 +61,6 @@ function onHomeyReady(homeyReady){
                     if (result) {
                         this.devicesLogged = result;
                     }
-        
                 });
             },
             getDevices() {
@@ -204,7 +200,6 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log('removeDelay: Delay removed from' + device.name);
                 })
-                
             },
             async removeLog(device) {
                 var i;
@@ -218,7 +213,6 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                     console.log('removeLog: Logging removed from: ' + device.name);
                 })
-                
             },
             isMonitoredFull(obj) {
                 var i;
@@ -374,7 +368,7 @@ function getLanguage() {
     console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
 }
-
+/*
 function setSurveillanceMode() {
     surveillance = !surveillance;
     Homey.set('surveillanceStatus', surveillance, function( err ){
@@ -382,11 +376,13 @@ function setSurveillanceMode() {
     });
     if( surveillance) {
         document.getElementById("surveillanceMode").className = "btn wide btn-active";
-        writeLogline(document.getElementById("spanSurvActivated").innerText);
+        //writeHistory(document.getElementById("spanSurvActivated").innerText);
+        writeHistory(Homey.__("hidden.surveillance.activated"));
     }
     else {
         document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
-        writeLogline(document.getElementById("spanSurvDeactivated").innerText);
+        //writeHistory(document.getElementById("spanSurvDeactivated").innerText);
+        writeHistory(Homey.__("hidden.surveillance.deactivated"));
         // Cleanup
         alarm=false;
         Homey.set('alarmStatus', alarm, function( err ){
@@ -394,18 +390,18 @@ function setSurveillanceMode() {
         });
     } 
 }
-
-function writeLogline(line) {
+*/
+function writeHistory(line) {
     let nu = getDateTime();
     let logNew = nu + surveillance + " || " + line;
     Homey.get('myLog', function(err, logging){
-        if( err ) return console.error('writeLogline: Could not get log', err);
+        if( err ) return console.error('writeHistory: Could not get history', err);
         if (logging != undefined) { 
             logNew = logNew+"\n"+logging;
         }
         Homey.set('myLog', logNew );
     })
-    refreshLog();
+    refreshHistory();
 }
 
 function changeTriggerDelay() {
@@ -413,13 +409,13 @@ function changeTriggerDelay() {
     console.log('Triggerdelay: ' + newTriggerDelay)
     if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
         document.getElementById("triggerDelay").value = triggerDelay;
-        Homey.alert(document.getElementById("spanSecondsFail").innerHTML);
+        Homey.alert(Homey.__("tab2.settings.secondsFail") );
     } else {
         triggerDelay = newTriggerDelay
         Homey.set('triggerDelay', triggerDelay, function( err ){
             if( err ) return Homey.alert( err );
         });
-        Homey.alert(document.getElementById("spanSaveSucces").innerHTML);
+        Homey.alert(Homey.__("tab2.settings.saveSucces"));
     }
 }
 
@@ -451,28 +447,57 @@ function changeDelayArming() {
     });
 }
 
-function clear_simpleLOG(){
+function clearHistory(){
     Homey.set('myLog', '');
 };
 
-function download_simpleLOG(){
+function downloadHistory(){
     download('Heimdall history.txt', document.getElementById('logtextarea').value);
 };
 
-function refreshLog(){
-  if (document.getElementById("show_refresh").checked === true){
-    show_log()
+function refreshHistory(){
+  if (document.getElementById("showRefresh").checked === true){
+    showHistory()
   }
   getSettings();
-  setTimeout(refreshLog, 1000);
+  setTimeout(refreshHistory, 1000);
 }
 
-function show_log() {
-  Homey.get('myLog', function(err, logging){
-      if( err ) return console.error('show_log: Could not get history', err);
-      if (_myLog !== logging){
+function showHistory(run) {
+    Homey.get('myLog', function(err, logging){
+      if( err ) return console.error('showHistory: Could not get history', err);
+      if (_myLog !== logging || run == 1 ){
         _myLog = logging
+        // Need work here -> done!
         document.getElementById('logtextarea').value = logging;
+        
+        let color = ""
+        let htmlstring = "" 
+        let historyArray = logging.split("\n")
+        let dark = false
+        let headerstring = '<div class="rTableRow"><div class="rTableCell rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
+      
+        historyArray.forEach(element => {
+            element = element.replace(/ \|\| /g,'</div><div class="rTableCell">')
+            if ( element != "") {
+                if ( dark ) {
+                    color = element.substr(0,3)
+                    color = color.replace("-","d")
+                    dark = false
+                } else {
+                    color = element.substr(0,3)
+                    color = color.replace("-","l")
+                    dark = true
+                }
+                element = element.substr(3, element.length - 3 )
+                if (document.getElementById("useColors").checked === false){
+                    color = ""
+                }
+                htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell">' + element + "</div></div>"
+            }
+        });
+        htmlstring = headerstring + htmlstring
+        document.getElementById('historyTable').innerHTML = htmlstring
       }
   });
 }

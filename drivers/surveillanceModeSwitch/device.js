@@ -43,7 +43,7 @@ class Heimdall extends Homey.Device {
         return Promise.reject( new Error('Switching the device failed!') );
     }
 
-    // this method is called from the driver by a action flowcard
+    // this method is called from the driver by an action flowcard
     setNewState(newState) {
         this.log('setNewState: ', newState);
         this.setCapabilityValue('homealarm_state', newState)

@@ -281,7 +281,7 @@
 				"small": "drivers/surveillanceModeSwitch/assets/images/small.png"
 			},
 			"class": "other",
-			"capabilities": [ "homealarm_state", "alarm_tamper" ],
+			"capabilities": [ "homealarm_state", "alarm_heimdall" ],
 			"pair": [
 				{
 					"id": "list_triggers",
@@ -304,6 +304,10 @@
 					{
 						"id": "picker",
 						"capabilities": [ "homealarm_state" ]
+					},
+					{
+						"id": "sensor",
+						"capabilities": ["alarm_heimdall"]
 					}
 				]
 			}

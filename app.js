@@ -186,7 +186,8 @@ class Heimdall extends Homey.App {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false)
             }
             if( sModeDevice != undefined) {
-                sModeDevice.setCapabilityValue('alarm_tamper', false)
+                sModeDevice.setCapabilityValue('alarm_heimdall', false)
+                //console.log("deactivateAlarm - sModeDevice alarmHeimdall: " + sModeDevice.getCapabilityValue('alarm_heimdall'))
             }
             var tokens = { 'Source': source }
             triggerAlarmDeactivated.trigger(tokens, function(err, result){
@@ -708,7 +709,11 @@ function triggerAlarm(device,state,sensorState) {
         aModeDevice.setCapabilityValue('alarm_heimdall', true)
     }
     if( sModeDevice != undefined) {
-        sModeDevice.setCapabilityValue('alarm_tamper', true)
+        console.log("triggerAlarm - sModeDevice alarmHeimdall-1")
+        sModeDevice.setCapabilityValue('alarm_heimdall', true)
+        console.log("triggerAlarm - sModeDevice alarmHeimdall-2")
+        //let temp = sModeDevice.getCapabilityValue('alarm_heimdall')
+        //console.log("triggerAlarm - sModeDevice alarmHeimdall: " + temp)
     }
 }
 

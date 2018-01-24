@@ -7,16 +7,22 @@
         "title": "Dashboard", 
         "status": {
             "title": "Status",
-            "smode": "Toezicht Modus",
+            "smode": "Toezicht Mode",
+            "smodeFull": "Volledige Toezicht Mode",
+            "smodePartial": "Gedeeltelijke Toezicht Mode",
             "alarm": "Alarm"
         },
         "history": {
             "title": "Geschiedenis",
-            "showDate": "Toon datum",
-            "showTime": "Toon tijd",
             "autoRefresh": "Automatisch verversen (elke seconde)",
-            "btnClearLog": "Verwijder geschiedenis",
-            "btnDownload": "Download"
+            "useColors": "Gebruik colors",
+            "btnClearHistory": "Verwijder geschiedenis",
+            "btnDownload": "Download",
+            "date": "Datum",
+            "time": "Tijd",
+            "smode": "Toezicht Mode",
+            "source": "Bron",
+            "action": "Actie"
         }
     },
     "tab2": {
@@ -26,6 +32,8 @@
             "tDelay": "Trigger vertraging",
             "seconds": "Seconden",
             "save": "Bewaar",
+            "secondsFail": "De waarde is ongeldig, geef een waarde van 0-120 seconden.",
+            "saveSucces": "De nieuwe instellingen zijn opgeslagen.",
             "logarmedonly": "Alleen loggen als er een Toezicht Mode actief is",
             "logtrueonly": "Log het deactiveren van een sensor niet",
             "delayarming": "Gebruik vertraging ook bij het inschakelen van een Toezicht Modus",
@@ -47,14 +55,24 @@
             "title": "Instructies"
         }
     },
-    "hidden": {
-        "surveillance": {
-            "activated": "Dashboard || Toezicht mode geactiveerd.",
-            "deactivated": "Dashboard || Toezicht mode gedeactiveerd."
-        },
-        "settings": {
-            "secondsFail": "De waarde is ongeldig, geef een waarde van 0-120 seconden.",
-            "saveSucces": "De nieuwe instellingen zijn opgeslagen."
-        }
+    "states": {
+        "open": "Geopend",
+        "closed": "Gesloten",
+        "motion": "Beweging gedetecteerd",
+        "nomotion": "Geen beweging gedetecteerd"
+    },
+    "history": {
+        "smodedisarmed": "Toezicht mode is gedeactiveerd.",
+        "smodearmed": "Toezicht mode is geactiveerd.",
+        "smodepartiallyarmed": "Toezicht mode is gedeeltelijk geactiveerd.",
+        "smodedelayarmed": "Toezicht mode wordt geactiveerd over ",
+        "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
+        "seconds": " seconden.",
+        "alarmdeactivated": "Alarm is gedeactiveerd.",
+        "alarmactivated": "Alarm is geactiveerd.",
+        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
+        "triggerdalarm": " activeerde Alarm.",
+        "alarmdelayed": "Alarm activatie is uitgesteld: ", 
+        "alarmnotactivated": "Alarm is niet geactiveerd."
     }
 }
