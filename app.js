@@ -365,6 +365,8 @@ function setSurveillanceValue(color,value, logLine) {
             if( err ) return Homey.alert( err );
         });
         console.log('setSurveillanceValue:   '+ value)
+        let tokenValue = readableMode(value)
+        console.log(tokenValue)
         var tokens = { 'mode': value };
         triggerSurveillanceChanged.trigger(tokens, function(err, result){
             if( err ) {
@@ -660,6 +662,21 @@ function readableState(state, type) {
             //return 'Closed'
         }
     } 
+    else {
+        return 'unknown'
+    }
+}
+
+function readableMode(mode) {
+    if (mode == 'armed') {
+        return Homey.__("modes.armed")
+    }
+    else if (mode == 'partially_armed') {
+        return Homey.__("modes.partiallyarmed")
+    } 
+    else if (mode == 'disarmed') {
+        return Homey.__("modes.disarmed")
+    }
     else {
         return 'unknown'
     }

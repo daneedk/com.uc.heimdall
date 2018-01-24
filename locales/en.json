@@ -55,6 +55,11 @@
             "title": "Instructions"
         }
     },
+    "modes": {
+        "disarmed": "Disarmed",
+        "armed": "Armed",
+        "partiallyarmed": "Patrially Armed"
+    },
     "states": {
         "open": "Open",
         "closed": "Closed",

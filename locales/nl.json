@@ -55,6 +55,11 @@
             "title": "Instructies"
         }
     },
+    "modes": {
+        "disarmed": "Gedeactiveerd",
+        "armed": "Geactiveerd",
+        "partiallyarmed": "Gedeeltelijk geactiveerd"
+    },
     "states": {
         "open": "Geopend",
         "closed": "Gesloten",
