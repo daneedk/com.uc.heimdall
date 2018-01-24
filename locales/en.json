@@ -58,7 +58,7 @@
     "modes": {
         "disarmed": "Disarmed",
         "armed": "Armed",
-        "partiallyarmed": "Patrially Armed"
+        "partiallyarmed": "Partially Armed"
     },
     "states": {
         "open": "Open",
