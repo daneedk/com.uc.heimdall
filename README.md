@@ -23,6 +23,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 0.1.6
+* More translations
+
+## Version 0.1.5 ALPHA
+
 ## Version 0.1.4
 * Added colors to History view
 * Added 'The alarm is deactivated' flow card
@@ -45,3 +50,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 Thanks to all testers of the alpha version!
 
 Please remember, Heimdall is not intended to be a full blown security system.
+
+## Donate
+If you like the app, buy me a beer!  
+[![Paypal donate][pp-donate-image]][pp-donate-link]
+
+[pp-donate-link]: https://www.paypal.me/daneedekruyff
+[pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
