@@ -20,6 +20,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Redesign the Dashboard.
 - [X] Add 'The alarm is deactivated' flow card.
 - [ ] [Look into canceling? a tripped sensor when a delayed timer is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
+- [ ] [Look into creating an audible alert when a delayed timer is active.](https://github.com/daneedk/com.uc.heimdall/issues/6)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
@@ -27,6 +28,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * More translations
 
 ## Version 0.1.5 ALPHA
+* Researching Homekit compatability
 
 ## Version 0.1.4
 * Added colors to History view
