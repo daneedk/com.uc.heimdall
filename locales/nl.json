@@ -78,6 +78,7 @@
         "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
-        "alarmnotactivated": "Alarm is niet geactiveerd."
+        "alarmnotactivated": "Alarm is niet geactiveerd door deactiveren Toezicht Mode.",
+        "noalarmtrigger": ", geen alarm trigger omdat er een vertraagde trigger actief is."
     }
 }

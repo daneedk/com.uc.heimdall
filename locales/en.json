@@ -78,6 +78,7 @@
         "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
         "triggerdalarm": " triggered Alarm.",
         "alarmdelayed": "Alarmtrigger is delayed: ", 
-        "alarmnotactivated": "Alarm is not activated."
+        "alarmnotactivated": "Alarm is not activated due to disarming.",
+        "noalarmtrigger": ", no alarm trigger due to running delay countdown."
     }
 }

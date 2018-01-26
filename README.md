@@ -19,12 +19,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] [Make the Reason tag 'human friendly'](https://github.com/daneedk/com.uc.heimdall/issues/3)
 - [X] Redesign the Dashboard.
 - [X] Add 'The alarm is deactivated' flow card.
-- [ ] [Look into canceling? a tripped sensor when a delayed timer is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
-- [ ] [Look into creating an audible alert when a delayed timer is active.](https://github.com/daneedk/com.uc.heimdall/issues/6)
+- [X] [Look into canceling? a tripped sensor when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
+- [ ] [Look into creating an audible alert when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/6)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
 ## Version 0.1.6
+* Cancel trigger from a tripped sensor when a delay countdown is active
 * More translations
 
 ## Version 0.1.5 ALPHA
