@@ -397,7 +397,7 @@ function setSurveillanceValue(color,value, logLine) {
     } else {
         //logLine = color + nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
         //logLine = color + nu + surveillance + " || " + Homey.__("history.smodechangedisable")
-        logLine = color + nu + readableMode(surveillance) + " || " + Homey.__("history.smodechangedisable")
+        logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
     }   
     const logOld = Homey.ManagerSettings.get('myLog');
     if (logOld != undefined) { 
@@ -890,7 +890,8 @@ function ttArmedCountdown(delay, color, value, logLine) {
         }
     }
     else {
-        console.log(' ttArmedCountdown:      armCounterRunning = false')
+        console.log('ttArmedCountdown:       armCounterRunning = false')
+        setSurveillanceValue(color, value, logLine)
     }
 }
 
