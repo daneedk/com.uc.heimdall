@@ -19,7 +19,8 @@
                 <tr>
                     <td id="tab1b" class="tab tab-active" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
                     <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
-                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Instructions-</td>
+                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Speech-</td>
+                    <td id="tab4b" class="tab tab-inactive" onclick="showTab('tab4')" data-i18n="tab4.title">-Instructions-</td>
                     <td class="tab-unused">&nbsp;</td>
                 </tr>
             </table>
@@ -60,23 +61,25 @@
                     <legend data-i18n="tab2.settings.title">-Settings-</legend>
                     <table width="80%">
                         <tr>
-                            <td width="35%" class="rTableCell">
+                            <td width="35%" class="rTableCell line">
                                 <span data-i18n="tab2.settings.tDelay">-Trigger delay:-</span>&nbsp;
                                 <input id="triggerDelay" type="text" value="31" class="narrow">&nbsp;                            
                                 <span data-i18n="tab2.settings.seconds">-Seconds-</span>&nbsp;
                                 <button id="saveTriggerDelay" onclick="changeTriggerDelay()" data-i18n="tab2.settings.save">-Save-</button>
                             </td>
                             <td width="2%"></td>
-                            <td width="35%" class="rTableCell">
+                            <td width="35%" class="rTableCell line">
                                 <input id="logArmedOnly" type="checkbox" onclick="changeLogArmedOnly()">
-                                <span data-i18n="tab2.settings.logarmedonly">-Only log when a Surveillance mode is active-</span></td>
+                                <span data-i18n="tab2.settings.logarmedonly">-Only log when a Surveillance mode is active-</span>
+                            </td>
                             <td width="2%"></td>
-                            <td width="35%" class="rTableCell">
+                            <td width="35%" class="rTableCell line">
                                 <input id="logTrueOnly" type="checkbox" onclick="changeLogTrueOnly()">
-                                <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span></td>
+                                <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="rTableCell">
                                 <input id="delayArming" type="checkbox" onclick="changeDelayArming()">
                                 <span data-i18n="tab2.settings.delayarming">-Use delay also when enabling a Surveillance mode-</td></span>
                             <td></td>
@@ -85,33 +88,33 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td class="rTableCell"></td>
+                            <td class="rTableCell line"></td>
                             <td></td>
-                            <td class="rTableCell"></td>
+                            <td class="rTableCell line"></td>
                             <td></td>
-                            <td class="rTableCell"></td>
+                            <td class="rTableCell line"></td>
                         </tr>
                      </table>
 
                     <div class="rTable">
                         <div class="rTableRow">
-                            <div class="rTableCell rTableHead" data-i18n="tab2.settings.zone">-Zone-</div>
-                            <div class="rTableCell rTableHead"></div>
-                            <div class="rTableCell rTableHead" data-i18n="tab2.settings.device">-Device-</div>
-                            <div class="rTableCell rTableHead" data-i18n="tab2.settings.monitor">-Monitor-</div>
-                            <div class="rTableCell rTableHead" data-i18n="tab2.settings.dTrigger">-Delayed Trigger-</div>
-                            <div class="rTableCell rTableHead rTableCellLast"></div>
+                            <div class="rTableCell line rTableHead" data-i18n="tab2.settings.zone">-Zone-</div>
+                            <div class="rTableCell line rTableHead"></div>
+                            <div class="rTableCell line rTableHead" data-i18n="tab2.settings.device">-Device-</div>
+                            <div class="rTableCell line rTableHead" data-i18n="tab2.settings.monitor">-Monitor-</div>
+                            <div class="rTableCell line rTableHead" data-i18n="tab2.settings.dTrigger">-Delayed Trigger-</div>
+                            <div class="rTableCell line rTableHead rTableCellLast"></div>
                         </div>
                     
                         <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact">
-                            <div class="rTableCell">{{device.zone.name}}</div>
-                            <div class="rTableCell" align=center>
+                            <div class="rTableCell line">{{device.zone.name}}</div>
+                            <div class="rTableCell line" align=center>
                                 <img :src="device.icon" style="height:30px;width:auto;"/>
                             </div>
-                            <div class="rTableCell">
+                            <div class="rTableCell line">
                                 {{device.name}}
                             </div>
-                            <div class="rTableCell">
+                            <div class="rTableCell line">
                                 <a v-if="!isLogged(device)" @click="addLog(device)" class="btn narrow btn-inactive" style="margin:5px;" data-i18n="tab2.settings.log">-Log-</a>
                                 <a v-if="isLogged(device)" @click="removeLog(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.log">-Log-</a>
                                 
@@ -120,19 +123,76 @@
                                 <a v-if="!isMonitoredPartial(device)" @click="addMonitorPartial(device)" class="btn middle btn-inactive" style="margin:5px;" data-i18n="tab2.settings.partial">-Partial-</a>
                                 <a v-if="isMonitoredPartial(device)" @click="removeMonitorPartial(device)" class="btn middle btn-active" style="margin:5px;" data-i18n="tab2.settings.partial">-Partial-</a>
                             </div>
-                            <div class="rTableCell">
+                            <div class="rTableCell line">
                                 <a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn narrow btn-inactive" style="margin:5px;" data-i18n="tab2.settings.no">-No-</a>
                                 <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.yes">-Yes-</a>
                             </div>
                             
-                            <div class=rTableCell></div>
+                            <div class=rTableCell line></div>
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div id="tab3" style="display:none">
                 <fieldset class="listContainer">
-                    <legend data-i18n="tab3.instructions.title">-Instructions-</legend>
+                    <legend data-i18n="tab3.speech.title">-Speech-</legend>
+                        <table width="80%">
+                            <tr>
+                                <td class="rTableCell line" colspan=2>
+                                        <span data-i18n="tab3.speech.let">-Let Homey tell you when:-<span>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenAlarmCountdown" type="checkbox" onclick="changeSpokenAlarmCountdown()">
+                                    <span data-i18n="tab3.speech.spokenalarmcountdown">-Use spoken countdown-<span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenArmCountdown" type="checkbox" onclick="changeSpokenArmCountdown()">
+                                    <span data-i18n="tab3.speech.spokenarmcountdown">-Use spoken countdown-<span>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenSmodeChange" type="checkbox" onclick="changeSmodeChanged()">
+                                    <span data-i18n="tab3.speech.smodechange">-the Surveillance Mode changed-<span>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenAlarmChange" type="checkbox" onclick="changeAlarmChanged()">
+                                    <span data-i18n="tab3.speech.alarmchange">-the alarm is activated-<span>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenMotionTrue" type="checkbox" onclick="changeMotionTrue()">
+                                    <span data-i18n="tab3.speech.motiontrue">-motion is detected when in an armed Surveillance Mode-<span>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td width="2%"></td>
+                                <td width="35%" class="rTableCell">    
+                                    <input id="spokenDoorOpen" type="checkbox" onclick="changeDoorOpen()">
+                                    <span data-i18n="tab3.speech.dooropen">-a door or windows is opened when in an armed Surveillance Mode-<span>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td class="rTableCell line" colspan=2></td>
+                            </tr>
+                        </table>
+                </fieldset>
+            </div>
+            <div id="tab4" style="display:none">
+                <fieldset class="listContainer">
+                    <legend data-i18n="tab4.instructions.title">-Instructions-</legend>
                     <div id="instructionsen" style="display:none">
                         To configure Heimdall you have to do the following:<br />
                         <br />

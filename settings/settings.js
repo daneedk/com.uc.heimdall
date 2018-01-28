@@ -15,8 +15,9 @@ function onHomeyReady(homeyReady){
     getLogArmedOnly();
     getLogTrueOnly();
     getDelayArming();
-    getLanguage();
     getSettings();
+    getSpeechSettings();
+    getLanguage();
     refreshHistory();
 
     new Vue({
@@ -276,27 +277,42 @@ function showTab(tab){
         document.getElementById("tab1").style="display:block";
         document.getElementById("tab2").style="display:none";
         document.getElementById("tab3").style="display:none";
+        document.getElementById("tab4").style="display:none";
         document.getElementById("tab1b").className="tab tab-active";
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-inactive";
+        document.getElementById("tab4b").className="tab tab-inactive";
     }
     else if ( tab == "tab2" ) {
         document.getElementById("tab1").style="display:none";
         document.getElementById("tab2").style="display:block";
         document.getElementById("tab3").style="display:none";
+        document.getElementById("tab4").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-active";
         document.getElementById("tab3b").className="tab tab-inactive";
+        document.getElementById("tab4b").className="tab tab-inactive";
     }
     else if ( tab == "tab3" ) {
         document.getElementById("tab1").style="display:none";
         document.getElementById("tab2").style="display:none";
         document.getElementById("tab3").style="display:block";
+        document.getElementById("tab4").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-active";
+        document.getElementById("tab4b").className="tab tab-inactive";
     }
-
+    else if ( tab == "tab4" ) {
+        document.getElementById("tab1").style="display:none";
+        document.getElementById("tab2").style="display:none";
+        document.getElementById("tab3").style="display:none";
+        document.getElementById("tab4").style="display:block";
+        document.getElementById("tab1b").className="tab tab-inactive";
+        document.getElementById("tab2b").className="tab tab-inactive";
+        document.getElementById("tab3b").className="tab tab-inactive";
+        document.getElementById("tab4b").className="tab tab-active";
+    }
 }
 
 function getSettings() {
@@ -358,9 +374,41 @@ function getLogTrueOnly() {
 }
 
 function getDelayArming() {
-    Homey.get('delayArming', function( err, logTrueOnly ) {
+    Homey.get('delayArming', function( err, delayArming ) {
         if( err ) return Homey.alert( err );
-        document.getElementById("delayArming").checked = logTrueOnly;
+        document.getElementById("delayArming").checked = delayArming;
+    })
+}
+
+function getSpeechSettings() {
+    Homey.get('spokenAlarmCountdown', function( err, spokenAlarmCountdown ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenAlarmCountdown").checked = spokenAlarmCountdown;
+    })
+
+    Homey.get('spokenArmCountdown', function( err, spokenArmCountdown ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenArmCountdown").checked = spokenArmCountdown;
+    })
+
+    Homey.get('spokenSmodeChange', function( err, spokenSmodeChange ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenSmodeChange").checked = spokenSmodeChange;
+    })
+
+    Homey.get('spokenAlarmChange', function( err, spokenAlarmChange ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenAlarmChange").checked = spokenAlarmChange;
+    })
+
+    Homey.get('spokenMotionTrue', function( err, spokenMotionTrue ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenMotionTrue").checked = spokenMotionTrue;
+    })
+
+    Homey.get('spokenDoorOpen', function( err, spokenDoorOpen ) {
+        if( err ) return Homey.alert( err );
+        document.getElementById("spokenDoorOpen").checked = spokenDoorOpen;
     })
 }
 
@@ -368,29 +416,7 @@ function getLanguage() {
     console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
 }
-/*
-function setSurveillanceMode() {
-    surveillance = !surveillance;
-    Homey.set('surveillanceStatus', surveillance, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-    if( surveillance) {
-        document.getElementById("surveillanceMode").className = "btn wide btn-active";
-        //writeHistory(document.getElementById("spanSurvActivated").innerText);
-        writeHistory(Homey.__("hidden.surveillance.activated"));
-    }
-    else {
-        document.getElementById("surveillanceMode").className = "btn wide btn-inactive";
-        //writeHistory(document.getElementById("spanSurvDeactivated").innerText);
-        writeHistory(Homey.__("hidden.surveillance.deactivated"));
-        // Cleanup
-        alarm=false;
-        Homey.set('alarmStatus', alarm, function( err ){
-            if( err ) return Homey.alert( err );
-        });
-    } 
-}
-*/
+
 function writeHistory(line) {
     let nu = getDateTime();
     let logNew = nu + surveillance + " || " + line;
@@ -447,6 +473,54 @@ function changeDelayArming() {
     });
 }
 
+function changeSpokenAlarmCountdown() {
+    let newValue = document.getElementById("spokenAlarmCountdown").checked
+    console.log(newValue)
+    Homey.set('spokenAlarmCountdown', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeSpokenArmCountdown() {
+    let newValue = document.getElementById("spokenArmCountdown").checked
+    console.log(newValue)
+    Homey.set('spokenArmCountdown', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeSmodeChanged() {
+    let newValue = document.getElementById("spokenSmodeChange").checked
+    console.log(newValue)
+    Homey.set('spokenSmodeChange', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeAlarmChanged() {
+    let newValue = document.getElementById("spokenAlarmChange").checked
+    console.log(newValue)
+    Homey.set('spokenAlarmChange', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeMotionTrue() {
+    let newValue = document.getElementById("spokenMotionTrue").checked
+    console.log(newValue)
+    Homey.set('spokenMotionTrue', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
+function changeDoorOpen() {
+    let newValue = document.getElementById("spokenDoorOpen").checked
+    console.log(newValue)
+    Homey.set('spokenDoorOpen', newValue, function( err ){
+        if( err ) return Homey.alert( err );
+    });
+}
+
 function clearHistory(){
     Homey.set('myLog', '');
 };
@@ -475,10 +549,10 @@ function showHistory(run) {
         let htmlstring = "" 
         let historyArray = logging.split("\n")
         let dark = false
-        let headerstring = '<div class="rTableRow"><div class="rTableCell rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
+        let headerstring = '<div class="rTableRow"><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
       
         historyArray.forEach(element => {
-            element = element.replace(/ \|\| /g,'</div><div class="rTableCell">')
+            element = element.replace(/ \|\| /g,'</div><div class="rTableCell line">')
             if ( element != "") {
                 if ( dark ) {
                     color = element.substr(0,3)
@@ -493,7 +567,7 @@ function showHistory(run) {
                 if (document.getElementById("useColors").checked === false){
                     color = ""
                 }
-                htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell">' + element + "</div></div>"
+                htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell line">' + element + "</div></div>"
             }
         });
         htmlstring = headerstring + htmlstring

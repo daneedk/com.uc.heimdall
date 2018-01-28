@@ -132,8 +132,11 @@ th {
   display: table-cell;   	
   padding: 6px 4px;
   vertical-align: middle;
-  border-top: 1px solid rgb(220,220,220);
   white-space: nowrap;
+}
+
+.line{
+  border-top: 1px solid rgb(220,220,220);
 }
 
 .rTableCellLast{

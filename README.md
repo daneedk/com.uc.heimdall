@@ -20,9 +20,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Redesign the Dashboard.
 - [X] Add 'The alarm is deactivated' flow card.
 - [X] [Look into cancelling a tripped sensor when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
-- [ ] [Look into creating an audible alert when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/6)
+- [ ] [Let Homey tell you what's happening.](https://github.com/daneedk/com.uc.heimdall/issues/6)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.7
+* Added Homekit compatibility for [Homeykit](https://apps.athom.com/app/com.swttt.homekit) app
+* Start with Speech output support
 
 ## Version 0.1.6
 * Cancel trigger from a tripped sensor when a delay countdown is active

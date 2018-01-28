@@ -50,6 +50,19 @@
         }
     },
     "tab3": {
+        "title": "Spraak",
+        "speech": {
+            "title": "Spraak",
+            "let": "Laat Homey het je vertellen als:",
+            "spokenalarmcountdown": "het aftellen naar het activeren van het Alarm loopt",
+            "spokenarmcountdown": "het aftellen naar het inschakelen van een Toezicht loopt",
+            "smodechange": "de Toezicht Mode wordt veranderd",
+            "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
+            "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
+            "dooropen": "er een deur of raam geopend wordt ale er een Toezicht Mode actief is"
+        }
+    },
+    "tab4": {
         "title": "Instructies",
         "instructions": {
             "title": "Instructies"
@@ -65,6 +78,15 @@
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
         "nomotion": "Geen beweging gedetecteerd"
+    },
+    "speech": {
+        "startalarmcountdown": "Het alarm gaat af in  ",
+        "startarmcountdown": "De toezicht mode wordt naar  ",
+        "in": " gezet over ",
+        "seconds": " seconden",
+        "smodeset": "De toezicht mode is  ",
+        "alarmactivated": "Het alarm is geactiveerd",
+        "alarmdeactivated": "Het alarm is gedeactiveerd"
     },
     "history": {
         "smodedisarmed": "Toezicht mode is gedeactiveerd.",
