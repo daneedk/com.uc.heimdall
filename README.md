@@ -24,6 +24,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 0.1.8
+* Bugfix for [bug introduced in 0.1.6](https://github.com/daneedk/com.uc.heimdall/issues/8)
+
 ## Version 0.1.7
 * Added Homekit compatibility for [Homeykit](https://apps.athom.com/app/com.swttt.homekit) app
 * Start with Speech output support

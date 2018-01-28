@@ -647,7 +647,8 @@ function stateChange(device,state,sensorType) {
             if ( !alarmCounterRunning ) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     alarm=true;
-                    alarmCounterRunning = true;
+                    // Moved next line due to: https://github.com/daneedk/com.uc.heimdall/issues/8
+                    //alarmCounterRunning = true;
                     triggerDelay = getTriggerDelay();
                     console.log('Alarm is triggered:     Yes')
                     //logNew = "al " + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
@@ -666,6 +667,9 @@ function stateChange(device,state,sensorType) {
                     // end speech
 
                     if ( isDelayed(device) ) {
+                        //
+                        alarmCounterRunning = true;
+                        console.log('alarmCounterRunning:    true')
                         //logNew = "ad "+ nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + triggerDelay + ' seconds.' + '\n' +logNew
                         logNew = "ad "+ nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.alarmdelayed") + triggerDelay + Homey.__("history.seconds") + '\n' +logNew
                         let delay = triggerDelay * 1000;
@@ -846,6 +850,8 @@ function ttAlarmCountdown(delay,device,state,sensorStateReadable) {
             }, 1000);
         } 
         else if ( delay == 0) {
+            alarmCounterRunning = false
+            console.log('alarmCounterRunning:    false due to reaching 0')
             triggerAlarm(device,state,sensorStateReadable)
         }
     }
