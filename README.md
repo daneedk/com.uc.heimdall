@@ -26,7 +26,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Version 0.1.8
 * Setting Surveillance Mode to Disarmed also deactivates an Alarm
-* Retreiving history on settingspage only when Dashboard is selected
+* Retrieving history on settingspage only when Dashboard is selected
 * Added button for manual refresh when auto refresh on history is off
 * Code cleanup
 
