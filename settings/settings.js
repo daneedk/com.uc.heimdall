@@ -6,6 +6,7 @@ var allDevices;
 var triggerDelay = 30;
 var logArmedOnly;
 var logTrueOnly;
+var dashboardVisible = true;
 //var language = "nl";
 
 function onHomeyReady(homeyReady){
@@ -282,6 +283,7 @@ function showTab(tab){
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-inactive";
+        dashboardVisible = true;
     }
     else if ( tab == "tab2" ) {
         document.getElementById("tab1").style="display:none";
@@ -292,6 +294,7 @@ function showTab(tab){
         document.getElementById("tab2b").className="tab tab-active";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-inactive";
+        dashboardVisible = false;
     }
     else if ( tab == "tab3" ) {
         document.getElementById("tab1").style="display:none";
@@ -302,6 +305,7 @@ function showTab(tab){
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-active";
         document.getElementById("tab4b").className="tab tab-inactive";
+        dashboardVisible = false;
     }
     else if ( tab == "tab4" ) {
         document.getElementById("tab1").style="display:none";
@@ -312,6 +316,7 @@ function showTab(tab){
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-active";
+        dashboardVisible = false;
     }
 }
 
@@ -530,14 +535,24 @@ function downloadHistory(){
 };
 
 function refreshHistory(){
-  if (document.getElementById("showRefresh").checked === true){
-    showHistory()
-  }
-  getSettings();
+    if ( dashboardVisible == true ) {
+        if (document.getElementById("showRefresh").checked === true ){
+            showHistory()
+        }
+        getSettings();
+    }
   setTimeout(refreshHistory, 1000);
 }
 
 function showHistory(run) {
+    if ( run == 0 ) {
+        if (document.getElementById("showRefresh").checked === true ){
+            document.getElementById("buttonRefresh").style = "display:none";
+        } else {
+            document.getElementById("buttonRefresh").style = "display:block";
+        }
+    }
+    console.log("s: " + getDateTime())
     Homey.get('myLog', function(err, logging){
       if( err ) return console.error('showHistory: Could not get history', err);
       if (_myLog !== logging || run == 1 ){
@@ -574,6 +589,7 @@ function showHistory(run) {
         document.getElementById('historyTable').innerHTML = htmlstring
       }
   });
+  console.log("e: " + getDateTime())
 }
 
 function download(filename, text) {

@@ -15,6 +15,7 @@
         "history": {
             "title": "Geschiedenis",
             "autoRefresh": "Automatisch verversen (elke seconde)",
+            "manualRefresh": "Ververs",
             "useColors": "Gebruik colors",
             "btnClearHistory": "Verwijder geschiedenis",
             "btnDownload": "Download",
@@ -59,7 +60,7 @@
             "smodechange": "de Toezicht Mode wordt veranderd",
             "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
             "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
-            "dooropen": "er een deur of raam geopend wordt ale er een Toezicht Mode actief is"
+            "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is"
         }
     },
     "tab4": {

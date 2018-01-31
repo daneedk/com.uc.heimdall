@@ -165,11 +165,18 @@ th {
 }
 
 .Overflow {
-  max-height: 430px;
   margin-bottom: 1em;
   overflow: auto;
   position: relative;
   overflow-x: auto;
+}
+
+.historyheight {
+  max-height: 439px;
+}
+
+.devicesheight {
+  max-height: 460px;
 }
 
 .mal {
@@ -214,6 +221,10 @@ th {
 
 .sa {
   background-color: rgb(255, 190, 190);
+}
+
+.st {
+  background-color: rgb(255, 210, 210);
 }
 
 .sd {

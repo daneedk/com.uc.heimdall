@@ -83,7 +83,7 @@ class Heimdall extends Homey.App {
     }
     
 	onInit() {
-        getMonitoredDevices();          // opruimen
+        //getMonitoredDevices();          // opruimen
         getMonitoredFullDevices();
         getMonitoredPartialDevices();
         getDelayedDevices();
@@ -129,6 +129,7 @@ class Heimdall extends Homey.App {
             //logNew = value + " || " + source + " || Surveillance mode is disarmed.";
             logNew = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
             setSurveillanceValue("sd ",value, logNew)
+            Homey.app.deactivateAlarm(false, "Surveillance Mode Switch")
             if ( armCounterRunning ) {
                 // code to cancel an arm command during delayArming
                 console.log('Need to stop arming!')
@@ -156,7 +157,7 @@ class Heimdall extends Homey.App {
                 speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + triggerDelay + Homey.__("speech.seconds"))
 
                 armCounterRunning = true;
-                let tta = triggerDelay - 1;
+                let tta = triggerDelay;
                 ttArmedCountdown(tta,"sa ", value, logLine);
 
                 if ( value == 'armed' ) {
@@ -408,10 +409,12 @@ function setSurveillanceValue(color,value, logLine) {
 }
 
 // Get devices that should be monitored function
+/*
 function getMonitoredDevices() {
     devicesMonitored = Homey.ManagerSettings.get('monitoredDevices')
     //console.log('getMonitoredDevices: ' + devicesMonitored);
 }
+*/
 
 // Get devices that should be monitored full function
 function getMonitoredFullDevices() {
@@ -508,6 +511,7 @@ function speak(type, text) {
 }
 
 // Should this device be monitored
+/*
 function isMonitored(obj) {
     getMonitoredDevices();
     var i;
@@ -520,6 +524,7 @@ function isMonitored(obj) {
     }
     return false;
 }
+*/
 
 // Should this device be monitored
 function isMonitoredFull(obj) {
@@ -583,11 +588,17 @@ function attachEventListener(device,sensorType) {
         stateChange(device,state,sensorType)
     }));
     console.log('Attached Eventlistener: ' + device.name)
-    if ( isMonitored(device) ) {
-        console.log('Monitored device:       ' + device.name)
+    if ( isMonitoredFull(device) ) {
+        console.log('Fully Monitored device: ' + device.name)
     } 
+    else if ( isMonitoredPartial(device) ) {
+        console.log('Partially Monitored device:' + device.name)
+    }
     else if ( isLogged(device) ) {
         console.log('Logged device:          ' + device.name)
+    }
+    else {
+        console.log('not monitored')
     }
 }
 

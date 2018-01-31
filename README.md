@@ -20,9 +20,15 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [X] Redesign the Dashboard.
 - [X] Add 'The alarm is deactivated' flow card.
 - [X] [Look into cancelling a tripped sensor when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
-- [ ] [Let Homey tell you what's happening.](https://github.com/daneedk/com.uc.heimdall/issues/6)
+- [X] [Let Homey tell you what's happening.](https://github.com/daneedk/com.uc.heimdall/issues/6)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.8
+* Setting Surveillance Mode to Disarmed also deactivates an Alarm
+* Retreiving history on settingspage only when Dashboard is selected
+* Added button for manual refresh when auto refresh on history is off
+* Code cleanup
 
 ## Version 0.1.7
 * Bugfix for [bug introduced in 0.1.6](https://github.com/daneedk/com.uc.heimdall/issues/8)

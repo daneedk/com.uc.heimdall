@@ -15,6 +15,7 @@
         "history": {
             "title": "History",
             "autoRefresh": "Auto refresh (every 1 Sec)",
+            "manualRefresh": "Refresh",
             "useColors": "Use colors",
             "btnClearHistory": "Clear history",
             "btnDownload": "Download",
