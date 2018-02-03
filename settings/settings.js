@@ -7,7 +7,6 @@ var triggerDelay = 30;
 var logArmedOnly;
 var logTrueOnly;
 var dashboardVisible = true;
-//var language = "nl";
 
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
@@ -35,7 +34,7 @@ function onHomeyReady(homeyReady){
         methods: {
             getMonitoredFullDevices() {
                 Homey.get('monitoredFullDevices', (err, result) => {
-                    console.log('getMonitoredFullDevices: ' + result);
+                   console.log('getMonitoredFullDevices: ' + result);
                     if (result) {
                         this.devicesMonitoredFull = result;
                     }
@@ -43,7 +42,7 @@ function onHomeyReady(homeyReady){
             },
             getMonitoredPartialDevices() {
                 Homey.get('monitoredPartialDevices', (err, result) => {
-                    console.log('getMonitoredPartialDevices: ' + result);
+                   console.log('getMonitoredPartialDevices: ' + result);
                     if (result) {
                         this.devicesMonitoredPartial = result;
                     }
@@ -51,7 +50,7 @@ function onHomeyReady(homeyReady){
             },
             getDelayedDevices() {
                 Homey.get('delayedDevices', (err, result) => {
-                    console.log('getDelayedDevices: '+ result);
+                   console.log('getDelayedDevices: '+ result);
                     if (result) {
                         this.devicesDelayed = result;
                     }
@@ -59,7 +58,7 @@ function onHomeyReady(homeyReady){
             },
             getLoggedDevices() {
                 Homey.get('loggedDevices', (err, result) => {
-                    console.log('getLoggedDevices: '+ result);
+                   console.log('getLoggedDevices: '+ result);
                     if (result) {
                         this.devicesLogged = result;
                     }
@@ -84,14 +83,14 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 if ( addDeviceMonitorFull ) {
-                    await console.log('addMonitorFull: ' + device.id, device.name, device.class)
+                   console.log('addMonitorFull: ' + device.id, device.name, device.class)
                     await this.devicesMonitoredFull.push(device);
                     await Homey.set('monitoredFullDevices', this.devicesMonitoredFull, (err, result) => {
                         if (err)
                             return Homey.alert(err);
                         }
                     )
-                    console.log('addMonitorFull: ' + device.name + ' added to monitoredFullDevices');
+                   console.log('addMonitorFull: ' + device.name + ' added to monitoredFullDevices');
                 }
                 this.removeLog(device);
             },
@@ -104,26 +103,26 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 if ( addDeviceMonitorPartial ) {
-                    await console.log('addMonitorPartial: ' + device.id, device.name, device.class)
+                   console.log('addMonitorPartial: ' + device.id, device.name, device.class)
                     await this.devicesMonitoredPartial.push(device);
                     await Homey.set('monitoredPartialDevices', this.devicesMonitoredPartial, (err, result) => {
                         if (err)
                             return Homey.alert(err);
                         }
                     )
-                    console.log('addMonitorPartial: ' + device.name + ' added to monitoredPartialDevices');
+                   console.log('addMonitorPartial: ' + device.name + ' added to monitoredPartialDevices');
                 }
                 this.removeLog(device);
             },
             async addDelay(device) {
-                await console.log('addDelay: ' + device.id, device.name, device.class)
+               console.log('addDelay: ' + device.id, device.name, device.class)
                 await this.devicesDelayed.push(device);
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-                console.log('addDelay: Delay added to ' + device.name);
+               console.log('addDelay: Delay added to ' + device.name);
                 var addMonitorNeeded = true;
                 for (i = 0; i < this.devicesMonitoredPartial.length; i++) {
                     if (this.devicesMonitoredPartial[i] && this.devicesMonitoredPartial[i].id == device.id) {
@@ -135,14 +134,14 @@ function onHomeyReady(homeyReady){
                 }
             },
             async addLog(device) {
-                await console.log('addLog: ' + device.id, device.name, device.class)
+               console.log('addLog: ' + device.id, device.name, device.class)
                 await this.devicesLogged.push(device);
                 await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-                console.log('addLog: Logging added to ' + device.name);
+               console.log('addLog: Logging added to ' + device.name);
                 this.removeMonitorFull(device);
                 this.removeMonitorPartial(device);
             },
@@ -156,7 +155,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('monitoredFullDevices', this.devicesMonitoredFull, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('removeMonitorFull: ' + device.name + ' removed from monitoredFullDevices');
+                   console.log('removeMonitorFull: ' + device.name + ' removed from monitoredFullDevices');
                 })
                 var removeDelayNeeded = true;
                 for (i = 0; i < this.devicesMonitoredPartial.length; i++) {
@@ -178,7 +177,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('monitoredPartialDevices', this.devicesMonitoredPartial, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('removeMonitorPartial: ' + device.name + ' removed from monitoredPartialDevices');
+                   console.log('removeMonitorPartial: ' + device.name + ' removed from monitoredPartialDevices');
                 })
                 var removeDelayNeeded = true;
                 for (i = 0; i < this.devicesMonitoredFull.length; i++) {
@@ -200,7 +199,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('removeDelay: Delay removed from' + device.name);
+                   console.log('removeDelay: Delay removed from' + device.name);
                 })
             },
             async removeLog(device) {
@@ -213,7 +212,7 @@ function onHomeyReady(homeyReady){
                 await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('removeLog: Logging removed from: ' + device.name);
+                   console.log('removeLog: Logging removed from: ' + device.name);
                 })
             },
             isMonitoredFull(obj) {
@@ -418,7 +417,7 @@ function getSpeechSettings() {
 }
 
 function getLanguage() {
-    console.log('language: ' + language);
+   console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
 }
 
@@ -437,7 +436,7 @@ function writeHistory(line) {
 
 function changeTriggerDelay() {
     let newTriggerDelay = document.getElementById("triggerDelay").value;
-    console.log('Triggerdelay: ' + newTriggerDelay)
+   console.log('Triggerdelay: ' + newTriggerDelay)
     if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
         document.getElementById("triggerDelay").value = triggerDelay;
         Homey.alert(Homey.__("tab2.settings.secondsFail") );
@@ -480,7 +479,7 @@ function changeDelayArming() {
 
 function changeSpokenAlarmCountdown() {
     let newValue = document.getElementById("spokenAlarmCountdown").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenAlarmCountdown', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -488,7 +487,7 @@ function changeSpokenAlarmCountdown() {
 
 function changeSpokenArmCountdown() {
     let newValue = document.getElementById("spokenArmCountdown").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenArmCountdown', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -496,7 +495,7 @@ function changeSpokenArmCountdown() {
 
 function changeSmodeChanged() {
     let newValue = document.getElementById("spokenSmodeChange").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenSmodeChange', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -504,7 +503,7 @@ function changeSmodeChanged() {
 
 function changeAlarmChanged() {
     let newValue = document.getElementById("spokenAlarmChange").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenAlarmChange', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -512,7 +511,7 @@ function changeAlarmChanged() {
 
 function changeMotionTrue() {
     let newValue = document.getElementById("spokenMotionTrue").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenMotionTrue', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -520,7 +519,7 @@ function changeMotionTrue() {
 
 function changeDoorOpen() {
     let newValue = document.getElementById("spokenDoorOpen").checked
-    console.log(newValue)
+   console.log(newValue)
     Homey.set('spokenDoorOpen', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
@@ -552,7 +551,7 @@ function showHistory(run) {
             document.getElementById("buttonRefresh").style = "display:block";
         }
     }
-    console.log("s: " + getDateTime())
+   console.log("s: " + getDateTime())
     Homey.get('myLog', function(err, logging){
       if( err ) return console.error('showHistory: Could not get history', err);
       if (_myLog !== logging || run == 1 ){
@@ -589,7 +588,7 @@ function showHistory(run) {
         document.getElementById('historyTable').innerHTML = htmlstring
       }
   });
-  console.log("e: " + getDateTime())
+ console.log("e: " + getDateTime())
 }
 
 function download(filename, text) {

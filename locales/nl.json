@@ -97,7 +97,7 @@
         "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
         "seconds": " seconden.",
         "alarmdeactivated": "Alarm is gedeactiveerd.",
-        "alarmactivated": "Alarm is geactiveerd.",
+        "alarmactivated": "Alarm is geactiveerd. ",
         "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 

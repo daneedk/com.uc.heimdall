@@ -97,7 +97,7 @@
         "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
         "seconds": " seconds.",
         "alarmdeactivated": "Alarm is deactivated.",
-        "alarmactivated": "Alarm is activated.",
+        "alarmactivated": "Alarm is activated. ",
         "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
         "triggerdalarm": " triggered Alarm.",
         "alarmdelayed": "Alarmtrigger is delayed: ", 

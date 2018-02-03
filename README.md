@@ -16,13 +16,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
 ## Planned features
-- [X] [Make the Reason tag 'human friendly'](https://github.com/daneedk/com.uc.heimdall/issues/3)
-- [X] Redesign the Dashboard.
-- [X] Add 'The alarm is deactivated' flow card.
-- [X] [Look into cancelling a tripped sensor when a delay countdown is active.](https://github.com/daneedk/com.uc.heimdall/issues/5)
-- [X] [Let Homey tell you what's happening.](https://github.com/daneedk/com.uc.heimdall/issues/6)
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
+
+## Version 0.1.9
+* Code cleanup, preparing for release
 
 ## Version 0.1.8
 * Setting Surveillance Mode to Disarmed also deactivates an Alarm
