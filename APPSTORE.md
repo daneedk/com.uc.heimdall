@@ -24,7 +24,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
 
-## Changes for current version 0.1.8.1
+## Changes for current version 0.1.9
 * Fixed not saving _Auto refresh_ setting in history view
 * Code cleanup, preparing for release
 
