@@ -7,17 +7,53 @@ var triggerDelay = 30;
 var logArmedOnly;
 var logTrueOnly;
 var dashboardVisible = true;
+var heimdallSettings = {};
+var defaultSettings = {
+    "triggerDelay": "30",
+    "delayArming": false,
+    "logArmedOnly": false,
+    "logTrueOnly": false,
+    "spokenSmodeChange": false,
+    "spokenAlarmCountdown": false,
+    "spokenArmCountdown": false,
+    "spokenAlarmChange": false,
+    "spokenMotionTrue": false,
+    "spokenDoorOpen": false
+};
 
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
-    getTriggerDelay();
-    getLogArmedOnly();
-    getLogTrueOnly();
-    getDelayArming();
-    getSettings();
-    getSpeechSettings();
+    heimdallSettings = defaultSettings;
+    Homey.get('settings', function(err, savedSettings) {
+        if (err) {
+            Homey.alert( err );
+        } else {
+            if (savedSettings != (null || undefined)) {
+                console.log('savedSettings:')
+                console.log(savedSettings)
+                heimdallSettings = savedSettings;
+                
+            }
+        }
+        document.getElementById('triggerDelay').value = heimdallSettings.triggerDelay;
+        document.getElementById('delayArming').checked = heimdallSettings.delayArming;
+        document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
+        document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
+        document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
+        document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
+        document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
+        document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
+        document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
+        document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
+    });
+    
     getLanguage();
+    //getTriggerDelay();
+    //getLogArmedOnly();
+    //getLogTrueOnly();
+    //getDelayArming();
+    getSettings();
     refreshHistory();
 
     new Vue({
@@ -271,6 +307,14 @@ function onHomeyReady(homeyReady){
       })
 }
 
+// test settingschange event from Homey
+//
+Homey.on('set', (key) => {
+    console.log('New setings!')
+})
+//
+// test settingschange event from Homey
+
 function showTab(tab){
     // clean this up!
     if( tab == "tab1") {
@@ -350,7 +394,7 @@ function getSettings() {
         }
     })
 }
-
+/*
 function getTriggerDelay() {
     Homey.get('triggerDelay', function ( err, savedTriggerDelay ) {
         if (triggerDelay != null) {
@@ -361,63 +405,33 @@ function getTriggerDelay() {
         }
         document.getElementById("triggerDelay").value = triggerDelay;
     })
-}
-
+*/
+/*
 function getLogArmedOnly() {
     Homey.get('logArmedOnly', function( err, logArmedOnly ) {
         if( err ) return Homey.alert( err );
         document.getElementById("logArmedOnly").checked = logArmedOnly;
     })
 }
-
+*/
+/*
 function getLogTrueOnly() {
     Homey.get('logTrueOnly', function( err, logTrueOnly ) {
         if( err ) return Homey.alert( err );
         document.getElementById("logTrueOnly").checked = logTrueOnly;
     })
 }
-
+*/
+/*
 function getDelayArming() {
     Homey.get('delayArming', function( err, delayArming ) {
         if( err ) return Homey.alert( err );
         document.getElementById("delayArming").checked = delayArming;
     })
 }
-
-function getSpeechSettings() {
-    Homey.get('spokenAlarmCountdown', function( err, spokenAlarmCountdown ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenAlarmCountdown").checked = spokenAlarmCountdown;
-    })
-
-    Homey.get('spokenArmCountdown', function( err, spokenArmCountdown ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenArmCountdown").checked = spokenArmCountdown;
-    })
-
-    Homey.get('spokenSmodeChange', function( err, spokenSmodeChange ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenSmodeChange").checked = spokenSmodeChange;
-    })
-
-    Homey.get('spokenAlarmChange', function( err, spokenAlarmChange ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenAlarmChange").checked = spokenAlarmChange;
-    })
-
-    Homey.get('spokenMotionTrue', function( err, spokenMotionTrue ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenMotionTrue").checked = spokenMotionTrue;
-    })
-
-    Homey.get('spokenDoorOpen', function( err, spokenDoorOpen ) {
-        if( err ) return Homey.alert( err );
-        document.getElementById("spokenDoorOpen").checked = spokenDoorOpen;
-    })
-}
-
+*/
 function getLanguage() {
-   console.log('language: ' + language);
+    console.log('language: ' + language);
     document.getElementById("instructions"+language).style.display = "inline";
 }
 
@@ -441,14 +455,17 @@ function changeTriggerDelay() {
         document.getElementById("triggerDelay").value = triggerDelay;
         Homey.alert(Homey.__("tab2.settings.secondsFail") );
     } else {
+        saveSettings();
+        /*
         triggerDelay = newTriggerDelay
         Homey.set('triggerDelay', triggerDelay, function( err ){
             if( err ) return Homey.alert( err );
         });
+        */
         Homey.alert(Homey.__("tab2.settings.saveSucces"));
     }
 }
-
+/*
 function changeLogArmedOnly() {
     let newValue = document.getElementById("logArmedOnly").checked
     if ( newValue ) {
@@ -462,67 +479,36 @@ function changeLogArmedOnly() {
         })
     }
 }
-
+*/
+/*
 function changeLogTrueOnly() {
     let newValue = document.getElementById("logTrueOnly").checked
     Homey.set('logTrueOnly', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
 }
-
+*/
+/*
 function changeDelayArming() {
     let newValue = document.getElementById("delayArming").checked
     Homey.set('delayArming', newValue, function( err ){
         if( err ) return Homey.alert( err );
     });
 }
-
-function changeSpokenAlarmCountdown() {
-    let newValue = document.getElementById("spokenAlarmCountdown").checked
-   console.log(newValue)
-    Homey.set('spokenAlarmCountdown', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-}
-
-function changeSpokenArmCountdown() {
-    let newValue = document.getElementById("spokenArmCountdown").checked
-   console.log(newValue)
-    Homey.set('spokenArmCountdown', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-}
-
-function changeSmodeChanged() {
-    let newValue = document.getElementById("spokenSmodeChange").checked
-   console.log(newValue)
-    Homey.set('spokenSmodeChange', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-}
-
-function changeAlarmChanged() {
-    let newValue = document.getElementById("spokenAlarmChange").checked
-   console.log(newValue)
-    Homey.set('spokenAlarmChange', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-}
-
-function changeMotionTrue() {
-    let newValue = document.getElementById("spokenMotionTrue").checked
-   console.log(newValue)
-    Homey.set('spokenMotionTrue', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-}
-
-function changeDoorOpen() {
-    let newValue = document.getElementById("spokenDoorOpen").checked
-   console.log(newValue)
-    Homey.set('spokenDoorOpen', newValue, function( err ){
-        if( err ) return Homey.alert( err );
-    });
+*/
+function saveSettings() {
+    console.log('Save settings')
+    heimdallSettings.triggerDelay = document.getElementById('triggerDelay').value;
+    heimdallSettings.delayArming = document.getElementById('delayArming').checked;
+    heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
+    heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
+    heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
+    heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
+    heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
+    heimdallSettings.spokenAlarmChange = document.getElementById('spokenAlarmChange').checked;
+    heimdallSettings.spokenMotionTrue = document.getElementById('spokenMotionTrue').checked;
+    heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
+    Homey.set('settings', heimdallSettings );
 }
 
 function clearHistory(){
@@ -551,7 +537,7 @@ function showHistory(run) {
             document.getElementById("buttonRefresh").style = "display:block";
         }
     }
-   console.log("s: " + getDateTime())
+    //console.log("s: " + getDateTime())
     Homey.get('myLog', function(err, logging){
       if( err ) return console.error('showHistory: Could not get history', err);
       if (_myLog !== logging || run == 1 ){
@@ -588,7 +574,7 @@ function showHistory(run) {
         document.getElementById('historyTable').innerHTML = htmlstring
       }
   });
- console.log("e: " + getDateTime())
+  //console.log("e: " + getDateTime())
 }
 
 function download(filename, text) {
