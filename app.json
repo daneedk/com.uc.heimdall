@@ -1,12 +1,12 @@
 {
 	"id": "com.uc.heimdall",
 	"sdk": 2,
-	"permissions": [ "homey:manager:api" ],
+	"permissions": [ "homey:manager:api", "homey:manager:speech-output" ],
 	"name": { "en": "Heimdall"},
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.1.5.1",
+	"version": "0.1.10",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -21,8 +21,8 @@
 		}
 	  },
 	"tags": { 
-		"en": [ "Home", "Alarm", "System", "Tools", "Log", "Surveillance"],
-		"nl": [ "Huis", "Alarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht"] 
+		"en": [ "Home", "Alarm", "Homeyalarm", "System", "Tools", "Log", "Surveillance"],
+		"nl": [ "Huis", "Alarm", "Homeyalarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht"] 
 	},
 	"flow": {
 		"triggers": [
@@ -267,7 +267,7 @@
             },
             "getable": true,
             "setable": true
-        }
+		}
 	},
 	"drivers": [
 		{

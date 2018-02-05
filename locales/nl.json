@@ -15,6 +15,7 @@
         "history": {
             "title": "Geschiedenis",
             "autoRefresh": "Automatisch verversen (elke seconde)",
+            "manualRefresh": "Ververs",
             "useColors": "Gebruik colors",
             "btnClearHistory": "Verwijder geschiedenis",
             "btnDownload": "Download",
@@ -50,16 +51,43 @@
         }
     },
     "tab3": {
+        "title": "Spraak",
+        "speech": {
+            "title": "Spraak",
+            "let": "Laat Homey het je vertellen als:",
+            "spokenalarmcountdown": "het aftellen naar het activeren van het Alarm loopt",
+            "spokenarmcountdown": "het aftellen naar het inschakelen van een Toezicht loopt",
+            "smodechange": "de Toezicht Mode wordt veranderd",
+            "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
+            "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
+            "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is"
+        }
+    },
+    "tab4": {
         "title": "Instructies",
         "instructions": {
             "title": "Instructies"
         }
+    },
+    "modes": {
+        "disarmed": "Gedeactiveerd",
+        "armed": "Geactiveerd",
+        "partiallyarmed": "Gedeeltelijk geactiveerd"
     },
     "states": {
         "open": "Geopend",
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
         "nomotion": "Geen beweging gedetecteerd"
+    },
+    "speech": {
+        "startalarmcountdown": "Het alarm gaat af in  ",
+        "startarmcountdown": "De toezicht mode wordt naar  ",
+        "in": " gezet over ",
+        "seconds": " seconden",
+        "smodeset": "De toezicht mode is  ",
+        "alarmactivated": "Het alarm is geactiveerd",
+        "alarmdeactivated": "Het alarm is gedeactiveerd"
     },
     "history": {
         "smodedisarmed": "Toezicht mode is gedeactiveerd.",
@@ -69,10 +97,11 @@
         "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
         "seconds": " seconden.",
         "alarmdeactivated": "Alarm is gedeactiveerd.",
-        "alarmactivated": "Alarm is geactiveerd.",
+        "alarmactivated": "Alarm is geactiveerd. ",
         "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
-        "alarmnotactivated": "Alarm is niet geactiveerd."
+        "alarmnotactivated": "Alarm is niet geactiveerd door deactiveren Toezicht Mode.",
+        "noalarmtrigger": ", geen alarm trigger omdat er een vertraagde trigger actief is."
     }
 }

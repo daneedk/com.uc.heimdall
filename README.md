@@ -16,14 +16,31 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
 ## Planned features
-- [X] [Make the Reason tag 'human friendly'](https://github.com/daneedk/com.uc.heimdall/issues/3)
-- [X] Redesign the Dashboard.
-- [X] Add 'The alarm is deactivated' flow card.
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
-## Version 0.1.5 Alpha
-* Added alarm_tamper to Surveillance Mode Device to test Homekit compatibility
+## Version 0.1.8.1
+* Fixed not saving _Auto refresh_ setting in history view
+* Code cleanup, preparing for release
+
+
+## Version 0.1.8
+* Setting Surveillance Mode to Disarmed also deactivates an Alarm
+* [Retrieving history on settingspage only when Dashboard is selected](https://github.com/daneedk/com.uc.heimdall/issues/9)
+* [Added button for manual refresh when auto refresh on history is off](https://github.com/daneedk/com.uc.heimdall/issues/9)
+* Code cleanup
+
+## Version 0.1.7
+* Bugfix for [bug introduced in 0.1.6](https://github.com/daneedk/com.uc.heimdall/issues/8)
+* Added Homekit compatibility for [Homeykit](https://apps.athom.com/app/com.swttt.homekit) app
+* Start with Speech output support
+
+## Version 0.1.6
+* Cancel trigger from a tripped sensor when a delay countdown is active
+* More translations
+
+## Version 0.1.5 ALPHA
+* Researching Homekit compatability
 
 ## Version 0.1.4
 * Added colors to History view
@@ -47,3 +64,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 Thanks to all testers of the alpha version!
 
 Please remember, Heimdall is not intended to be a full blown security system.
+
+## Donate
+If you like the app, consider buying me a beer!  
+[![Paypal donate][pp-donate-image]][pp-donate-link]
+
+[pp-donate-link]: https://www.paypal.me/daneedekruyff
+[pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png

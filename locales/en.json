@@ -15,6 +15,7 @@
         "history": {
             "title": "History",
             "autoRefresh": "Auto refresh (every 1 Sec)",
+            "manualRefresh": "Refresh",
             "useColors": "Use colors",
             "btnClearHistory": "Clear history",
             "btnDownload": "Download",
@@ -50,16 +51,43 @@
         }
     },
     "tab3": {
+        "title": "Speech",
+        "speech": {
+            "title": "Speech",
+            "let": "Let Homey tell you when:",
+            "spokenalarmcountdown": "an Alarm countdown is active",
+            "spokenarmcountdown": "an Arming countdown is active",
+            "smodechange": "the Surveillance Mode changed",
+            "alarmchange": "the Alarm is activated or deactivated",
+            "motiontrue": "motion is detected when in an armed Surveillance Mode",
+            "dooropen": "a door or window is opened when in an armed Surveillance Mode"
+        }
+    },
+    "tab4": {
         "title": "Instructions",
         "instructions": {
             "title": "Instructions"
         }
+    },
+    "modes": {
+        "disarmed": "Disarmed",
+        "armed": "Armed",
+        "partiallyarmed": "Partially Armed"
     },
     "states": {
         "open": "Open",
         "closed": "Closed",
         "motion": "Motion detected",
         "nomotion": "No motion detected"
+    },
+    "speech": {
+        "startalarmcountdown": "The alarm will go off in ",
+        "startarmcountdown": "The Surveillance mode will be set to ",
+        "in": " in ",
+        "seconds": " seconds",
+        "smodeset": "The surveillance mode is set to ",
+        "alarmactivated": "The alarm is activated",
+        "alarmdeactivated": "The alarm is deactivated"
     },
     "history": {
         "smodedisarmed": "Surveillance mode is disarmed.",
@@ -69,10 +97,11 @@
         "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
         "seconds": " seconds.",
         "alarmdeactivated": "Alarm is deactivated.",
-        "alarmactivated": "Alarm is activated.",
+        "alarmactivated": "Alarm is activated. ",
         "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
         "triggerdalarm": " triggered Alarm.",
         "alarmdelayed": "Alarmtrigger is delayed: ", 
-        "alarmnotactivated": "Alarm is not activated."
+        "alarmnotactivated": "Alarm is not activated due to disarming.",
+        "noalarmtrigger": ", no alarm trigger due to running delay countdown."
     }
 }

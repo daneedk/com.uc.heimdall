@@ -31,7 +31,7 @@ class Heimdall extends Homey.Device {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "aMode" ){
-            console.log('Alarm button clicked:   ' + value);
+           console.log('Alarm button clicked:   ' + value);
             Homey.app.deactivateAlarm(false, 'Alarm Off Button' ,function(err){
                 if( err ) return Homey.alert( err );
             });

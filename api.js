@@ -2,7 +2,6 @@
 const Homey = require('homey')
 
 module.exports = [
-
     {
         method: 'GET',
         path: '/devices',
@@ -13,28 +12,5 @@ module.exports = [
                 .catch(error => callback(error, null));
     
         }
-    },
-    {
-        method: 'GET',
-        path: '/log',
-        fn: function(args, callback) {
-              callback(null, Homey.app.getLog());
-    
-        }
-    },
-    {
-        method: 'PUT',
-        path: '/devices/add',
-        fn: function(args, callback) {
-
-        }
-    },
-    {
-        method: 'DELETE',
-        path: '/devices/delete',
-        fn: function(args, callback) {
-            
-        }
     }
-
 ]
