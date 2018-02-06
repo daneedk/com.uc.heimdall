@@ -38,9 +38,9 @@
                     <legend data-i18n="tab1.history.title">-History-</legend>
                     <table>
                         <tr style="height:40px">
-                            <td><input type="checkbox" id="showRefresh" onClick="showHistory(0)" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
+                            <td><input type="checkbox" id="autoRefresh" onClick="changeAutoRefresh()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
                             <td width="10%"></td>
-                            <td><input type="checkbox" id="useColors" onClick="showHistory(1)" checked><span data-i18n="tab1.history.useColors">-Use colors-</span></td>
+                            <td><input type="checkbox" id="useColors" onClick="changeUseColor()" checked><span data-i18n="tab1.history.useColors">-Use colors-</span></td>
                             <td width="10%"></td>
                             <td width="100px">
                                 <button style="display:none" id="buttonRefresh" onClick="showHistory(0)" span data-i18n="tab1.history.manualRefresh">-Refresh-</button>
