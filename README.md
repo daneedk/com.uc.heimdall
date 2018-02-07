@@ -20,7 +20,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] ..
 
 ## Version 0.1.9
-* Added saving **_Auto refresh_** and **_Use colors setting_** settings on Dashboard tab in settings
+* Added saving **_Auto refresh_** and **_Use colors_** settings on Dashboard tab in settings
 * Code cleanup, preparing for release
 
 ## Version 0.1.8
