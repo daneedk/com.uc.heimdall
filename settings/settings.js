@@ -48,10 +48,15 @@ function onHomeyReady(homeyReady){
         document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
         document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
         document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
+        if ( document.getElementById('autoRefresh').checked ) {
+            document.getElementById("buttonRefresh").style = "display:none";
+        } else {
+            document.getElementById("buttonRefresh").style = "display:block";
+        }
     });
     
     getLanguage();
-    getSettings();
+    getStatus();
     refreshHistory();
 
     new Vue({
@@ -340,7 +345,7 @@ function showTab(tab){
     }
 }
 
-function getSettings() {
+function getStatus() {
     Homey.get('surveillanceStatus', function( err, surveillanceStatus ) {
         if( err ) return Homey.alert( err );
         surveillance = surveillanceStatus;
@@ -390,7 +395,6 @@ function changeTriggerDelay() {
 }
 
 function saveSettings() {
-    console.log('saveSettings')
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
     heimdallSettings.useColors = document.getElementById('useColors').checked;
     heimdallSettings.triggerDelay = document.getElementById('triggerDelay').value;
@@ -408,6 +412,7 @@ function saveSettings() {
 
 function clearHistory(){
     Homey.set('myLog', '');
+    showHistory(0);
 };
 
 function downloadHistory(){
@@ -416,10 +421,10 @@ function downloadHistory(){
 
 function refreshHistory(){
     if ( dashboardVisible == true ) {
-        if (document.getElementById("autoRefresh").checked === true ){
+        if ( document.getElementById("autoRefresh").checked ){
             showHistory()
         }
-        getSettings();
+        getStatus();
     }
     setTimeout(refreshHistory, 1000);
 }
@@ -439,7 +444,7 @@ function changeUseColor() {
     showHistory(1);
 }
 function showHistory(run) {
-    
+    console.log('showHistory')
     Homey.get('myLog', function(err, logging){
     if( err ) return console.error('showHistory: Could not get history', err);
     if (_myLog !== logging || run == 1 ){
