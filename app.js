@@ -353,9 +353,18 @@ Homey.ManagerSettings.on('set', (variable) => {
 // Write information to history
 function writeLog(logLine) {
     console.log(logLine);
-    const logOld = Homey.ManagerSettings.get('myLog');
-    if (logOld != undefined) { 
-        logLine = logLine+"\n"+logOld;
+    let savedHistory = Homey.ManagerSettings.get('myLog');
+    if (savedHistory != undefined) { 
+        //cleanup history
+        let lineCount = savedHistory.split(/\r\n|\r|\n/).length;
+        if ( lineCount > 3000 ) {
+            let deleteItems = parseInt( lineCount * 0.2 );
+            let savedHistoryArray = savedHistory.split(/\r\n|\r|\n/);
+            let cleanUp = savedHistoryArray.splice(-1*deleteItems, deleteItems, "" );
+            savedHistory = savedHistoryArray.join('\n'); 
+        }
+        //end cleanup
+        logLine = logLine+"\n"+savedHistory;
     }
     Homey.ManagerSettings.set('myLog', logLine );
 }

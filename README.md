@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 0.1.11
+* Automatic history cleanup, 20% at 3000 lines
+
 ## Version 0.1.10
 * Fixed Auto refresh settings
 

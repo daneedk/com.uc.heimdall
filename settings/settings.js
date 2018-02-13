@@ -444,7 +444,6 @@ function changeUseColor() {
     showHistory(1);
 }
 function showHistory(run) {
-    console.log('showHistory')
     Homey.get('myLog', function(err, logging){
     if( err ) return console.error('showHistory: Could not get history', err);
     if (_myLog !== logging || run == 1 ){
