@@ -25,7 +25,6 @@ function load() {
         getHeartbeat()
         console.log('APIKey: ' + heimdallSettings.APIKey)
     }
-    
 }
 
 var check = function() {
