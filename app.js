@@ -36,7 +36,7 @@ var defaultSettings = {
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
     "spokenDoorOpen": false,
-    "API_KEY": ""
+    "APIKey": ""
 };
 var allDevices;
 var devicesMonitored = [];
@@ -70,7 +70,7 @@ class Heimdall extends Homey.App {
     }
 
     async getApiKey() {
-        return '{"API_KEY": "' + heimdallSettings.API_KEY + '"}'
+        return '{"APIKey": "' + heimdallSettings.APIKey + '"}'
     }
 
     // Get all devices and add them
@@ -864,13 +864,13 @@ function webRequest(command,payload) {
         formData = { homestate_alarm: payload}
     }
 
-    if ( heimdallSettings.API_KEY != undefined ) {
+    if ( heimdallSettings.APIKey != undefined ) {
         var options = {
             url: endpoint,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Client-ID': Homey.env.CLIENTID,
-                'API_KEY': heimdallSettings.API_KEY
+                'APIKey': heimdallSettings.APIKey
             },
             form: formData
         };

@@ -1,5 +1,5 @@
 var heimdallSettings = {
-    "API_KEY": ""
+    "APIKey": ""
 };
 
 function load() {
@@ -14,16 +14,16 @@ function load() {
                 
             }
         }
-        document.getElementById('tempapikey').value = heimdallSettings.API_KEY;
+        document.getElementById('tempapikey').value = heimdallSettings.APIKey;
     })
 
-    if ( heimdallSettings.API_KEY == "" ) {
-        console.log('api_key: ' + heimdallSettings.API_KEY)
+    if ( heimdallSettings.APIKey == "" ) {
+        console.log('APIKey: ' + heimdallSettings.APIKey)
         document.getElementById('homeyalarm').style="display:none";
         document.getElementById('configHomeyAlarmStep1').style="display:block";
     } else {
         getHeartbeat()
-        console.log('api_key: ' + heimdallSettings.API_KEY)
+        console.log('APIKey: ' + heimdallSettings.APIKey)
     }
     
 }
@@ -60,8 +60,8 @@ function createAccount() {
         if ( json.Response == "Error" ) {
             writeResponse(json.Response, json.Reason)
         } else if ( json.Response == "OK") {
-            console.log(json.API-Key)
-            heimdallSettings.API_KEY = json.API-Key
+            console.log(json.APIKey)
+            heimdallSettings.APIKey = json.APIKey
             Homey.set('settings', heimdallSettings );
             document.getElementById('configHomeyAlarmStep1').style="display:none";
             document.getElementById('configHomeyAlarmStep2').style="display:block";
@@ -69,7 +69,7 @@ function createAccount() {
     };
     xhr.send(urlencodeFormData(data));
 // tempcode
-    document.getElementById('tempapikey').value = heimdallSettings.API_KEY;
+    document.getElementById('tempapikey').value = heimdallSettings.APIKey;
 }
 
 function getState() {
@@ -80,7 +80,7 @@ function getState() {
     xhr.open('POST', 'https://www.homeyalarm.com/getState', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.setRequestHeader('API_KEY', heimdallSettings.API_KEY);
+    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
     xhr.onload = function () {
         writeResult(this.responseText)
         var json = JSON.parse(this.responseText)
@@ -101,7 +101,7 @@ function getHeartbeat() {
     xhr.open('GET', 'https://www.homeyalarm.com/heartbeat', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.setRequestHeader('API_KEY', heimdallSettings.API_KEY);
+    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
     xhr.onload = function () {
         writeResult(this.responseText)
         var json = JSON.parse(this.responseText)
@@ -137,6 +137,6 @@ function urlencodeFormData(fd){
 // Tijdelijk
 
 function tempsaveKey() {
-    heimdallSettings.API_KEY = document.getElementById("tempapikey").value
+    heimdallSettings.APIKey = document.getElementById("tempapikey").value
     Homey.set('settings', heimdallSettings );
 }
