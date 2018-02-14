@@ -19,10 +19,18 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 0.1.12
+* Working on HomeyDash and HomeyAlarm integration
+
+## Version 0.1.11
+* Automatic history cleanup, 20% at 3000 lines
+
+## Version 0.1.10
+* Fixed Auto refresh settings
+
 ## Version 0.1.9
 * Fixed not saving _Auto refresh_ setting in history view
 * Code cleanup, preparing for release
-
 
 ## Version 0.1.8
 * Setting Surveillance Mode to Disarmed also deactivates an Alarm

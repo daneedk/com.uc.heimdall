@@ -1,0 +1,102 @@
+{
+  "author": {
+    "name": "Jeremy Stashewsky",
+    "email": "jstashewsky@salesforce.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexander Savin"
+    },
+    {
+      "name": "Ian Livingstone"
+    },
+    {
+      "name": "Ivan Nikulin"
+    },
+    {
+      "name": "Lalit Kapoor"
+    },
+    {
+      "name": "Sam Thompson"
+    },
+    {
+      "name": "Sebastian Mayr"
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "name": "tough-cookie",
+  "description": "RFC6265 Cookies and Cookie Jar for node.js",
+  "keywords": [
+    "HTTP",
+    "cookie",
+    "cookies",
+    "set-cookie",
+    "cookiejar",
+    "jar",
+    "RFC6265",
+    "RFC2965"
+  ],
+  "version": "2.3.3",
+  "homepage": "https://github.com/salesforce/tough-cookie",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/salesforce/tough-cookie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/salesforce/tough-cookie/issues"
+  },
+  "main": "./lib/cookie",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "suffixup": "curl -o public_suffix_list.dat https://publicsuffix.org/list/public_suffix_list.dat && ./generate-pubsuffix.js",
+    "test": "vows test/*_test.js"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "devDependencies": {
+    "async": "^1.4.2",
+    "string.prototype.repeat": "^0.2.0",
+    "vows": "^0.8.1"
+  },
+  "dependencies": {
+    "punycode": "^1.4.1"
+  },
+  "gitHead": "12d426678f77bd34dd1234b7acbf47b299f50439",
+  "_id": "tough-cookie@2.3.3",
+  "_shasum": "0b618a5565b6dea90bf3425d04d55edc475a7561",
+  "_from": "tough-cookie@>=2.3.3 <2.4.0",
+  "_npmVersion": "4.2.0",
+  "_nodeVersion": "7.9.0",
+  "_npmUser": {
+    "name": "jstash",
+    "email": "jstash@gmail.com"
+  },
+  "dist": {
+    "shasum": "0b618a5565b6dea90bf3425d04d55edc475a7561",
+    "tarball": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.3.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "awaterma",
+      "email": "awaterma@awaterma.net"
+    },
+    {
+      "name": "jstash",
+      "email": "jstash@gmail.com"
+    },
+    {
+      "name": "nexxy",
+      "email": "emily@contactvibe.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/tough-cookie-2.3.3.tgz_1506027901957_0.13104762020520866"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.3.tgz",
+  "readme": "ERROR: No README data found!"
+}

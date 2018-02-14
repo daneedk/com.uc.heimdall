@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+        <script src="vue.min.js" data-origin="settings"></script>
+        <script type="text/javascript" src="settings.js" data-origin="settings"></script>
+        <script type="text/javascript" src="apiclient.js" data-origin="apiclient"></script>
+    </head>
+    <body>
+
+        <div id="app" style="margin-left:15px;margin-right:20px;">
+            <h1 data-i18n="settings.title">-Heimdall-</h1>
+            <p data-i18n="settings.benefit"></p>
+            <table width="100%">
+                <tr>
+                    <td id="tab1b" class="tab tab-inactive" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
+                    <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
+                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Speech-</td>
+                    <td id="tab4b" class="tab tab-inactive" onclick="showTab('tab4')" data-i18n="tab4.title">-Instructions-</td>
+<!-- copy next lines -->
+                    <td id="tab5b" class="tab tab-active" onclick="showTab('tab5')" data-i18n="tab5.title">-Instructions-</td>
+<!-- end -->
+                    <td class="tab-unused">&nbsp;</td>
+                </tr>
+            </table>
+            <div style="height:8px"></div>
+<!-- copy next lines -->
+            <div id="tab5">
+                <fieldset class="listContainer">
+                    <legend data-i18n="tab5.instructions.title">-Instructions-</legend>
+                    <div id="homeyalarm">
+                        HomeyAlarm is an online service that you can use in combination with Heimdall to watch over your home.
+
+                    </div>    
+                    <div id="configHomeyAlarmStep1" style="display:none">
+                        <h2>Step 1 - Create an Account</h2><br />
+                        To create an account at HomeyAlarm please provide your email address, a password and click the <b>Create Account</b> button.<br />
+                        <br />
+                        <table>
+                            <tr>
+                                <td>emailaddress </td><td><input id="emailAddress" class="wide"></td>
+                            </tr>
+                            <tr>
+                                <td>password </td><td><input id="password" class="wide" type="password" onkeyup='check();' /> </td>
+                            </tr>
+                            <tr>
+                                <td>confirm password&nbsp;&nbsp;</td><td><input id="confirmPassword" class="wide" type="password" onkeyup='check();' />&nbsp;&nbsp;<span id="message"></span> </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <button id="btnCreateAccount" onclick="createAccount()">Create Account</button><br />
+                    </div>
+                    <div id="configHomeyAlarmStep2" style="display:none">
+                            Step 2 - Create users with PIN codes<br />
+                            <br />
+                            An email is send to the provide address, please click the validation link in that message before proceding.<br />
+                            <br />
+                            If you want to use HomeyDash to switch Surveillance Mode you need to create at least one user.<br />
+                            Please create your first user now or press <b>Skip</b>
+                            <table>
+                                <tr>
+                                    <td>Username </td><td><input id="username" class="wide"></td>
+                                </tr>
+                                <tr>
+                                    <td>PIN code </td><td><input id="pincode" class="wide"> </td>
+                                </tr>
+                                <tr>
+                                    <td>Password&nbsp;&nbsp;</td><td><input id="passwordPin" class="wide" type="password"></td>
+                                </tr>
+                            </table>
+                            <br />
+                            <button id="btnCreateUser" onclick="createUser()">Create User</button>
+                            <button id="btnSkip" onclick="skipPin()">Skip</button>
+                    </div>
+                    <div id="apiKeyError" style="display:none">
+                        Error<br />
+                        <br />
+                        There was a problem creating the API Key, the webservice responded with:<br />
+                        <br />
+                        <span id="apiCreateError">result</span>
+                    </div>
+                    <br />
+                    <span id="response"></span><br />
+                    <span id="reason"></span>
+                    <br />
+                    <br />
+                    <br />
+                    ---
+                    Hieronder is tijdelijk, gebruik de load button om de pagina te initialiseren.
+                    <br /><br /><br /><br />
+                    <span id="result"></span>
+
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <input id="tempapikey" width="140px"> <button id="btnSaveApiKey" onclick="tempsaveKey()">Opslaan</button><br />
+
+                </fieldset>
+            </div>
+<!-- end -->
+        </div>
+        
+        <a href="apiclient.html">API</a><br />
+        <button id="btnGetState" onclick="getState()">get State</button><br />
+        <button id="btnGetHeartbeat" onclick="getHeartbeat()">get Heartbeat</button><br />
+        <button id="btnLoad" onclick="load()">Load</button><br />
+
+    </body>
+</html>

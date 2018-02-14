@@ -3,6 +3,7 @@
 const Homey = require('homey');
 const { HomeyAPI  } = require('athom-api')
 const _ = require('lodash');
+const Request = require('request'); // https://github.com/request/request
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
@@ -34,7 +35,8 @@ var defaultSettings = {
     "spokenArmCountdown": false,
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
-    "spokenDoorOpen": false
+    "spokenDoorOpen": false,
+    "API_KEY": ""
 };
 var allDevices;
 var devicesMonitored = [];
@@ -65,6 +67,10 @@ class Heimdall extends Homey.App {
         const api = await this.getApi();
         allDevices = await api.devices.getDevices();
         return allDevices;
+    }
+
+    async getApiKey() {
+        return '{"API_KEY": "' + heimdallSettings.API_KEY + '"}'
     }
 
     // Get all devices and add them
@@ -376,9 +382,9 @@ function setSurveillanceValue(color,value, logLine) {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
             if( err ) return Homey.alert( err );
         });
-        //speak("sModeChange", "The surveillance mode is set to " + readableMode(value)) 
         speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
-       console.log('setSurveillanceValue:   '+ value)
+        webRequest('setSurveillanceMode',value)
+        console.log('setSurveillanceValue:   '+ value)
         var tokens = { 'mode': readableMode(value) };
         triggerSurveillanceChanged.trigger(tokens, function(err, result){
             if( err ) {
@@ -851,4 +857,57 @@ function getDateTime() {
     return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
 }
 
+function webRequest(command,payload) {
 
+    if ( command = 'setSurveillanceMode') {
+        endpoint = 'https://www.homeyalarm.com/surveillanceMode'
+        formData = { homestate_alarm: payload}
+    }
+
+    if ( heimdallSettings.API_KEY != undefined ) {
+        var options = {
+            url: endpoint,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Client-ID': Homey.env.CLIENTID,
+                'API_KEY': heimdallSettings.API_KEY
+            },
+            form: formData
+        };
+
+        function callback(error, response, body) {
+            if ( !error ) {
+                switch(response.statusCode) {
+                    case 200:
+                        console.log(response.statusCode)
+                        console.log(body)
+                        break;
+                    case 401:
+                        console.log("API: 401 - Unauthorized")
+                        console.log(body)
+                        break;
+                    case 403:
+                        console.log("API: 403 - Forbidden")
+                        console.log(body)
+                        break;
+                    case 404:
+                        console.log("API: 404 - Not Found")
+                        console.log(body)
+                        break;
+                    case 500:
+                        console.log("API: 500 - Internal Server error")
+                        console.log(body)
+                        break;
+                    case 502:
+                        console.log("API: 502 - Proxy error")
+                        console.log(body)
+                        break;
+                }
+            } else {
+                console.log("API: " + error)
+            }
+        } 
+        console.log(options)
+        Request.post(options, callback);
+    }
+}
