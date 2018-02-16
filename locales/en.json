@@ -69,6 +69,12 @@
             "title": "Instructions"
         }
     },
+    "tab5": {
+        "title": "Online monitoring",
+        "homeyalarm": {
+            "title": "Online monitoring"
+        }
+    },
     "modes": {
         "disarmed": "Disarmed",
         "armed": "Armed",

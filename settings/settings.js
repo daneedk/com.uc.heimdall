@@ -53,9 +53,19 @@ function onHomeyReady(homeyReady){
             document.getElementById("buttonRefresh").style = "display:none";
         } else {
             document.getElementById("buttonRefresh").style = "display:block";
-        }   
+        }
+//
+        console.log('APIKey: '+ heimdallSettings.APIKey)
+        if ( heimdallSettings.APIKey == "" ) {
+            document.getElementById('configHomeyAlarmIntroduction').style="display:block";
+        } else {
+            getHeartbeat()
+            document.getElementById('homeyAlarm').style="display:block";
+        }
+//
+
     });
-    
+
     getLanguage();
     getStatus();
     refreshHistory();
@@ -305,10 +315,12 @@ function showTab(tab){
         document.getElementById("tab2").style="display:none";
         document.getElementById("tab3").style="display:none";
         document.getElementById("tab4").style="display:none";
+        document.getElementById("tab5").style="display:none";
         document.getElementById("tab1b").className="tab tab-active";
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-inactive";
+        document.getElementById("tab5b").className="tab tab-inactive";
         dashboardVisible = true;
     }
     else if ( tab == "tab2" ) {
@@ -316,10 +328,12 @@ function showTab(tab){
         document.getElementById("tab2").style="display:block";
         document.getElementById("tab3").style="display:none";
         document.getElementById("tab4").style="display:none";
+        document.getElementById("tab5").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-active";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-inactive";
+        document.getElementById("tab5b").className="tab tab-inactive";
         dashboardVisible = false;
     }
     else if ( tab == "tab3" ) {
@@ -327,10 +341,12 @@ function showTab(tab){
         document.getElementById("tab2").style="display:none";
         document.getElementById("tab3").style="display:block";
         document.getElementById("tab4").style="display:none";
+        document.getElementById("tab5").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-active";
         document.getElementById("tab4b").className="tab tab-inactive";
+        document.getElementById("tab5b").className="tab tab-inactive";
         dashboardVisible = false;
     }
     else if ( tab == "tab4" ) {
@@ -338,10 +354,25 @@ function showTab(tab){
         document.getElementById("tab2").style="display:none";
         document.getElementById("tab3").style="display:none";
         document.getElementById("tab4").style="display:block";
+        document.getElementById("tab5").style="display:none";
         document.getElementById("tab1b").className="tab tab-inactive";
         document.getElementById("tab2b").className="tab tab-inactive";
         document.getElementById("tab3b").className="tab tab-inactive";
         document.getElementById("tab4b").className="tab tab-active";
+        document.getElementById("tab5b").className="tab tab-inactive";
+        dashboardVisible = false;
+    }
+    else if ( tab == "tab5" ) {
+        document.getElementById("tab1").style="display:none";
+        document.getElementById("tab2").style="display:none";
+        document.getElementById("tab3").style="display:none";
+        document.getElementById("tab4").style="display:none";
+        document.getElementById("tab5").style="display:block";
+        document.getElementById("tab1b").className="tab tab-inactive";
+        document.getElementById("tab2b").className="tab tab-inactive";
+        document.getElementById("tab3b").className="tab tab-inactive";
+        document.getElementById("tab4b").className="tab tab-inactive";
+        document.getElementById("tab5b").className="tab tab-active";
         dashboardVisible = false;
     }
 }
@@ -444,8 +475,8 @@ function changeUseColor() {
     saveSettings();
     showHistory(1);
 }
-function showHistory(run) {
-    
+
+function showHistory(run) { 
     Homey.get('myLog', function(err, logging){
     if( err ) return console.error('showHistory: Could not get history', err);
     if (_myLog !== logging || run == 1 ){
@@ -524,17 +555,156 @@ function getDateTime() {
     return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
 }
 
+// new HomeyAlarm functions
 
-// nieuw nieuw nieuw
-/*
-function getApiKey() {
-    console.log('getApiKey called')
-    Homey.api('GET', '/getAPIKey', null, (err, result) => {
-        if (err)
-            return Homey.alert('getKey' + err);
-        console.log(result);
-        
-    });
+var check = function() {
+    if (document.getElementById('password').value ==
+      document.getElementById('confirmPassword').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'matching';
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'not matching';
+    }
 }
-*/
-// nieuw nieuw nieuw
+
+function configureHomeyAlarm() {
+    document.getElementById('configHomeyAlarmIntroduction').style="display:none";
+    document.getElementById('configHomeyAlarmStep1').style="display:block";
+}
+
+function createAccount() {
+    writeResponse("", "")
+    let emailAddress = document.getElementById("emailAddress").value
+    let password = document.getElementById("password").value
+    document.getElementById("password").value = ""
+    document.getElementById("confirmPassword").value = ""
+
+    console.log(emailAddress)
+    var data = new FormData();
+    data.append('email', emailAddress);
+    data.append('password', password);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://www.homeyalarm.com/createKey', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
+    xhr.onload = function () {
+        var json = JSON.parse(this.responseText)
+        if ( json.Response == "Error" ) {
+            writeResponse(json.Response, json.Reason)
+        } else if ( json.Response == "OK") {
+            console.log(json.APIKey)
+            heimdallSettings.APIKey = json.APIKey
+            Homey.set('settings', heimdallSettings );
+            document.getElementById('configHomeyAlarmStep1').style="display:none";
+            document.getElementById('configHomeyAlarmStep2').style="display:block";
+        }        
+    };
+    xhr.send(urlencodeFormData(data));
+}
+
+function createUser() {
+    writeResponse("", "")
+    let username = document.getElementById("username").value
+    let pincode = document.getElementById("pincode").value
+    let password = document.getElementById("passwordPin").value
+
+    var data = new FormData();
+    data.append('alias', username);
+    data.append('code', pincode);
+    data.append('password', password);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://www.homeyalarm.com/createCode', true);
+    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
+    xhr.onload = function () {
+        var json = JSON.parse(this.responseText)
+        if ( json.Response == "Error" ) {
+            writeResponse(json.Response, json.Reason)
+        } else if ( json.Response == "OK") {
+            document.getElementById("passwordPin").value = ""
+            document.getElementById("pincode").value = ""
+            document.getElementById("username").value = ""
+        
+            document.getElementById('pinStatus').innerHTML="<i>"+json.Reason+"</i>"
+            document.getElementById('userHint').innerHTML="You can now create another user or press Finish to proceed."
+            document.getElementById('btnFinish').style="";
+        }        
+    };
+    xhr.send(urlencodeFormData(data));
+}
+
+function finish() {
+    writeResponse("", "")
+    document.getElementById('configHomeyAlarmStep2').style="display:none";
+    document.getElementById('homeyAlarm').style="display:block";
+}
+
+function writeResponse(response, reason) {
+    document.getElementById('response').innerHTML = "<h2>" + response + "</h2>"
+    document.getElementById('reason').innerHTML = reason
+}
+
+function urlencodeFormData(fd){
+    var s = '';
+    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+    for(var pair of fd.entries()){
+        if(typeof pair[1]=='string'){
+            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+        }
+    }
+    return s;
+}
+
+// Temporary function:
+
+function resetAPI() {
+    heimdallSettings.APIKey = ""
+    saveSettings();
+}
+
+// Not yet used:
+
+function getState() {
+    console.log('getState')
+    var data = new FormData();
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://www.homeyalarm.com/getState', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
+    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
+    xhr.onload = function () {
+        var json = JSON.parse(this.responseText)
+        if ( json.Response == "Error" ) { 
+            writeResponse(json.Response, json.Reason)
+        } else {
+            writeResponse(json.Response, json.homestate_alarm)
+        }
+    };
+    xhr.send(data); 
+}
+
+function getHeartbeat() {
+    console.log('gHeartbeat')
+    var data = new FormData();
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://www.homeyalarm.com/heartbeat', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
+    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
+    xhr.onload = function () {
+        var json = JSON.parse(this.responseText)
+        if ( json.Response == "Error" ) { 
+            writeResponse(json.Response, json.Reason)
+        } else {
+            writeResponse('<h2>Status</h2>', this.responseText)
+        }
+    };
+    xhr.send(data); 
+}
+

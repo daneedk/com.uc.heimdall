@@ -1,230 +1,245 @@
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-  }
+    -ms-text-size-adjust: 100%;
+}
+
 body {
     margin: 0;
 }
-  h2 {
+
+h2 {
     font-size: 16px;
     font-weight: 400;
 }
 
 th {
-  background-color: rgb(220, 220 , 220);
+    background-color: rgb(220, 220 , 220);
 }
 
 .btn {
-  display: inline-block;
-  margin-bottom: 0px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.42857;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  touch-action: manipulation;
-  cursor: pointer;
-  user-select: none;
-  background-image: none;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  border-image: initial;
-  border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-image: initial;
+    border-radius: 4px;
 }
 
 .wide {
-  width: 160px;
+    width: 160px;
 }
 
 .middle {
-  width: 70px;
+    width: 70px;
 }
 
 .narrow {
-  width: 35px;
+    width: 35px;
 }
 
 .btn-active {
-  color: rgb(0, 0, 0);
-  background-color: rgb(92, 184, 92);
-  border-color: rgb(76, 174, 76);
+    color: rgb(0, 0, 0);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
 }
 
 .btn-semiactive {
-  color: rgb(0, 0, 0);
-  background-color: rgb(167, 211, 167);
-  border-color: rgb(157, 218, 157);
+    color: rgb(0, 0, 0);
+    background-color: rgb(167, 211, 167);
+    border-color: rgb(157, 218, 157);
 }
 
 .btn-inactive {
-  color: rgb(0, 0, 0);
-  background-color: rgb(220, 220 , 220);
-  border-color: rgb(200, 200, 200);
+    color: rgb(0, 0, 0);
+    background-color: rgb(220, 220 , 220);
+    border-color: rgb(200, 200, 200);
 }
 
 .btn-disable {
-  color: rgb(220, 220, 220);
-  background-color: rgb(240, 240 , 240);
-  border-color: rgb(220, 220, 220);
+    color: rgb(220, 220, 220);
+    background-color: rgb(240, 240 , 240);
+    border-color: rgb(220, 220, 220);
 }
 
 .btn-alarm {
-  color: rgb(0, 0, 0);
-  background-color: rgb(255, 0, 0);
-  border-color: rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 0, 0);
+    border-color: rgb(255, 0, 0);
 }
 
 .tab {
-
-  width: 130px;
-  margin-bottom: 0px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.42857;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  touch-action: manipulation;
-  cursor: pointer;
-  border-left: 1px solid rgb(200,200,200);
-  border-top: 1px solid rgb(200,200,200);
-  border-right: 1px solid rgb(200,200,200);
+    width: 130px;
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border-left: 1px solid rgb(200,200,200);
+    border-top: 1px solid rgb(200,200,200);
+    border-right: 1px solid rgb(200,200,200);
 }
 
 .tab-active {
-  color: rgb(0, 0, 0);
-  background-color: rgb(255, 255 , 255);
-  border-bottom: 4px solid rgb(255,255,255);
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255 , 255);
+    border-bottom: 4px solid rgb(255,255,255);
 }
 
 .tab-inactive {
-  color: rgb(0, 0, 0);
-  background-color: rgb(220, 220 , 220);
-  border-bottom: 1px solid rgb(200,200,200); 
+    color: rgb(0, 0, 0);
+    background-color: rgb(220, 220 , 220);
+    border-bottom: 1px solid rgb(200,200,200); 
 }
 
 .tab-unused {
-
-  border-bottom: 1px solid rgb(200,200,200);   
+    border-bottom: 1px solid rgb(200,200,200);   
 }
 
 .rTable {   	
-  display: table;   	
-  width: calc(100% - 2px); } 
+    display: table;   	
+    width: calc(100% - 2px); 
+} 
 
 .rTableRow {   	
-  display: table-row; 
-  margin: 0;
-  border-top: 1px solid rgb(220,220,220);
-  border-left: 1px solid rgb(220,220,220);
-  border-right: 1px solid rgb(220,220,220);            
-  } 
+    display: table-row; 
+    margin: 0;
+    border-top: 1px solid rgb(220,220,220);
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);            
+} 
 
 .rTableHeading {   	
-  display: table-header-group;   	
-  background-color: #ddd; 
+    display: table-header-group;   	
+    background-color: #ddd; 
 } 
 
 .rTableCell{   	
-  display: table-cell;   	
-  padding: 6px 4px;
-  vertical-align: middle;
-  border-top: 1px solid rgb(220,220,220);
-  white-space: nowrap;
+    display: table-cell;   	
+    padding: 6px 4px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.line{
+    border-top: 1px solid rgb(220,220,220);
 }
 
 .rTableCellLast{
-  width: 25%;
+    width: 25%;
 }
 
 .rTableHead {
-  background: rgb(240,240,240);
-  font-weight: bold;
+    background: rgb(240,240,240);
+    font-weight: bold;
 }
 
 .rTableHeading {   	
-  display: table-header-group;   	
-  background-color: #ddd;   	
-  font-weight: bold; 
+    display: table-header-group;   	
+    background-color: #ddd;   	
+    font-weight: bold; 
 } 
 
 .rTableFoot {   	
-  display: table-footer-group;   	
-  font-weight: bold;   	
-  background-color: #ddd; 
+    display: table-footer-group;   	
+    font-weight: bold;   	
+    background-color: #ddd; 
 } 
   
 .rTableBody {   	
-  display: table-row-group; 
+    display: table-row-group; 
 }
 
 .Overflow {
-  max-height: 430px;
-  margin-bottom: 1em;
-  overflow: auto;
-  position: relative;
-  overflow-x: auto;
+    margin-bottom: 1em;
+    overflow: auto;
+    position: relative;
+    overflow-x: auto;
+}
+
+.historyheight {
+    max-height: 439px;
+}
+
+.devicesheight {
+    max-height: 460px;
 }
 
 .mal {
-  background-color: rgb(255, 230, 230);
+    background-color: rgb(255, 230, 230);
 }
 
 .mad {
-  background-color: rgb(250, 215, 215);
+    background-color: rgb(250, 215, 215);
 }
 
 .mdl {
-  background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
 }
 
 .mdd {
-  background-color: rgb(250, 250, 250);
+    background-color: rgb(250, 250, 250);
 }
 
 .mpl {
-  background-color: rgb(255, 240, 240);
+    background-color: rgb(255, 240, 240);
 }
 
 .mpd {
-  background-color: rgb(250, 225, 225);
+    background-color: rgb(250, 225, 225);
 }
 
 .al {
-  background-color: rgb(250, 96, 96);
+    background-color: rgb(250, 96, 96);
 }
 
 .ad {
-  background-color: rgb(255, 140, 140);
+    background-color: rgb(255, 140, 140);
 }
 
 .ao {
-  background-color: rgb(140, 255, 140);
+    background-color: rgb(140, 255, 140);
 }
 
 .aa {
-  background-color: rgb(255, 190, 190);
+    background-color: rgb(255, 190, 190);
 }
 
 .sa {
-  background-color: rgb(255, 190, 190);
+    background-color: rgb(255, 190, 190);
+}
+
+.st {
+    background-color: rgb(255, 210, 210);
 }
 
 .sd {
-  background-color: rgb(190, 255, 190);
+    background-color: rgb(190, 255, 190);
 }
 
 .lh {
-  background-color: rgb(198, 237, 255);  
+    background-color: rgb(198, 237, 255);  
 }
 
 .ll {
-  background-color: rgb(227, 246, 255);
+    background-color: rgb(227, 246, 255);
 }
 
 .ld {
-  background-color: rgb(215, 242, 255);
+    background-color: rgb(215, 242, 255);
 }

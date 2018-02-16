@@ -44,10 +44,6 @@ var devicesMonitoredFull = [];
 var devicesMonitoredPartial = [];
 var devicesDelayed = [];
 var devicesLogged = [];
-//var logArmedOnly = false;
-//var logTrueOnly = false;
-//var delayArming = false;
-//var triggerDelay = 30;
 var sModeDevice;
 var aModeDevice;
 var armCounterRunning = false;
@@ -104,13 +100,12 @@ class Heimdall extends Homey.App {
 		if (heimdallSettings == (null || undefined)) {
 			heimdallSettings = defaultSettings
 		};
-
         getMonitoredFullDevices();
         getMonitoredPartialDevices();
         getDelayedDevices();
         getLoggedDevices();
-        //getTriggerDelay();
         this.enumerateDevices();
+        console.log('ENV: ' + Homey.env.CLIENTID)
     }
 
     // Add device function, only motion- and contact sensors are added
@@ -161,9 +156,7 @@ class Heimdall extends Homey.App {
                 //logLine = value + " || " + source + " || Surveillance mode is partially armed.";
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
-            //if ( getDelayArming() ) {
             if ( heimdallSettings.delayArming ) {
-                //triggerDelay = getTriggerDelay();
                console.log('Arming is delayed:      Yes, ' + heimdallSettings.triggerDelay + ' seconds.')
                 let delay = heimdallSettings.triggerDelay * 1000;
                console.log('setSurveillanceValue in:' + heimdallSettings.triggerDelay + ' seconds.')
@@ -357,7 +350,7 @@ actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
 });
 
 Homey.ManagerSettings.on('set', (variable) => {
-	if (variable === 'settings' ) {
+	if ( variable === 'settings' ) {
         heimdallSettings = Homey.ManagerSettings.get('settings')
         console.log('New settings:')
         console.log(heimdallSettings)
@@ -367,9 +360,18 @@ Homey.ManagerSettings.on('set', (variable) => {
 // Write information to history
 function writeLog(logLine) {
     console.log(logLine);
-    const logOld = Homey.ManagerSettings.get('myLog');
-    if (logOld != undefined) { 
-        logLine = logLine+"\n"+logOld;
+    let savedHistory = Homey.ManagerSettings.get('myLog');
+    if (savedHistory != undefined) { 
+        //cleanup history
+        let lineCount = savedHistory.split(/\r\n|\r|\n/).length;
+        if ( lineCount > 3000 ) {
+            let deleteItems = parseInt( lineCount * 0.2 );
+            let savedHistoryArray = savedHistory.split(/\r\n|\r|\n/);
+            let cleanUp = savedHistoryArray.splice(-1*deleteItems, deleteItems, "" );
+            savedHistory = savedHistoryArray.join('\n'); 
+        }
+        //end cleanup
+        logLine = logLine+"\n"+savedHistory;
     }
     Homey.ManagerSettings.set('myLog', logLine );
 }
@@ -382,6 +384,7 @@ function setSurveillanceValue(color,value, logLine) {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
             if( err ) return Homey.alert( err );
         });
+        //speak("sModeChange", "The surveillance mode is set to " + readableMode(value)) 
         speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
         webRequest('setSurveillanceMode',value)
         console.log('setSurveillanceValue:   '+ value)
@@ -399,6 +402,11 @@ function setSurveillanceValue(color,value, logLine) {
     armCounterRunning = false;
 }
 
+// Get devices that should be logged function
+function getLoggedDevices() {
+    devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+}
+
 // Get devices that should be monitored full function
 function getMonitoredFullDevices() {
     devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
@@ -413,49 +421,6 @@ function getMonitoredPartialDevices() {
 function getDelayedDevices() {
     devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
 }
-
-// Get devices that should be logged function
-function getLoggedDevices() {
-    devicesLogged = Homey.ManagerSettings.get('loggedDevices')
-}
-
-// Get the duration of the trigger delay
-/*
-function getTriggerDelay() {
-    let newTriggerDelay = Homey.ManagerSettings.get('triggerDelay')
-    if ( newTriggerDelay != null ) {
-        triggerDelay = newTriggerDelay
-    }
-    return triggerDelay;
-}
-*/
-/*
-function getLogArmedOnly() {
-    let newLogArmedOnly = Homey.ManagerSettings.get('logArmedOnly')
-    if ( newLogArmedOnly != null ) {
-        logArmedOnly = newLogArmedOnly
-    }
-    return logArmedOnly;
-}
-*/
-/*
-function getLogTrueOnly() {
-    let newLogTrueOnly = Homey.ManagerSettings.get('logTrueOnly')
-    if ( newLogTrueOnly != null ) {
-        logTrueOnly = newLogTrueOnly
-    }
-    return logTrueOnly;
-}
-*/
-/*
-function getDelayArming() {
-    let newDelayArming = Homey.ManagerSettings.get('delayArming')
-    if ( newDelayArming != null ) {
-        delayArming = newDelayArming
-    }
-    return delayArming;
-}
-*/
 
 function speak(type, text) {
     if (type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
@@ -484,6 +449,20 @@ function speak(type, text) {
     }
 }
 
+// Should this device be logged
+function isLogged(obj) {
+    getLoggedDevices();
+    var i;
+    if ( devicesLogged !== null ) {
+        for (i = 0; i < devicesLogged.length; i++) {
+            if (devicesLogged[i] && devicesLogged[i].id == obj.id) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 // Should this device be monitored
 function isMonitoredFull(obj) {
     getMonitoredFullDevices();
@@ -505,20 +484,6 @@ function isMonitoredPartial(obj) {
     if ( devicesMonitoredPartial !== null ) {
         for (i = 0; i < devicesMonitoredPartial.length; i++) {
             if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == obj.id) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// Should this device be logged
-function isLogged(obj) {
-    getLoggedDevices();
-    var i;
-    if ( devicesLogged !== null ) {
-        for (i = 0; i < devicesLogged.length; i++) {
-            if (devicesLogged[i] && devicesLogged[i].id == obj.id) {
                 return true;
             }
         }
@@ -617,7 +582,6 @@ function stateChange(device,state,sensorType) {
             if ( !alarmCounterRunning ) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     alarm=true;
-                    //triggerDelay = getTriggerDelay();
                    console.log('Alarm is triggered:     Yes')
                     //logLine = "al " + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
                     logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + Homey.__("history.triggerdalarm")
@@ -668,8 +632,6 @@ function stateChange(device,state,sensorType) {
 
         }
         let shouldLog = true;
-        //logArmedOnly = getLogArmedOnly();
-        //logTrueOnly = getLogTrueOnly();
        console.log('logArmedOnly:           ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
        console.log('logTrueOnly:            ' + heimdallSettings.logTrueOnly + ', Sensorstate: ' + sensorState)
         if ( heimdallSettings.logArmedOnly && surveillance === 'disarmed' && !sourceDeviceLog)  {
@@ -761,7 +723,6 @@ function triggerAlarm(device,state,sensorState) {
             if( err ) return Homey.alert( err );
         });
     }  
-
     // write information to log
     writeLog(logLine)
 }
@@ -858,7 +819,9 @@ function getDateTime() {
 }
 
 function webRequest(command,payload) {
-
+    var endpoint;
+    var formData;
+    
     if ( command = 'setSurveillanceMode') {
         endpoint = 'https://www.homeyalarm.com/surveillanceMode'
         formData = { homestate_alarm: payload}
