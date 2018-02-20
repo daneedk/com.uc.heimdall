@@ -19,7 +19,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
-## Version 1.0.2
+## Version 1.0.2 β
 * Added pre-arming check
 
 ## Version 1.0.1
