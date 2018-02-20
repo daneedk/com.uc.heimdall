@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "0.1.11",
+	"version": "1.0.2",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -41,6 +41,24 @@
 						"nl": "Toezicht Modus"
 					},
 					"example": "Disarmed"
+				}
+			]
+		},
+		{
+			"id": "sensorActiveAtArming",
+			"title": {
+				"en": "Sensor active at arming.",
+				"nl": "sensor actief bij inschakelen."
+			},
+			"tokens": [
+				{
+					"name": "warning",
+					"type": "string",
+					"title": {
+						"en": "Warning",
+						"nl": "Waarschuwing"
+					},
+					"example": "Warning"
 				}
 			]
 		},	

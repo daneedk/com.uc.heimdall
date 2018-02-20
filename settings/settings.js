@@ -42,12 +42,16 @@ function onHomeyReady(homeyReady){
         document.getElementById('delayArming').checked = heimdallSettings.delayArming;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
         document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
+        document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
+        document.getElementById('checkContactAtArming').checked = heimdallSettings.checkContactAtArming;
         document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
         document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
         document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
         document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
         document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
         document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
+        document.getElementById('spokenMotionAtArming').checked = heimdallSettings.spokenMotionAtArming;
+        document.getElementById('spokenDoorOpenAtArming').checked = heimdallSettings.spokenDoorOpenAtArming;
         if ( document.getElementById('autoRefresh').checked ) {
             document.getElementById("buttonRefresh").style = "display:none";
         } else {
@@ -55,6 +59,7 @@ function onHomeyReady(homeyReady){
         }
     });
     
+    showTab(1);
     getLanguage();
     getStatus();
     refreshHistory();
@@ -298,50 +303,16 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
-    // clean this up!
-    if( tab == "tab1") {
-        document.getElementById("tab1").style="display:block";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab1b").className="tab tab-active";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        dashboardVisible = true;
-    }
-    else if ( tab == "tab2" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:block";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-active";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        dashboardVisible = false;
-    }
-    else if ( tab == "tab3" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:block";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-active";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        dashboardVisible = false;
-    }
-    else if ( tab == "tab4" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:block";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-active";
-        dashboardVisible = false;
+    $('.tab').removeClass('tab-active')
+    $('.tab').addClass('tab-inactive')
+    $('#tabb' + tab).removeClass('tab-inactive')
+    $('#tabb' + tab).addClass('active')
+    $('.panel').hide()
+    $('#tab' + tab).show()
+    if ( tab == 1 ) {
+        dashboardVisible = true
+    } else {
+        dashboardVisible = false
     }
 }
 
@@ -401,12 +372,24 @@ function saveSettings() {
     heimdallSettings.delayArming = document.getElementById('delayArming').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
     heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
+    heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;
+    heimdallSettings.checkContactAtArming = document.getElementById('checkContactAtArming').checked;
     heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
     heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
     heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
     heimdallSettings.spokenAlarmChange = document.getElementById('spokenAlarmChange').checked;
     heimdallSettings.spokenMotionTrue = document.getElementById('spokenMotionTrue').checked;
     heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
+    heimdallSettings.spokenMotionAtArming = document.getElementById('spokenMotionAtArming').checked;
+    heimdallSettings.spokenDoorOpenAtArming = document.getElementById('spokenDoorOpenAtArming').checked;
+    if ( heimdallSettings.spokenMotionAtArming ) {
+        document.getElementById('checkMotionAtArming').checked = true
+        heimdallSettings.checkMotionAtArming = true
+    }
+    if ( heimdallSettings.spokenDoorOpenAtArming ) {
+        document.getElementById('checkContactAtArming').checked = true
+        heimdallSettings.checkContactAtArming = true
+    }
     Homey.set('settings', heimdallSettings );
 }
 

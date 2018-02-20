@@ -38,6 +38,8 @@
             "logarmedonly": "Only log when a Surveillance mode is active",
             "logtrueonly": "Do not log deactivating of sensors",
             "delayarming": "Use delay also when enabling a Surveillance Mode",
+            "checkMotionAtArming": "Check for active motion sensor(s) when arming",
+            "checkContactAtArming": "Check for open door(s)/window(s) when arming",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",
@@ -60,7 +62,9 @@
             "smodechange": "the Surveillance Mode changed",
             "alarmchange": "the Alarm is activated or deactivated",
             "motiontrue": "motion is detected when in an armed Surveillance Mode",
-            "dooropen": "a door or window is opened when in an armed Surveillance Mode"
+            "dooropen": "a door or window is opened when in an armed Surveillance Mode",
+            "motionatarming": "a motion sensor is active when arming",
+            "dooropenatarming": "a door or window is open when arming"
         }
     },
     "tab4": {
@@ -88,6 +92,13 @@
         "smodeset": "The surveillance mode is set to ",
         "alarmactivated": "The alarm is activated",
         "alarmdeactivated": "The alarm is deactivated"
+    },
+    "atarming": {
+        "on": " on ",
+        "is": " is ",
+        "delayText": " This device has a delayed trigger.",
+        "warningMotion": "Warning, sensor active ",
+        "warningContact": "Warning, sensor "
     },
     "history": {
         "smodedisarmed": "Surveillance mode is disarmed.",

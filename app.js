@@ -6,6 +6,7 @@ const _ = require('lodash');
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
+let triggersensorActiveAtArming = new Homey.FlowCardTrigger('sensorActiveAtArming');
 let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
 let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
 let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
@@ -29,12 +30,16 @@ var defaultSettings = {
     "delayArming": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
+    "checkMotionAtArming": false,
+    "checkContactAtArming": false,
     "spokenSmodeChange": false,
     "spokenAlarmCountdown": false,
     "spokenArmCountdown": false,
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
-    "spokenDoorOpen": false
+    "spokenDoorOpen": false,
+    "spokenMotionAtArming": false,
+    "spokenDoorOpenAtArming": false
 };
 var allDevices;
 var devicesMonitored = [];
@@ -46,6 +51,7 @@ var sModeDevice;
 var aModeDevice;
 var armCounterRunning = false;
 var alarmCounterRunning = false;
+var devicesTripped = [];
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -176,6 +182,82 @@ class Heimdall extends Homey.App {
         }
     }
 
+// New Code
+    async checkDevicesState(value, nu) {
+        // Get the homey object
+        const api = await this.getApi();
+
+        _.forEach(allDevices, (device) => {
+            this.checkDeviceState(device, api, value, nu);
+        });
+    }
+
+    checkDeviceState(device, api, value, nu) {
+        let sensorState
+        let sensorStateReadable
+        let sensorType
+        if ( 'alarm_motion' in device.capabilities && heimdallSettings.checkMotionAtArming ) {
+            sensorState = device.state.alarm_motion
+            sensorStateReadable = readableState(sensorState, 'motion')
+            sensorType = 'motion'
+        } else if ('alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
+            sensorState = device.state.alarm_contact
+            sensorStateReadable = readableState(sensorState, 'contact')
+            sensorType = 'contact'
+        };
+
+        if ( value == 'armed') {
+            if ( isMonitoredFull(device) ) {
+                if ( sensorState ) {
+                    let delayText = ""
+                    if ( isDelayed(device) ) {
+                        delayText = Homey.__("atarming.delayText")
+                    }
+                    if ( sensorType == 'motion') {
+                        this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
+                    } else if ( sensorType == 'contact') {
+                        this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
+                    }
+                }
+            }
+        }
+        else if ( value == 'partially_armed' ) {
+            if ( isMonitoredPartial(device) ) {
+                if ( sensorState ) {
+                    let delayText = ""
+                    if ( isDelayed(device) ) {
+                        delayText = Homey.__("atarming.delayText")
+                    }   
+                    if ( sensorType == 'motion') {
+                        this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
+                    } else if ( sensorType == 'contact') {
+                        this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
+                    }
+                }
+            }
+        }
+    }
+
+    alertSensorActive(value, nu, sensorType, warningText) {
+        // write log
+        let color = 'm' + value.substring(0,1) + '-'
+        let logLine = color + nu + readableMode(value) + " || Heimdall || " + warningText
+        writeLog(logLine)
+        // activate triggercard
+        var tokens = { 'warning': warningText };
+        triggersensorActiveAtArming.trigger(tokens, function(err, result){
+            if( err ) {
+                return Homey.error(err)} ;
+            } );
+        // tell user
+        if ( sensorType == 'motion' && heimdallSettings.spokenMotionAtArming) {
+            speak("sensorActive", warningText)
+        } else if ( sensorType == 'contact' && heimdallSettings.spokenDoorOpenAtArming ) {
+            speak("sensorActive", warningText)
+        }
+    }
+// /new code
+
     deactivateAlarm(value, source) {
         if ( alarm === true ) {
             let nu = getDateTime();
@@ -214,6 +296,18 @@ if ( surveillance == null ) {
 
 // Flow triggers functions
 triggerSurveillanceChanged
+    .register()
+    .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    });
+
+triggersensorActiveAtArming
     .register()
     .on('run', ( args, state, callback ) => {
         console.log(args)
@@ -385,7 +479,11 @@ function setSurveillanceValue(color,value, logLine) {
             if( err ) {
                 return Homey.error(err)} ;
             } );
-        
+        // check the states of the sensors 
+        if ( value != 'disarmed' ) {
+            Homey.app.checkDevicesState(value, nu)
+        }
+        //
     } else {
         //logLine = color + nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
         logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
@@ -439,6 +537,11 @@ function speak(type, text) {
         console.log('Say:                    ' + text)
         Homey.ManagerSpeechOutput.say(text.toString())
     }
+    if (type == "sensorActive") {
+        console.log('Say:                    ' + text)
+        Homey.ManagerSpeechOutput.say(text.toString())
+    }
+    
 }
 
 // Should this device be logged

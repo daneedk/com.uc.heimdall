@@ -19,51 +19,60 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
-## Version 0.1.11
+## Version 1.0.2
+* Added pre-arming check
+
+## Version 1.0.1
+* Incremented version number to get a smoother upgrade experience 
+
+## Version 1.0.0
+* No functional changes, previous beta promoted to stable
+
+## Version 0.1.11 β
 * Automatic history cleanup, 20% at 3000 lines
 
-## Version 0.1.10
+## Version 0.1.10 β
 * Fixed Auto refresh settings
 
-## Version 0.1.9
+## Version 0.1.9 β
 * Added saving **_Auto refresh_** and **_Use colors_** settings on Dashboard tab in settings
 * Code cleanup, preparing for release
 
-## Version 0.1.8
+## Version 0.1.8 β
 * Setting Surveillance Mode to Disarmed also deactivates an Alarm
 * [Retrieving history on settingspage only when Dashboard is selected](https://github.com/daneedk/com.uc.heimdall/issues/9)
 * [Added button for manual refresh when auto refresh on history is off](https://github.com/daneedk/com.uc.heimdall/issues/9)
 * Code cleanup
 
-## Version 0.1.7
+## Version 0.1.7 β
 * Bugfix for [bug introduced in 0.1.6](https://github.com/daneedk/com.uc.heimdall/issues/8)
 * Added Homekit compatibility for [Homeykit](https://apps.athom.com/app/com.swttt.homekit) app
 * Start with Speech output support
 
-## Version 0.1.6
+## Version 0.1.6 β
 * Cancel trigger from a tripped sensor when a delay countdown is active
 * More translations
 
-## Version 0.1.5 ALPHA
+## Version 0.1.5 α
 * Researching Homekit compatability
 
-## Version 0.1.4
+## Version 0.1.4 β
 * Added colors to History view
 * Added 'The alarm is deactivated' flow card
 * More translations
 
-## Version 0.1.3
+## Version 0.1.3 β
 * Improved History view
 * Improved translations
 
-## Version 0.1.2
+## Version 0.1.2 β
 * Reason tag 'human friendly'
 * States in history 'human friendly'
 
-## Version 0.1.1
+## Version 0.1.1 β
 * Code cleanup
 
-## Version 0.1.0
+## Version 0.1.0 β
 * Initial public beta version
 
 Thanks to all testers of the alpha version!

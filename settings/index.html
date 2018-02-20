@@ -3,7 +3,8 @@
     <head>
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-        <script src="vue.min.js" data-origin="settings"></script>
+        <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+        <script type="text/javascript" src="vue.min.js" data-origin="settings"></script>
         <script type="text/javascript" src="settings.js" data-origin="settings"></script>
     </head>
     <body>
@@ -13,15 +14,15 @@
 
             <table width="100%">
                 <tr>
-                    <td id="tab1b" class="tab tab-active" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
-                    <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
-                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Speech-</td>
-                    <td id="tab4b" class="tab tab-inactive" onclick="showTab('tab4')" data-i18n="tab4.title">-Instructions-</td>
+                    <td id="tabb1" class="tab tab-active" onclick="showTab(1)" data-i18n="tab1.title">-Dashboard-</td>
+                    <td id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="tab2.title">-Settings-</td>
+                    <td id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="tab3.title">-Speech-</td>
+                    <td id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="tab4.title">-Instructions-</td>
                     <td class="tab-unused">&nbsp;</td>
                 </tr>
             </table>
             <div style="height:8px"></div>
-            <div id="tab1">
+            <div id="tab1" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab1.status.title">-Status-</legend>
                     <table>
@@ -56,7 +57,7 @@
                     <button id="downloadHistory" class="left" onclick="downloadHistory()"  data-i18n="tab1.history.btnDownload">-Download-</button>
                 </fieldset>
             </div>
-            <div id="tab2" style="display:none">
+            <div id="tab2" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab2.settings.title">-Settings-</legend>
                     <table width="80%">
@@ -74,8 +75,8 @@
                             </td>
                             <td width="2%"></td>
                             <td width="35%" class="rTableCell line">
-                                <input id="logTrueOnly" type="checkbox" onclick="saveSettings()">
-                                <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span>
+                                <input id="checkMotionAtArming" type="checkbox" onclick="saveSettings()">
+                                <span data-i18n="tab2.settings.checkMotionAtArming">-Check for active Motion Sensor when arming-</span>
                             </td>
                         </tr>
                         <tr>
@@ -83,9 +84,15 @@
                                 <input id="delayArming" type="checkbox" onclick="saveSettings()">
                                 <span data-i18n="tab2.settings.delayarming">-Use delay also when enabling a Surveillance mode-</td></span>
                             <td></td>
+                            <td class="rTableCell">
+                                <input id="logTrueOnly" type="checkbox" onclick="saveSettings()">
+                                <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span>
+                            </td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="rTableCell">
+                                <input id="checkContactAtArming" type="checkbox" onclick="saveSettings()">
+                                <span data-i18n="tab2.settings.checkContactAtArming">-Check for open doors/windows when arming-</span>
+                            </td>
                         </tr>
                         <tr>
                             <td class="rTableCell line"></td>
@@ -134,7 +141,7 @@
                     </div>                    
                 </fieldset>
             </div>
-            <div id="tab3" style="display:none">
+            <div id="tab3" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab3.speech.title">-Speech-</legend>
                         <table width="80%">
@@ -182,16 +189,30 @@
                                 <td width="2%"></td>
                                 <td width="35%" class="rTableCell">    
                                     <input id="spokenDoorOpen" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.dooropen">-a door or windows is opened when in an armed Surveillance Mode-<span>
+                                    <span data-i18n="tab3.speech.dooropen">-a door or window is opened when in an armed Surveillance Mode-<span>
                                 </td>    
                             </tr>
+                            <tr>
+                                    <td width="2%"></td>
+                                    <td width="35%" class="rTableCell">    
+                                        <input id="spokenMotionAtArming" type="checkbox" onclick="saveSettings()">
+                                        <span data-i18n="tab3.speech.motionatarming">-a motion sensor is active when arming-<span>
+                                    </td>    
+                                </tr>
+                                <tr>
+                                    <td width="2%"></td>
+                                    <td width="35%" class="rTableCell">    
+                                        <input id="spokenDoorOpenAtArming" type="checkbox" onclick="saveSettings()">
+                                        <span data-i18n="tab3.speech.dooropenatarming">-a door or window is open when arming-<span>
+                                    </td>    
+                                </tr>
                             <tr>
                                 <td class="rTableCell line" colspan=2></td>
                             </tr>
                         </table>
                 </fieldset>
             </div>
-            <div id="tab4" style="display:none">
+            <div id="tab4" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab4.instructions.title">-Instructions-</legend>                 
                     <div id="instructionsen" style="display:none">
