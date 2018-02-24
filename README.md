@@ -19,6 +19,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.3 β
+* [Cancel actions on tripped sensor when Alarm state is active](https://github.com/daneedk/com.uc.heimdall/issues/13)
+* Code cleanup
+* Minor translation fixes
+
 ## Version 1.0.2 β
 * Added pre-arming check
 

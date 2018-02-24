@@ -107,12 +107,14 @@
         "smodedelayarmed": "Surveillance mode will be armed in ",
         "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
         "seconds": " seconds.",
-        "alarmdeactivated": "Alarm is deactivated.",
+        "alarmdeactivated": "Alarm is deactivated by ",
         "alarmactivated": "Alarm is activated. ",
+        "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
         "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
         "triggerdalarm": " triggered Alarm.",
         "alarmdelayed": "Alarmtrigger is delayed: ", 
         "alarmnotactivated": "Alarm is not activated due to disarming.",
-        "noalarmtrigger": ", no alarm trigger due to running delay countdown."
+        "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
+        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate."
     }
 }
