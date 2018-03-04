@@ -19,7 +19,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
-## Version 1.0.3 β
+## Version 1.0.4
+* Arming delay selectable per Surveillance Mode
+
+## Version 1.0.3
 * [Cancel actions on tripped sensor when Alarm state is active](https://github.com/daneedk/com.uc.heimdall/issues/13)
 * Code cleanup
 * Minor translation fixes

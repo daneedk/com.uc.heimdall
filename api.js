@@ -10,7 +10,6 @@ module.exports = [
                 callback(null, res);
             })
                 .catch(error => callback(error, null));
-    
         }
     }
 ]

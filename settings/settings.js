@@ -10,7 +10,8 @@ var dashboardVisible = true;
 var heimdallSettings = {};
 var defaultSettings = {
     "triggerDelay": "30",
-    "delayArming": false,
+    "delayArmingFull": false,
+    "delayArmingPartial": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
     "spokenSmodeChange": false,
@@ -39,7 +40,8 @@ function onHomeyReady(homeyReady){
         document.getElementById('autoRefresh').checked = heimdallSettings.autorefresh;
         document.getElementById('useColors').checked = heimdallSettings.useColors;
         document.getElementById('triggerDelay').value = heimdallSettings.triggerDelay;
-        document.getElementById('delayArming').checked = heimdallSettings.delayArming;
+        document.getElementById('delayArmingFull').checked = heimdallSettings.delayArmingFull;
+        document.getElementById('delayArmingPartial').checked = heimdallSettings.delayArmingPartial;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
         document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
         document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
@@ -369,7 +371,8 @@ function saveSettings() {
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
     heimdallSettings.useColors = document.getElementById('useColors').checked;
     heimdallSettings.triggerDelay = document.getElementById('triggerDelay').value;
-    heimdallSettings.delayArming = document.getElementById('delayArming').checked;
+    heimdallSettings.delayArmingFull = document.getElementById('delayArmingFull').checked;
+    heimdallSettings.delayArmingPartial = document.getElementById('delayArmingPartial').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
     heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
     heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;

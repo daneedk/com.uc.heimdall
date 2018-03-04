@@ -27,7 +27,8 @@ var alarm = false;
 var heimdallSettings = [];
 var defaultSettings = {
     "triggerDelay": "30",
-    "delayArming": false,
+    "delayArmingFull": false,
+    "delayArmingPartial": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
     "checkMotionAtArming": false,
@@ -111,24 +112,21 @@ class Heimdall extends Homey.App {
     addDevice(device, api) {
         if (device.data.id === 'sMode') {
             sModeDevice = device;
-            console.log('Found Mode Switch:      ' + device.name)
-            console.log('Variabele:              ' + sModeDevice.name)
+            console.log('Found Mode Switch:          ' + device.name)
+            console.log('Variabele:                  ' + sModeDevice.name)
         }
         if (device.data.id === 'aMode') {
             aModeDevice = device;
-            console.log('Found Alarm Button      ' + device.name)
-            console.log('Variabele:              ' + aModeDevice.name)
+            console.log('Found Alarm Button          ' + device.name)
+            console.log('Variabele:                  ' + aModeDevice.name)
         }
-        else if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
-            console.log('Found motion sensor:    ' + device.name)
+        if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
+            console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
-        } 
-        else if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
-            console.log('Found contact sensor:   ' + device.name)
+        }
+        if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
+            console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
-            }
-        else {
-           //console.log('No matching class found for: ' + ' - ' + device.name)
         }
     }
 
@@ -155,7 +153,7 @@ class Heimdall extends Homey.App {
                 //logLine = value + " || " + source + " || Surveillance mode is partially armed.";
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
-            if ( heimdallSettings.delayArming ) {
+            if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 console.log('Arming is delayed:      Yes, ' + heimdallSettings.triggerDelay + ' seconds.')
                 let delay = heimdallSettings.triggerDelay * 1000;
                 console.log('setSurveillanceValue in:' + heimdallSettings.triggerDelay + ' seconds.')
@@ -175,14 +173,13 @@ class Heimdall extends Homey.App {
                 }
                 writeLog(logLine)
             } else {
-                console.log('setSurveillanceValue now')
+                console.log('Arming is delayed:      No')
                 armCounterRunning = true;
                 setSurveillanceValue("sa ",value, logLine)
             }
         }
     }
 
-// New Code
     async checkDevicesState(value, nu) {
         // Get the homey object
         const api = await this.getApi();
@@ -256,7 +253,6 @@ class Heimdall extends Homey.App {
             speak("sensorActive", warningText)
         }
     }
-// /new code
 
     deactivateAlarm(value, source) {
         if ( alarm === true || source == "Flowcard") {
@@ -619,18 +615,15 @@ function attachEventListener(device,sensorType) {
     device.on('$state', _.debounce(state => { 
         stateChange(device,state,sensorType)
     }));
-    console.log('Attached Eventlistener: ' + device.name)
+    console.log('Attached Eventlistener:     ' + device.name)
     if ( isMonitoredFull(device) ) {
-        console.log('Fully Monitored device: ' + device.name)
+        console.log('Fully Monitored device:     ' + device.name)
     } 
-    else if ( isMonitoredPartial(device) ) {
-        console.log('Partially Monitored device:' + device.name)
+    if ( isMonitoredPartial(device) ) {
+        console.log('Partially Monitored device: ' + device.name)
     }
-    else if ( isLogged(device) ) {
-        console.log('Logged device:          ' + device.name)
-    }
-    else {
-       //console.log('not monitored')
+    if ( isLogged(device) ) {
+        console.log('Logged device:              ' + device.name)
     }
 }
 
