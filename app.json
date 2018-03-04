@@ -24,6 +24,7 @@
 		"en": [ "Home", "Alarm", "Homeyalarm", "System", "Tools", "Log", "Surveillance"],
 		"nl": [ "Huis", "Alarm", "Homeyalarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht"] 
 	},
+	"athomForumDiscussionId": 4514,
 	"flow": {
 		"triggers": [
 		{
