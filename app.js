@@ -94,7 +94,7 @@ class Heimdall extends Homey.App {
         });
         this.log('Enumerating devices done.')
     }
-    
+
 	onInit() {
         this.log('init Heimdall')
         heimdallSettings = Homey.ManagerSettings.get('settings');
@@ -153,17 +153,16 @@ class Heimdall extends Homey.App {
                 //logLine = value + " || " + source + " || Surveillance mode is partially armed.";
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
+            // choose appropriate delay at Armed or Partially Armed
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 console.log('Arming is delayed:      Yes, ' + heimdallSettings.triggerDelay + ' seconds.')
                 let delay = heimdallSettings.triggerDelay * 1000;
                 console.log('setSurveillanceValue in:' + heimdallSettings.triggerDelay + ' seconds.')
                 //speak("The Surveillance mode will be set to " + readableMode(value) + " in " + heimdallSettings.triggerDelay + " seconds.")
                 speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + heimdallSettings.triggerDelay + Homey.__("speech.seconds"))
-
                 armCounterRunning = true;
                 let tta = heimdallSettings.triggerDelay;
                 ttArmedCountdown(tta,"sa ", value, logLine);
-
                 if ( value == 'armed' ) {
                     //logLine = "st " + nu + surveillance + " || " + source + " || Surveillance mode will be armed in " + heimdallSettings.triggerDelay + " seconds.";
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
@@ -197,7 +196,8 @@ class Heimdall extends Homey.App {
             sensorState = device.state.alarm_motion
             sensorStateReadable = readableState(sensorState, 'motion')
             sensorType = 'motion'
-        } else if ('alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
+        }
+        if ('alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
             sensorState = device.state.alarm_contact
             sensorStateReadable = readableState(sensorState, 'contact')
             sensorType = 'contact'
@@ -496,7 +496,7 @@ function setSurveillanceValue(color,value, logLine) {
         //
     } else {
         //logLine = color + nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
-        logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
+        logLine = "sd " + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
     }
     writeLog(logLine)   
     armCounterRunning = false;
@@ -651,7 +651,7 @@ function stateChange(device,state,sensorType) {
     console.log('sourceDeviceLog:        ' + sourceDeviceLog)
     // is the device monitored?
     if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
-       console.log('Log/Full/Partial:       Yes')
+        console.log('Log/Full/Partial:       Yes')
         let sensorState;
         let sensorStateReadable;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
@@ -681,21 +681,19 @@ function stateChange(device,state,sensorType) {
         logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
         // Is sensorstate true?
         if ( sensorState ) {
-            //is there no delayed trigger and Alarm state active?
+            // is there no delayed trigger and Alarm state active?
             // if ( !alarmCounterRunning ) {
             if ( !alarmCounterRunning && !alarm) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
-                    //alarm=true;
                     console.log('Alarm is triggered:     Yes')
                     //logLine = "al " + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
-                    logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + Homey.__("history.triggerdalarm")
+                    //logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + Homey.__("history.triggerdalarm")
+                    logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " in " + device.zone.name + Homey.__("history.triggerdalarm")
                     if ( sensorType == 'motion' ) {
                         speak("motionTrue", device.name + " detected motion") 
-                        //speak("alarmChange", Homey.__("speech.alarmdeactivated")
                     }
-                    if ( sensorType == 'contact' ){
+                    if ( sensorType == 'contact' ) {
                         speak("doorOpen", device.name + " is opened") 
-                        //speak("alarmChange", Homey.__("speech.alarmdeactivated")
                     }                  
                     if ( isDelayed(device) ) {   
                         // The device has a delayed trigger
@@ -815,10 +813,10 @@ function activateAlarm(device,state,sensorState,nu,source) {
         // Surveillance mode is active
         //logLine = "al " + nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
         if ( source == "Heimdall") {
-            var tokens= {'Reason': device.name + ': '+ sensorState };
+            var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zone.name };
             logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivated") + device.name + ": " + sensorState;
         } else {
-            var tokens= {'Reason': 'Flowcard' };
+            var tokens= {'Reason': 'Flowcard' , 'Zone': "" };
             //let temp = Homey.__("history.alarmactivated")
             logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivatedflowcard");
         }

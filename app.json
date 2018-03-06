@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -75,6 +75,15 @@
 					"title": {
 						"en": "Reason",
 						"nl": "Reden"
+					},
+					"example": "-"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone"
 					},
 					"example": "-"
 				}
@@ -300,6 +309,14 @@
 			},
 			"class": "other",
 			"capabilities": [ "homealarm_state", "alarm_heimdall" ],
+			"capabilitiesOptions":  {
+				"homealarm_state": {
+					"preventTag": true					
+				},
+				"alarm_heimdall": {
+					"preventTag": true
+				}
+			},
 			"pair": [
 				{
 					"id": "list_triggers",
@@ -343,7 +360,11 @@
 					"title":{
 						"en": "Turn off",
 						"nl": "Schakel uit"
-					}
+					},
+					"preventTag": true
+				},
+				"alarm_heimdall": {
+					"preventTag": true
 				}
 			},
 			"pair": [

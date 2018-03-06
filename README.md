@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.5
+* [Added 'Zone' tag to 'The alarm is activated' flow card](https://github.com/daneedk/com.uc.heimdall/issues/12)
+
 ## Version 1.0.4
 * Arming delay selectable per Surveillance Mode
 
@@ -27,7 +30,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Code cleanup
 * Minor translation fixes
 
-## Version 1.0.2 β
+## Version 1.0.2
 * Added pre-arming check
 
 ## Version 1.0.1
