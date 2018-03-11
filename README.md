@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.6
+* Added support for tampering detection
+
 ## Version 1.0.5
 * [Added 'Zone' tag to 'The alarm is activated' flow card](https://github.com/daneedk/com.uc.heimdall/issues/12)
 

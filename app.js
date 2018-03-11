@@ -38,6 +38,7 @@ var defaultSettings = {
     "spokenArmCountdown": false,
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
+    "spokenTamperTrue": false,
     "spokenDoorOpen": false,
     "spokenMotionAtArming": false,
     "spokenDoorOpenAtArming": false
@@ -124,6 +125,12 @@ class Heimdall extends Homey.App {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
+        // new
+        if (device.class === 'sensor' && 'alarm_tamper' in device.capabilities) {
+            console.log('Found tamper sensor:        ' + device.name)
+            attachEventListener(device,'tamper')
+        }
+        // /
         if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
@@ -404,45 +411,11 @@ actionClearHistory.register().on('run', ( args, state, callback ) => {
 
 actionActivateAlarm.register().on('run', ( args, state, callback ) => {
     activateAlarm("", true, "", "", "Flowcard")
-    /*
-    let Alarm = true;
-    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    Homey.ManagerSettings.set('alarmStatus', Alarm, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-    //let logLine = "al " + nu + surveillance + " || Flowcard || Alarm is activated.";
-    let logLine = "al " + nu + readableMode(surveillance) + " || Flowcard || " + Homey.__("history.alarmactivated")
-    writeLog(logLine)
-    */
     callback( null, true ); 
 });
 
 actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
     Homey.app.deactivateAlarm(true, "Flowcard")
-    /*
-    let nu = getDateTime();
-    let Alarm = false;
-    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    Homey.ManagerSettings.set('alarmStatus', Alarm, function( err ){
-        if( err ) return Homey.alert( err );
-    });
-    //speak("alarmChange", "The alarm is deactivated") 
-    speak("alarmChange", Homey.__("speech.alarmdeactivated"))
-    // Check if Alarm Off Button exists and turn off
-    if ( aModeDevice != undefined) {
-        aModeDevice.setCapabilityValue('alarm_heimdall', false)
-    }
-    if ( sModeDevice != undefined) {
-        sModeDevice.setCapabilityValue('alarm_heimdall', false)
-    }
-    var tokens = { 'Source': 'Flowcard' }
-    triggerAlarmDeactivated.trigger(tokens, function(err, result){
-        if( err ) {
-            return Homey.error(err)} ;
-        }); 
-    let logLine = "ao " + nu + readableMode(surveillance) + " || Flowcard || " + Homey.__("history.alarmdeactivated")
-    writeLog(logLine)
-    */
     callback( null, true );
 });
 
@@ -547,11 +520,14 @@ function speak(type, text) {
         console.log('Say:                    ' + text)
         Homey.ManagerSpeechOutput.say(text.toString())
     }
+    if (type == "tamper" && heimdallSettings.spokenTamperTrue ) {
+        console.log('Say:                    ' + text)
+        Homey.ManagerSpeechOutput.say(text.toString())
+    }    
     if (type == "sensorActive") {
         console.log('Say:                    ' + text)
         Homey.ManagerSpeechOutput.say(text.toString())
     }
-    
 }
 
 // Should this device be logged
@@ -662,6 +638,9 @@ function stateChange(device,state,sensorType) {
         } else if (sensorType == 'contact') {
             sensorState = state.alarm_contact
             sensorStateReadable = readableState(sensorState, 'contact')
+        } else if (sensorType == 'tamper') {
+            sensorState = state.alarm_tamper
+            sensorStateReadable = readableState(sensorState, 'tamper')
         };
         console.log('sensorStateReadable:    ' + sensorStateReadable)
         // Select the desired color
@@ -694,7 +673,10 @@ function stateChange(device,state,sensorType) {
                     }
                     if ( sensorType == 'contact' ) {
                         speak("doorOpen", device.name + " is opened") 
-                    }                  
+                    }         
+                    if ( sensorType == 'tamper') {
+                        speak("tamper", device.name + " detected tampering")
+                    }         
                     if ( isDelayed(device) ) {   
                         // The device has a delayed trigger
                         alarmCounterRunning = true;
@@ -779,7 +761,15 @@ function readableState(state, type) {
             return Homey.__("states.closed")
             //return 'Closed'
         }
-    } 
+    } else if (type == 'tamper') {
+        if ( state ) {
+            return Homey.__("states.tamper")
+            //return 'Tamper detected'
+        } else {
+            return Homey.__("states.notamper")
+            //return 'No tamper detected'
+        }
+    }
     else {
         return 'unknown'
     }

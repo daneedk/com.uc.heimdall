@@ -63,6 +63,7 @@
             "smodechange": "the Surveillance Mode changed",
             "alarmchange": "the Alarm is activated or deactivated",
             "motiontrue": "motion is detected when in an armed Surveillance Mode",
+            "tampertrue": "tampering is detected when in an armed Surveillance Mode",
             "dooropen": "a door or window is opened when in an armed Surveillance Mode",
             "motionatarming": "a motion sensor is active when arming",
             "dooropenatarming": "a door or window is open when arming"
@@ -83,7 +84,9 @@
         "open": "Open",
         "closed": "Closed",
         "motion": "Motion detected",
-        "nomotion": "No motion detected"
+        "nomotion": "No motion detected",
+        "tamper": "Tampering detected",
+        "notamper": "No more tampering detected"
     },
     "speech": {
         "startalarmcountdown": "The alarm will go off in ",
