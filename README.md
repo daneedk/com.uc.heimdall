@@ -19,6 +19,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.7
+* [Added **_Arming countdown (not) active_** condition flowcard](https://github.com/daneedk/com.uc.heimdall/issues/14)
+* [Added **_Alarm countdown (not) active_** condition flowcard](https://github.com/daneedk/com.uc.heimdall/issues/14)
+
 ## Version 1.0.6
 * Added support for tampering detection
 

@@ -15,6 +15,8 @@ let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 
 // Flow conditions
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
+const conditionArmingCountdown = new Homey.FlowCardCondition('ArmingCountdown');
+const conditionAlarmCountdown = new Homey.FlowCardCondition('AlarmCountdown');
 
 // Flow actions
 const actionInputHistory = new Homey.FlowCardAction('SendInfo');
@@ -125,12 +127,10 @@ class Heimdall extends Homey.App {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
-        // new
         if (device.class === 'sensor' && 'alarm_tamper' in device.capabilities) {
             console.log('Found tamper sensor:        ' + device.name)
             attachEventListener(device,'tamper')
         }
-        // /
         if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
@@ -161,6 +161,9 @@ class Heimdall extends Homey.App {
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
             // choose appropriate delay at Armed or Partially Armed
+
+            // need to check for active armCounterRunning ?
+
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 console.log('Arming is delayed:      Yes, ' + heimdallSettings.triggerDelay + ' seconds.')
                 let delay = heimdallSettings.triggerDelay * 1000;
@@ -387,6 +390,28 @@ conditionSurveillanceIs
     .register()
     .on('run', ( args, state, callback ) => {
         if (args.surveillance == Homey.ManagerSettings.get('surveillanceStatus')) {
+            callback( null, true )
+        }
+        else {
+            callback( null, false )
+        }
+    });
+
+conditionArmingCountdown
+    .register()
+    .on('run', ( args, state, callback ) => {
+        if ( armCounterRunning ) {
+            callback( null, true )
+        }
+        else {
+            callback( null, false )
+        }
+    });
+
+conditionAlarmCountdown
+    .register()
+    .on('run', ( args, state, callback ) => {
+        if ( alarmCounterRunning ) {
             callback( null, true )
         }
         else {

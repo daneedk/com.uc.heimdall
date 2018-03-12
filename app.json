@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -207,6 +207,20 @@
 					  	]
 					}
 				]
+			},
+			{
+				"id": "ArmingCountdown",
+				"title": {
+					"en": "Arming countdown !{{active |not active}}",
+					"nl": "Inschakel vertraging !{{actief |niet actief}}"
+				}
+			},
+			{
+				"id": "AlarmCountdown",
+				"title": {
+					"en": "Alarm countdown !{{active |not active}}",
+					"nl": "Alarm vertraging !{{actief |niet actief}}"
+				}
 			}
 		],
 		"actions": [
