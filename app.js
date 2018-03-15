@@ -33,6 +33,7 @@ var defaultSettings = {
     "delayArmingPartial": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
+    "useTampering": false,
     "checkMotionAtArming": false,
     "checkContactAtArming": false,
     "spokenSmodeChange": false,
@@ -630,6 +631,10 @@ function attachEventListener(device,sensorType) {
 
 // this function gets called when a device with an attached eventlistener fires an event.
 function stateChange(device,state,sensorType) {
+    if ( sensorType == 'tamper' && !heimdallSettings.useTampering ) {
+        console.log("StateChange detected for tampering but shouldn't act on it")
+        return
+    }
     let nu = getDateTime();
     let sourceDeviceFull = false;
     let sourceDevicePartial = false;

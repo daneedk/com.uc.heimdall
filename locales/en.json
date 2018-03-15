@@ -37,6 +37,7 @@
             "saveSucces": "The new settings are saved.",
             "logarmedonly": "Only log when a Surveillance mode is active",
             "logtrueonly": "Do not log deactivating of sensors",
+            "usetampering": "Listen to tampering reports from sensors",
             "delayarmingfull": "Use delay when enabling Armed mode",
             "delayarmingpartial": "Use delay when enabling Partially Armed mode",
             "checkMotionAtArming": "Check for active motion sensor(s) when arming",

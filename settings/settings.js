@@ -14,6 +14,7 @@ var defaultSettings = {
     "delayArmingPartial": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
+    "useTampering": false,
     "spokenSmodeChange": false,
     "spokenAlarmCountdown": false,
     "spokenArmCountdown": false,
@@ -45,6 +46,7 @@ function onHomeyReady(homeyReady){
         document.getElementById('delayArmingPartial').checked = heimdallSettings.delayArmingPartial;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
         document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
+        document.getElementById('useTampering').checked = heimdallSettings.useTampering;
         document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
         document.getElementById('checkContactAtArming').checked = heimdallSettings.checkContactAtArming;
         document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
@@ -377,6 +379,7 @@ function saveSettings() {
     heimdallSettings.delayArmingPartial = document.getElementById('delayArmingPartial').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
     heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
+    heimdallSettings.useTampering = document.getElementById('useTampering').checked;
     heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;
     heimdallSettings.checkContactAtArming = document.getElementById('checkContactAtArming').checked;
     heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;

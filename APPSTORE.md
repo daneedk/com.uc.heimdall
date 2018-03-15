@@ -24,9 +24,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
 
-## Changes for current version 1.0.7
-* Added **_Arming countdown (not) active_** condition flowcard
-* Added **_Alarm countdown (not) active_** condition flowcard 
+## Changes for current version 1.0.8
+* Made Tampering detection optional due to bug with some sensors
+* Minor translation fixes
 
 An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 
