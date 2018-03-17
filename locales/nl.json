@@ -37,7 +37,7 @@
             "saveSucces": "De nieuwe instellingen zijn opgeslagen.",
             "logarmedonly": "Alleen loggen als er een Toezicht Mode actief is",
             "logtrueonly": "Log het deactiveren van een sensor niet",
-            "usetampering": "Listen to tampering reports from sensors",
+            "usetampering": "Luister naar manipulatie berichten van sensoren",
             "delayarmingfull": "Gebruik vertraging bij Volledige mode",
             "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",            
             "checkMotionAtArming": "Controleer op actieve beweginssensoren bij het inschakelen",
@@ -64,7 +64,7 @@
             "smodechange": "de Toezicht Mode wordt veranderd",
             "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
             "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
-            "tampertrue": "tampering is detected when in an armed Surveillance Mode",
+            "tampertrue": "manipulatie is gedetecteerd bij ingeschakelde Toezicht Mode",
             "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is",
             "motionatarming": "een bewegingssensor actief is bij inschakelen",
             "dooropenatarming": "een deur of raam open is bij inschakelen"
@@ -86,8 +86,8 @@
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
         "nomotion": "Geen beweging gedetecteerd",
-        "tamper": "Tampering detected",
-        "notamper": "No more tampering detected"
+        "tamper": "Manipulaite gedetecteerd",
+        "notamper": "Geen manipulatie meer gedetecteerd"
     },
     "speech": {
         "startalarmcountdown": "Het alarm gaat af in  ",

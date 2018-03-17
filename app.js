@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 const { HomeyAPI  } = require('athom-api')
-const _ = require('lodash');
+// const _ = require('lodash');
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
@@ -92,10 +92,16 @@ class Heimdall extends Homey.App {
         });
         allDevices = await api.devices.getDevices();
 
-        // Loop devices
+        for (let device in allDevices) {
+            this.addDevice(allDevices[device], api)
+        };
+
+        // Loop devices 
+        /*
         _.forEach(allDevices, (device) => {
             this.addDevice(device, api);
         });
+        */
         this.log('Enumerating devices done.')
     }
 
@@ -194,9 +200,17 @@ class Heimdall extends Homey.App {
         // Get the homey object
         const api = await this.getApi();
 
+        for (let device in allDevices) {
+            console.log(device)
+            this.checkDeviceState(allDevices[device], api, value, nu)
+        };
+
+        // Loop devices 
+        /*
         _.forEach(allDevices, (device) => {
             this.checkDeviceState(device, api, value, nu);
         });
+        */
     }
 
     checkDeviceState(device, api, value, nu) {
@@ -614,9 +628,14 @@ function isDelayed(obj) {
 
 // this function attaches en eventlistener to a device
 function attachEventListener(device,sensorType) {
+    /* 
     device.on('$state', _.debounce(state => { 
         stateChange(device,state,sensorType)
-    }));
+     }));
+    */
+    device.on('$state', debounce(state => { 
+        stateChange(device,state,sensorType)
+    },250));
     console.log('Attached Eventlistener:     ' + device.name)
     if ( isMonitoredFull(device) ) {
         console.log('Fully Monitored device:     ' + device.name)
@@ -629,10 +648,27 @@ function attachEventListener(device,sensorType) {
     }
 }
 
+// new
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+// /
+
 // this function gets called when a device with an attached eventlistener fires an event.
 function stateChange(device,state,sensorType) {
     if ( sensorType == 'tamper' && !heimdallSettings.useTampering ) {
-        console.log("StateChange detected for tampering but shouldn't act on it")
+        // console.log("StateChange detected for tampering but shouldn't act on it")
         return
     }
     let nu = getDateTime();
