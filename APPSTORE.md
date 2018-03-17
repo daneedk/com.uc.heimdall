@@ -27,6 +27,7 @@ Please post your questions/remarks on the [Athom community forum](https://forum.
 ## Changes for current version 1.0.9
 * Code cleanup
 * Minor translation fixes
+* Added interpunction to Speech output to make it sound more natural
 
 An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 

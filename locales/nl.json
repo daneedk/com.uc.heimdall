@@ -101,8 +101,8 @@
     "atarming": {
         "on": " op ",
         "is": " is ",
-        "delayText": " dit apparaat heeft een vertraagde trigger.",
-        "warningMotion": "Waarschuwing, sensor actief ",
+        "delayText": ". Dit apparaat heeft een vertraagde trigger.",
+        "warningMotion": "Waarschuwing, sensor actief. ",
         "warningContact": "Waarschuwing, sensor "
     },
     "history": {

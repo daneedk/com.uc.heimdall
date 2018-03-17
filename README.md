@@ -20,8 +20,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] ..
 
 ## Version 1.0.9
-* Code cleanup, remove lodash dependency
+* Code cleanup, removed lodash dependency
 * Minor translation fixes
+* Added interpunction to Speech output to make it sound more natural
 
 ## Version 1.0.8
 * Made Tampering detection optional due to [bug with some sensors](https://github.com/daneedk/com.uc.heimdall/issues/15)

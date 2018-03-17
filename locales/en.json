@@ -103,7 +103,7 @@
         "is": " is ",
         "delayText": ". This device has a delayed trigger.",
         "warningMotion": "Warning, sensor active. ",
-        "warningContact": "Warning, sensor. "
+        "warningContact": "Warning, sensor "
     },
     "history": {
         "smodedisarmed": "Surveillance mode is disarmed.",
