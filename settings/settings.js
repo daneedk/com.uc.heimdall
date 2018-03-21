@@ -11,10 +11,13 @@ var heimdallSettings = {};
 var defaultSettings = {
     "triggerDelay": "30",
     "delayArmingFull": false,
-    "delayArmingPartial": false,
+    "delayArmingPartial": false,    
     "logArmedOnly": false,
     "logTrueOnly": false,
     "useTampering": false,
+    "checkMotionAtArming": false,
+    "checkContactAtArming": false,
+    "checkBeforeCountdown": false,
     "spokenSmodeChange": false,
     "spokenAlarmCountdown": false,
     "spokenArmCountdown": false,
@@ -49,6 +52,7 @@ function onHomeyReady(homeyReady){
         document.getElementById('useTampering').checked = heimdallSettings.useTampering;
         document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
         document.getElementById('checkContactAtArming').checked = heimdallSettings.checkContactAtArming;
+        document.getElementById('checkBeforeCountdown').checked = heimdallSettings.checkBeforeCountdown;
         document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
         document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
         document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
@@ -382,6 +386,7 @@ function saveSettings() {
     heimdallSettings.useTampering = document.getElementById('useTampering').checked;
     heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;
     heimdallSettings.checkContactAtArming = document.getElementById('checkContactAtArming').checked;
+    heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
     heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
     heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
     heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
@@ -398,6 +403,14 @@ function saveSettings() {
     if ( heimdallSettings.spokenDoorOpenAtArming ) {
         document.getElementById('checkContactAtArming').checked = true
         heimdallSettings.checkContactAtArming = true
+    }
+    if ( !heimdallSettings.checkMotionAtArming && !heimdallSettings.checkContactAtArming ) {
+        document.getElementById('checkBeforeCountdown').checked = false;
+        heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
+    }
+    if ( !heimdallSettings.delayArmingFull && !heimdallSettings.delayArmingPartial ) {
+        document.getElementById('checkBeforeCountdown').checked = false;
+        heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
     }
     Homey.set('settings', heimdallSettings );
 }

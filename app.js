@@ -36,6 +36,7 @@ var defaultSettings = {
     "useTampering": false,
     "checkMotionAtArming": false,
     "checkContactAtArming": false,
+    "checkBeforeCountdown": false,
     "spokenSmodeChange": false,
     "spokenAlarmCountdown": false,
     "spokenArmCountdown": false,
@@ -188,6 +189,10 @@ class Heimdall extends Homey.App {
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
                 }
                 writeLog(logLine)
+                // check for tripped sensor before Arming Delay
+                if ( heimdallSettings.checkBeforeCountdown ) {
+                    Homey.app.checkDevicesState(value, nu)
+                }
             } else {
                 console.log('Arming is delayed:      No')
                 armCounterRunning = true;
@@ -503,7 +508,7 @@ function setSurveillanceValue(color,value, logLine) {
                 return Homey.error(err)} ;
             } );
         // check the states of the sensors 
-        if ( value != 'disarmed' ) {
+        if ( value != 'disarmed' && !heimdallSettings.checkBeforeCountdown ) {
             Homey.app.checkDevicesState(value, nu)
         }
         //

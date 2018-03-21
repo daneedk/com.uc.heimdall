@@ -42,6 +42,7 @@
             "delayarmingpartial": "Use delay when enabling Partially Armed mode",
             "checkMotionAtArming": "Check for active motion sensor(s) when arming",
             "checkContactAtArming": "Check for open door(s)/window(s) when arming",
+            "checkbeforecountdown": "Perform Pre-Arming check before Arming Delay",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",

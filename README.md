@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.10
+* Added setting [Perform Pre-Arming check before Arming Delay](https://github.com/daneedk/com.uc.heimdall/issues/17)
+
 ## Version 1.0.9
 * Code cleanup, removed lodash dependency
 * Minor translation fixes

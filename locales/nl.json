@@ -42,6 +42,7 @@
             "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",            
             "checkMotionAtArming": "Controleer op actieve beweginssensoren bij het inschakelen",
             "checkContactAtArming": "Controleer op open deuren/ramen bij het inschakelen",
+            "checkbeforecountdown": "Perform Pre-Arming check before Arming Delay",
             "zone": "Zone",
             "device": "Apparaat",
             "monitor": "Controleer",
