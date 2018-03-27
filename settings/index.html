@@ -123,17 +123,19 @@
                             <div class="rTableRow">
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.zone">-Zone-</div>
                                 <div class="rTableCell line rTableHead"></div>
+                                <div class="rTableCell line rTableHead"></div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.device">-Device-</div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.monitor">-Monitor-</div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.dTrigger">-Delayed Trigger-</div>
                                 <div class="rTableCell line rTableHead rTableCellLast"></div>
                             </div>
-                        
                             <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact">
                                 <div class="rTableCell line">{{device.zone.name}}</div>
+                                <div class="rTableBatt line">
+                                    <span v-html="getBattClass(device.state.measure_battery)"></span>
+                                </div>
                                 <div class="rTableCell line" align=center>
                                     <img :src="device.icon" style="height:30px;width:auto;"/>
-                                    <!--{{device.state.measure_battery}}-->
                                 </div>
                                 <div class="rTableCell line">
                                     {{device.name}}
@@ -152,7 +154,7 @@
                                     <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.yes">-Yes-</a>
                                 </div>
                                 
-                                <div class=rTableCell line></div>
+                                <div class="rTableCell line"></div>
                             </div>
                         </div>
                     </div>                    

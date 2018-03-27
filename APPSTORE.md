@@ -24,8 +24,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
 
-## Changes for current version 1.0.10
-* Added setting 'Perform Pre-Arming check before Arming Delay'
+## Changes for current version 1.0.11
+* Added battery indicator to devices
 
 An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 

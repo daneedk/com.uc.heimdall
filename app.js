@@ -2,7 +2,6 @@
 
 const Homey = require('homey');
 const { HomeyAPI  } = require('athom-api')
-// const _ = require('lodash');
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
@@ -97,12 +96,6 @@ class Heimdall extends Homey.App {
             this.addDevice(allDevices[device], api)
         };
 
-        // Loop devices 
-        /*
-        _.forEach(allDevices, (device) => {
-            this.addDevice(device, api);
-        });
-        */
         this.log('Enumerating devices done.')
     }
 
@@ -209,13 +202,6 @@ class Heimdall extends Homey.App {
             console.log(device)
             this.checkDeviceState(allDevices[device], api, value, nu)
         };
-
-        // Loop devices 
-        /*
-        _.forEach(allDevices, (device) => {
-            this.checkDeviceState(device, api, value, nu);
-        });
-        */
     }
 
     checkDeviceState(device, api, value, nu) {
@@ -633,11 +619,6 @@ function isDelayed(obj) {
 
 // this function attaches en eventlistener to a device
 function attachEventListener(device,sensorType) {
-    /* 
-    device.on('$state', _.debounce(state => { 
-        stateChange(device,state,sensorType)
-     }));
-    */
     device.on('$state', debounce(state => { 
         stateChange(device,state,sensorType)
     },250));
@@ -653,7 +634,6 @@ function attachEventListener(device,sensorType) {
     }
 }
 
-// new
 function debounce(func, wait, immediate) {
 	var timeout;
 	return function() {
@@ -668,7 +648,6 @@ function debounce(func, wait, immediate) {
 		if (callNow) func.apply(context, args);
 	};
 };
-// /
 
 // this function gets called when a device with an attached eventlistener fires an event.
 function stateChange(device,state,sensorType) {

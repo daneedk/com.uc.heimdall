@@ -298,6 +298,22 @@ function onHomeyReady(homeyReady){
             filterArray(device) {
                 if (device.class == "sensor" || device.class == "lock")
                 return device
+            },
+            getBattClass: function(waarde) {
+                if ("number" != typeof waarde)
+                    waarde = "-",
+                    closestClass="100"
+                else {
+                    var s = waarde / 100;
+                    s < 1.1 && (closestClass = "100"),
+                    s < .9 && (closestClass = "80"),
+                    s < .7 && (closestClass = "60"),
+                    s < .5 && (closestClass = "40"),
+                    s < .3 && (closestClass = "20"),
+                    s < .1 && (closestClass = "0"),
+                    waarde = waarde + "%"
+                }  
+                return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
             }
         },
         mounted() {
