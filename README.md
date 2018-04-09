@@ -19,6 +19,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
+## Version 1.0.12
+* Minor translation fixes
+
 ## Version 1.0.11
 * Added battery indicator to devices
 

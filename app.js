@@ -67,7 +67,7 @@ class Heimdall extends Homey.App {
         return this.api;
     }
 
-    // Get all devices function
+    // Get all devices function for API
     async getDevices() {
         const api = await this.getApi();
         allDevices = await api.devices.getDevices();
@@ -199,7 +199,6 @@ class Heimdall extends Homey.App {
         const api = await this.getApi();
 
         for (let device in allDevices) {
-            console.log(device)
             this.checkDeviceState(allDevices[device], api, value, nu)
         };
     }
