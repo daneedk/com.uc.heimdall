@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -167,6 +167,33 @@
 						"nl": "Seconden tot armed"
 					},
 					"example": 30
+				}
+			]
+		},
+		{
+			"id": "LogLineWritten",
+			"title":{
+				"en": "A logline was written",
+				"nl": "Een logregel is geschreven"
+			},
+			"tokens": [
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat"
+					},
+					"example": "Motion Sensor"
+				},
+				{
+					"name": "State",
+					"type": "string",
+					"title": {
+						"en": "State",
+						"nl": "Satus"
+					},
+					"example": "Motion detected"
 				}
 			]
 		}

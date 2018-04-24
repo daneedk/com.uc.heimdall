@@ -11,6 +11,8 @@ let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
 let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
+let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
+
 
 // Flow conditions
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
@@ -388,7 +390,19 @@ triggerTimeTillArmedChanged
         else {
             callback( null, false );
         } 
-    });    
+    });   
+    
+triggerLogLineWritten
+    .register()
+    .on('run', ( args, state, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+    }); 
 
 //Flow condition functions
 conditionSurveillanceIs
@@ -787,7 +801,15 @@ function stateChange(device,state,sensorType) {
             console.log('logTrue is true and sensorstate is false, so no log line')
         }
         if ( shouldLog ) {
-            writeLog(logLine)
+            writeLog(logLine)        
+        }
+        if (sourceDeviceLog) {
+            // trigger the flowcard when a device with logging changes state
+            var tokens = {'Device': device.name, 'State': sensorStateReadable};
+            triggerLogLineWritten.trigger(tokens, function(err, result){
+                if( err ) {
+                    return Homey.error(err)} ;
+                });
         }
     }
 }
