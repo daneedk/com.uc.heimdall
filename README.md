@@ -19,7 +19,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 - [ ] Look into adding other sensors like smoke/heat/flood.
 - [ ] ..
 
-## Changes for current version 1.0.13
+## Version 1.0.14
+* Minor translation fixes
+
+## Version 1.0.13
 * Added flowcard that triggers when a logline is written
 
 ## Version 1.0.12
