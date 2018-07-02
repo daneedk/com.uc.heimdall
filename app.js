@@ -18,6 +18,8 @@ let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
 const conditionArmingCountdown = new Homey.FlowCardCondition('ArmingCountdown');
 const conditionAlarmCountdown = new Homey.FlowCardCondition('AlarmCountdown');
+const conditionAlarmActive = new Homey.FlowCardCondition('AlarmActive');
+
 
 // Flow actions
 const actionInputHistory = new Homey.FlowCardAction('SendInfo');
@@ -431,6 +433,17 @@ conditionAlarmCountdown
     .register()
     .on('run', ( args, state, callback ) => {
         if ( alarmCounterRunning ) {
+            callback( null, true )
+        }
+        else {
+            callback( null, false )
+        }
+    });
+
+conditionAlarmActive
+    .register()
+    .on('run', ( args, state, callback ) => {
+        if ( alarm ) {
             callback( null, true )
         }
         else {
