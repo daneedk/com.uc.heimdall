@@ -296,7 +296,7 @@ function onHomeyReady(homeyReady){
                 return false;
             },
             filterArray(device) {
-                if (device.class == "sensor" || device.class == "lock")
+                //if (device.class == "sensor" || device.class == "lock")
                 return device
             },
             getBattClass: function(waarde) {
