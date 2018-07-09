@@ -128,7 +128,8 @@ class Heimdall extends Homey.App {
             console.log('Found Alarm Button          ' + device.name)
             console.log('Variabele:                  ' + aModeDevice.name)
         }
-        if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
+        //if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
+        if ('alarm_motion' in device.capabilities) {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
@@ -906,6 +907,7 @@ function activateAlarm(device,state,sensorState,nu,source) {
         });
         // Check if Alarm Off Button exists and turn on 
         if ( aModeDevice != undefined) {
+            console.log("aModeDevice alarm_heimdall set")
             aModeDevice.setCapabilityValue('alarm_heimdall', true)
         }
         if ( sModeDevice != undefined) {
