@@ -16,7 +16,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
 ## Version 1.0.16 β
-* Support for more devices with Motion Alarm capabilities 
+* Support for non-sensor devices with Contact, Motion and Tamper capabilities
 
 ## Version 1.0.15
 * Added 'Alarm State' condition flow card

@@ -133,11 +133,13 @@ class Heimdall extends Homey.App {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
-        if (device.class === 'sensor' && 'alarm_tamper' in device.capabilities) {
+        //if (device.class === 'sensor' && 'alarm_tamper' in device.capabilities) {
+        if ('alarm_tamper' in device.capabilities) {
             console.log('Found tamper sensor:        ' + device.name)
             attachEventListener(device,'tamper')
         }
-        if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
+        //if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
+        if ('alarm_contact' in device.capabilities) {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
         }
