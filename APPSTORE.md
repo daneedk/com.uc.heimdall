@@ -1,4 +1,4 @@
-# Heimdall - Let Homey watch over your home ![SDK2][logo]
+# Heimdall - Let Homey watch over your home
 
 This app enables you to use your Homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
@@ -35,5 +35,3 @@ If you like the app, consider buying me a beer!
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
-
-[logo]: https://github.com/daneedk/com.uc.heimdall/blob/beta/assets/images/sdk2.png
