@@ -130,4 +130,4 @@ If you like the app, consider buying me a beer!
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
 
-[logo]: https://github.com/daneedk/com.uc.heimdall/beta/settings/sdk2.png
+[logo]: https://github.com/daneedk/com.uc.heimdall/blob/beta/settings/sdk2.png
