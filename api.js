@@ -10,18 +10,6 @@ module.exports = [
                 callback(null, res);
             })
                 .catch(error => callback(error, null));
-    
-        }
-    },
-    {
-        method: 'GET',
-        path: '/getAPIKey',
-        fn: function(args, callback) {
-            Homey.app.getApiKey().then(res => {
-                callback(null, res);
-            })
-                .catch(error => callback(error, null));
-    
         }
     }
 ]

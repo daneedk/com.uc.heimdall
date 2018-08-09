@@ -1,4 +1,4 @@
-# Heimdall - Let Homey watch over your home
+# Heimdall - Let Homey watch over your home ![SDK2][logo]
 
 This app enables you to use your Homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
@@ -24,9 +24,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
 
-## Changes for current version 0.1.12
-* Working on HomeyDash and HomeyAlarm integration
-
+## Changes for current version 1.0.16
+* Support for non-sensor devices with Contact, Motion and Tamper capabilities 
 
 An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 
@@ -36,3 +35,5 @@ If you like the app, consider buying me a beer!
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
+
+[logo]: https://github.com/daneedk/com.uc.heimdall/blob/beta/assets/images/sdk2.png
