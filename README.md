@@ -15,6 +15,12 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 1.0.18
+* Updated Community ID
+
+## Version 1.0.17
+* Skipped
+
 ## Version 1.0.16
 * Support for non-sensor devices with Contact, Motion and Tamper capabilities
 
