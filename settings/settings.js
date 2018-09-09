@@ -347,28 +347,28 @@ function getStatus() {
         if( err ) return Homey.alert( err );
         surveillance = surveillanceStatus;
         if( surveillance == 'armed') {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-active";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-inactive";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-active";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
         }
         else if( surveillance == 'partially_armed' ) 
         {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-active";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-active";
         }
         else {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-inactive";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
         }
     })
     Homey.get('alarmStatus', function( err, alarmStatus ) {
         if( err ) return Homey.alert( err );
         alarm = alarmStatus;
         if( alarm) {
-            document.getElementById("alarmMode").className = "btn wide btn-alarm";
+            document.getElementById("alarmMode").className = "indicator ind-alarm";
         }
         else {
             if (triggerDelay != null) {
-                document.getElementById("alarmMode").className = "btn wide btn-inactive";
+                document.getElementById("alarmMode").className = "indicator btn-inactive";
             }
         }
     })

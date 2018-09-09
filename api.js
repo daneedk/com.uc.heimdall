@@ -3,6 +3,7 @@ const Homey = require('homey')
 
 module.exports = [
     {
+        description: 'Retrieve all devices with their information',
         method: 'GET',
         path: '/devices',
         fn: function(args, callback) {
@@ -13,9 +14,9 @@ module.exports = [
         }
     },
     {
-        description: 'Request alarm state and surveillance mode status',
+        description: 'Request Alarm state and Surveillance Mode',
         method: 'GET',
-        path: '/status/:type',
+        path: '/state/:type',
         fn: function(args, callback) {
             if (args.params.type === 'surveillance') {
               callback(null, Homey.ManagerSettings.get('surveillanceStatus'));
@@ -25,5 +26,5 @@ module.exports = [
               callback("not a valid status request", null);
             }
         }
-    },
+    }
 ]

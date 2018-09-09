@@ -116,7 +116,7 @@ class Heimdall extends Homey.App {
         this.enumerateDevices();
     }
 
-    // Add device function, only motion- and contact sensors are added
+    // Add device function, only all device types with motion-, contact- and tamper capabilities are added.
     addDevice(device, api) {
         if (device.data.id === 'sMode') {
             sModeDevice = device;
@@ -128,17 +128,14 @@ class Heimdall extends Homey.App {
             console.log('Found Alarm Button          ' + device.name)
             console.log('Variabele:                  ' + aModeDevice.name)
         }
-        //if (device.class === 'sensor' && 'alarm_motion' in device.capabilities) {
         if ('alarm_motion' in device.capabilities) {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
-        //if (device.class === 'sensor' && 'alarm_tamper' in device.capabilities) {
         if ('alarm_tamper' in device.capabilities) {
             console.log('Found tamper sensor:        ' + device.name)
             attachEventListener(device,'tamper')
         }
-        //if (device.class === 'sensor' && 'alarm_contact' in device.capabilities) {
         if ('alarm_contact' in device.capabilities) {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
@@ -151,7 +148,6 @@ class Heimdall extends Homey.App {
         let logLine
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( value == 'disarmed' ) {
-            //logLine = value + " || " + source + " || Surveillance mode is disarmed.";
             logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
             setSurveillanceValue("sd ",value, logLine)
             Homey.app.deactivateAlarm(false, "Surveillance Mode Switch")
@@ -162,10 +158,8 @@ class Heimdall extends Homey.App {
             }   
         } else {
             if ( value == 'armed' ) {
-                //logLine = value + " || " + source + " || Surveillance mode is armed.";
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodearmed")
             } else { 
-                //logLine = value + " || " + source + " || Surveillance mode is partially armed.";
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
             // choose appropriate delay at Armed or Partially Armed
@@ -182,10 +176,8 @@ class Heimdall extends Homey.App {
                 let tta = heimdallSettings.triggerDelay;
                 ttArmedCountdown(tta,"sa ", value, logLine);
                 if ( value == 'armed' ) {
-                    //logLine = "st " + nu + surveillance + " || " + source + " || Surveillance mode will be armed in " + heimdallSettings.triggerDelay + " seconds.";
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
                 } else { 
-                    //logLine = "st " + nu + surveillance + " || " + source + " || Surveillance mode will be partially armed in " + heimdallSettings.triggerDelay + " seconds.";
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
                 }
                 writeLog(logLine)
@@ -206,11 +198,11 @@ class Heimdall extends Homey.App {
         const api = await this.getApi();
 
         for (let device in allDevices) {
-            this.checkDeviceState(allDevices[device], api, value, nu)
+            this.checkDeviceState(allDevices[device], value, nu)
         };
     }
 
-    checkDeviceState(device, api, value, nu) {
+    checkDeviceState(device, value, nu) {
         let sensorState
         let sensorStateReadable
         let sensorType
@@ -298,7 +290,6 @@ class Heimdall extends Homey.App {
                 if( err ) {
                     return Homey.error(err)} ;
                 }); 
-            //let logLine = "ao "+ nu + surveillance + " || " + source + " || Alarm is deactivated.";
             let logLine = "ao "+ nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmdeactivated") + source
             writeLog(logLine)
         }
@@ -315,7 +306,7 @@ if ( surveillance == null ) {
 // Flow triggers functions
 triggerSurveillanceChanged
     .register()
-    .on('run', ( args, state, callback ) => {
+    .on('run', ( args, callback ) => {
         console.log(args)
         if ( true ) {
             callback( null, true );
@@ -327,7 +318,7 @@ triggerSurveillanceChanged
 
 triggersensorActiveAtArming
     .register()
-    .on('run', ( args, state, callback ) => {
+    .on('run', ( args, callback ) => {
         console.log(args)
         if ( true ) {
             callback( null, true );
@@ -339,7 +330,7 @@ triggersensorActiveAtArming
 
 triggerAlarmActivated
     .register()
-    .on('run', ( args, state, callback ) => {
+    .on('run', ( args, callback ) => {
         console.log(args)
         if ( true ) {
             callback( null, true );
@@ -399,7 +390,7 @@ triggerTimeTillArmedChanged
     
 triggerLogLineWritten
     .register()
-    .on('run', ( args, state, callback ) => {
+    .on('run', ( args, callback ) => {        
         console.log(args)
         if ( true ) {
             callback( null, true );
@@ -455,29 +446,37 @@ conditionAlarmActive
     });
 
 //Flow actions functions
-actionInputHistory.register().on('run', ( args, state, callback ) => {
-    let nu = getDateTime();
-    surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    let logLine = "lh " + nu + readableMode(surveillance) + " || Flowcard || " + args.log;
-    writeLog(logLine)
-    callback( null, true );
-});
+actionInputHistory
+    .register()
+    .on('run', ( args, state, callback ) => {
+        let nu = getDateTime();
+        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        let logLine = "lh " + nu + readableMode(surveillance) + " || Flowcard || " + args.log;
+        writeLog(logLine)
+        callback( null, true );
+    });
 
-actionClearHistory.register().on('run', ( args, state, callback ) => {
-    Homey.ManagerSettings.set('myLog', '' );
-    console.log ('actionClearHistory: The history data is cleared.');
-    callback( null, true );
-}); 
+actionClearHistory
+    .register()
+    .on('run', ( args, state, callback ) => {
+        Homey.ManagerSettings.set('myLog', '' );
+        console.log ('actionClearHistory: The history data is cleared.');
+        callback( null, true );
+    }); 
 
-actionActivateAlarm.register().on('run', ( args, state, callback ) => {
-    activateAlarm("", true, "", "", "Flowcard")
-    callback( null, true ); 
-});
+actionActivateAlarm
+    .register()
+    .on('run', ( args, state, callback ) => {
+        activateAlarm("",  "", "", "Flowcard")
+        callback( null, true ); 
+    });
 
-actionDeactivateAlarm.register().on('run', ( args, state, callback ) => {
-    Homey.app.deactivateAlarm(true, "Flowcard")
-    callback( null, true );
-});
+actionDeactivateAlarm
+    .register()
+    .on('run', ( args, state, callback ) => {
+        Homey.app.deactivateAlarm(true, "Flowcard")
+        callback( null, true );
+    });
 
 Homey.ManagerSettings.on('set', (variable) => {
 	if ( variable === 'settings' ) {
@@ -528,7 +527,6 @@ function setSurveillanceValue(color,value, logLine) {
         }
         //
     } else {
-        //logLine = color + nu + surveillance + " || Heimdall || Changing Surveillance Mode is disabled due to disarming." 
         logLine = "sd " + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
     }
     writeLog(logLine)   
@@ -648,10 +646,28 @@ function isDelayed(obj) {
 
 // this function attaches en eventlistener to a device
 function attachEventListener(device,sensorType) {
-    device.on('$state', debounce(state => { 
-        stateChange(device,state,sensorType)
-    },250));
-    console.log('Attached Eventlistener:     ' + device.name)
+    
+    switch (sensorType) {
+        case "motion":
+            device.on('alarm_motion', debounce(alarm_motion => { 
+                stateChange(device,alarm_motion,sensorType)
+            },250));
+            break;
+
+        case "contact":
+            device.on('alarm_contact', debounce(alarm_contact => { 
+                stateChange(device,alarm_contact,sensorType)
+            },250));
+            break;
+
+        case "tamper":
+            device.on('alarm_tamper', debounce(alarm_tamper => { 
+                stateChange(device,alarm_tamper,sensorType)
+            },250));
+            break;
+    }
+
+    console.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
     if ( isMonitoredFull(device) ) {
         console.log('Fully Monitored device:     ' + device.name)
     } 
@@ -679,11 +695,12 @@ function debounce(func, wait, immediate) {
 };
 
 // this function gets called when a device with an attached eventlistener fires an event.
-function stateChange(device,state,sensorType) {
+function stateChange(device,sensorState,sensorType) {
     if ( sensorType == 'tamper' && !heimdallSettings.useTampering ) {
-        // console.log("StateChange detected for tampering but shouldn't act on it")
+        console.log("StateChange detected for tampering but shouldn't act on it")
         return
     }
+
     let nu = getDateTime();
     let sourceDeviceFull = false;
     let sourceDevicePartial = false;
@@ -706,19 +723,15 @@ function stateChange(device,state,sensorType) {
     console.log('sourceDeviceLog:        ' + sourceDeviceLog)
     // is the device monitored?
     if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
-        console.log('Log/Full/Partial:       Yes')
-        let sensorState;
+        console.log('Full||Partial||Log:     Yes')
         let sensorStateReadable;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         // get sensortype to set correct sensorState
         if (sensorType == 'motion') {
-            sensorState = state.alarm_motion
             sensorStateReadable = readableState(sensorState, 'motion')
         } else if (sensorType == 'contact') {
-            sensorState = state.alarm_contact
             sensorStateReadable = readableState(sensorState, 'contact')
         } else if (sensorType == 'tamper') {
-            sensorState = state.alarm_tamper
             sensorStateReadable = readableState(sensorState, 'tamper')
         };
         console.log('sensorStateReadable:    ' + sensorStateReadable)
@@ -740,12 +753,9 @@ function stateChange(device,state,sensorType) {
         // Is sensorstate true?
         if ( sensorState ) {
             // is there no delayed trigger and Alarm state active?
-            // if ( !alarmCounterRunning ) {
             if ( !alarmCounterRunning && !alarm) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     console.log('Alarm is triggered:     Yes')
-                    //logLine = "al " + nu + surveillance + " || Heimdall || " + device.name + " " + sensorType + " triggered Alarm.";
-                    //logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + Homey.__("history.triggerdalarm")
                     logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " in " + device.zone.name + Homey.__("history.triggerdalarm")
                     if ( sensorType == 'motion' ) {
                         speak("motionTrue", device.name + " detected motion") 
@@ -760,7 +770,6 @@ function stateChange(device,state,sensorType) {
                         // The device has a delayed trigger
                         alarmCounterRunning = true;
                         console.log('alarmCounterRunning:    true')
-                        //logLine = "ad "+ nu + surveillance + " || Heimdall || Alarmtrigger is delayed: " + heimdallSettings.triggerDelay + ' seconds.' + '\n' +logLine
                         logLine = "ad "+ nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.alarmdelayed") + heimdallSettings.triggerDelay + Homey.__("history.seconds") + '\n' + logLine
                         let delay = heimdallSettings.triggerDelay * 1000;
                         // Trigger delay flow card
@@ -776,11 +785,11 @@ function stateChange(device,state,sensorType) {
                         console.log('ttAlarmCountdown start: ' + heimdallSettings.triggerDelay)
                         // Trigger Time Till Alarm flow card
                         let tta = heimdallSettings.triggerDelay - 1;
-                        ttAlarmCountdown(tta, device,state,sensorStateReadable);
+                        ttAlarmCountdown(tta, device,sensorStateReadable);
                     } 
                     else {
                         console.log('Trigger is delayed:     No')
-                        activateAlarm(device, state, sensorStateReadable, nu, "Heimdall");
+                        activateAlarm(device, sensorStateReadable, nu, "Heimdall");
                     }
                 }
                 else {
@@ -792,7 +801,6 @@ function stateChange(device,state,sensorType) {
                 // Delayed trigger is active
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     console.log('alarmCounterRunning:    true so sensorstate true is cancelled')
-                    //logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + ", no alarm trigger due to running delay countdown";
                     logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + Homey.__("history.noalarmtriggercountdown");
                 }
             } 
@@ -800,7 +808,6 @@ function stateChange(device,state,sensorType) {
                 // Alarm state is active
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     console.log('Alarmstate Ative:       The Alarm State is active so just log the sensorstate')
-                    //logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + ", no alarm trigger due to active Alarmstate.";
                     logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + Homey.__("history.noalarmtriggeralarmstate");
                 }
             }
@@ -830,9 +837,9 @@ function stateChange(device,state,sensorType) {
     }
 }
 
-function readableState(state, type) {
+function readableState(sensorState, type) {
     if (type == 'motion') {
-        if ( state ) {
+        if ( sensorState ) {
             return Homey.__("states.motion")
             //return 'Motion detected'
         } else {
@@ -841,7 +848,7 @@ function readableState(state, type) {
         }
     } 
     else if (type == 'contact') {
-        if ( state ) {
+        if ( sensorState ) {
             return Homey.__("states.open")
             //return 'Open'
         } else {
@@ -849,7 +856,7 @@ function readableState(state, type) {
             //return 'Closed'
         }
     } else if (type == 'tamper') {
-        if ( state ) {
+        if ( sensorState ) {
             return Homey.__("states.tamper")
             //return 'Tamper detected'
         } else {
@@ -877,7 +884,7 @@ function readableMode(mode) {
     }
 }
 
-function activateAlarm(device,state,sensorState,nu,source) {
+function activateAlarm(device,sensorState,nu,source) {
     console.log('nu: '+ nu)
     if ( nu == "" ) { 
         nu = getDateTime()
@@ -888,16 +895,14 @@ function activateAlarm(device,state,sensorState,nu,source) {
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     if ( surveillance != 'disarmed' || source == "Flowcard" ) {
         // Surveillance mode is active
-        //logLine = "al " + nu + surveillance + " || Heimdall || Alarm is activated: " + device.name + ": " + sensorState;
         if ( source == "Heimdall") {
             var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zone.name };
             logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivated") + device.name + ": " + sensorState;
         } else {
             var tokens= {'Reason': 'Flowcard' , 'Zone': "" };
-            //let temp = Homey.__("history.alarmactivated")
             logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivatedflowcard");
         }
-        triggerAlarmActivated.trigger(tokens, state, function(err, result){
+        triggerAlarmActivated.trigger(tokens, function(err, result){
             if( err ) {
                 return Homey.error(err)} ;
             });   
@@ -918,7 +923,6 @@ function activateAlarm(device,state,sensorState,nu,source) {
     }
     else {
         // Surveillance mode is not active
-        // logLine = "ao " + nu + surveillance + " || Heimdall || Alarm is not activated."
         logLine = "ao " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmnotactivated")
         alarm=false;
         Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
@@ -929,7 +933,7 @@ function activateAlarm(device,state,sensorState,nu,source) {
     writeLog(logLine)
 }
 
-function ttAlarmCountdown(delay,device,state,sensorStateReadable) {
+function ttAlarmCountdown(delay,device,sensorStateReadable) {
     console.log('ttAlarmCountdown:       ' + delay)
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
     if ( surveillance != 'disarmed' ) {
@@ -948,19 +952,21 @@ function ttAlarmCountdown(delay,device,state,sensorStateReadable) {
         }
         if ( delay > 0 ) {
             setTimeout(function(){
-                ttAlarmCountdown(delay-1,device,state,sensorStateReadable)
+                ttAlarmCountdown(delay-1,device,sensorStateReadable)
             }, 1000);
         } 
         else if ( delay == 0) {
             alarmCounterRunning = false
             console.log('alarmCounterRunning:    false due to reaching 0')
-            activateAlarm(device, state, sensorStateReadable, "", "Heimdall")
+            activateAlarm(device, sensorStateReadable, "", "Heimdall")
         }
     }
     else {
         alarmCounterRunning = false
         console.log('alarmCounterRunning:    false')
         console.log('ttAlarmCountdown:       canceled due to disarm')
+        // new
+        activateAlarm(device, sensorStateReadable, "", "Heimdall")
     }
 }
 
