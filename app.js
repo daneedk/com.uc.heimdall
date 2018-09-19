@@ -12,6 +12,7 @@ let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
+let triggerSensorTrippedInAlarmstate = new Homey.FlowCardTrigger('SensorTrippedInAlarmstate');
 
 
 // Flow conditions
@@ -399,6 +400,18 @@ triggerLogLineWritten
             callback( null, false );
         } 
     }); 
+
+triggerSensorTrippedInAlarmstate
+    .register()
+    .on('run', ( args, callback ) => {
+        console.log(args)
+        if ( true ) {
+            callback( null, true );
+        }
+        else {
+            callback( null, false );
+        }
+    })
 
 //Flow condition functions
 conditionSurveillanceIs
@@ -809,6 +822,12 @@ function stateChange(device,sensorState,sensorType) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                     console.log('Alarmstate Ative:       The Alarm State is active so just log the sensorstate')
                     logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + Homey.__("history.noalarmtriggeralarmstate");
+                
+                    var tokens = {'Zone': device.zone.name, 'Device': device.name, 'State': sensorStateReadable};
+                    triggerSensorTrippedInAlarmstate.trigger(tokens, function(err, result){
+                        if( err ) {
+                            return Homey.error(err)} ;
+                        });
                 }
             }
         }

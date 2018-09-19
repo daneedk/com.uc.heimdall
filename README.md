@@ -15,6 +15,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Changes for current version 1.0.20
+* Added ['Sensor tripped in Alarmstate' trigger flow card](https://github.com/daneedk/com.uc.heimdall/issues/25)
+
 ## Version 1.0.19
 * Added function to API to retrieve Surveillance Mode and Alarm State
 * Fixed issue with [triggering on measure_temperature reports](https://github.com/daneedk/com.uc.heimdall/issues/23)

@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.19",
+	"version": "1.0.20",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -195,6 +195,42 @@
 						"nl": "Satus"
 					},
 					"example": "Motion detected"
+				}
+			]
+		},
+		{
+			"id": "SensorTrippedInAlarmstate",
+			"title": {
+				"en": "Sensor tripped in Alarmstate",
+				"nl": "Sensor actief in Alarmstatus"
+			},
+			"tokens": [
+				{
+					"name": "State",
+					"type": "string",
+					"title": {
+						"en": "State",
+						"nl": "Satus"
+					},
+					"example": "Motion detected"
+				},
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat"
+					},
+					"example": "Motion Sensor"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone"
+					},
+					"example": "-"
 				}
 			]
 		}

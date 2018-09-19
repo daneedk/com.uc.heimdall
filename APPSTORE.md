@@ -24,10 +24,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 1.0.19
-* Added function to API to retrieve Surveillance Mode and Alarm State
-* Fixed issue with triggering on measure_temperature reports
-* Code cleanup
+## Changes for current version 1.0.20
+* Added 'Sensor tripped in Alarmstate' trigger flow card
 
 An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 
