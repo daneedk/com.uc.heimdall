@@ -27,7 +27,8 @@ Please post your questions/remarks on the [Athom community forum](https://commun
 ## Changes for current version 1.0.20
 * Added 'Sensor tripped in Alarmstate' trigger flow card
 
-An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
+An extensive changelog is available [here](https://community.athom.com/t/134/3)
+More detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 
 ## Donate
 If you like the app, consider buying me a beer!  
