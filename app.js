@@ -133,13 +133,19 @@ class Heimdall extends Homey.App {
             console.log('Found motion sensor:        ' + device.name)
             attachEventListener(device,'motion')
         }
-        if ('alarm_tamper' in device.capabilities) {
-            console.log('Found tamper sensor:        ' + device.name)
-            attachEventListener(device,'tamper')
-        }
         if ('alarm_contact' in device.capabilities) {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
+        }
+        // NEW
+        if ('alarm_vibration' in device.capabilities) {
+            console.log('Found vibration sensor:     ' + device.name)
+            attachEventListener(device,'vibration')
+        }
+        // NEW
+        if ('alarm_tamper' in device.capabilities) {
+            console.log('Found tamper sensor:        ' + device.name)
+            attachEventListener(device,'tamper')
         }
     }
 
@@ -672,7 +678,13 @@ function attachEventListener(device,sensorType) {
                 stateChange(device,alarm_contact,sensorType)
             },250));
             break;
-
+        // NEW
+        case "vibration":
+            device.on('alarm_vibration', debounce(alarm_vibration => { 
+                stateChange(device,alarm_vibration,sensorType)
+            },250));
+            break;
+        // NEW
         case "tamper":
             device.on('alarm_tamper', debounce(alarm_tamper => { 
                 stateChange(device,alarm_tamper,sensorType)
@@ -744,6 +756,10 @@ function stateChange(device,sensorState,sensorType) {
             sensorStateReadable = readableState(sensorState, 'motion')
         } else if (sensorType == 'contact') {
             sensorStateReadable = readableState(sensorState, 'contact')
+        // NEW
+        } else if (sensorType == 'vibration') {
+            sensorStateReadable = readableState(sensorState, 'vibration')
+        // NEW
         } else if (sensorType == 'tamper') {
             sensorStateReadable = readableState(sensorState, 'tamper')
         };
@@ -865,8 +881,7 @@ function readableState(sensorState, type) {
             return Homey.__("states.nomotion")
             //return 'No motion detected'
         }
-    } 
-    else if (type == 'contact') {
+    } else if (type == 'contact') {
         if ( sensorState ) {
             return Homey.__("states.open")
             //return 'Open'
@@ -874,6 +889,16 @@ function readableState(sensorState, type) {
             return Homey.__("states.closed")
             //return 'Closed'
         }
+    // NEW
+    } else if (type == 'vibration') {
+        if ( sensorState ) {
+            return Homey.__("states.vibration")
+            //return 'Vibration detected'
+        } else {
+            return Homey.__("states.novibration")
+            //return 'No Vibration detected'
+        }
+    // NEW
     } else if (type == 'tamper') {
         if ( sensorState ) {
             return Homey.__("states.tamper")
@@ -984,7 +1009,6 @@ function ttAlarmCountdown(delay,device,sensorStateReadable) {
         alarmCounterRunning = false
         console.log('alarmCounterRunning:    false')
         console.log('ttAlarmCountdown:       canceled due to disarm')
-        // new
         activateAlarm(device, sensorStateReadable, "", "Heimdall")
     }
 }

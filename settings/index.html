@@ -129,7 +129,8 @@
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.dTrigger">-Delayed Trigger-</div>
                                 <div class="rTableCell line rTableHead rTableCellLast"></div>
                             </div>
-                            <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact">
+                            <!--div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact"-->
+                            <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact || device.capabilities.alarm_vibration">
                                 <div class="rTableCell line">{{device.zone.name}}</div>
                                 <div class="rTableBatt line">
                                     <span v-html="getBattClass(device.state.measure_battery)"></span>

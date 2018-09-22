@@ -87,6 +87,8 @@
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
         "nomotion": "Geen beweging gedetecteerd",
+        "vibration": "Vibratie gedetecteerd",
+        "novibration": "Geen vibratie gedetecteerd",
         "tamper": "Manipulaite gedetecteerd",
         "notamper": "Geen manipulatie meer gedetecteerd"
     },

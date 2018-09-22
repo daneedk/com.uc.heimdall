@@ -87,6 +87,8 @@
         "closed": "Closed",
         "motion": "Motion detected",
         "nomotion": "No motion detected",
+        "vibration": "Vibration detected",
+        "novibration": "No vibration detected",
         "tamper": "Tampering detected",
         "notamper": "No more tampering detected"
     },

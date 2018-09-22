@@ -24,8 +24,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 1.0.20
-* Added 'Sensor tripped in Alarmstate' trigger flow card
+## Changes for current version 1.0.21
+* Added support for Vibration sensors
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
