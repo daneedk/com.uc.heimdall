@@ -3,13 +3,15 @@ let _myLog;
 let surveillance;
 let alarm;
 var allDevices;
-var triggerDelay = 30;
+// var armingDelay = 30;
 var logArmedOnly;
 var logTrueOnly;
 var dashboardVisible = true;
+var illegalValue = false;
 var heimdallSettings = {};
 var defaultSettings = {
-    "triggerDelay": "30",
+    "armingDelay": "30",
+    "alarmDelay": "30",
     "delayArmingFull": false,
     "delayArmingPartial": false,    
     "logArmedOnly": false,
@@ -39,12 +41,18 @@ function onHomeyReady(homeyReady){
                 console.log('savedSettings:')
                 console.log(savedSettings)
                 heimdallSettings = savedSettings;
-                
+                // temp
+                if (heimdallSettings.armingDelay == (null || undefined)) {
+                    heimdallSettings.armingDelay = heimdallSettings.triggerDelay
+                    heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
+                }
+                //temp
             }
         }
         document.getElementById('autoRefresh').checked = heimdallSettings.autorefresh;
         document.getElementById('useColors').checked = heimdallSettings.useColors;
-        document.getElementById('triggerDelay').value = heimdallSettings.triggerDelay;
+        document.getElementById('armingDelay').value = heimdallSettings.armingDelay;
+        document.getElementById('alarmDelay').value = heimdallSettings.alarmDelay;
         document.getElementById('delayArmingFull').checked = heimdallSettings.delayArmingFull;
         document.getElementById('delayArmingPartial').checked = heimdallSettings.delayArmingPartial;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
@@ -329,6 +337,11 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    if ( illegalValue ) {
+        illegalValue = false;
+        return;
+    }
+    console.log("tab: " + tab)
     $('.tab').removeClass('tab-active')
     $('.tab').addClass('tab-inactive')
     $('#tabb' + tab).removeClass('tab-inactive')
@@ -367,7 +380,7 @@ function getStatus() {
             document.getElementById("alarmMode").className = "indicator ind-alarm";
         }
         else {
-            if (triggerDelay != null) {
+            if (heimdallSettings.armingDelay != null) {
                 document.getElementById("alarmMode").className = "indicator btn-inactive";
             }
         }
@@ -379,22 +392,37 @@ function getLanguage() {
     document.getElementById("instructions"+language).style.display = "inline";
 }
 
-function changeTriggerDelay() {
-    let newTriggerDelay = document.getElementById("triggerDelay").value;
-    console.log('Triggerdelay: ' + newTriggerDelay)
-    if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
-        document.getElementById("triggerDelay").value = triggerDelay;
+function changeArmingDelay() {
+    let newArmingDelay = document.getElementById("armingDelay").value;
+    console.log('Armingdelay: ' + newArmingDelay)
+    if (isNaN(newArmingDelay) || newArmingDelay < 0 || newArmingDelay > 300) {
+        document.getElementById("armingDelay").value = heimdallSettings.armingDelay;
         Homey.alert(Homey.__("tab2.settings.secondsFail") );
+        illegalValue = true;
     } else {
         saveSettings();
-        Homey.alert(Homey.__("tab2.settings.saveSucces"));
+        //Homey.alert(Homey.__("tab2.settings.saveSucces"));
+    }
+}
+
+function changeAlarmDelay() {
+    let newAlarmDelay = document.getElementById("alarmDelay").value;
+    console.log('Alarmdelay: ' + newAlarmDelay)
+    if (isNaN(newAlarmDelay) || newAlarmDelay < 0 || newAlarmDelay > 300) {
+        document.getElementById("alarmDelay").value = heimdallSettings.alarmDelay;
+        Homey.alert(Homey.__("tab2.settings.secondsFail") );
+        illegalValue = true;
+    } else {
+        saveSettings();
+        //Homey.alert(Homey.__("tab2.settings.saveSucces"));
     }
 }
 
 function saveSettings() {
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
     heimdallSettings.useColors = document.getElementById('useColors').checked;
-    heimdallSettings.triggerDelay = document.getElementById('triggerDelay').value;
+    heimdallSettings.armingDelay = document.getElementById('armingDelay').value;
+    heimdallSettings.alarmDelay = document.getElementById('alarmDelay').value;
     heimdallSettings.delayArmingFull = document.getElementById('delayArmingFull').checked;
     heimdallSettings.delayArmingPartial = document.getElementById('delayArmingPartial').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;

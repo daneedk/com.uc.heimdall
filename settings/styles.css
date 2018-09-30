@@ -71,11 +71,13 @@ a:active {
 
 .indicator {
     display: inline-block;
-    margin-bottom: 0px;
+    padding: 5px;
+    margin-right: 3px;
+    margin-bottom: 3px;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.42857;
-    width: 160px;
+    width: 300px;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -119,9 +121,17 @@ a:active {
     border-color: rgb(255, 0, 0);
 }
 
+.historySetting {
+    display: table-cell;   	
+    width: 200px;
+    height: 30px;
+    vertical-align: bottom;
+}
 .tab {
+    display: table-cell;   	
     width: 130px;
     margin-bottom: 0px;
+    margin-right: 3px;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.42857;
@@ -130,6 +140,7 @@ a:active {
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
+    width: 130px;
     border-left: 1px solid rgb(200,200,200);
     border-top: 1px solid rgb(200,200,200);
     border-right: 1px solid rgb(200,200,200);
@@ -151,6 +162,37 @@ a:active {
     border-bottom: 1px solid rgb(200,200,200);   
 }
 
+.sTable {   	
+    display: table;   	
+    width: calc(100% - 2px); 
+}
+
+.sTableRow {   	
+    display: table-row; 
+    margin: 0px;
+    border-top: 1px solid rgb(220,220,220);
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);            
+}
+
+.sTableCell {   	
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 2;
+    padding: 6px 4px;
+    margin: 0px;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.iTableRow {   	
+    display: table-row; 
+    margin: 0;
+    border-top: 1px solid rgb(220,220,220);
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);            
+} 
 .rTable {   	
     display: table;   	
     width: calc(100% - 2px); 
@@ -186,6 +228,17 @@ a:active {
     border-top: 1px solid rgb(220,220,220);
 }
 
+.inputs label {
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+}
+
+.inputs input {
+    height: 13px;
+    font-size: 12px;
+    font-weight: 400;
+}
 .rTableCellLast{
     width: 25%;
 }

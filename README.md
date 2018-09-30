@@ -15,6 +15,12 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 1.0.22
+* Added [Last Door](https://github.com/daneedk/com.uc.heimdall/issues/27) functionality
+* Split Trigger Delay to 2 separate settings, Arming Delay and Alarm Delay
+* Changed Delay range to 0-300 seconds
+* Minor layout changes to settings pages
+
 ## Version 1.0.21
 * Added support for Vibration sensors
 

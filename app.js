@@ -8,19 +8,17 @@ let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged'
 let triggersensorActiveAtArming = new Homey.FlowCardTrigger('sensorActiveAtArming');
 let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
 let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
-let triggerDelayActivated = new Homey.FlowCardTrigger('DelayActivated');
+let triggerAlarmDelayActivated = new Homey.FlowCardTrigger('AlarmDelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
 let triggerSensorTrippedInAlarmstate = new Homey.FlowCardTrigger('SensorTrippedInAlarmstate');
-
 
 // Flow conditions
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
 const conditionArmingCountdown = new Homey.FlowCardCondition('ArmingCountdown');
 const conditionAlarmCountdown = new Homey.FlowCardCondition('AlarmCountdown');
 const conditionAlarmActive = new Homey.FlowCardCondition('AlarmActive');
-
 
 // Flow actions
 const actionInputHistory = new Homey.FlowCardAction('SendInfo');
@@ -32,7 +30,8 @@ var surveillance;
 var alarm = false;
 var heimdallSettings = [];
 var defaultSettings = {
-    "triggerDelay": "30",
+    "armingDelay": "30",
+    "alarmDelay": "30",
     "delayArmingFull": false,
     "delayArmingPartial": false,
     "logArmedOnly": false,
@@ -62,6 +61,8 @@ var aModeDevice;
 var armCounterRunning = false;
 var alarmCounterRunning = false;
 var devicesTripped = [];
+var lastDoor = false;
+var changeTta = false;
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -109,7 +110,13 @@ class Heimdall extends Homey.App {
         heimdallSettings = Homey.ManagerSettings.get('settings');
 		if (heimdallSettings == (null || undefined)) {
 			heimdallSettings = defaultSettings
-		};
+        };
+        // temp
+            if ( heimdallSettings.armingDelay == (null || undefined)) {
+                heimdallSettings.armingDelay = heimdallSettings.triggerDelay
+                heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
+            }
+        // temp
         getMonitoredFullDevices();
         getMonitoredPartialDevices();
         getDelayedDevices();
@@ -174,18 +181,18 @@ class Heimdall extends Homey.App {
             // need to check for active armCounterRunning ?
 
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
-                console.log('Arming is delayed:      Yes, ' + heimdallSettings.triggerDelay + ' seconds.')
-                let delay = heimdallSettings.triggerDelay * 1000;
-                console.log('setSurveillanceValue in:' + heimdallSettings.triggerDelay + ' seconds.')
-                //speak("The Surveillance mode will be set to " + readableMode(value) + " in " + heimdallSettings.triggerDelay + " seconds.")
-                speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + heimdallSettings.triggerDelay + Homey.__("speech.seconds"))
+                console.log('Arming is delayed:      Yes, ' + heimdallSettings.armingDelay + ' seconds.')
+                let delay = heimdallSettings.armingDelay * 1000;
+                console.log('setSurveillanceValue in:' + heimdallSettings.armingDelay + ' seconds.')
+                //speak("The Surveillance mode will be set to " + readableMode(value) + " in " + heimdallSettings.armingDelay + " seconds.")
+                speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + heimdallSettings.armingDelay + Homey.__("speech.seconds"))
                 armCounterRunning = true;
-                let tta = heimdallSettings.triggerDelay;
+                let tta = heimdallSettings.armingDelay;
                 ttArmedCountdown(tta,"sa ", value, logLine);
                 if ( value == 'armed' ) {
-                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
+                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
                 } else { 
-                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.triggerDelay + Homey.__("history.seconds")
+                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
                 }
                 writeLog(logLine)
                 // check for tripped sensor before Arming Delay
@@ -344,7 +351,7 @@ triggerAlarmActivated
         }   
         else {
             callback( null, false );
-        } 
+        }
     });
 
 triggerAlarmDeactivated
@@ -359,7 +366,7 @@ triggerAlarmDeactivated
         } 
     });
 
-triggerDelayActivated
+triggerAlarmDelayActivated
     .register()
     .on('run', ( args, callback ) => {
         console.log(args)
@@ -528,6 +535,10 @@ function setSurveillanceValue(color,value, logLine) {
     let nu = getDateTime();
     logLine = color + nu + logLine;
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+    // NEW
+    lastDoor = false;
+    changeTta = false;
+    // NEW
     if ( armCounterRunning || value === 'disarmed') {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
             if( err ) return Homey.alert( err );
@@ -779,8 +790,16 @@ function stateChange(device,sensorState,sensorType) {
         }
         // Set logLine for the statechange
         logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
-        // Is sensorstate true?
+        // Is sensorState true?
         if ( sensorState ) {
+            // NEW
+                if (sensorType='contact' && isDelayed(device) && armCounterRunning) {
+                    // a Doorsensor with a delay is opened while the arming countdown is running
+                    console.log('lastDoor:               Opened')
+                    lastDoor = true;
+                }
+            // NEW
+
             // is there no delayed trigger and Alarm state active?
             if ( !alarmCounterRunning && !alarm) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
@@ -799,21 +818,21 @@ function stateChange(device,sensorState,sensorType) {
                         // The device has a delayed trigger
                         alarmCounterRunning = true;
                         console.log('alarmCounterRunning:    true')
-                        logLine = "ad "+ nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.alarmdelayed") + heimdallSettings.triggerDelay + Homey.__("history.seconds") + '\n' + logLine
-                        let delay = heimdallSettings.triggerDelay * 1000;
+                        logLine = "ad "+ nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.alarmdelayed") + heimdallSettings.alarmDelay + Homey.__("history.seconds") + '\n' + logLine
+                        let delay = heimdallSettings.alarmDelay * 1000;
                         // Trigger delay flow card
-                        var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Duration': heimdallSettings.triggerDelay * 1 };
-                        triggerDelayActivated.trigger(tokens, function(err, result){
+                        var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Duration': heimdallSettings.alarmDelay * 1 };
+                        triggerAlarmDelayActivated.trigger(tokens, function(err, result){
                             if( err ) {
                                 return Homey.error(err)} ;
                             });
                         console.log('alarmCounterRunning:    true')
-                        console.log('Trigger is delayed:     Yes, ' + heimdallSettings.triggerDelay + ' seconden')
-                        //speak("The alarm will go off in " + heimdallSettings.triggerDelay + " seconds.")
-                        speak("alarmCountdown", Homey.__("speech.startalarmcountdown") + heimdallSettings.triggerDelay + Homey.__("speech.seconds"))
-                        console.log('ttAlarmCountdown start: ' + heimdallSettings.triggerDelay)
+                        console.log('alarm is delayed:       Yes, ' + heimdallSettings.alarmDelay + ' seconden')
+                        //speak("The alarm will go off in " + heimdallSettings.alarmDelay + " seconds.")
+                        speak("alarmCountdown", Homey.__("speech.startalarmcountdown") + heimdallSettings.alarmDelay + Homey.__("speech.seconds"))
+                        console.log('ttAlarmCountdown start: ' + heimdallSettings.alarmDelay)
                         // Trigger Time Till Alarm flow card
-                        let tta = heimdallSettings.triggerDelay - 1;
+                        let tta = heimdallSettings.alarmDelay - 1;
                         ttAlarmCountdown(tta, device,sensorStateReadable);
                     } 
                     else {
@@ -846,7 +865,19 @@ function stateChange(device,sensorState,sensorType) {
                         });
                 }
             }
+        } 
+        
+        // NEW
+        else {
+        // sensorState is false    
+            if (sensorType='contact' && isDelayed(device) && armCounterRunning && lastDoor) {
+                // a Doorsensor with a delay is opened and closed while the arming countdown is running
+                console.log('lastDoor:               Closed, countdown will be lowered')
+                changeTta = true;
+            }
         }
+        // NEW
+
         let shouldLog = true;
         console.log('logArmedOnly:           ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
         console.log('logTrueOnly:            ' + heimdallSettings.logTrueOnly + ', Sensorstate: ' + sensorState)
@@ -1016,6 +1047,14 @@ function ttAlarmCountdown(delay,device,sensorStateReadable) {
 function ttArmedCountdown(delay, color, value, logLine) {
     console.log(' ttArmedCountdown:      ' + delay)
     if ( armCounterRunning ) {
+        // NEW
+        if (changeTta && delay > 9 ) {
+            delay = 10;
+            changeTta = false        
+            logLine = "st " + getDateTime() + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodedelaychanged")
+            writeLog(logLine)
+        }
+        // NEW
         var tokens = { 'ArmedTimer': delay * 1};
         triggerTimeTillArmedChanged.trigger(tokens, function(err, result){
             if( err ) {

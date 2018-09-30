@@ -24,8 +24,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 1.0.21
-* Added support for Vibration sensors
+## Changes for current version 1.0.22
+* Added 'Last Door' functionality
+* Split Trigger Delay to 2 separate settings, Arming Delay and Alarm Delay
+* Changed Delay range to 0-300 seconds
+* Minor layout changes to settings pages
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
