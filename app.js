@@ -1050,9 +1050,11 @@ function ttArmedCountdown(delay, color, value, logLine) {
         // NEW
         if (changeTta && delay > 9 ) {
             delay = 10;
-            changeTta = false        
+            changeTta = false
+            var prevLogLine = logLine      
             logLine = "st " + getDateTime() + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodedelaychanged")
             writeLog(logLine)
+            logLine = prevLogLine
         }
         // NEW
         var tokens = { 'ArmedTimer': delay * 1};
