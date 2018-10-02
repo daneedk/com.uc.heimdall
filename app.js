@@ -13,7 +13,7 @@ let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
 let triggerSensorTrippedInAlarmstate = new Homey.FlowCardTrigger('SensorTrippedInAlarmstate');
-//let triggerNoInfoReceived = new Homey.FlowCardTrigger('noInfoReceived');
+let triggerNoInfoReceived = new Homey.FlowCardTrigger('noInfoReceived');
 
 // Flow conditions
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
@@ -311,13 +311,12 @@ class Heimdall extends Homey.App {
                     let tempColor = 'mp-'
                     let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
                     writeLog(tempLogLine)
-                    /*
+
                     var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
                     triggerNoInfoReceived.trigger(tokens, function(err, result){
                         if( err ) {
                             return Homey.error(err)} ;
                         });
-                    */
                 }
             }
             // Check Contact Sensors
@@ -335,13 +334,12 @@ class Heimdall extends Homey.App {
                     let tempColor = 'mp-'
                     let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime
                     writeLog(tempLogLine)
-                    /*
+
                     var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
                     triggerNoInfoReceived.trigger(tokens, function(err, result){
                         if( err ) {
                             return Homey.error(err)} ;
                         });
-                    */
                 }
             }
         }
@@ -510,7 +508,7 @@ triggerSensorTrippedInAlarmstate
             callback( null, false );
         }
     })
-/*
+
 triggerNoInfoReceived
     .register()
     .on('run', ( args, callback ) => {
@@ -522,7 +520,7 @@ triggerNoInfoReceived
             callback( null, false );
         }
     })
-*/
+
 //Flow condition functions
 conditionSurveillanceIs
     .register()

@@ -15,6 +15,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 1.0.23
+* Check if sensors communicated with Homey in the last 24 hours
+
 ## Version 1.0.22
 * Added [Last Door](https://github.com/daneedk/com.uc.heimdall/issues/27) functionality
 * Split Trigger Delay to 2 separate settings, Arming Delay and Alarm Delay

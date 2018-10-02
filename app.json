@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.22",
+	"version": "1.0.23",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -213,6 +213,51 @@
 						"nl": "Satus"
 					},
 					"example": "Motion detected"
+				},
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat"
+					},
+					"example": "Motion Sensor"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone"
+					},
+					"example": "-"
+				}
+			]
+		},
+		{
+			"id": "noInfoReceived",
+			"title" :{
+				"en": "No information received",
+				"nl": "Geen informatie ontvangen"
+			},
+			"tokens": [
+				{
+					"name": "Duration",
+					"type": "number",
+					"title": {
+						"en": "Hours no information",
+						"nl": "Uren geen informatie"  
+					},
+					"Example": 12
+				},
+				{
+					"name": "LastUpdate",
+					"type": "string",
+					"title": {
+						"en": "Last update",
+						"nl": "Laatste bericht"  
+					},
+					"Example": " "
 				},
 				{
 					"name": "Device",
