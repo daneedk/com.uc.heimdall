@@ -126,6 +126,8 @@
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
         "alarmnotactivated": "Alarm is niet geactiveerd door deactiveren Toezicht Mode.",
         "noalarmtriggercountdown": ", geen alarm trigger omdat er een vertraagde trigger actief is.",
-        "noalarmtriggeralarmstate": ", geen alarm trigger omdat het Alarm al geactiveerd is."
+        "noalarmtriggeralarmstate": ", geen alarm trigger omdat het Alarm al geactiveerd is.",
+        "noreport": " heeft al  ",
+        "lastreport": " uren geen info gestuurd. Laatste info: "
     }
 }

@@ -233,51 +233,6 @@
 					"example": "-"
 				}
 			]
-		},
-		{
-			"id": "noInfoReceived",
-			"title" :{
-				"en": "No information received",
-				"nl": "Geen informatie ontvangen"
-			},
-			"tokens": [
-				{
-					"name": "Duration",
-					"type": "number",
-					"title": {
-						"en": "Hours no information",
-						"nl": "Uren geen informatie"  
-					},
-					"Example": 12
-				},
-				{
-					"name": "LastUpdate",
-					"type": "string",
-					"title": {
-						"en": "Last update",
-						"nl": "Laatste bericht"  
-					},
-					"Example": " "
-				},
-				{
-					"name": "Device",
-					"type": "string",
-					"title": {
-						"en": "Device",
-						"nl": "Apparaat"
-					},
-					"example": "Motion Sensor"
-				},
-				{
-					"name": "Zone",
-					"type": "string",
-					"title": {
-						"en": "Zone",
-						"nl": "Zone"
-					},
-					"example": "-"
-				}
-			]
 		}
 		],
 		"conditions": [

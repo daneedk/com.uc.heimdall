@@ -126,6 +126,8 @@
         "alarmdelayed": "Alarmtrigger is delayed: ", 
         "alarmnotactivated": "Alarm is not activated due to disarming.",
         "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
-        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate."
+        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
+        "noreport": " has not reported in ",
+        "lastreport": " hours. Last report: "
     }
 }

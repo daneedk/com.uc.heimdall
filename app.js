@@ -13,7 +13,7 @@ let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
 let triggerSensorTrippedInAlarmstate = new Homey.FlowCardTrigger('SensorTrippedInAlarmstate');
-let triggerNoInfoReceived = new Homey.FlowCardTrigger('noInfoReceived');
+//let triggerNoInfoReceived = new Homey.FlowCardTrigger('noInfoReceived');
 
 // Flow conditions
 const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
@@ -122,7 +122,7 @@ class Heimdall extends Homey.App {
             // NEW 1.0.22
             // NEW 1.0.23
             if ( heimdallSettings.noCommunicationTime == (null || undefined) ) {
-                heimdallSettings.noCommunicationTime = 12
+                heimdallSettings.noCommunicationTime = 24
             }
             /* todo:
                 - add to settings page
@@ -190,11 +190,6 @@ class Heimdall extends Homey.App {
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
 
-            // NEW 1.0.23
-            // check the last communication of devices
-            Homey.app.checkDevicesLastCom()
-            // NEW
-
             // choose appropriate delay at Armed or Partially Armed
 
             // need to check for active armCounterRunning ?
@@ -223,6 +218,14 @@ class Heimdall extends Homey.App {
                 armCounterRunning = true;
                 setSurveillanceValue("sa ",value, logLine)
             }
+
+            // NEW 1.0.23
+            // check the last communication of devices
+            if ( value === 'armed' || value === 'partially_armed' ) {
+                Homey.app.checkDevicesLastCom(value)
+            }
+            // NEW
+
         }
     }
 
@@ -283,45 +286,62 @@ class Heimdall extends Homey.App {
     }
 
     // NEW 1.0.23
-    async checkDevicesLastCom() {
+    async checkDevicesLastCom(value) {
         for (let device in allDevices) {
-            this.checkDeviceLastCom(allDevices[device])
+            this.checkDeviceLastCom(allDevices[device], value)
         };  
     }
 
-    checkDeviceLastCom(device) {
+    checkDeviceLastCom(device, value) {
         if ( isMonitoredFull(device) || isMonitoredPartial(device) ) {
-            var nu = Date.now();
+            let nu = getDateTime();
+            var nuEpoch = Date.now();
             // Check Motion Sensors
             if ( 'alarm_motion' in device.capabilities ) {
                 // console.log(device.name + " - " + device.lastUpdated.alarm_motion)
-                let verschil = (nu - Date.parse(device.lastUpdated.alarm_motion))/1000
+                let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_motion))/1000
                 if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
-                    console.log(device.name + " in " + device.zone.name + " heeft 12 uur geen statusupdate gezonden")
                     var d = new Date(0);
                     d.setUTCSeconds(Date.parse(device.lastUpdated.alarm_motion)/1000);
                     var lastUpdateTime = d.toLocaleString();
+                    console.log(device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime)
+                    console.log(device.lastUpdated.alarm_motion)
+                    console.log(new Date())
+
+                    let tempColor = 'mp-'
+                    let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
+                    writeLog(tempLogLine)
+                    /*
                     var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
                     triggerNoInfoReceived.trigger(tokens, function(err, result){
                         if( err ) {
                             return Homey.error(err)} ;
                         });
+                    */
                 }
             }
             // Check Contact Sensors
             if ( 'alarm_contact' in device.capabilities ) {
                 // console.log(device.name + " - " + device.lastUpdated.alarm_contact)
-                let verschil = (nu - Date.parse(device.lastUpdated.alarm_contact))/1000
+                let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_contact))/1000
                 if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
-                    console.log(device.name + " in " + device.zone.name + " heeft 12 uur geen statusupdate gezonden")
                     var d = new Date(0);
                     d.setUTCSeconds(Date.parse(device.lastUpdated.alarm_contact)/1000);
                     var lastUpdateTime = d.toLocaleString();
+                    console.log(device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime)
+                    console.log(device.lastUpdated.alarm_motion)
+                    console.log(new Date())
+
+                    let tempColor = 'mp-'
+                    let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime
+                    writeLog(tempLogLine)
+                    /*
                     var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
                     triggerNoInfoReceived.trigger(tokens, function(err, result){
                         if( err ) {
                             return Homey.error(err)} ;
                         });
+                    */
                 }
             }
         }
@@ -490,7 +510,7 @@ triggerSensorTrippedInAlarmstate
             callback( null, false );
         }
     })
-
+/*
 triggerNoInfoReceived
     .register()
     .on('run', ( args, callback ) => {
@@ -502,7 +522,7 @@ triggerNoInfoReceived
             callback( null, false );
         }
     })
-
+*/
 //Flow condition functions
 conditionSurveillanceIs
     .register()
@@ -612,10 +632,12 @@ function setSurveillanceValue(color,value, logLine) {
     let nu = getDateTime();
     logLine = color + nu + logLine;
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    // NEW
+    
+    // NEW 1.0.22
     lastDoor = false;
     changeTta = false;
     // NEW
+
     if ( armCounterRunning || value === 'disarmed') {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
             if( err ) return Homey.alert( err );
