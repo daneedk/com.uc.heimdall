@@ -53,7 +53,6 @@ var defaultSettings = {
     "noCommunicationTime": 12
 };
 var allDevices;
-// var devicesMonitored = [];
 var devicesMonitoredFull = [];
 var devicesMonitoredPartial = [];
 var devicesDelayed = [];
@@ -62,7 +61,6 @@ var sModeDevice;
 var aModeDevice;
 var armCounterRunning = false;
 var alarmCounterRunning = false;
-// var devicesTripped = [];
 var lastDoor = false;
 var changeTta = false;
 
@@ -157,12 +155,10 @@ class Heimdall extends Homey.App {
             console.log('Found contact sensor:       ' + device.name)
             attachEventListener(device,'contact')
         }
-        // NEW
         if ('alarm_vibration' in device.capabilities) {
             console.log('Found vibration sensor:     ' + device.name)
             attachEventListener(device,'vibration')
         }
-        // NEW
         if ('alarm_tamper' in device.capabilities) {
             console.log('Found tamper sensor:        ' + device.name)
             attachEventListener(device,'tamper')
@@ -189,11 +185,6 @@ class Heimdall extends Homey.App {
             } else { 
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
-
-            // choose appropriate delay at Armed or Partially Armed
-
-            // need to check for active armCounterRunning ?
-
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 console.log('Arming is delayed:      Yes, ' + heimdallSettings.armingDelay + ' seconds.')
                 let delay = heimdallSettings.armingDelay * 1000;
@@ -252,7 +243,6 @@ class Heimdall extends Homey.App {
             sensorStateReadable = readableState(sensorState, 'contact')
             sensorType = 'contact'
         };
-
         if ( value == 'armed') {
             if ( isMonitoredFull(device) ) {
                 if ( sensorState ) {
@@ -298,7 +288,6 @@ class Heimdall extends Homey.App {
             var nuEpoch = Date.now();
             // Check Motion Sensors
             if ( 'alarm_motion' in device.capabilities ) {
-                // console.log(device.name + " - " + device.lastUpdated.alarm_motion)
                 let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_motion))/1000
                 if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
                     var d = new Date(0);
@@ -321,7 +310,6 @@ class Heimdall extends Homey.App {
             }
             // Check Contact Sensors
             if ( 'alarm_contact' in device.capabilities ) {
-                // console.log(device.name + " - " + device.lastUpdated.alarm_contact)
                 let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_contact))/1000
                 if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
                     var d = new Date(0);
@@ -630,11 +618,8 @@ function setSurveillanceValue(color,value, logLine) {
     let nu = getDateTime();
     logLine = color + nu + logLine;
     surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-    
-    // NEW 1.0.22
     lastDoor = false;
     changeTta = false;
-    // NEW
 
     if ( armCounterRunning || value === 'disarmed') {
         Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
@@ -786,13 +771,11 @@ function attachEventListener(device,sensorType) {
                 stateChange(device,alarm_contact,sensorType)
             },250));
             break;
-        // NEW
         case "vibration":
             device.on('alarm_vibration', debounce(alarm_vibration => { 
                 stateChange(device,alarm_vibration,sensorType)
             },250));
             break;
-        // NEW
         case "tamper":
             device.on('alarm_tamper', debounce(alarm_tamper => { 
                 stateChange(device,alarm_tamper,sensorType)
@@ -864,10 +847,8 @@ function stateChange(device,sensorState,sensorType) {
             sensorStateReadable = readableState(sensorState, 'motion')
         } else if (sensorType == 'contact') {
             sensorStateReadable = readableState(sensorState, 'contact')
-        // NEW
         } else if (sensorType == 'vibration') {
             sensorStateReadable = readableState(sensorState, 'vibration')
-        // NEW
         } else if (sensorType == 'tamper') {
             sensorStateReadable = readableState(sensorState, 'tamper')
         };
@@ -889,14 +870,11 @@ function stateChange(device,sensorState,sensorType) {
         logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
         // Is sensorState true?
         if ( sensorState ) {
-            // NEW
-                if (sensorType='contact' && isDelayed(device) && armCounterRunning) {
-                    // a Doorsensor with a delay is opened while the arming countdown is running
-                    console.log('lastDoor:               Opened')
-                    lastDoor = true;
-                }
-            // NEW
-
+            if (sensorType='contact' && isDelayed(device) && armCounterRunning) {
+                // a Doorsensor with a delay is opened while the arming countdown is running
+                console.log('lastDoor:               Opened')
+                lastDoor = true;
+            }
             // is there no delayed trigger and Alarm state active?
             if ( !alarmCounterRunning && !alarm) {
                 if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
@@ -963,8 +941,6 @@ function stateChange(device,sensorState,sensorType) {
                 }
             }
         } 
-        
-        // NEW
         else {
         // sensorState is false    
             if (sensorType='contact' && isDelayed(device) && armCounterRunning && lastDoor) {
@@ -973,7 +949,6 @@ function stateChange(device,sensorState,sensorType) {
                 changeTta = true;
             }
         }
-        // NEW
 
         let shouldLog = true;
         console.log('logArmedOnly:           ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
@@ -1017,7 +992,6 @@ function readableState(sensorState, type) {
             return Homey.__("states.closed")
             //return 'Closed'
         }
-    // NEW
     } else if (type == 'vibration') {
         if ( sensorState ) {
             return Homey.__("states.vibration")
@@ -1026,7 +1000,6 @@ function readableState(sensorState, type) {
             return Homey.__("states.novibration")
             //return 'No Vibration detected'
         }
-    // NEW
     } else if (type == 'tamper') {
         if ( sensorState ) {
             return Homey.__("states.tamper")
@@ -1144,7 +1117,6 @@ function ttAlarmCountdown(delay,device,sensorStateReadable) {
 function ttArmedCountdown(delay, color, value, logLine) {
     console.log(' ttArmedCountdown:      ' + delay)
     if ( armCounterRunning ) {
-        // NEW
         if (changeTta && delay > 9 ) {
             delay = 10;
             changeTta = false
@@ -1153,7 +1125,6 @@ function ttArmedCountdown(delay, color, value, logLine) {
             writeLog(logLine)
             logLine = prevLogLine
         }
-        // NEW
         var tokens = { 'ArmedTimer': delay * 1};
         triggerTimeTillArmedChanged.trigger(tokens, function(err, result){
             if( err ) {
