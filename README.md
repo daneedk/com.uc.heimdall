@@ -15,6 +15,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 1.0.24
+* Improved sensor communication check
+* Code cleanup
+
 ## Version 1.0.23
 * Check if sensors communicated with Homey in the last 24 hours
 

@@ -65,48 +65,16 @@ var lastDoor = false;
 var changeTta = false;
 
 class Heimdall extends Homey.App {
-    // Get API control function
-    getApi() {
-        if (!this.api) {
-        this.api = HomeyAPI.forCurrentHomey();
-        }
-        return this.api;
-    }
 
-    // Get all devices function for API
-    async getDevices() {
-        const api = await this.getApi();
-        allDevices = await api.devices.getDevices();
-        return allDevices;
-    }
+    onInit() {
+        this.log('init Heimdall')
 
-    // Get all devices and add them
-    async enumerateDevices() {
-        // Get the homey object
-        const api = await this.getApi();
-        // Subscribe to realtime events and set all devices global
-        await api.devices.subscribe();
-        api.devices.on('device.create', async(id) => {
-            await console.log('New device found!')
-            const device = await api.devices.getDevice({
-                id: id
-            })
-            await this.addDevice(device);
-        });
-        api.devices.on('device.delete', async(id) => {
-            await console.log('Device deleted!: ')
-        });
-        allDevices = await api.devices.getDevices();
-
-        for (let device in allDevices) {
-            this.addDevice(allDevices[device], api)
+        surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
+        this.log('Surveillance Mode: ' + surveillance);
+        if ( surveillance == null ) {
+            surveillance = true
         };
 
-        this.log('Enumerating devices done.')
-    }
-
-	onInit() {
-        this.log('init Heimdall')
         heimdallSettings = Homey.ManagerSettings.get('settings');
 		if (heimdallSettings == (null || undefined)) {
 			heimdallSettings = defaultSettings
@@ -128,43 +96,140 @@ class Heimdall extends Homey.App {
             */
             // NEW 1.0.23
         // temp =================================================================
-        getMonitoredFullDevices();
-        getMonitoredPartialDevices();
-        getDelayedDevices();
-        getLoggedDevices();
+        this.getMonitoredFullDevices();
+        this.getMonitoredPartialDevices();
+        this.getDelayedDevices();
+        this.getLoggedDevices();
         this.enumerateDevices();
     }
 
-    // Add device function, only all device types with motion-, contact- and tamper capabilities are added.
-    addDevice(device, api) {
+    // Get devices that should be monitored full function
+    getMonitoredFullDevices() {
+        devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
+    }
+
+    // Get devices that should be monitored partial function
+    getMonitoredPartialDevices() {
+        devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
+    }
+
+    // Get devices that have a delayed trigger function
+    getDelayedDevices() {
+        devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
+    }
+
+    // Get devices that should be logged function
+    getLoggedDevices() {
+        devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+    }
+
+    // Get all devices and add them
+    async enumerateDevices() {
+        // Get the homey object
+        const api = await this.getApi();
+        // Subscribe to realtime events and set all devices global
+        await api.devices.subscribe();
+        api.devices.on('device.create', async(id) => {
+            await console.log('New device found!')
+            const device = await api.devices.getDevice({
+                id: id
+            })
+            await this.addDevice(device);
+        });
+        api.devices.on('device.delete', async(id) => {
+            await console.log('Device deleted!: ')
+        });
+        allDevices = await api.devices.getDevices();
+
+        for (let device in allDevices) {
+            this.addDevice(allDevices[device])
+        };
+
+        this.log('Enumerating devices done.')
+    }
+
+    // Get API control function
+    getApi() {
+        if (!this.api) {
+        this.api = HomeyAPI.forCurrentHomey();
+        }
+        return this.api;
+    }
+
+    // Get all devices function for API
+    async getDevices() {
+        const api = await this.getApi();
+        allDevices = await api.devices.getDevices();
+        return allDevices;
+    }
+
+    // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
+    addDevice(device) {
         if (device.data.id === 'sMode') {
             sModeDevice = device;
-            console.log('Found Mode Switch:          ' + device.name)
-            console.log('Variabele:                  ' + sModeDevice.name)
+            this.log('Found Mode Switch:          ' + device.name)
+            this.log('Variabele:                  ' + sModeDevice.name)
         }
         if (device.data.id === 'aMode') {
             aModeDevice = device;
-            console.log('Found Alarm Button          ' + device.name)
-            console.log('Variabele:                  ' + aModeDevice.name)
+            this.log('Found Alarm Button          ' + device.name)
+            this.log('Variabele:                  ' + aModeDevice.name)
         }
         if ('alarm_motion' in device.capabilities) {
-            console.log('Found motion sensor:        ' + device.name)
-            attachEventListener(device,'motion')
+            this.log('Found motion sensor:        ' + device.name)
+            this.attachEventListener(device,'motion')
         }
         if ('alarm_contact' in device.capabilities) {
-            console.log('Found contact sensor:       ' + device.name)
-            attachEventListener(device,'contact')
+            this.log('Found contact sensor:       ' + device.name)
+            this.attachEventListener(device,'contact')
         }
         if ('alarm_vibration' in device.capabilities) {
-            console.log('Found vibration sensor:     ' + device.name)
-            attachEventListener(device,'vibration')
+            this.log('Found vibration sensor:     ' + device.name)
+            this.attachEventListener(device,'vibration')
         }
         if ('alarm_tamper' in device.capabilities) {
-            console.log('Found tamper sensor:        ' + device.name)
-            attachEventListener(device,'tamper')
+            this.log('Found tamper sensor:        ' + device.name)
+            this.attachEventListener(device,'tamper')
         }
     }
 
+    attachEventListener(device,sensorType) {
+        switch (sensorType) {
+            case "motion":
+                device.on('alarm_motion', debounce(alarm_motion => { 
+                    stateChange(device,alarm_motion,sensorType)
+                },250));
+                break;
+            case "contact":
+                device.on('alarm_contact', debounce(alarm_contact => { 
+                    stateChange(device,alarm_contact,sensorType)
+                },250));
+                break;
+            case "vibration":
+                device.on('alarm_vibration', debounce(alarm_vibration => { 
+                    stateChange(device,alarm_vibration,sensorType)
+                },250));
+                break;
+            case "tamper":
+                device.on('alarm_tamper', debounce(alarm_tamper => { 
+                    stateChange(device,alarm_tamper,sensorType)
+                },250));
+                break;
+        }
+    
+        this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
+        if ( isMonitoredFull(device) ) {
+            this.log('Fully Monitored device:     ' + device.name)
+        } 
+        if ( isMonitoredPartial(device) ) {
+            this.log('Partially Monitored device: ' + device.name)
+        }
+        if ( isLogged(device) ) {
+            this.log('Logged device:              ' + device.name)
+        }
+    }
+
+    // sets Surveillance Mode, called from Surveillance Mode Device, will call setSurveillanceValue after evaluating conditions.
     setSurveillanceMode(value, source) {
         console.log('setSurveillanceMode:    ' + value);
         let nu = getDateTime();
@@ -209,14 +274,12 @@ class Heimdall extends Homey.App {
                 armCounterRunning = true;
                 setSurveillanceValue("sa ",value, logLine)
             }
-
             // NEW 1.0.23
             // check the last communication of devices
             if ( value === 'armed' || value === 'partially_armed' ) {
                 Homey.app.checkDevicesLastCom(value)
             }
             // NEW
-
         }
     }
 
@@ -238,7 +301,7 @@ class Heimdall extends Homey.App {
             sensorStateReadable = readableState(sensorState, 'motion')
             sensorType = 'motion'
         }
-        if ('alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
+        if ( 'alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
             sensorState = device.state.alarm_contact
             sensorStateReadable = readableState(sensorState, 'contact')
             sensorType = 'contact'
@@ -250,7 +313,7 @@ class Heimdall extends Homey.App {
                     if ( isDelayed(device) ) {
                         delayText = Homey.__("atarming.delayText")
                     }
-                    if ( sensorType == 'motion') {
+                    if ( sensorType == 'motion' ) {
                         this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
                     } else if ( sensorType == 'contact') {
                         this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
@@ -265,9 +328,9 @@ class Heimdall extends Homey.App {
                     if ( isDelayed(device) ) {
                         delayText = Homey.__("atarming.delayText")
                     }   
-                    if ( sensorType == 'motion') {
+                    if ( sensorType == 'motion' ) {
                         this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
-                    } else if ( sensorType == 'contact') {
+                    } else if ( sensorType == 'contact' ) {
                         this.alertSensorActive(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
                     }
                 }
@@ -285,42 +348,25 @@ class Heimdall extends Homey.App {
     checkDeviceLastCom(device, value) {
         if ( isMonitoredFull(device) || isMonitoredPartial(device) ) {
             let nu = getDateTime();
-            var nuEpoch = Date.now();
-            // Check Motion Sensors
-            if ( 'alarm_motion' in device.capabilities ) {
-                let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_motion))/1000
-                if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
-                    var d = new Date(0);
-                    d.setUTCSeconds(Date.parse(device.lastUpdated.alarm_motion)/1000);
-                    var lastUpdateTime = d.toLocaleString();
-                    console.log(device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime)
-                    console.log(device.lastUpdated.alarm_motion)
-                    console.log(new Date())
+            let nuEpoch = Date.now();
+
+            if ( 'alarm_motion' in device.capabilities || 'alarm_contact' in device.capabilities ) {
+                let mostRecentComE = 0
+                for ( let lastUpdate in device.lastUpdated ) {
+                    if ( Date.parse(device.lastUpdated[lastUpdate]) > mostRecentComE  ) {
+                        mostRecentComE = Date.parse(device.lastUpdated[lastUpdate])
+                    }
+                };
+                let mostRecentComH = new Date( mostRecentComE )
+                let verschil = (nuEpoch - mostRecentComE)/1000
+
+                if ( verschil > heimdallSettings.noCommunicationTime * 3600 ) {
+                    let d = new Date(0);
+                    d.setUTCSeconds(Date.parse(mostRecentComH)/1000);
+                    let lastUpdateTime = d.toLocaleString();
 
                     let tempColor = 'mp-'
                     let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
-                    writeLog(tempLogLine)
-
-                    var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
-                    triggerNoInfoReceived.trigger(tokens, function(err, result){
-                        if( err ) {
-                            return Homey.error(err)} ;
-                        });
-                }
-            }
-            // Check Contact Sensors
-            if ( 'alarm_contact' in device.capabilities ) {
-                let verschil = (nuEpoch - Date.parse(device.lastUpdated.alarm_contact))/1000
-                if ( verschil > heimdallSettings.noCommunicationTime * 3600) {
-                    var d = new Date(0);
-                    d.setUTCSeconds(Date.parse(device.lastUpdated.alarm_contact)/1000);
-                    var lastUpdateTime = d.toLocaleString();
-                    console.log(device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime)
-                    console.log(device.lastUpdated.alarm_motion)
-                    console.log(new Date())
-
-                    let tempColor = 'mp-'
-                    let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zone.name + " has not reported in " + heimdallSettings.noCommunicationTime + " hours. Last communication: " + lastUpdateTime
                     writeLog(tempLogLine)
 
                     var tokens = {'Zone': device.zone.name, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
@@ -381,12 +427,6 @@ class Heimdall extends Homey.App {
     }
 }
 module.exports = Heimdall;
-
-surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
-console.log('surveillance: ' + surveillance);
-if ( surveillance == null ) {
-    surveillance = true
-}
 
 // Flow triggers functions
 triggerSurveillanceChanged
@@ -595,14 +635,14 @@ Homey.ManagerSettings.on('set', (variable) => {
     }
 });
 
-// Write information to history
+// Write information to history and cleanup 20% when history above 2000 lines
 function writeLog(logLine) {
     console.log(logLine);
     let savedHistory = Homey.ManagerSettings.get('myLog');
     if (savedHistory != undefined) { 
         //cleanup history
         let lineCount = savedHistory.split(/\r\n|\r|\n/).length;
-        if ( lineCount > 3000 ) {
+        if ( lineCount > 2000 ) {
             let deleteItems = parseInt( lineCount * 0.2 );
             let savedHistoryArray = savedHistory.split(/\r\n|\r|\n/);
             let cleanUp = savedHistoryArray.splice(-1*deleteItems, deleteItems, "" );
@@ -614,6 +654,7 @@ function writeLog(logLine) {
     Homey.ManagerSettings.set('myLog', logLine );
 }
 
+// Actually sets the Surveillance Mode 
 function setSurveillanceValue(color,value, logLine) {
     let nu = getDateTime();
     logLine = color + nu + logLine;
@@ -643,26 +684,6 @@ function setSurveillanceValue(color,value, logLine) {
     }
     writeLog(logLine)   
     armCounterRunning = false;
-}
-
-// Get devices that should be logged function
-function getLoggedDevices() {
-    devicesLogged = Homey.ManagerSettings.get('loggedDevices')
-}
-
-// Get devices that should be monitored full function
-function getMonitoredFullDevices() {
-    devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
-}
-
-// Get devices that should be monitored partial function
-function getMonitoredPartialDevices() {
-    devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
-}
-
-// Get devices that have a delayed trigger function
-function getDelayedDevices() {
-    devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
 }
 
 function speak(type, text) {
@@ -702,7 +723,7 @@ function speak(type, text) {
 
 // Should this device be logged
 function isLogged(obj) {
-    getLoggedDevices();
+    Homey.app.getLoggedDevices();
     var i;
     if ( devicesLogged !== null ) {
         for (i = 0; i < devicesLogged.length; i++) {
@@ -716,7 +737,7 @@ function isLogged(obj) {
 
 // Should this device be monitored
 function isMonitoredFull(obj) {
-    getMonitoredFullDevices();
+    Homey.app.getMonitoredFullDevices();
     var i;
     if ( devicesMonitoredFull !== null ) {
         for (i = 0; i < devicesMonitoredFull.length; i++) {
@@ -730,7 +751,7 @@ function isMonitoredFull(obj) {
 
 // Should this device be monitored
 function isMonitoredPartial(obj) {
-    getMonitoredPartialDevices();
+    Homey.app.getMonitoredPartialDevices();
     var i;
     if ( devicesMonitoredPartial !== null ) {
         for (i = 0; i < devicesMonitoredPartial.length; i++) {
@@ -744,7 +765,7 @@ function isMonitoredPartial(obj) {
 
 // Should this trigger be delayed
 function isDelayed(obj) {
-    getDelayedDevices();
+    Homey.app.getDelayedDevices();
     var i;
     if ( devicesDelayed !== null) {
         for (i = 0; i < devicesDelayed.length; i++) {
@@ -754,45 +775,6 @@ function isDelayed(obj) {
         }
     }
     return false;
-}
-
-// this function attaches en eventlistener to a device
-function attachEventListener(device,sensorType) {
-    
-    switch (sensorType) {
-        case "motion":
-            device.on('alarm_motion', debounce(alarm_motion => { 
-                stateChange(device,alarm_motion,sensorType)
-            },250));
-            break;
-
-        case "contact":
-            device.on('alarm_contact', debounce(alarm_contact => { 
-                stateChange(device,alarm_contact,sensorType)
-            },250));
-            break;
-        case "vibration":
-            device.on('alarm_vibration', debounce(alarm_vibration => { 
-                stateChange(device,alarm_vibration,sensorType)
-            },250));
-            break;
-        case "tamper":
-            device.on('alarm_tamper', debounce(alarm_tamper => { 
-                stateChange(device,alarm_tamper,sensorType)
-            },250));
-            break;
-    }
-
-    console.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
-    if ( isMonitoredFull(device) ) {
-        console.log('Fully Monitored device:     ' + device.name)
-    } 
-    if ( isMonitoredPartial(device) ) {
-        console.log('Partially Monitored device: ' + device.name)
-    }
-    if ( isLogged(device) ) {
-        console.log('Logged device:              ' + device.name)
-    }
 }
 
 function debounce(func, wait, immediate) {

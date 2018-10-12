@@ -30,7 +30,7 @@ class Heimdall extends Homey.Device {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){
-           console.log('Surveillance Mode device clicked: ' + newState);
+            console.log('Surveillance Mode device clicked: ' + newState);
             Homey.app.setSurveillanceMode(newState, 'Surveillance Mode Switch' ,function(err){
                 if( err ) return Homey.alert( err );
             });
@@ -49,7 +49,7 @@ class Heimdall extends Homey.Device {
         this.setCapabilityValue('homealarm_state', newState)
           .catch( this.error );
         
-       console.log('Surveillance Mode flow activated: ' + newState);
+        console.log('Surveillance Mode flow activated: ' + newState);
         Homey.app.setSurveillanceMode(newState, 'Flowcard' ,function(err){
             if( err ) return Homey.alert( err );
         });
