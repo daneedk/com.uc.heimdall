@@ -53,10 +53,10 @@ var defaultSettings = {
     "noCommunicationTime": 24
 };
 var allDevices;
-var devicesMonitoredFull = [];
-var devicesMonitoredPartial = [];
-var devicesDelayed = [];
-var devicesLogged = [];
+//var devicesMonitoredFull = [];
+//var devicesMonitoredPartial = [];
+//var devicesDelayed = [];
+//var devicesLogged = [];
 var sModeDevice;
 var aModeDevice;
 var armCounterRunning = false;
@@ -97,32 +97,40 @@ class Heimdall extends Homey.App {
             */
             // NEW 1.0.23
         // temp =================================================================
-        this.getMonitoredFullDevices();
-        this.getMonitoredPartialDevices();
-        this.getDelayedDevices();
-        this.getLoggedDevices();
+        // this.getMonitoredFullDevices();
+        // this.getMonitoredPartialDevices();
+        // this.getDelayedDevices();
+        // this.getLoggedDevices();
         this.enumerateDevices();
     }
 
     // Get devices that should be monitored full function
+    /*
     getMonitoredFullDevices() {
         devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
     }
+    */
 
     // Get devices that should be monitored partial function
+    /*
     getMonitoredPartialDevices() {
         devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
     }
+    */
 
     // Get devices that have a delayed trigger function
+    /*
     getDelayedDevices() {
         devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
     }
+    */
 
     // Get devices that should be logged function
+    /*
     getLoggedDevices() {
         devicesLogged = Homey.ManagerSettings.get('loggedDevices')
     }
+    */
 
     // Get all devices and add them
     async enumerateDevices() {
@@ -1021,8 +1029,9 @@ actionDeactivateAlarm
 //  //////////////////////////////////////////////////////
 // Should this device be logged
 function isLogged(obj) {
-    Homey.app.getLoggedDevices();
-    var i;
+    //Homey.app.getLoggedDevices();
+    let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+    let i;
     if ( devicesLogged !== null ) {
         for (i = 0; i < devicesLogged.length; i++) {
             if (devicesLogged[i] && devicesLogged[i].id == obj.id) {
@@ -1035,8 +1044,9 @@ function isLogged(obj) {
 
 // Should this device be monitored
 function isMonitoredFull(obj) {
-    Homey.app.getMonitoredFullDevices();
-    var i;
+    //Homey.app.getMonitoredFullDevices();
+    let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
+    let i;
     if ( devicesMonitoredFull !== null ) {
         for (i = 0; i < devicesMonitoredFull.length; i++) {
             if (devicesMonitoredFull[i] && devicesMonitoredFull[i].id == obj.id) {
@@ -1049,8 +1059,9 @@ function isMonitoredFull(obj) {
 
 // Should this device be monitored
 function isMonitoredPartial(obj) {
-    Homey.app.getMonitoredPartialDevices();
-    var i;
+    //Homey.app.getMonitoredPartialDevices();
+    let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
+    let i;
     if ( devicesMonitoredPartial !== null ) {
         for (i = 0; i < devicesMonitoredPartial.length; i++) {
             if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == obj.id) {
@@ -1063,8 +1074,9 @@ function isMonitoredPartial(obj) {
 
 // Should this trigger be delayed
 function isDelayed(obj) {
-    Homey.app.getDelayedDevices();
-    var i;
+    //Homey.app.getDelayedDevices();
+    let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
+    let i;
     if ( devicesDelayed !== null) {
         for (i = 0; i < devicesDelayed.length; i++) {
             if (devicesDelayed[i] && devicesDelayed[i].id == obj.id) {
