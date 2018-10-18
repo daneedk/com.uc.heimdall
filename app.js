@@ -464,12 +464,9 @@ class Heimdall extends Homey.App {
                 armCounterRunning = true;
                 this.setSurveillanceValue("sa ",value, logLine)
             }
-            // NEW 1.0.23
-            // check the last communication of devices
             if ( value === 'armed' || value === 'partially_armed' ) {
                 Homey.app.checkDevicesLastCom(value)
             }
-            // NEW
         }
     }
 
@@ -530,6 +527,9 @@ class Heimdall extends Homey.App {
 
     // NEW 1.0.23
     async checkDevicesLastCom(value) {
+
+        this.getDevices()
+
         for (let device in allDevices) {
             this.checkDeviceLastCom(allDevices[device], value)
         };  
