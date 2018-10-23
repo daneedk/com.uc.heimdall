@@ -11,7 +11,7 @@ class Heimdall extends Homey.Driver {
           .registerRunListener(( args, state ) => {
             let device = args.device;
             let newState = args.surveillance;
-            //this.log('Actioncard: ' + device.getName() + ' :: ' + newState ) 
+            // this.log('Actioncard: ' + device.getName() + ' :: ' + newState ) 
     
             device.setNewState(newState);
 
