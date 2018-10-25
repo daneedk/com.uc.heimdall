@@ -26,7 +26,7 @@ const actionInputHistory = new Homey.FlowCardAction('SendInfo');
 const actionClearHistory = new Homey.FlowCardAction('ClearHistory');
 const actionActivateAlarm = new Homey.FlowCardAction('ActivateAlarm');
 const actionDeactivateAlarm = new Homey.FlowCardAction('DeactivateAlarm');
-//const actionCheckLastCommunication = new Homey.FlowCardAction('CheckLastCommunication');
+const actionCheckLastCommunication = new Homey.FlowCardAction('CheckLastCommunication');
 
 
 var surveillance;
@@ -115,7 +115,7 @@ class Heimdall extends Homey.App {
         for (let device in allDevices) {
             this.addDevice(allDevices[device])
         };
-        // this.log('Enumerating devices done.')
+        this.log('Enumerating devices done.')
     }
 
     // Get API control function
@@ -187,15 +187,15 @@ class Heimdall extends Homey.App {
                 break;
         }
     
-        // this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
+        this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
         if ( isMonitoredFull(device) ) {
-            // this.log('Fully Monitored device:     ' + device.name)
+            this.log('Fully Monitored device:     ' + device.name)
         } 
         if ( isMonitoredPartial(device) ) {
-            // this.log('Partially Monitored device: ' + device.name)
+            this.log('Partially Monitored device: ' + device.name)
         }
         if ( isLogged(device) ) {
-            // this.log('Logged device:              ' + device.name)
+            this.log('Logged device:              ' + device.name)
         }
     }
 
@@ -986,14 +986,12 @@ actionDeactivateAlarm
         callback( null, true );
     });
 
-/*
 actionCheckLastCommunication
     .register()
     .on('run', ( args, state, callback ) => {
         Homey.app.checkDevicesLastCom(Homey.ManagerSettings.get('surveillanceStatus'))
         callback( null, true );
     });
-*/
 
 //  //////////////////////////////////////////////////////
 // Should this device be logged
@@ -1012,7 +1010,6 @@ function isLogged(obj) {
 
 // Should this device be monitored
 function isMonitoredFull(obj) {
-    //Homey.app.getMonitoredFullDevices();
     let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
     let i;
     if ( devicesMonitoredFull !== null ) {
@@ -1027,7 +1024,6 @@ function isMonitoredFull(obj) {
 
 // Should this device be monitored
 function isMonitoredPartial(obj) {
-    //Homey.app.getMonitoredPartialDevices();
     let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
     let i;
     if ( devicesMonitoredPartial !== null ) {
@@ -1042,7 +1038,6 @@ function isMonitoredPartial(obj) {
 
 // Should this trigger be delayed
 function isDelayed(obj) {
-    //Homey.app.getDelayedDevices();
     let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
     let i;
     if ( devicesDelayed !== null) {
