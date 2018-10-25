@@ -384,8 +384,8 @@
 		{
 			"id": "SendInfo",
 			"title": {
-				"en": "Send information to Heimdall.",
-				"nl": "Stuur informatie naar Heimdall."
+				"en": "Send information to Heimdall",
+				"nl": "Stuur informatie naar Heimdall"
 			},
 			"args": [{
 				"name": "log",
@@ -395,8 +395,8 @@
 		{
 			"id": "ClearHistory",
 			"title": {
-				"en": "Clear Heimdall history.",
-				"nl": "Verwijder Heimdall geschiedenis."
+				"en": "Clear Heimdall history",
+				"nl": "Verwijder Heimdall geschiedenis"
 			}
 		},
 		{

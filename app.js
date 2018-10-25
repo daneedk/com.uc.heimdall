@@ -26,6 +26,8 @@ const actionInputHistory = new Homey.FlowCardAction('SendInfo');
 const actionClearHistory = new Homey.FlowCardAction('ClearHistory');
 const actionActivateAlarm = new Homey.FlowCardAction('ActivateAlarm');
 const actionDeactivateAlarm = new Homey.FlowCardAction('DeactivateAlarm');
+//const actionCheckLastCommunication = new Homey.FlowCardAction('CheckLastCommunication');
+
 
 var surveillance;
 var alarm = false;
@@ -63,7 +65,7 @@ var changeTta = false;
 class Heimdall extends Homey.App {
 
     onInit() {
-        // this.log('init Heimdall')
+        this.log('init Heimdall')
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
         // this.log('Surveillance Mode: ' + surveillance);
@@ -75,6 +77,16 @@ class Heimdall extends Homey.App {
 		if (heimdallSettings == (null || undefined)) {
 			heimdallSettings = defaultSettings
         };
+
+        if ( heimdallSettings.armingDelay == (null || undefined)) {
+            heimdallSettings.armingDelay = heimdallSettings.triggerDelay
+            heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
+        }
+
+        if ( heimdallSettings.noCommunicationTime == (null || undefined) || heimdallSettings.noCommunicationTime == 12 ) {
+            heimdallSettings.noCommunicationTime = 24
+        }
+
         // this.getMonitoredFullDevices();
         // this.getMonitoredPartialDevices();
         // this.getDelayedDevices();
@@ -382,7 +394,7 @@ class Heimdall extends Homey.App {
                 // code to cancel an arm command during delayArming
                 console.log('Need to stop arming!')
                 armCounterRunning = false;
-            }   
+            }
         } else {
             if ( value == 'armed' ) {
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodearmed")
@@ -490,6 +502,7 @@ class Heimdall extends Homey.App {
 
             if ( 'alarm_motion' in device.capabilities || 'alarm_contact' in device.capabilities ) {
                 let mostRecentComE = 0
+                
                 for ( let lastUpdate in device.lastUpdated ) {
                     if ( Date.parse(device.lastUpdated[lastUpdate]) > mostRecentComE  ) {
                         mostRecentComE = Date.parse(device.lastUpdated[lastUpdate])
@@ -497,7 +510,7 @@ class Heimdall extends Homey.App {
                 };
                 let mostRecentComH = new Date( mostRecentComE )
                 let verschil = (nuEpoch - mostRecentComE)/1000
-
+                
                 if ( verschil > heimdallSettings.noCommunicationTime * 3600 ) {
                     let d = new Date(0);
                     d.setUTCSeconds(Date.parse(mostRecentComH)/1000);
@@ -973,10 +986,18 @@ actionDeactivateAlarm
         callback( null, true );
     });
 
+/*
+actionCheckLastCommunication
+    .register()
+    .on('run', ( args, state, callback ) => {
+        Homey.app.checkDevicesLastCom(Homey.ManagerSettings.get('surveillanceStatus'))
+        callback( null, true );
+    });
+*/
+
 //  //////////////////////////////////////////////////////
 // Should this device be logged
 function isLogged(obj) {
-    //Homey.app.getLoggedDevices();
     let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
     let i;
     if ( devicesLogged !== null ) {
