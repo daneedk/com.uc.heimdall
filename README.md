@@ -16,7 +16,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
 ## Version 1.0.26
-* Added flow action card to start the 'Check Last Communication' function
+* Added flow action card to start the [Check Last Communication](https://github.com/daneedk/com.uc.heimdall/issues/28) function
 
 ## Version 1.0.25
 * Removed temporary code
