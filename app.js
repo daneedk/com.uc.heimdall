@@ -54,7 +54,6 @@ var defaultSettings = {
     "spokenDoorOpenAtArming": false,
     "noCommunicationTime": 24
 };
-var allDevices;
 var sModeDevice;
 var aModeDevice;
 var armCounterRunning = false;
@@ -110,7 +109,7 @@ class Heimdall extends Homey.App {
         api.devices.on('device.delete', async(id) => {
             await console.log('Device deleted!: ')
         });
-        allDevices = await api.devices.getDevices();
+        let allDevices = await api.devices.getDevices();
 
         for (let device in allDevices) {
             this.addDevice(allDevices[device])
@@ -129,7 +128,7 @@ class Heimdall extends Homey.App {
     // Get all devices function for API
     async getDevices() {
         const api = await this.getApi();
-        allDevices = await api.devices.getDevices();
+        let allDevices = await api.devices.getDevices();
         return allDevices;
     }
 
@@ -137,13 +136,11 @@ class Heimdall extends Homey.App {
     addDevice(device) {
         if (device.data.id === 'sMode') {
             sModeDevice = device;
-            // this.log('Found Mode Switch:          ' + device.name)
-            // this.log('Variabele:                  ' + sModeDevice.name)
+            this.log('Found Mode Switch named:    ' + device.name)
         }
         if (device.data.id === 'aMode') {
             aModeDevice = device;
-            // this.log('Found Alarm Button          ' + device.name)
-            // this.log('Variabele:                  ' + aModeDevice.name)
+            this.log('Found Alarm Button named:   ' + device.name)
         }
         if ('alarm_motion' in device.capabilities) {
             // this.log('Found motion sensor:        ' + device.name)
@@ -187,16 +184,20 @@ class Heimdall extends Homey.App {
                 break;
         }
     
-        this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType)
+        let monFull = "", monPartial = "", monLogged = ""
         if ( isMonitoredFull(device) ) {
-            this.log('Fully Monitored device:     ' + device.name)
+            // this.log('Fully Monitored device:     ' + device.name)
+            monFull = ", Fully Monitored"
         } 
         if ( isMonitoredPartial(device) ) {
-            this.log('Partially Monitored device: ' + device.name)
+            // this.log('Partially Monitored device: ' + device.name)
+            monPartial = ", Partially Monitored"
         }
         if ( isLogged(device) ) {
-            this.log('Logged device:              ' + device.name)
+            // this.log('Logged device:              ' + device.name)
+            monLogged = ", Logged"
         }
+        this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType + monFull + monPartial + monLogged)
     }
 
     //
@@ -432,9 +433,7 @@ class Heimdall extends Homey.App {
     }
 
     async checkDevicesState(value, nu) {
-        // Get the homey object
-        const api = await this.getApi();
-
+        let allDevices = await this.getDevices()
         for (let device in allDevices) {
             this.checkDeviceState(allDevices[device], value, nu)
         };
@@ -487,9 +486,7 @@ class Heimdall extends Homey.App {
     }
 
     async checkDevicesLastCom(value) {
-
-        this.getDevices()
-
+        let allDevices = await this.getDevices()
         for (let device in allDevices) {
             this.checkDeviceLastCom(allDevices[device], value)
         };  
@@ -674,6 +671,7 @@ class Heimdall extends Homey.App {
             logLine = logLine+"\n"+savedHistory;
         }
         Homey.ManagerSettings.set('myLog', logLine );
+        logLine = "";
     }
 
     async speak(type, text) {
