@@ -33,7 +33,7 @@ function onHomeyReady(homeyReady){
     Homey.ready();
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
-        if (err) {
+        if ( err ) {
             Homey.alert( err );
         } else {
             if (savedSettings != (null || undefined)) {
