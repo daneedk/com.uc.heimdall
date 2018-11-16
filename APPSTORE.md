@@ -22,12 +22,14 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Need Help, Have questions or remarks?
 
-Please post your questions/remarks on the [Athom community forum](https://forum.athom.com/discussion/4514/app-heimdall-let-homey-watch-over-your-home/p1)
+Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 1.0.16
-* Support for non-sensor devices with Contact, Motion and Tamper capabilities 
+## Changes for current version 1.0.26
+* Updated athom-api
 
-An extensive changelog and more detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
+An extensive changelog is available [here](https://community.athom.com/t/134/3)
+ 
+More detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
 
 ## Donate
 If you like the app, consider buying me a beer!  

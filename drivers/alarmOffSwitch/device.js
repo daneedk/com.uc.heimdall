@@ -6,10 +6,10 @@ class Heimdall extends Homey.Device {
 
     // this method is called when the Device is inited
     onInit() {
-        this.log('device init');
-        this.log('name:', this.getName());
-        this.log('class:', this.getClass());
-        this.log('data:', this.getData());
+        // this.log('device init');
+        // this.log('name:', this.getName());
+        // this.log('class:', this.getClass());
+        // this.log('data:', this.getData());
 
         // register a capability listener
         this.registerCapabilityListener('button', this.onCapabilityBoolean.bind(this))
@@ -18,12 +18,12 @@ class Heimdall extends Homey.Device {
 
     // this method is called when the Device is added
     onAdded() {
-        this.log('device added');
+        // this.log('device added');
     }
 
     // this method is called when the Device is deleted
     onDeleted() {
-        this.log('device deleted');
+        // this.log('device deleted');
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
@@ -31,7 +31,7 @@ class Heimdall extends Homey.Device {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "aMode" ){
-           console.log('Alarm button clicked:   ' + value);
+            // this.log('Alarm button clicked:   ' + value);
             Homey.app.deactivateAlarm(false, 'Alarm Off Button' ,function(err){
                 if( err ) return Homey.alert( err );
             });

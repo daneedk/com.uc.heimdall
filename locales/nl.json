@@ -14,9 +14,9 @@
         },
         "history": {
             "title": "Geschiedenis",
-            "autoRefresh": "Automatisch verversen (elke seconde)",
+            "autoRefresh": "Automatisch verversen",
             "manualRefresh": "Ververs",
-            "useColors": "Gebruik colors",
+            "useColors": "Gebruik kleuren",
             "btnClearHistory": "Verwijder geschiedenis",
             "btnDownload": "Download",
             "date": "Datum",
@@ -30,14 +30,21 @@
         "title": "Instellingen",
         "settings": {
             "title": "Instellingen",
-            "tDelay": "Trigger vertraging",
+            "devices": "Apparaten",
+            "arDelay": "Inschakel vertraging",
+            "alDelay": "Alarm vertraging",
             "seconds": "Seconden",
             "save": "Bewaar",
-            "secondsFail": "De waarde is ongeldig, geef een waarde van 0-120 seconden.",
+            "secondsFail": "De waarde is ongeldig, geef een waarde van 0-300 seconden.",
             "saveSucces": "De nieuwe instellingen zijn opgeslagen.",
             "logarmedonly": "Alleen loggen als er een Toezicht Mode actief is",
             "logtrueonly": "Log het deactiveren van een sensor niet",
-            "delayarming": "Gebruik vertraging ook bij het inschakelen van een Toezicht Modus",
+            "usetampering": "Luister naar manipulatie berichten van sensoren",
+            "delayarmingfull": "Gebruik vertraging bij Volledige mode",
+            "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",            
+            "checkMotionAtArming": "Controleer op actieve beweginssensoren bij het inschakelen",
+            "checkContactAtArming": "Controleer op open deuren/ramen bij het inschakelen",
+            "checkbeforecountdown": "Voer inschakelcontrole uit voor de inschakelvertraging",
             "zone": "Zone",
             "device": "Apparaat",
             "monitor": "Controleer",
@@ -60,19 +67,16 @@
             "smodechange": "de Toezicht Mode wordt veranderd",
             "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
             "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
-            "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is"
+            "tampertrue": "manipulatie is gedetecteerd bij ingeschakelde Toezicht Mode",
+            "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is",
+            "motionatarming": "een bewegingssensor actief is bij inschakelen",
+            "dooropenatarming": "een deur of raam open is bij inschakelen"
         }
     },
     "tab4": {
         "title": "Instructies",
         "instructions": {
             "title": "Instructies"
-        }
-    },
-    "tab5": {
-        "title": "Online monitoring",
-        "homeyalarm": {
-            "title": "Online monitoring"
         }
     },
     "modes": {
@@ -84,7 +88,11 @@
         "open": "Geopend",
         "closed": "Gesloten",
         "motion": "Beweging gedetecteerd",
-        "nomotion": "Geen beweging gedetecteerd"
+        "nomotion": "Geen beweging gedetecteerd",
+        "vibration": "Vibratie gedetecteerd",
+        "novibration": "Geen vibratie gedetecteerd",
+        "tamper": "Manipulaite gedetecteerd",
+        "notamper": "Geen manipulatie meer gedetecteerd"
     },
     "speech": {
         "startalarmcountdown": "Het alarm gaat af in  ",
@@ -95,6 +103,13 @@
         "alarmactivated": "Het alarm is geactiveerd",
         "alarmdeactivated": "Het alarm is gedeactiveerd"
     },
+    "atarming": {
+        "on": " op ",
+        "is": " is ",
+        "delayText": ". Dit apparaat heeft een vertraagde trigger.",
+        "warningMotion": "Waarschuwing, sensor actief. ",
+        "warningContact": "Waarschuwing, sensor "
+    },
     "history": {
         "smodedisarmed": "Toezicht mode is gedeactiveerd.",
         "smodearmed": "Toezicht mode is geactiveerd.",
@@ -102,12 +117,17 @@
         "smodedelayarmed": "Toezicht mode wordt geactiveerd over ",
         "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
         "seconds": " seconden.",
+        "smodedelaychanged": "Inschakelvertraging is verlaagt naar 10 seconden door Laatste Deur handeling",
         "alarmdeactivated": "Alarm is gedeactiveerd.",
         "alarmactivated": "Alarm is geactiveerd. ",
+        "alarmactivatedflowcard": "Alarm is geactiveerd door de Flowcard. ",
         "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
         "alarmnotactivated": "Alarm is niet geactiveerd door deactiveren Toezicht Mode.",
-        "noalarmtrigger": ", geen alarm trigger omdat er een vertraagde trigger actief is."
+        "noalarmtriggercountdown": ", geen alarm trigger omdat er een vertraagde trigger actief is.",
+        "noalarmtriggeralarmstate": ", geen alarm trigger omdat het Alarm al geactiveerd is.",
+        "noreport": " heeft al  ",
+        "lastreport": " uren geen info gestuurd. Laatste info: "
     }
 }

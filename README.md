@@ -15,6 +15,42 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 1.0.26
+* Updated athom-api
+
+## Version 1.0.25
+* Removed temporary code
+
+## Version 1.0.24
+* Improved sensor communication check
+* Code cleanup
+
+## Version 1.0.23
+* Check if sensors communicated with Homey in the last 24 hours
+
+## Version 1.0.22
+* Added [Last Door](https://github.com/daneedk/com.uc.heimdall/issues/27) functionality
+* Split Trigger Delay to 2 separate settings, Arming Delay and Alarm Delay
+* Changed Delay range to 0-300 seconds
+* Minor layout changes to settings pages
+
+## Version 1.0.21
+* Added support for Vibration sensors
+
+## Version 1.0.20
+* Added ['Sensor tripped in Alarmstate'](https://github.com/daneedk/com.uc.heimdall/issues/25) trigger flow card
+
+## Version 1.0.19
+* Added function to API to retrieve Surveillance Mode and Alarm State
+* Fixed issue with [triggering on measure_temperature reports](https://github.com/daneedk/com.uc.heimdall/issues/23)
+* Code cleanup
+
+## Version 1.0.18
+* Updated Community ID
+
+## Version 1.0.17
+* Skipped
+
 ## Version 1.0.16
 * Support for non-sensor devices with Contact, Motion and Tamper capabilities
 

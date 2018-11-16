@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "1.0.18",
+	"version": "1.0.26",
 	"compatibility": "1.x >=1.5.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -20,10 +20,10 @@
 		}
 	  },
 	"tags": { 
-		"en": [ "Home", "Alarm", "Homeyalarm", "System", "Tools", "Log", "Surveillance"],
+		"en": [ "Home", "Alarm", "Alert", "Homeyalarm", "System", "Tools", "Log", "Surveillance"],
 		"nl": [ "Huis", "Alarm", "Homeyalarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht"] 
 	},
-	"athomForumDiscussionId": 4514,
+	"homeyCommunityTopicId": 134,
 	"flow": {
 		"triggers": [
 		{
@@ -108,10 +108,10 @@
 			]
 		},
 		{
-			"id": "DelayActivated",
+			"id": "AlarmDelayActivated",
 			"title": {
-				"en": "The delay is activated.",
-				"nl": "De vertraging is geactiveerd."
+				"en": "The alarm delay is activated.",
+				"nl": "De alarm vertraging is geactiveerd."
 			},
 			"tokens": [
 				{
@@ -194,6 +194,87 @@
 						"nl": "Satus"
 					},
 					"example": "Motion detected"
+				}
+			]
+		},
+		{
+			"id": "SensorTrippedInAlarmstate",
+			"title": {
+				"en": "Sensor tripped in Alarmstate",
+				"nl": "Sensor actief in Alarmstatus"
+			},
+			"tokens": [
+				{
+					"name": "State",
+					"type": "string",
+					"title": {
+						"en": "State",
+						"nl": "Satus"
+					},
+					"example": "Motion detected"
+				},
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat"
+					},
+					"example": "Motion Sensor"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone"
+					},
+					"example": "-"
+				}
+			]
+		},
+		{
+			"id": "noInfoReceived",
+			"title" :{
+				"en": "No information received",
+				"nl": "Geen informatie ontvangen"
+			},
+			"tokens": [
+				{
+					"name": "Duration",
+					"type": "number",
+					"title": {
+						"en": "Hours no information",
+						"nl": "Uren geen informatie"  
+					},
+					"Example": 12
+				},
+				{
+					"name": "LastUpdate",
+					"type": "string",
+					"title": {
+						"en": "Last update",
+						"nl": "Laatste bericht"  
+					},
+					"Example": " "
+				},
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat"
+					},
+					"example": "Motion Sensor"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone"
+					},
+					"example": "-"
 				}
 			]
 		}
@@ -302,8 +383,8 @@
 		{
 			"id": "SendInfo",
 			"title": {
-				"en": "Send information to Heimdall.",
-				"nl": "Stuur informatie naar Heimdall."
+				"en": "Send information to Heimdall",
+				"nl": "Stuur informatie naar Heimdall"
 			},
 			"args": [{
 				"name": "log",
@@ -313,8 +394,8 @@
 		{
 			"id": "ClearHistory",
 			"title": {
-				"en": "Clear Heimdall history.",
-				"nl": "Verwijder Heimdall geschiedenis."
+				"en": "Clear Heimdall history",
+				"nl": "Verwijder Heimdall geschiedenis"
 			}
 		},
 		{
@@ -329,6 +410,13 @@
 			"title": {
 				"en": "Deactivate Alarm",
 				"nl": "Deactiveer Alarm"
+			}
+		},
+		{
+			"id": "CheckLastCommunication",
+			"title": {
+				"en": "Check Last Communication",
+				"nl": "Controleer laatste communicatie"
 			}
 		}
 		]

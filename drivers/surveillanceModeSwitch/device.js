@@ -6,10 +6,10 @@ class Heimdall extends Homey.Device {
 
     // this method is called when the Device is inited
     onInit() {
-        this.log('device init');
-        this.log('name:', this.getName());
-        this.log('class:', this.getClass());
-        this.log('data:', this.getData());
+        // this.log('device init');
+        // this.log('name:', this.getName());
+        // this.log('class:', this.getClass());
+        // this.log('data:', this.getData());
 
         // register a capability listener
         this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmState.bind(this))
@@ -17,12 +17,12 @@ class Heimdall extends Homey.Device {
 
     // this method is called when the Device is added
     onAdded() {
-        this.log('device added');
+        // this.log('device added');
     }
 
     // this method is called when the Device is deleted
     onDeleted() {
-        this.log('device deleted');
+        // this.log('device deleted');
     }
 
     // this method is called when the Device has requested a state change (turned on or off)
@@ -30,8 +30,8 @@ class Heimdall extends Homey.Device {
 
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){
-           console.log('Surveillance Mode device clicked: ' + newState);
-            Homey.app.setSurveillanceMode(newState, 'Mode Switch' ,function(err){
+            // this.log('Surveillance Mode device clicked: ' + newState);
+            Homey.app.setSurveillanceMode(newState, 'Surveillance Mode Switch' ,function(err){
                 if( err ) return Homey.alert( err );
             });
         }
@@ -45,11 +45,11 @@ class Heimdall extends Homey.Device {
 
     // this method is called from the driver by an action flowcard
     setNewState(newState) {
-        this.log('setNewState: ', newState);
+        // this.log('setNewState: ', newState);
         this.setCapabilityValue('homealarm_state', newState)
           .catch( this.error );
         
-       console.log('Surveillance Mode flow activated: ' + newState);
+        // this.log('Surveillance Mode flow activated: ' + newState);
         Homey.app.setSurveillanceMode(newState, 'Flowcard' ,function(err){
             if( err ) return Homey.alert( err );
         });
