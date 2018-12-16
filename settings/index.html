@@ -3,50 +3,48 @@
     <head>
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-        <script src="vue.min.js" data-origin="settings"></script>
+        <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+        <script type="text/javascript" src="vue.min.js" data-origin="settings"></script>
         <script type="text/javascript" src="settings.js" data-origin="settings"></script>
     </head>
     <body>
         <div id="app" style="margin-left:15px;margin-right:20px;">
             <h1 data-i18n="settings.title">-Heimdall-</h1>
             <p data-i18n="settings.benefit"></p>
-            <table width="100%">
-                <tr>
-                    <td id="tab1b" class="tab tab-active" onclick="showTab('tab1')" data-i18n="tab1.title">-Dashboard-</td>
-                    <td id="tab2b" class="tab tab-inactive" onclick="showTab('tab2')" data-i18n="tab2.title">-Settings-</td>
-                    <td id="tab3b" class="tab tab-inactive" onclick="showTab('tab3')" data-i18n="tab3.title">-Speech-</td>
-                    <td id="tab4b" class="tab tab-inactive" onclick="showTab('tab4')" data-i18n="tab4.title">-Instructions-</td>
-                    <td id="tab5b" class="tab tab-inactive" onclick="showTab('tab5')" data-i18n="tab5.title">-HomeyAlarm-</td>
-                    <td class="tab-unused">&nbsp;</td>
-                </tr>
-            </table>
+
+            <div class="rTable">
+                <div class="rTableRow">
+                    <div id="tabb1" class="tab tab-active" onclick="showTab(1)" data-i18n="tab1.title">-Dashboard-</div>
+                    <div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="tab2.title">-Settings-</div>
+                    <div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="tab3.title">-Speech-</div>
+                    <div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="tab4.title">-Instructions-</div>
+                    <div class="tab-unused">&nbsp;</div>
+                </div>
+            </div>
             <div style="height:8px"></div>
-            <div id="tab1">
+            <div id="tab1" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab1.status.title">-Status-</legend>
-                    <table>
-                        <tr>
-                            <td><button id="surveillanceModeFull" class="btn wide btn-inactive" data-i18n="tab1.status.smodeFull">-Full Surveillance mode-</button></td>
-                            <td><button id="surveillanceModePartial" class="btn wide btn-inactive" data-i18n="tab1.status.smodePartial">-Partial Surveillance mode-</button></td>
-                            <td>&nbsp;</td>
-                            <td><button id="alarmMode" class="btn wide btn-inactive" data-i18n="tab1.status.alarm">-Alarm-</td>
-                        </tr>
-                    </table>
+                    <div class="rTable">
+                        <div class="iTableRow">
+                            <div id="surveillanceModeFull" class="indicator btn-inactive" data-i18n="tab1.status.smodeFull">-Full Surveillance mode-</div>
+                            <div id="surveillanceModePartial" class="indicator btn-inactive" data-i18n="tab1.status.smodePartial">-Partial Surveillance mode-</div>
+                            <div id="alarmMode" class="indicator btn-inactive" data-i18n="tab1.status.alarm">-Alarm-</div>
+                        </div>
+                    </div>
                 </fieldset>
                 
                 <fieldset class="listContainer">
                     <legend data-i18n="tab1.history.title">-History-</legend>
-                    <table>
-                        <tr style="height:40px">
-                            <td><input type="checkbox" id="autoRefresh" onClick="changeAutoRefresh()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></td>
-                            <td width="10%"></td>
-                            <td><input type="checkbox" id="useColors" onClick="changeUseColor()" checked><span data-i18n="tab1.history.useColors">-Use colors-</span></td>
-                            <td width="10%"></td>
-                            <td width="100px">
-                                <button style="display:none" id="buttonRefresh" onClick="showHistory(0)" span data-i18n="tab1.history.manualRefresh">-Refresh-</button>
-                            </td>
-                        </tr>
-                    </table> 
+                    <div class="rTable">
+                        <div class="rTableRow">
+                            <div class="historySetting"><input type="checkbox" id="autoRefresh" onClick="changeAutoRefresh()" checked ><span data-i18n="tab1.history.autoRefresh">-Auto refresh (every 1 Sec)-</span></div>
+                            <div class="historySetting"><input type="checkbox" id="useColors" onClick="changeUseColor()" checked><span data-i18n="tab1.history.useColors">-Use colors-</span></div>
+                            <div class="historySetting"><button style="display:none" id="buttonRefresh" onClick="showHistory(0)" span data-i18n="tab1.history.manualRefresh">-Refresh-</button></div>
+                            <div class="rTableCellLast"></div>
+                        </div>
+                    </div>
+                    <div style="height:8px"></div>
                     <textarea style="display:none" id="logtextarea" style="margin: 0px; width: 98%; height: 100px;"></textarea>
                     <div class="Overflow historyheight">
                         <div class="rTable" id="historyTable">
@@ -54,65 +52,71 @@
                     </div>
                     <button id="clearHistory" class="left" onclick="clearHistory()" data-i18n="tab1.history.btnClearHistory">-Clear Log-</button>
                     <button id="downloadHistory" class="left" onclick="downloadHistory()"  data-i18n="tab1.history.btnDownload">-Download-</button>
-
-                    <!--button id="btnApiKey" class="left" onclick="getApiKey()">Get API Key</button-->
-
                 </fieldset>
             </div>
-            <div id="tab2" style="display:none">
+            <div id="tab2" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab2.settings.title">-Settings-</legend>
-                    <table width="80%">
-                        <tr>
-                            <td width="35%" class="rTableCell line">
-                                <span data-i18n="tab2.settings.tDelay">-Trigger delay:-</span>&nbsp;
-                                <input id="triggerDelay" type="text" value="31" class="narrow">&nbsp;                            
-                                <span data-i18n="tab2.settings.seconds">-Seconds-</span>&nbsp;
-                                <button id="saveTriggerDelay" onclick="changeTriggerDelay()" data-i18n="tab2.settings.save">-Save-</button>
-                            </td>
-                            <td width="2%"></td>
-                            <td width="35%" class="rTableCell line">
-                                <input id="logArmedOnly" type="checkbox" onclick="saveSettings()">
-                                <span data-i18n="tab2.settings.logarmedonly">-Only log when a Surveillance mode is active-</span>
-                            </td>
-                            <td width="2%"></td>
-                            <td width="35%" class="rTableCell line">
-                                <input id="logTrueOnly" type="checkbox" onclick="saveSettings()">
-                                <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rTableCell">
-                                <input id="delayArming" type="checkbox" onclick="saveSettings()">
-                                <span data-i18n="tab2.settings.delayarming">-Use delay also when enabling a Surveillance mode-</td></span>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="rTableCell line"></td>
-                            <td></td>
-                            <td class="rTableCell line"></td>
-                            <td></td>
-                            <td class="rTableCell line"></td>
-                        </tr>
-                     </table>
+                    <div>
+                        <div class="sTableCell inputs">
+                            <label data-i18n="tab2.settings.arDelay">-Arming delay:-</label>&nbsp;
+                            <input id="armingDelay" type="text" value="31" class="narrow" onblur="changeArmingDelay()">&nbsp;                            
+                            <span data-i18n="tab2.settings.seconds">-Seconds-</span>&nbsp;
+                            <br />
+                            <label data-i18n="tab2.settings.alDelay">-Alarm delay:-</label>&nbsp;
+                            <input id="alarmDelay" type="text" value="31" class="narrow" onblur="changeAlarmDelay()">&nbsp;                            
+                            <span data-i18n="tab2.settings.seconds">-Seconds-</span>&nbsp;
+                            <br />
+                            <input id="delayArmingFull" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.delayarmingfull">-Use delay when enabling Armed mode-</span>
+                            <br />
+                            <input id="delayArmingPartial" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.delayarmingpartial">-Use delay when enabling Partially Armed mode-</span>
+                        </div>
+                        <div class="sTableCell inputs">
+                            <input id="logArmedOnly" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.logarmedonly">-Only log when a Surveillance mode is active-</span>
+                            <br />
+                            <input id="logTrueOnly" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.logtrueonly">-Do not log deactivating of sensors-</span>
+                            <br />
+                            <input id="useTampering" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.usetampering">-Listen to tampering reports from sensors-</span>
+                        </div>
+                        <div class="sTableCell inputs">
+                            <input id="checkMotionAtArming" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.checkMotionAtArming">-Check for active Motion Sensor when arming-</span>
+                            <br />
+                            <input id="checkContactAtArming" id="checkContactAtArming" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.checkContactAtArming">-Check for open doors/windows when arming-</span>
+                            <br />
+                            <input id="checkBeforeCountdown" type="checkbox" onclick="saveSettings()">
+                            <span data-i18n="tab2.settings.checkbeforecountdown">-Perform Pre-Arming check before Delay-</span>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="listContainer">
+                    <legend data-i18n="tab2.settings.devices">-Settings-</legend>
+                    <div style="height:8px"></div>
                     <div class="Overflow devicesheight">
                         <div class="rTable">
                             <div class="rTableRow">
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.zone">-Zone-</div>
+                                <div class="rTableCell line rTableHead"></div>
                                 <div class="rTableCell line rTableHead"></div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.device">-Device-</div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.monitor">-Monitor-</div>
                                 <div class="rTableCell line rTableHead" data-i18n="tab2.settings.dTrigger">-Delayed Trigger-</div>
                                 <div class="rTableCell line rTableHead rTableCellLast"></div>
                             </div>
-                        
-                            <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilities.alarm_motion || device.capabilities.alarm_contact">
+                            <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilitiesObj.alarm_motion || device.capabilitiesObj.alarm_contact || device.capabilitiesObj.alarm_vibration">
+    
                                 <div class="rTableCell line">{{device.zone.name}}</div>
+                                <div class="rTableBatt line">
+                                    <!--span v-html="getBattClass(device.state.measure_battery)"></span-->
+                                </div>
                                 <div class="rTableCell line" align=center>
-                                    <img :src="device.icon" style="height:30px;width:auto;"/>
+                                    <img :src="device.iconObj.url" style="height:30px;width:auto;"/>
                                 </div>
                                 <div class="rTableCell line">
                                     {{device.name}}
@@ -131,70 +135,52 @@
                                     <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn narrow btn-active" style="margin:5px;" data-i18n="tab2.settings.yes">-Yes-</a>
                                 </div>
                                 
-                                <div class=rTableCell line></div>
+                                <div class="rTableCell line"></div>
                             </div>
                         </div>
                     </div>                    
                 </fieldset>
             </div>
-            <div id="tab3" style="display:none">
+            <div id="tab3" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab3.speech.title">-Speech-</legend>
-                        <table width="80%">
-                            <tr>
-                                <td class="rTableCell line" colspan=2>
-                                        <span data-i18n="tab3.speech.let">-Let Homey tell you when:-<span>    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                        <div class="rTable">
+                            <div class="rTableRow">
+                                <div class="sTableCell">
+                                    <span data-i18n="tab3.speech.let">-Let Homey tell you when:-</span>
+                                    <br />
                                     <input id="spokenSmodeChange" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.smodechange">-the Surveillance Mode changed-<span>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                                    <span data-i18n="tab3.speech.smodechange">-the Surveillance Mode changed-</span>
+                                    <br />
                                     <input id="spokenAlarmCountdown" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.spokenalarmcountdown">-Use spoken countdown-<span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                                    <span data-i18n="tab3.speech.spokenalarmcountdown">-Use spoken countdown-</span>
+                                    <br />
                                     <input id="spokenArmCountdown" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.spokenarmcountdown">-Use spoken countdown-<span>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                                    <span data-i18n="tab3.speech.spokenarmcountdown">-Use spoken countdown-</span>
+                                    <br />
                                     <input id="spokenAlarmChange" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.alarmchange">-the alarm is activated-<span>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                                    <span data-i18n="tab3.speech.alarmchange">-the alarm is activated-</span>
+                                    <br />
                                     <input id="spokenMotionTrue" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.motiontrue">-motion is detected when in an armed Surveillance Mode-<span>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <td width="2%"></td>
-                                <td width="35%" class="rTableCell">    
+                                    <span data-i18n="tab3.speech.motiontrue">-motion is detected when in an armed Surveillance Mode-</span>
+                                    <br />
+                                    <input id="spokenTamperTrue" type="checkbox" onclick="saveSettings()">
+                                    <span data-i18n="tab3.speech.tampertrue">-tampering is detected when in an armed Surveillance Mode-</span>
+                                    <br />
                                     <input id="spokenDoorOpen" type="checkbox" onclick="saveSettings()">
-                                    <span data-i18n="tab3.speech.dooropen">-a door or windows is opened when in an armed Surveillance Mode-<span>
-                                </td>    
-                            </tr>
-                            <tr>
-                                <td class="rTableCell line" colspan=2></td>
-                            </tr>
-                        </table>
+                                    <span data-i18n="tab3.speech.dooropen">-a door or window is opened when in an armed Surveillance Mode-</span>
+                                    <br />
+                                    <input id="spokenMotionAtArming" type="checkbox" onclick="saveSettings()">
+                                    <span data-i18n="tab3.speech.motionatarming">-a motion sensor is active when arming-</span>
+                                    <br />
+                                    <input id="spokenDoorOpenAtArming" type="checkbox" onclick="saveSettings()">
+                                    <span data-i18n="tab3.speech.dooropenatarming">-a door or window is open when arming-</span>
+                                </div>
+                            </div>
+                        </div>
                 </fieldset>
             </div>
-            <div id="tab4" style="display:none">
+            <div id="tab4" class="panel">
                 <fieldset class="listContainer">
                     <legend data-i18n="tab4.instructions.title">-Instructions-</legend>                 
                     <div id="instructionsen" style="display:none">
@@ -214,7 +200,7 @@
                                 It is possible to select both <i>Full</i> and <i>Partial</i> for one device.
                                 If you want to have a delay between the triggering of a device and activating the alarm you can 
                                 enable a delay by clicking on the <i>no</i> button in the Delayed Trigger column.<br />
-                                The delay that is used can be found on the top of the settings page, it is in seconds and ranges from 0-120 seconds.<br />
+                                The delay that is used can be found on the top of the settings page, it is in seconds and ranges from 0-300 seconds.<br />
                             </li></ul>
                             <li><b>Create a flow to enable the Surveillance Mode</li>
                             <ul><li>
@@ -265,7 +251,7 @@
                                 Als je de sensor op wil nemen in de <i>Gedeeltelijke</i> Toezicht Mode klik dan op de <i>Gedeeltelijk</i> knop.
                                 Het is mogelijk om zowel <i>Volledig</i> als <i>Gedeeltelijk</i> te selecteren voor 1 sensor.
                                 Als je een vertraging wilt hebben tussen het afgaan van een sensor en het inschakelen van het alarm klik dan op de <i>Vertraagde trigger</i> knop.
-                                De gewenste vertraging kan je op de instellingen pagina instellen van 0-120 seconden.<br />
+                                De gewenste vertraging kan je op de instellingen pagina instellen van 0-300 seconden.<br />
                             </li></ul>
                             <li><b>Maak flows om een Toezicht Mode in te stellen</li>
                             <ul><li>
@@ -301,77 +287,6 @@
                     </div>
                 </fieldset>
             </div>
-
-            <div id="tab5" style="display:none">
-                <fieldset class="listContainer">
-                    <legend data-i18n="tab5.homeyalarm.title">-Instructions-</legend>
-                    <div id="homeyAlarm" style="display:none">
-                        HomeyAlarm is an online service that you can use in combination with Heimdall to watch over your home.<br />
-                        <br />
-                        HomeyAlarm is configured, APIKey is present.<br />
-                        Users:<br />
-                        <br /><i>Not functional:</i><br />
-                        Please enter your password and click Display to show the configured user(s).<br />
-                        <br />
-                        Password: <input type=password id="passwordRetrieveUsers"> <button id="btnRetrieveUsers" onclick="">Display</button>
-
-                    </div>
-                    <div id="configHomeyAlarmIntroduction" style="display:none">
-                        HomeyAlarm is an online service that you can use in combination with Heimdall to watch over your home.<br />
-                        <br />
-                        <button id="btnConfigureHomeyAlarm" onclick="configureHomeyAlarm()">Configure HomeyAlarm</button>
-                    </div>    
-                    <div id="configHomeyAlarmStep1" style="display:none">
-                        <h2>Step 1 - Create an Account</h2><br />
-                        To create an account at HomeyAlarm please provide your email address, a password and click the <b>Create Account</b> button.<br />
-                        <br />
-                        <table>
-                            <tr>
-                                <td>emailaddress </td><td><input id="emailAddress" class="wide"></td>
-                            </tr>
-                            <tr>
-                                <td>password </td><td><input id="password" class="wide" type="password" onkeyup='check();' /> </td>
-                            </tr>
-                            <tr>
-                                <td>confirm password&nbsp;&nbsp;</td><td><input id="confirmPassword" class="wide" type="password" onkeyup='check();' />&nbsp;&nbsp;<span id="message"></span> </td>
-                            </tr>
-                        </table>
-                        <br />
-                        <button id="btnCreateAccount" onclick="createAccount()">Create Account</button><br />
-                    </div>
-                    <div id="configHomeyAlarmStep2" style="display:none">
-                            Step 2 - Create users with PIN codes<br />
-                            <br />
-                            <span id="pinStatus"><i>An email is send to the provided address, please click the validation link in that message before proceding.</i></span><br />
-                            <br />
-                            <span id="userHint">If you want to use HomeyDash to switch Surveillance Mode you need to create at user.</span><br />
-                            <br />
-                            <table>
-                                <tr>
-                                    <td>Username </td><td><input id="username" class="wide"></td>
-                                </tr>
-                                <tr>
-                                    <td>PIN code </td><td><input id="pincode" class="wide"> </td>
-                                </tr>
-                                <tr>
-                                    <td colspan=2><br />To validate your request please provide your account password from the previous step.<br /><br /></td>
-                                </tr>
-                                <tr>
-                                    <td>Password&nbsp;&nbsp;</td><td><input id="passwordPin" class="wide" type="password"></td>
-                                </tr>
-                            </table>
-                            <br />
-                            <button id="btnCreateUser" onclick="createUser()">Create User</button><button id="btnFinish" onclick="finish()" style="display:none">Finish</button>
-                    </div>
-                    <br />
-                    <span id="response"></span><br />
-                    <span id="reason"></span>
-                    <br />
-                </fieldset>
-                Temporary function:<br />
-                <button id="resetAPI" onclick="resetAPI()">Reset API</button> Please reopen the Heimdall Settings page after clicking this button.
-            </div>
-
         </div>
     </body>
 </html>

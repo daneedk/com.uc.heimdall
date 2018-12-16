@@ -71,6 +71,7 @@ class Heimdall extends Homey.App {
 
     // Get all devices function for API
     async getDevices() {
+        const api = await this.getApi();
         return await this.api.devices.getDevices();
     }
 
@@ -79,7 +80,7 @@ class Heimdall extends Homey.App {
         this.api = await this.getApi();
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
-        // this.log('Surveillance Mode: ' + surveillance);
+        this.log('Surveillance Mode: ' + surveillance);
         if ( surveillance == null ) {
             surveillance = true
         };
@@ -107,13 +108,16 @@ class Heimdall extends Homey.App {
 
         api.devices.on('device.create', async(id) => {
             await console.log('New device found!')
-            const device = await api.devices.getDevice({id: id})
+            // V1 - const device = await api.devices.getDevice({id: id})
+            const device = await api.devices.getDevice({id: id.id})
             await this.addDevice(device);
         });
         api.devices.on('device.delete', async(id) => {
             await console.log('Device deleted!: ')
         });
         let allDevices = await this.getDevices();
+
+        //console.log(allDevices)
 
         for (let device in allDevices) {
             this.addDevice(allDevices[device])
@@ -131,20 +135,24 @@ class Heimdall extends Homey.App {
             aModeDevice = device;
             this.log('Found Alarm Button named:   ' + device.name)
         }
-        if ( 'alarm_motion' in device.capabilities ) {
-            // this.log('Found motion sensor:        ' + device.name)
+        // V1 if ( 'alarm_motion' in device.capabilities ) {
+        if ( 'alarm_motion' in device.capabilitiesObj ) {
+            this.log('Found motion sensor:        ' + device.name)
             this.attachEventListener(device,'motion')
         }
-        if ( 'alarm_contact' in device.capabilities ) {
-            // this.log('Found contact sensor:       ' + device.name)
+        // V1 if ( 'alarm_contact' in device.capabilities ) {
+        if ( 'alarm_contact' in device.capabilitiesObj ) {
+            this.log('Found contact sensor:       ' + device.name)
             this.attachEventListener(device,'contact')
         }
-        if ( 'alarm_vibration' in device.capabilities ) {
-            // this.log('Found vibration sensor:     ' + device.name)
+        // V1 if ( 'alarm_vibration' in device.capabilities ) {
+        if ( 'alarm_vibration' in device.capabilitiesObj ) {
+            this.log('Found vibration sensor:     ' + device.name)
             this.attachEventListener(device,'vibration')
         }
-        if ( 'alarm_tamper' in device.capabilities ) {
-            // this.log('Found tamper sensor:        ' + device.name)
+        // V1 if ( 'alarm_tamper' in device.capabilities ) {
+        if ( 'alarm_tamper' in device.capabilitiesObj ) {
+            this.log('Found tamper sensor:        ' + device.name)
             this.attachEventListener(device,'tamper')
         }
     }
@@ -152,24 +160,44 @@ class Heimdall extends Homey.App {
     attachEventListener(device,sensorType) {
         switch (sensorType) {
             case "motion":
+                /* V1
                 device.on('alarm_motion', this.debounce(alarm_motion => { 
                     this.stateChange(device,alarm_motion,sensorType)
                 },250));
+                */
+                device.makeCapabilityInstance('alarm_motion',function(device, state) {
+                    this.stateChange(device,state,sensorType)
+                }.bind(this, device));
                 break;
             case "contact":
+                /* V1
                 device.on('alarm_contact', this.debounce(alarm_contact => { 
                     this.stateChange(device,alarm_contact,sensorType)
                 },250));
+                */
+                device.makeCapabilityInstance('alarm_contact',function(device, state) {
+                    this.stateChange(device,state,sensorType)
+                }.bind(this, device));
                 break;
             case "vibration":
+                /* V1
                 device.on('alarm_vibration', this.debounce(alarm_vibration => { 
                     this.stateChange(device,alarm_vibration,sensorType)
                 },250));
+                */
+                device.makeCapabilityInstance('alarm_vibration',function(device, state) {
+                    this.stateChange(device,state,sensorType)
+                }.bind(this, device));
                 break;
             case "tamper":
+                /* V1
                 device.on('alarm_tamper', this.debounce(alarm_tamper => { 
                     this.stateChange(device,alarm_tamper,sensorType)
                 },250));
+                */            
+                device.makeCapabilityInstance('alarm_tamper',function(device, state) {
+                    this.stateChange(device,state,sensorType)
+                }.bind(this, device));
                 break;
         }
     
@@ -186,7 +214,7 @@ class Heimdall extends Homey.App {
         this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType + monFull + monPartial + monLogged)
     }
 
-    //
+    /* V1 no longer needed?
     debounce(func, wait, immediate) {
         var timeout;
         return function() {
@@ -201,6 +229,7 @@ class Heimdall extends Homey.App {
             if (callNow) func.apply(context, args);
         }
     }
+    */
 
     // this function gets called when a device with an attached eventlistener fires an event.
     stateChange(device,sensorState,sensorType) {
@@ -352,7 +381,7 @@ class Heimdall extends Homey.App {
 
     // sets Surveillance Mode, called from Surveillance Mode Device, will call setSurveillanceValue after evaluating conditions.
     setSurveillanceMode(value, source) {
-        // // this.log('setSurveillanceMode:    ' + value);
+        this.log('setSurveillanceMode:    ' + value);
         let nu = getDateTime();
         let logLine
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
@@ -372,9 +401,9 @@ class Heimdall extends Homey.App {
                 logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
             }
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
-                // this.log('Arming is delayed:      Yes, ' + heimdallSettings.armingDelay + ' seconds.')
+                this.log('Arming is delayed:      Yes, ' + heimdallSettings.armingDelay + ' seconds.')
                 let delay = heimdallSettings.armingDelay * 1000;
-                // this.log('setSurveillanceValue in:' + heimdallSettings.armingDelay + ' seconds.')
+                this.log('setSurveillanceValue in:' + heimdallSettings.armingDelay + ' seconds.')
                 //speak("The Surveillance mode will be set to " + readableMode(value) + " in " + heimdallSettings.armingDelay + " seconds.")
                 this.speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + heimdallSettings.armingDelay + Homey.__("speech.seconds"))
                 armCounterRunning = true;
@@ -391,12 +420,12 @@ class Heimdall extends Homey.App {
                     Homey.app.checkDevicesState(value, nu)
                 }
             } else {
-                // this.log('Arming is delayed:      No')
+                this.log('Arming is delayed:      No')
                 armCounterRunning = true;
                 this.setSurveillanceValue("sa ",value, logLine)
             }
             if ( value === 'armed' || value === 'partially_armed' ) {
-                Homey.app.checkDevicesLastCom(value)
+                //Homey.app.checkDevicesLastCom(value)
             }
         }
     }
@@ -412,15 +441,21 @@ class Heimdall extends Homey.App {
         let sensorState
         let sensorStateReadable
         let sensorType
-        if ( 'alarm_motion' in device.capabilities && heimdallSettings.checkMotionAtArming ) {
-            sensorState = device.state.alarm_motion
+        // V1 if ( 'alarm_motion' in device.capabilities && heimdallSettings.checkMotionAtArming ) {
+        if ( 'alarm_motion' in device.capabilitiesObj && heimdallSettings.checkMotionAtArming ) {
+            // V1 sensorState = device.state.alarm_motion
+            sensorState = device.capabilitiesObj.alarm_motion.value
             sensorStateReadable = readableState(sensorState, 'motion')
             sensorType = 'motion'
+            this.log("checkDeviceState:       " + device.name + " " + sensorType + " " + sensorStateReadable)
         }
-        if ( 'alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
-            sensorState = device.state.alarm_contact
+        // V1 if ( 'alarm_contact' in device.capabilities && heimdallSettings.checkContactAtArming ) {
+        if ( 'alarm_contact' in device.capabilitiesObj && heimdallSettings.checkContactAtArming ) {
+            // V1 sensorState = device.state.alarm_contact
+            sensorState = device.capabilitiesObj.alarm_contact.value
             sensorStateReadable = readableState(sensorState, 'contact')
             sensorType = 'contact'
+            this.log("checkDeviceState:       " + device.name + " " + sensorType + " " + sensorStateReadable)
         };
         if ( value == 'armed') {
             if ( isMonitoredFull(device) ) {
@@ -471,10 +506,10 @@ class Heimdall extends Homey.App {
             }
 
             this.logRealtime(device.name, device.lastUpdated)
-            console.log(device.name)
-            console.log(device.lastUpdated)
+            // console.log(device.name)
+            // console.log(device.zone)
 
-            if ( 'alarm_motion' in device.capabilities || 'alarm_contact' in device.capabilities ) {
+            if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj ) {
                 let mostRecentComE = 0
 
                 for ( let lastUpdate in device.lastUpdated ) {
@@ -523,7 +558,7 @@ class Heimdall extends Homey.App {
             this.logRealtime("Surveillance Mode", value)
             //speak("sModeChange", "The surveillance mode is set to " + readableMode(value)) 
             this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
-            // this.log('setSurveillanceValue:   '+ value)
+            this.log('setSurveillanceValue:   '+ value)
             var tokens = { 'mode': readableMode(value) };
             triggerSurveillanceChanged.trigger(tokens, function(err, result){
                 if( err ) {
@@ -534,6 +569,9 @@ class Heimdall extends Homey.App {
                 Homey.app.checkDevicesState(value, nu)
             }
             //
+            // new functionality: Write to timeline courtesy of sailingduck
+            var notification = new Homey.Notification({ excerpt: '**Surveillance Mode** set to ' + readableMode(value) });
+            notification.register();
         } else {
             logLine = "sd " + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
         }
@@ -569,7 +607,7 @@ class Heimdall extends Homey.App {
             });
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined) {
-                // this.log("aModeDevice alarm_heimdall set")
+                this.log("aModeDevice alarm_heimdall set")
                 aModeDevice.setCapabilityValue('alarm_heimdall', true)
             }
             if ( sModeDevice != undefined) {
@@ -657,41 +695,41 @@ class Heimdall extends Homey.App {
 
     async speak(type, text) {
         if (type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
          }
         if (type == "alarmCountdown" && heimdallSettings.spokenAlarmCountdown ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
         if (type == "armCountdown" && heimdallSettings.spokenArmCountdown ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
         if (type == "alarmChange" && heimdallSettings.spokenAlarmChange ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
         if (type == "motionTrue" && heimdallSettings.spokenMotionTrue ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
         if (type == "doorOpen" && heimdallSettings.spokenDoorOpen ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
         if (type == "tamper" && heimdallSettings.spokenTamperTrue ) {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }    
         if (type == "sensorActive") {
-            // this.log('Say:                    ' + text)
+            this.log('Say:                    ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
     }
 
     ttArmedCountdown(delay, color, value, logLine) {
-        // this.log(' ttArmedCountdown:      ' + delay)
+        this.log(' ttArmedCountdown:      ' + delay)
         if ( armCounterRunning ) {
             if (changeTta && delay > 9 ) {
                 delay = 10;
@@ -730,7 +768,7 @@ class Heimdall extends Homey.App {
     }
     
     ttAlarmCountdown(delay,device,sensorStateReadable) {
-        // this.log('ttAlarmCountdown:       ' + delay)
+        this.log('ttAlarmCountdown:       ' + delay)
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( surveillance != 'disarmed' ) {
             var tokens = { 'AlarmTimer': delay * 1};
@@ -753,14 +791,14 @@ class Heimdall extends Homey.App {
             } 
             else if ( delay == 0) {
                 alarmCounterRunning = false
-                // this.log('alarmCounterRunning:    false due to reaching 0')
+                this.log('alarmCounterRunning:    false due to reaching 0')
                 this.activateAlarm(device, sensorStateReadable, "", "Heimdall")
             }
         }
         else {
             alarmCounterRunning = false
-            // this.log('alarmCounterRunning:    false')
-            // this.log('ttAlarmCountdown:       canceled due to disarm')
+            this.log('alarmCounterRunning:    false')
+            this.log('ttAlarmCountdown:       canceled due to disarm')
             this.activateAlarm(device, sensorStateReadable, "", "Heimdall")
         }
     }

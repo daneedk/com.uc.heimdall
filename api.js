@@ -11,7 +11,7 @@ module.exports = [
                 callback(null, res);
             })
                 .catch(error => callback(error, null));
-        }
+        }  
     },
     {
         description: 'Request Alarm state and Surveillance Mode',

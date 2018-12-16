@@ -15,6 +15,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 ## Known issues
 * The app crashes when the app page in Homeys settings is opened while the app is initializing.
 
+## Version 2.0.0
+* Initial rewrite to Homey V2 firmware
+
 ## Version 1.0.26
 * Updated athom-api
 

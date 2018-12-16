@@ -17,6 +17,26 @@ th {
     background-color: rgb(220, 220 , 220);
 }
 
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
 .btn {
     display: inline-block;
     margin-bottom: 0px;
@@ -49,6 +69,28 @@ th {
     width: 35px;
 }
 
+.indicator {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857;
+    width: 300px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    user-select: none;
+    background-image: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-image: initial;
+    border-radius: 4px;
+}
+
 .btn-active {
     color: rgb(0, 0, 0);
     background-color: rgb(92, 184, 92);
@@ -73,15 +115,23 @@ th {
     border-color: rgb(220, 220, 220);
 }
 
-.btn-alarm {
+.ind-alarm {
     color: rgb(0, 0, 0);
     background-color: rgb(255, 0, 0);
     border-color: rgb(255, 0, 0);
 }
 
+.historySetting {
+    display: table-cell;   	
+    width: 200px;
+    height: 30px;
+    vertical-align: bottom;
+}
 .tab {
+    display: table-cell;   	
     width: 130px;
     margin-bottom: 0px;
+    margin-right: 3px;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.42857;
@@ -90,6 +140,7 @@ th {
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
+    width: 130px;
     border-left: 1px solid rgb(200,200,200);
     border-top: 1px solid rgb(200,200,200);
     border-right: 1px solid rgb(200,200,200);
@@ -111,6 +162,37 @@ th {
     border-bottom: 1px solid rgb(200,200,200);   
 }
 
+.sTable {   	
+    display: table;   	
+    width: calc(100% - 2px); 
+}
+
+.sTableRow {   	
+    display: table-row; 
+    margin: 0px;
+    border-top: 1px solid rgb(220,220,220);
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);            
+}
+
+.sTableCell {   	
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 2;
+    padding: 6px 4px;
+    margin: 0px;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.iTableRow {   	
+    display: table-row; 
+    margin: 0;
+    border-top: 1px solid rgb(220,220,220);
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);            
+} 
 .rTable {   	
     display: table;   	
     width: calc(100% - 2px); 
@@ -129,17 +211,34 @@ th {
     background-color: #ddd; 
 } 
 
-.rTableCell{   	
+.rTableCell {   	
     display: table-cell;   	
     padding: 6px 4px;
     vertical-align: middle;
     white-space: nowrap;
 }
 
+.rTableBatt{
+    display: table-cell;   	
+    padding: 8px 0px;
+
+}
+
 .line{
     border-top: 1px solid rgb(220,220,220);
 }
 
+.inputs label {
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+}
+
+.inputs input {
+    height: 13px;
+    font-size: 12px;
+    font-weight: 400;
+}
 .rTableCellLast{
     width: 25%;
 }
@@ -242,4 +341,63 @@ th {
 
 .ld {
     background-color: rgb(215, 242, 255);
+}
+
+.component-battery {
+    position: absolute;
+    z-index: 1;
+    width: 23.1px;
+    height: 13.2px;
+    line-height: 13.2px;
+    font-size: 7px;
+    color: rgba(255,255,255,1);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    text-align: center
+}
+
+.component-battery, .component-battery:after {
+    border: 1px solid white;
+    box-shadow: inset 0 -4vw 4vw rgba(0,0,0,0.1);
+    border-radius: 2.5px;
+    box-sizing: border-box;
+    transition: all .3s
+}
+
+.component-battery:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 2px;
+    bottom: 2px;
+    left: 100%;
+    width: 3px;
+    border-radius: 2.5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0
+}
+
+.component-battery.charge-100,.component-battery.charge-100:after  {
+    background: #00c900
+}
+
+.component-battery.charge-80,.component-battery.charge-80:after {
+    background: #51c900
+}
+
+.component-battery.charge-60, .component-battery.charge-60:after {
+    background: #a1c900
+}
+
+.component-battery.charge-40, .component-battery.charge-40:after {
+    background: #c9a100
+}
+
+.component-battery.charge-20, .component-battery.charge-20:after {
+    background: #c95100
+}
+
+.component-battery.charge-0, .component-battery.charge-0:after {
+    background: #ca0000
 }

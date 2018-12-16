@@ -3,23 +3,30 @@ let _myLog;
 let surveillance;
 let alarm;
 var allDevices;
-var triggerDelay = 30;
 var logArmedOnly;
 var logTrueOnly;
 var dashboardVisible = true;
+var illegalValue = false;
 var heimdallSettings = {};
+var language = "nl";
 var defaultSettings = {
-    "triggerDelay": "30",
-    "delayArming": false,
+    "armingDelay": "30",
+    "alarmDelay": "30",
+    "delayArmingFull": false,
+    "delayArmingPartial": false,    
     "logArmedOnly": false,
     "logTrueOnly": false,
+    "useTampering": false,
+    "checkMotionAtArming": false,
+    "checkContactAtArming": false,
+    "checkBeforeCountdown": false,
     "spokenSmodeChange": false,
     "spokenAlarmCountdown": false,
     "spokenArmCountdown": false,
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
-    "spokenDoorOpen": false,
-    "APIKey": ""
+    "spokenTamperTrue": false,
+    "spokenDoorOpen": false
 };
 
 function onHomeyReady(homeyReady){
@@ -27,45 +34,50 @@ function onHomeyReady(homeyReady){
     Homey.ready();
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
-        if (err) {
+        if ( err ) {
             Homey.alert( err );
         } else {
             if (savedSettings != (null || undefined)) {
                 console.log('savedSettings:')
                 console.log(savedSettings)
                 heimdallSettings = savedSettings;
-                
+                // temp
+                if (heimdallSettings.armingDelay == (null || undefined)) {
+                    heimdallSettings.armingDelay = heimdallSettings.triggerDelay
+                    heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
+                }
+                //temp
             }
         }
         document.getElementById('autoRefresh').checked = heimdallSettings.autorefresh;
         document.getElementById('useColors').checked = heimdallSettings.useColors;
-        document.getElementById('triggerDelay').value = heimdallSettings.triggerDelay;
-        document.getElementById('delayArming').checked = heimdallSettings.delayArming;
+        document.getElementById('armingDelay').value = heimdallSettings.armingDelay;
+        document.getElementById('alarmDelay').value = heimdallSettings.alarmDelay;
+        document.getElementById('delayArmingFull').checked = heimdallSettings.delayArmingFull;
+        document.getElementById('delayArmingPartial').checked = heimdallSettings.delayArmingPartial;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
         document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
+        document.getElementById('useTampering').checked = heimdallSettings.useTampering;
+        document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
+        document.getElementById('checkContactAtArming').checked = heimdallSettings.checkContactAtArming;
+        document.getElementById('checkBeforeCountdown').checked = heimdallSettings.checkBeforeCountdown;
         document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
         document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
         document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
         document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
         document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
+        document.getElementById('spokenTamperTrue').checked = heimdallSettings.spokenTamperTrue;
         document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
+        document.getElementById('spokenMotionAtArming').checked = heimdallSettings.spokenMotionAtArming;
+        document.getElementById('spokenDoorOpenAtArming').checked = heimdallSettings.spokenDoorOpenAtArming;
         if ( document.getElementById('autoRefresh').checked ) {
             document.getElementById("buttonRefresh").style = "display:none";
         } else {
             document.getElementById("buttonRefresh").style = "display:block";
         }
-//
-        console.log('APIKey: '+ heimdallSettings.APIKey)
-        if ( heimdallSettings.APIKey == "" ) {
-            document.getElementById('configHomeyAlarmIntroduction').style="display:block";
-        } else {
-            getHeartbeat()
-            document.getElementById('homeyAlarm').style="display:block";
-        }
-//
-
     });
-
+    
+    showTab(1);
     getLanguage();
     getStatus();
     refreshHistory();
@@ -112,6 +124,7 @@ function onHomeyReady(homeyReady){
                         return result[key];
                     });
                     this.devices = array.filter(this.filterArray);
+                    console.log(this.devices)
                 });
             },
             async addMonitorFull(device) {
@@ -123,14 +136,12 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 if ( addDeviceMonitorFull ) {
-                    console.log('addMonitorFull: ' + device.id, device.name, device.class)
                     await this.devicesMonitoredFull.push(device);
                     await Homey.set('monitoredFullDevices', this.devicesMonitoredFull, (err, result) => {
                         if (err)
                             return Homey.alert(err);
                         }
                     )
-                    console.log('addMonitorFull: ' + device.name + ' added to monitoredFullDevices');
                 }
                 this.removeLog(device);
             },
@@ -143,26 +154,22 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 if ( addDeviceMonitorPartial ) {
-                    console.log('addMonitorPartial: ' + device.id, device.name, device.class)
                     await this.devicesMonitoredPartial.push(device);
                     await Homey.set('monitoredPartialDevices', this.devicesMonitoredPartial, (err, result) => {
                         if (err)
                             return Homey.alert(err);
                         }
                     )
-                    console.log('addMonitorPartial: ' + device.name + ' added to monitoredPartialDevices');
                 }
                 this.removeLog(device);
             },
             async addDelay(device) {
-                console.log('addDelay: ' + device.id, device.name, device.class)
                 await this.devicesDelayed.push(device);
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-                console.log('addDelay: Delay added to ' + device.name);
                 var addMonitorNeeded = true;
                 for (i = 0; i < this.devicesMonitoredPartial.length; i++) {
                     if (this.devicesMonitoredPartial[i] && this.devicesMonitoredPartial[i].id == device.id) {
@@ -174,14 +181,12 @@ function onHomeyReady(homeyReady){
                 }
             },
             async addLog(device) {
-                console.log('addLog: ' + device.id, device.name, device.class)
                 await this.devicesLogged.push(device);
                 await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
                     if (err)
                         return Homey.alert(err);
                     }
                 )
-                console.log('addLog: Logging added to ' + device.name);
                 this.removeMonitorFull(device);
                 this.removeMonitorPartial(device);
             },
@@ -195,7 +200,6 @@ function onHomeyReady(homeyReady){
                 await Homey.set('monitoredFullDevices', this.devicesMonitoredFull, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                    console.log('removeMonitorFull: ' + device.name + ' removed from monitoredFullDevices');
                 })
                 var removeDelayNeeded = true;
                 for (i = 0; i < this.devicesMonitoredPartial.length; i++) {
@@ -217,7 +221,6 @@ function onHomeyReady(homeyReady){
                 await Homey.set('monitoredPartialDevices', this.devicesMonitoredPartial, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                   console.log('removeMonitorPartial: ' + device.name + ' removed from monitoredPartialDevices');
                 })
                 var removeDelayNeeded = true;
                 for (i = 0; i < this.devicesMonitoredFull.length; i++) {
@@ -239,7 +242,6 @@ function onHomeyReady(homeyReady){
                 await Homey.set('delayedDevices', this.devicesDelayed, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                   console.log('removeDelay: Delay removed from' + device.name);
                 })
             },
             async removeLog(device) {
@@ -252,7 +254,6 @@ function onHomeyReady(homeyReady){
                 await Homey.set('loggedDevices', this.devicesLogged, (err, result) => {
                     if (err)
                         return Homey.alert(err);
-                   console.log('removeLog: Logging removed from: ' + device.name);
                 })
             },
             isMonitoredFull(obj) {
@@ -292,8 +293,25 @@ function onHomeyReady(homeyReady){
                 return false;
             },
             filterArray(device) {
-                if (device.class == "sensor" || device.class == "lock")
+                //if (device.class == "sensor" || device.class == "lock")
+                console.log(device)
                 return device
+            },
+            getBattClass: function(waarde) {
+                if ("number" != typeof waarde)
+                    waarde = "-",
+                    closestClass="100"
+                else {
+                    var s = waarde / 100;
+                    s < 1.1 && (closestClass = "100"),
+                    s < .9 && (closestClass = "80"),
+                    s < .7 && (closestClass = "60"),
+                    s < .5 && (closestClass = "40"),
+                    s < .3 && (closestClass = "20"),
+                    s < .1 && (closestClass = "0"),
+                    waarde = waarde + "%"
+                }  
+                return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
             }
         },
         mounted() {
@@ -309,71 +327,20 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
-    // clean this up!
-    if( tab == "tab1") {
-        document.getElementById("tab1").style="display:block";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab5").style="display:none";
-        document.getElementById("tab1b").className="tab tab-active";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        document.getElementById("tab5b").className="tab tab-inactive";
-        dashboardVisible = true;
+    if ( illegalValue ) {
+        illegalValue = false;
+        return;
     }
-    else if ( tab == "tab2" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:block";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab5").style="display:none";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-active";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        document.getElementById("tab5b").className="tab tab-inactive";
-        dashboardVisible = false;
-    }
-    else if ( tab == "tab3" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:block";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab5").style="display:none";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-active";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        document.getElementById("tab5b").className="tab tab-inactive";
-        dashboardVisible = false;
-    }
-    else if ( tab == "tab4" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:block";
-        document.getElementById("tab5").style="display:none";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-active";
-        document.getElementById("tab5b").className="tab tab-inactive";
-        dashboardVisible = false;
-    }
-    else if ( tab == "tab5" ) {
-        document.getElementById("tab1").style="display:none";
-        document.getElementById("tab2").style="display:none";
-        document.getElementById("tab3").style="display:none";
-        document.getElementById("tab4").style="display:none";
-        document.getElementById("tab5").style="display:block";
-        document.getElementById("tab1b").className="tab tab-inactive";
-        document.getElementById("tab2b").className="tab tab-inactive";
-        document.getElementById("tab3b").className="tab tab-inactive";
-        document.getElementById("tab4b").className="tab tab-inactive";
-        document.getElementById("tab5b").className="tab tab-active";
-        dashboardVisible = false;
+    $('.tab').removeClass('tab-active')
+    $('.tab').addClass('tab-inactive')
+    $('#tabb' + tab).removeClass('tab-inactive')
+    $('#tabb' + tab).addClass('active')
+    $('.panel').hide()
+    $('#tab' + tab).show()
+    if ( tab == 1 ) {
+        dashboardVisible = true
+    } else {
+        dashboardVisible = false
     }
 }
 
@@ -382,63 +349,101 @@ function getStatus() {
         if( err ) return Homey.alert( err );
         surveillance = surveillanceStatus;
         if( surveillance == 'armed') {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-active";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-inactive";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-active";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
         }
         else if( surveillance == 'partially_armed' ) 
         {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-active";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-active";
         }
         else {
-            document.getElementById("surveillanceModeFull").className = "btn wide btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "btn wide btn-inactive";
+            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
+            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
         }
     })
     Homey.get('alarmStatus', function( err, alarmStatus ) {
         if( err ) return Homey.alert( err );
         alarm = alarmStatus;
         if( alarm) {
-            document.getElementById("alarmMode").className = "btn wide btn-alarm";
+            document.getElementById("alarmMode").className = "indicator ind-alarm";
         }
         else {
-            if (triggerDelay != null) {
-                document.getElementById("alarmMode").className = "btn wide btn-inactive";
+            if (heimdallSettings.armingDelay != null) {
+                document.getElementById("alarmMode").className = "indicator btn-inactive";
             }
         }
     })
 }
 
 function getLanguage() {
-    console.log('language: ' + language);
-    document.getElementById("instructions"+language).style.display = "inline";
+    Homey.getLanguage(function (err, language) {
+        (err) ? 'en' : ((language == 'nl') ? 'nl' : 'en');
+        document.getElementById("instructions"+language).style.display = "inline";
+    });
+
 }
 
-function changeTriggerDelay() {
-    let newTriggerDelay = document.getElementById("triggerDelay").value;
-    console.log('Triggerdelay: ' + newTriggerDelay)
-    if (isNaN(newTriggerDelay) || newTriggerDelay < 0 || newTriggerDelay > 120) {
-        document.getElementById("triggerDelay").value = triggerDelay;
+function changeArmingDelay() {
+    let newArmingDelay = document.getElementById("armingDelay").value;
+    if (isNaN(newArmingDelay) || newArmingDelay < 0 || newArmingDelay > 300) {
+        document.getElementById("armingDelay").value = heimdallSettings.armingDelay;
         Homey.alert(Homey.__("tab2.settings.secondsFail") );
+        illegalValue = true;
     } else {
         saveSettings();
-        Homey.alert(Homey.__("tab2.settings.saveSucces"));
+    }
+}
+
+function changeAlarmDelay() {
+    let newAlarmDelay = document.getElementById("alarmDelay").value;
+    if (isNaN(newAlarmDelay) || newAlarmDelay < 0 || newAlarmDelay > 300) {
+        document.getElementById("alarmDelay").value = heimdallSettings.alarmDelay;
+        Homey.alert(Homey.__("tab2.settings.secondsFail") );
+        illegalValue = true;
+    } else {
+        saveSettings();
     }
 }
 
 function saveSettings() {
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
     heimdallSettings.useColors = document.getElementById('useColors').checked;
-    heimdallSettings.triggerDelay = document.getElementById('triggerDelay').value;
-    heimdallSettings.delayArming = document.getElementById('delayArming').checked;
+    heimdallSettings.armingDelay = document.getElementById('armingDelay').value;
+    heimdallSettings.alarmDelay = document.getElementById('alarmDelay').value;
+    heimdallSettings.delayArmingFull = document.getElementById('delayArmingFull').checked;
+    heimdallSettings.delayArmingPartial = document.getElementById('delayArmingPartial').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
     heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
+    heimdallSettings.useTampering = document.getElementById('useTampering').checked;
+    heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;
+    heimdallSettings.checkContactAtArming = document.getElementById('checkContactAtArming').checked;
+    heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
     heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
     heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
     heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
     heimdallSettings.spokenAlarmChange = document.getElementById('spokenAlarmChange').checked;
     heimdallSettings.spokenMotionTrue = document.getElementById('spokenMotionTrue').checked;
+    heimdallSettings.spokenTamperTrue = document.getElementById('spokenTamperTrue').checked;
     heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
+    heimdallSettings.spokenMotionAtArming = document.getElementById('spokenMotionAtArming').checked;
+    heimdallSettings.spokenDoorOpenAtArming = document.getElementById('spokenDoorOpenAtArming').checked;
+    if ( heimdallSettings.spokenMotionAtArming ) {
+        document.getElementById('checkMotionAtArming').checked = true
+        heimdallSettings.checkMotionAtArming = true
+    }
+    if ( heimdallSettings.spokenDoorOpenAtArming ) {
+        document.getElementById('checkContactAtArming').checked = true
+        heimdallSettings.checkContactAtArming = true
+    }
+    if ( !heimdallSettings.checkMotionAtArming && !heimdallSettings.checkContactAtArming ) {
+        document.getElementById('checkBeforeCountdown').checked = false;
+        heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
+    }
+    if ( !heimdallSettings.delayArmingFull && !heimdallSettings.delayArmingPartial ) {
+        document.getElementById('checkBeforeCountdown').checked = false;
+        heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
+    }
     Homey.set('settings', heimdallSettings );
 }
 
@@ -475,8 +480,7 @@ function changeUseColor() {
     saveSettings();
     showHistory(1);
 }
-
-function showHistory(run) { 
+function showHistory(run) {
     Homey.get('myLog', function(err, logging){
     if( err ) return console.error('showHistory: Could not get history', err);
     if (_myLog !== logging || run == 1 ){
@@ -554,157 +558,3 @@ function getDateTime() {
 
     return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
 }
-
-// new HomeyAlarm functions
-
-var check = function() {
-    if (document.getElementById('password').value ==
-      document.getElementById('confirmPassword').value) {
-      document.getElementById('message').style.color = 'green';
-      document.getElementById('message').innerHTML = 'matching';
-    } else {
-      document.getElementById('message').style.color = 'red';
-      document.getElementById('message').innerHTML = 'not matching';
-    }
-}
-
-function configureHomeyAlarm() {
-    document.getElementById('configHomeyAlarmIntroduction').style="display:none";
-    document.getElementById('configHomeyAlarmStep1').style="display:block";
-}
-
-function createAccount() {
-    writeResponse("", "")
-    let emailAddress = document.getElementById("emailAddress").value
-    let password = document.getElementById("password").value
-    document.getElementById("password").value = ""
-    document.getElementById("confirmPassword").value = ""
-
-    console.log(emailAddress)
-    var data = new FormData();
-    data.append('email', emailAddress);
-    data.append('password', password);
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://www.homeyalarm.com/createKey', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.onload = function () {
-        var json = JSON.parse(this.responseText)
-        if ( json.Response == "Error" ) {
-            writeResponse(json.Response, json.Reason)
-        } else if ( json.Response == "OK") {
-            console.log(json.APIKey)
-            heimdallSettings.APIKey = json.APIKey
-            Homey.set('settings', heimdallSettings );
-            document.getElementById('configHomeyAlarmStep1').style="display:none";
-            document.getElementById('configHomeyAlarmStep2').style="display:block";
-        }        
-    };
-    xhr.send(urlencodeFormData(data));
-}
-
-function createUser() {
-    writeResponse("", "")
-    let username = document.getElementById("username").value
-    let pincode = document.getElementById("pincode").value
-    let password = document.getElementById("passwordPin").value
-
-    var data = new FormData();
-    data.append('alias', username);
-    data.append('code', pincode);
-    data.append('password', password);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://www.homeyalarm.com/createCode', true);
-    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.onload = function () {
-        var json = JSON.parse(this.responseText)
-        if ( json.Response == "Error" ) {
-            writeResponse(json.Response, json.Reason)
-        } else if ( json.Response == "OK") {
-            document.getElementById("passwordPin").value = ""
-            document.getElementById("pincode").value = ""
-            document.getElementById("username").value = ""
-        
-            document.getElementById('pinStatus').innerHTML="<i>"+json.Reason+"</i>"
-            document.getElementById('userHint').innerHTML="You can now create another user or press Finish to proceed."
-            document.getElementById('btnFinish').style="";
-        }        
-    };
-    xhr.send(urlencodeFormData(data));
-}
-
-function finish() {
-    writeResponse("", "")
-    document.getElementById('configHomeyAlarmStep2').style="display:none";
-    document.getElementById('homeyAlarm').style="display:block";
-}
-
-function writeResponse(response, reason) {
-    document.getElementById('response').innerHTML = "<h2>" + response + "</h2>"
-    document.getElementById('reason').innerHTML = reason
-}
-
-function urlencodeFormData(fd){
-    var s = '';
-    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
-    for(var pair of fd.entries()){
-        if(typeof pair[1]=='string'){
-            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
-        }
-    }
-    return s;
-}
-
-// Temporary function:
-
-function resetAPI() {
-    heimdallSettings.APIKey = ""
-    saveSettings();
-}
-
-// Not yet used:
-
-function getState() {
-    console.log('getState')
-    var data = new FormData();
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://www.homeyalarm.com/getState', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
-    xhr.onload = function () {
-        var json = JSON.parse(this.responseText)
-        if ( json.Response == "Error" ) { 
-            writeResponse(json.Response, json.Reason)
-        } else {
-            writeResponse(json.Response, json.homestate_alarm)
-        }
-    };
-    xhr.send(data); 
-}
-
-function getHeartbeat() {
-    console.log('gHeartbeat')
-    var data = new FormData();
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.homeyalarm.com/heartbeat', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    //xhr.setRequestHeader('Client-ID',Homey.env.CLIENTID);
-    xhr.setRequestHeader('APIKey', heimdallSettings.APIKey);
-    xhr.onload = function () {
-        var json = JSON.parse(this.responseText)
-        if ( json.Response == "Error" ) { 
-            writeResponse(json.Response, json.Reason)
-        } else {
-            writeResponse('<h2>Status</h2>', this.responseText)
-        }
-    };
-    xhr.send(data); 
-}
-
