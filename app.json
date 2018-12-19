@@ -76,7 +76,7 @@
 						"en": "Reason",
 						"nl": "Reden"
 					},
-					"example": "-"
+					"example": "A door opened"
 				},
 				{
 					"name": "Zone",
@@ -85,7 +85,7 @@
 						"en": "Zone",
 						"nl": "Zone"
 					},
-					"example": "-"
+					"example": "Hallway"
 				}
 			]
 		},
@@ -427,7 +427,9 @@
             "title": {
 				"en": "Alarm",
 				"nl": "Alarm"
-            },
+			},
+			"uiComponent": "sensor",
+			"icon": "drivers/alarmOffSwitch/assets/alarm.svg",
             "getable": true,
             "setable": true
 		}
@@ -501,7 +503,20 @@
 				},
 				"alarm_heimdall": {
 					"preventTag": true,
-					"preventInsights": true
+					"preventInsights": true,
+						"icon": "drivers/alarmOffSwitch/assets/alarm.svg",
+						"noblink": false,
+						"invert": false, 
+						"label": {
+							"true": {
+								"en": "ALARM",
+								"nl": "ALARM"
+							},
+							"false": {
+								"en": "All is quiet",
+								"nl": "Alles ok"
+							}
+						}
 				}
 			},
 			"pair": [
@@ -526,6 +541,7 @@
 					{
 						"id": "sensor",
 						"capabilities": [ "alarm_heimdall" ],
+						
 						"options": {
 							"icons": {
 								"alarm_heimdall": "drivers/alarmOffSwitch/assets/alarm.svg"

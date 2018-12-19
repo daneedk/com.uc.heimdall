@@ -334,7 +334,7 @@ function showTab(tab){
     $('.tab').removeClass('tab-active')
     $('.tab').addClass('tab-inactive')
     $('#tabb' + tab).removeClass('tab-inactive')
-    $('#tabb' + tab).addClass('active')
+    $('#tabb' + tab).addClass('tab-active')
     $('.panel').hide()
     $('#tab' + tab).show()
     if ( tab == 1 ) {

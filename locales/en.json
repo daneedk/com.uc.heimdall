@@ -1,6 +1,5 @@
 {
     "settings": {
-		"title": "Heimdall",
         "benefit": "Let Homey watch over your home."
     },
     "tab1": {
@@ -27,24 +26,9 @@
         }
     },
     "tab2": {
-        "title": "Settings",
-        "settings": {
-            "title": "Settings",
+        "title": "Devices",
+        "devices": {
             "devices": "Devices",
-            "arDelay": "Arming delay",
-            "alDelay": "Alarm delay",
-            "seconds": "Seconds",
-            "save": "Save",
-            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
-            "saveSucces": "The new settings are saved.",
-            "logarmedonly": "Only log when a Surveillance mode is active",
-            "logtrueonly": "Do not log deactivating of sensors",
-            "usetampering": "Listen to tampering reports from sensors",
-            "delayarmingfull": "Use delay when enabling Armed mode",
-            "delayarmingpartial": "Use delay when enabling Partially Armed mode",
-            "checkMotionAtArming": "Check for active motion sensor(s) when arming",
-            "checkContactAtArming": "Check for open door(s)/window(s) when arming",
-            "checkbeforecountdown": "Perform Pre-Arming check before Arming Delay",
             "zone": "Zone",
             "device": "Device",
             "monitor": "Monitor",
@@ -58,17 +42,38 @@
         }
     },
     "tab3": {
-        "title": "Speech",
+        "title": "Settings",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Delays",
+                "loging": "Loging",
+                "check": "Pre-Arming check",
+                "speech": "Let Homey tell you when"
+            },
+            "title": "Settings",
+            "arDelay": "Arming delay",
+            "alDelay": "Alarm delay",
+            "seconds": "Seconds",
+            "save": "Save",
+            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
+            "saveSucces": "The new settings are saved.",
+            "logarmedonly": "Only when a Surveillance mode is active",
+            "logtrueonly": "Not for deactivating of sensors",
+            "usetampering": "Use tamper detection",
+            "delayarmingfull": "Use when enabling Armed mode",
+            "delayarmingpartial": "Use when enabling Partially Armed mode",
+            "checkMotionAtArming": "Check motion sensor(s)",
+            "checkContactAtArming": "Check door/window sensor(s)",
+            "checkbeforecountdown": "Perform check before Arming Delay"
+        },
         "speech": {
-            "title": "Speech",
-            "let": "Let Homey tell you when:",
             "spokenalarmcountdown": "an Alarm countdown is active",
             "spokenarmcountdown": "an Arming countdown is active",
             "smodechange": "the Surveillance Mode changed",
             "alarmchange": "the Alarm is activated or deactivated",
-            "motiontrue": "motion is detected when in an armed Surveillance Mode",
-            "tampertrue": "tampering is detected when in an armed Surveillance Mode",
-            "dooropen": "a door or window is opened when in an armed Surveillance Mode",
+            "motiontrue": "motion is detected when armed",
+            "tampertrue": "tampering is detected when armed",
+            "dooropen": "a door or window is opened when armed",
             "motionatarming": "a motion sensor is active when arming",
             "dooropenatarming": "a door or window is open when arming"
         }
