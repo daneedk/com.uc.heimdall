@@ -14,6 +14,17 @@ module.exports = [
         }  
     },
     {
+        description: 'Retrieve all zones with their information',
+        method: 'GET',
+        path: '/zones',
+        fn: function(args, callback) {
+            Homey.app.getZones().then(res => {
+                callback(null, res);
+            })
+                .catch(error => callback(error, null));
+        }  
+    },
+    {
         description: 'Request Alarm state and Surveillance Mode',
         method: 'GET',
         path: '/state/:type',

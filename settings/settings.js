@@ -41,12 +41,6 @@ function onHomeyReady(homeyReady){
                 console.log('savedSettings:')
                 console.log(savedSettings)
                 heimdallSettings = savedSettings;
-                // temp
-                if (heimdallSettings.armingDelay == (null || undefined)) {
-                    heimdallSettings.armingDelay = heimdallSettings.triggerDelay
-                    heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
-                }
-                //temp
             }
         }
         document.getElementById('autoRefresh').checked = heimdallSettings.autorefresh;
@@ -79,13 +73,14 @@ function onHomeyReady(homeyReady){
     
     showTab(1);
     getLanguage();
-    getStatus();
+    // V1 getStatus();
     refreshHistory();
 
     new Vue({
         el: '#app',
         data: {
           devices: {},
+          zones: {},
           search: '',
           devicesMonitoredFull: [],
           devicesMonitoredPartial: [],
@@ -116,6 +111,18 @@ function onHomeyReady(homeyReady){
                     }
                 });
             },
+            getZones() {
+                Homey.api('GET', '/zones', null, (err, result) => {
+                    if (err)
+                        return Homey.alert('getZones' + err);
+                    var array = Object.keys(result).map(function (key) {
+                        return result[key];
+                    });
+                    this.zones = array
+                    console.log(this.zones)
+                    return this.zones
+                });
+            },
             getDevices() {
                 Homey.api('GET', '/devices', null, (err, result) => {
                     if (err)
@@ -124,7 +131,6 @@ function onHomeyReady(homeyReady){
                         return result[key];
                     });
                     this.devices = array.filter(this.filterArray);
-                    console.log(this.devices)
                 });
             },
             async addMonitorFull(device) {
@@ -294,10 +300,22 @@ function onHomeyReady(homeyReady){
             },
             filterArray(device) {
                 //if (device.class == "sensor" || device.class == "lock")
-                console.log(device)
                 return device
             },
-            getBattClass: function(waarde) {
+            getZone: function(zoneId) {
+                var result = "unknown";
+                var zones = this.zones;
+                for (let zone in this.zones) {
+                    if ( this.zones[zone].id == zoneId ) {
+                        result = this.zones[zone].name;
+                    }
+                };
+                return result;
+            },
+            getBattClass: function(capabilitiesObj) {
+                // console.log(capabilitiesObj.measure_battery);
+                // console.log(capabilitiesObj.measure_battery.value);
+                waarde = capabilitiesObj.measure_battery.value
                 if ("number" != typeof waarde)
                     waarde = "-",
                     closestClass="100"
@@ -315,12 +333,16 @@ function onHomeyReady(homeyReady){
             }
         },
         mounted() {
+            this.getZones();
             this.getDevices();
             this.getDeviceSettings();
         },
         computed: {
             filteredItems() {
-                return this.devices          
+                return this.devices
+            },
+            filteredZones() {
+                return this.zones
             }
         }
       })
@@ -344,6 +366,7 @@ function showTab(tab){
     }
 }
 
+/* V1 Depreciated
 function getStatus() {
     Homey.get('surveillanceStatus', function( err, surveillanceStatus ) {
         if( err ) return Homey.alert( err );
@@ -375,6 +398,7 @@ function getStatus() {
         }
     })
 }
+*/
 
 function getLanguage() {
     Homey.getLanguage(function (err, language) {
@@ -461,7 +485,7 @@ function refreshHistory(){
         if ( document.getElementById("autoRefresh").checked ){
             showHistory()
         }
-        getStatus();
+        // V1 getStatus();
     }
     setTimeout(refreshHistory, 1000);
 }

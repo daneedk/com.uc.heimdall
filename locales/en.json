@@ -34,8 +34,7 @@
             "monitor": "Monitor",
             "dTrigger": "Delayed Trigger",
             "justLog": "Just log",
-            "no": "No",
-            "yes": "Yes",
+            "delay": "Delay",
             "log": "Log",
             "full": "Full",
             "partial": "Partial"

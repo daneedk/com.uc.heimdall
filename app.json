@@ -425,13 +425,30 @@
 		"alarm_heimdall": {
             "type": "boolean",
             "title": {
-				"en": "Alarm",
-				"nl": "Alarm"
+				"en": "Alarm state active",
+				"nl": "Alarm status actief"
 			},
-			"uiComponent": "sensor",
-			"icon": "drivers/alarmOffSwitch/assets/alarm.svg",
+			"desc": "The Alarm status",
+			"values": [
+				{
+					"id": "true",
+					"title": {
+						"en": "ALARM",
+						"nl": "ALARM"
+					}
+				},
+				{
+					"id": "false",
+					"title": {
+						"en": "All is quiet",
+						"nl": "Alles ok"
+					}
+				}
+			],
             "getable": true,
-            "setable": true
+			"setable": true,
+			"uiComponent": "sensor",
+			"icon": "drivers/alarmOffSwitch/assets/alarm.svg"
 		}
 	},
 	"drivers": [
@@ -449,6 +466,7 @@
 			"capabilities": [ "homealarm_state", "alarm_heimdall" ],
 			"capabilitiesOptions":  {
 				"homealarm_state": {
+					"desc": "The Surveillance Mode",
 					"preventTag": true					
 				},
 				"alarm_heimdall": {
@@ -467,19 +485,7 @@
 					"id": "add_triggers",
 					"template": "add_devices"
 				}
-			],
-			"mobile": {
-				"components": [
-					{
-						"id": "icon",
-						"capabilities": [ ]
-					},
-					{
-						"id": "picker",
-						"capabilities": [ "homealarm_state" ]
-					}
-				]
-			}
+			]
 		},
 		{
 			"id": "alarmOffSwitch",
@@ -491,7 +497,7 @@
 				"large": "drivers/alarmOffSwitch/assets/images/large.png",
 				"small": "drivers/alarmOffSwitch/assets/images/small.png"
 			},
-			"class": "other",
+			"class": "button",
 			"capabilities": [ "button", "alarm_heimdall" ],
 			"capabilitiesOptions":  {
 				"button": {
@@ -499,24 +505,12 @@
 						"en": "Turn off",
 						"nl": "Schakel uit"
 					},
+					"desc": "Button to turn Alarm off",
 					"preventTag": true
 				},
 				"alarm_heimdall": {
 					"preventTag": true,
-					"preventInsights": true,
-						"icon": "drivers/alarmOffSwitch/assets/alarm.svg",
-						"noblink": false,
-						"invert": false, 
-						"label": {
-							"true": {
-								"en": "ALARM",
-								"nl": "ALARM"
-							},
-							"false": {
-								"en": "All is quiet",
-								"nl": "Alles ok"
-							}
-						}
+					"preventInsights": true
 				}
 			},
 			"pair": [
@@ -531,45 +525,7 @@
 					"id": "add_triggers",
 					"template": "add_devices"
 				}
-			],
-			"mobile": {
-				"components": [
-					{
-						"id": "icon",
-						"capabilities": [ ]
-					},
-					{
-						"id": "sensor",
-						"capabilities": [ "alarm_heimdall" ],
-						
-						"options": {
-							"icons": {
-								"alarm_heimdall": "drivers/alarmOffSwitch/assets/alarm.svg"
-							},
-							"alarm_heimdall": {
-								"noblink": false,
-								"invert": false, 
-								"label": {
-									"true": {
-										"en": "ALARM",
-										"nl": "ALARM"
-									},
-									"false": {
-										"en": "All is quiet",
-										"nl": "Alles ok"
-									}
-								}
-							}
-						}
-					},
-					{
-						"id": "button",
-						"capabilities": [ "button" ]
-					}
-				]
-			}
-
+			]
 		}
-
 	]
 }
