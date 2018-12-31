@@ -84,7 +84,8 @@
                                 <span v-html="getBattClass(device.capabilitiesObj)"></span>
                             </div-->
                             <div class="rTableCell line">
-                                <img :src="device.iconObj.url" style="height:30px;width:auto;"/><br />
+                                <span v-html="getIcon(device)"></span><br />
+                                <!-- img :src="device.iconObj.url" style="height:30px;width:auto;"/><br /-->
                                 <span v-html="getBattClass(device.capabilitiesObj)"></span>
                             </div>
                             <div class="rTableCell line">

@@ -312,26 +312,37 @@ function onHomeyReady(homeyReady){
                 };
                 return result;
             },
+            getIcon: function(device) {
+                var result = "unknown";
+                try {
+                    return "<img src=\"" + device.iconObj.url + "\" style=\"height:30px;width:auto;\"/>";
+                } catch(e) {
+                    return "<!-- no device.iconObj.url -->"
+                }
+            },
             getBattClass: function(capabilitiesObj) {
                 // console.log(capabilitiesObj.measure_battery);
                 // console.log(capabilitiesObj.measure_battery.value);
                 try {
                     waarde = capabilitiesObj.measure_battery.value
-                } catch(e) { waarde = "na" }
-                if ("number" != typeof waarde)
-                    waarde = "-",
-                    closestClass="100"
-                else {
-                    var s = waarde / 100;
-                    s < 1.1 && (closestClass = "100"),
-                    s < .9 && (closestClass = "80"),
-                    s < .7 && (closestClass = "60"),
-                    s < .5 && (closestClass = "40"),
-                    s < .3 && (closestClass = "20"),
-                    s < .1 && (closestClass = "0"),
-                    waarde = waarde + "%"
-                }  
-                return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
+
+                    if ("number" != typeof waarde)
+                        waarde = "-",
+                        closestClass="100"
+                    else {
+                        var s = waarde / 100;
+                        s < 1.1 && (closestClass = "100"),
+                        s < .9 && (closestClass = "80"),
+                        s < .7 && (closestClass = "60"),
+                        s < .5 && (closestClass = "40"),
+                        s < .3 && (closestClass = "20"),
+                        s < .1 && (closestClass = "0"),
+                        waarde = waarde + "%"
+                    } 
+                    return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
+                } catch(e) { 
+                    return "<!-- no capabilitiesObj.measure_battery.value -->"
+                }
             }
         },
         mounted() {
