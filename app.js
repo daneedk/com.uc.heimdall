@@ -126,9 +126,28 @@ class Heimdall extends Homey.App {
         api.devices.on('device.create', async(id) => {
             await console.log('New device found!')
             // V1 - const device = await api.devices.getDevice({id: id})
-            const device = await api.devices.getDevice({id: id.id})
-            await this.addDevice(device);
+
+            var device = await api.devices.getDevice({id: id.id})
+
+            // crapy code because a device.create is emitted before a device is fuly added
+            // https://github.com/athombv/homey-apps-sdk-issues/issues/23
+            if (!device.ready) {
+                setTimeout(async function(){
+                    device = await api.devices.getDevice({id: id.id})
+                    console.log(device)
+                    await Homey.app.addDevice(device);
+                }, 2000);
+            }
+            
+            //await this.addDevice(device);
         });
+        
+        // before reading a newly created device you should wait until a device is ready, this is not emited though
+        // https://github.com/athombv/homey-apps-sdk-issues/issues/23
+        api.devices.on('device.ready', async(id) => {
+            console.log("device is ready") // never runs...
+        });
+
         api.devices.on('device.delete', async(id) => {
             await console.log('Device deleted!: ')
         });
@@ -144,15 +163,20 @@ class Heimdall extends Homey.App {
 
     // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
     addDevice(device) {
-        if ( device.data.id === 'sMode' ) {
-            sModeDevice = device;
-            this.log('Found Mode Switch named:    ' + device.name)
-        }
-        if ( device.data.id === 'aMode' ) {
-            aModeDevice = device;
-            this.log('Found Alarm Button named:   ' + device.name)
-        }
-        // V1 if ( 'alarm_motion' in device.capabilities ) {
+        try {
+            if ( device.data.id === 'sMode' ) {
+                sModeDevice = device;
+                this.log('Found Mode Switch named:    ' + device.name)
+            }
+        } catch(e) {}
+        try {
+            if ( device.data.id === 'aMode' ) {
+                aModeDevice = device;
+                this.log('Found Alarm Button named:   ' + device.name)
+            }
+        } catch(e) {}
+
+        // console.log(device.capabilities.indexOf("alarm_motion"))
         if ( 'alarm_motion' in device.capabilitiesObj ) {
             this.log('Found motion sensor:        ' + device.name)
             this.attachEventListener(device,'motion')
@@ -228,7 +252,7 @@ class Heimdall extends Homey.App {
         if ( isLogged(device) ) {
             monLogged = ", Logged"
         }
-        this.log('Attached Eventlistener:     ' + device.name + ', ' + sensorType + monFull + monPartial + monLogged)
+        this.log('Attached Eventlistener to:  ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
     }
 
     /* V1 no longer needed?

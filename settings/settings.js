@@ -315,7 +315,9 @@ function onHomeyReady(homeyReady){
             getBattClass: function(capabilitiesObj) {
                 // console.log(capabilitiesObj.measure_battery);
                 // console.log(capabilitiesObj.measure_battery.value);
-                waarde = capabilitiesObj.measure_battery.value
+                try {
+                    waarde = capabilitiesObj.measure_battery.value
+                } catch(e) { waarde = "na" }
                 if ("number" != typeof waarde)
                     waarde = "-",
                     closestClass="100"
