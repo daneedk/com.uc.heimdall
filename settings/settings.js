@@ -130,6 +130,7 @@ function onHomeyReady(homeyReady){
                     var array = Object.keys(result).map(function (key) {
                         return result[key];
                     });
+                    console.log(array)
                     this.devices = array.filter(this.filterArray);
                 });
             },
@@ -352,6 +353,8 @@ function onHomeyReady(homeyReady){
         },
         computed: {
             filteredItems() {
+                console.log("Filtered items:")
+                console.log(this.devices)
                 return this.devices
             },
             filteredZones() {
