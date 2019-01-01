@@ -301,7 +301,8 @@ function onHomeyReady(homeyReady){
             },
             filterArray(device) {
                 try {
-                    var validateDeviceCapabilitiesObj = device.capabilitiesObj
+                    var test = device.capabilitiesObj
+                    console.log(test)
                     return true
                 } catch(e) {
                     console.log("Error: capabilitiesObj in " + device.name + " is NULL ")
