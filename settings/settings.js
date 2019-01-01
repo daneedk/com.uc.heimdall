@@ -300,8 +300,15 @@ function onHomeyReady(homeyReady){
                 return false;
             },
             filterArray(device) {
-                //if (device.class == "sensor" || device.class == "lock")
-                return device
+                try {
+                    var validateDeviceCapabilitiesObj = device.capabilitiesObj
+                    return true
+                } catch(e) {
+                    console.log("Error: capabilitiesObj in " + device.name + " is NULL ")
+                    return false
+                }
+
+                //return device
             },
             getZone: function(zoneId) {
                 var result = "unknown";
@@ -346,10 +353,10 @@ function onHomeyReady(homeyReady){
                 }
             }
         },
-        mounted() {
-            this.getZones();
-            this.getDevices();
-            this.getDeviceSettings();
+        async mounted() {
+            await this.getZones();
+            await this.getDevices();
+            await this.getDeviceSettings();
         },
         computed: {
             filteredItems() {
