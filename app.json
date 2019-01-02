@@ -191,7 +191,7 @@
 					"type": "string",
 					"title": {
 						"en": "State",
-						"nl": "Satus"
+						"nl": "Status"
 					},
 					"example": "Motion detected"
 				}
@@ -209,7 +209,7 @@
 					"type": "string",
 					"title": {
 						"en": "State",
-						"nl": "Satus"
+						"nl": "Status"
 					},
 					"example": "Motion detected"
 				},
