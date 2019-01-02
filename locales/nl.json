@@ -26,10 +26,30 @@
         }
     },
     "tab2": {
+        "title": "Apparaten",
+		"devices": {
+            "devices": "Apparaten",
+            "zone": "Zone",
+            "device": "Apparaat",
+            "monitor": "Controleer",
+            "dTrigger": "Vertraagde trigger",
+            "justLog": "Alleen loggen",
+			"delay": "Vertraagd",
+            "log": "Log",
+            "full": "Volledig",
+            "partial": "Gedeeltelijk"
+		}
+    },
+    "tab3": {
         "title": "Instellingen",
         "settings": {
+            "settingsgroup": {
+                "delays": "Vertraging",
+                "loging": "Loggen",
+                "check": "Inschakelcontrole",
+                "speech": "Laat Homey het je vertellen als"
+            },
             "title": "Instellingen",
-            "devices": "Apparaten",
             "arDelay": "Inschakel vertraging",
             "alDelay": "Alarm vertraging",
             "seconds": "Seconden",
@@ -44,23 +64,10 @@
             "checkMotionAtArming": "Controleer op actieve beweginssensoren bij het inschakelen",
             "checkContactAtArming": "Controleer op open deuren/ramen bij het inschakelen",
             "checkbeforecountdown": "Voer inschakelcontrole uit voor de inschakelvertraging",
-            "zone": "Zone",
-            "device": "Apparaat",
-            "monitor": "Controleer",
-            "dTrigger": "Vertraagde trigger",
-            "justLog": "Alleen loggen",
             "no": "Nee",
-            "yes": "Ja",
-            "log": "Log",
-            "full": "Volledig",
-            "partial": "Gedeeltelijk"
-        }
-    },
-    "tab3": {
-        "title": "Spraak",
+            "yes": "Ja"
+        },
         "speech": {
-            "title": "Spraak",
-            "let": "Laat Homey het je vertellen als:",
             "spokenalarmcountdown": "het aftellen naar het activeren van het Alarm loopt",
             "spokenarmcountdown": "het aftellen naar het inschakelen van een Toezicht loopt",
             "smodechange": "de Toezicht Mode wordt veranderd",
