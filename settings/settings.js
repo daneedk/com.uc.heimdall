@@ -8,6 +8,7 @@ var logTrueOnly;
 var dashboardVisible = true;
 var illegalValue = false;
 var heimdallSettings = {};
+var language = "nl";
 var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
@@ -25,7 +26,11 @@ var defaultSettings = {
     "spokenAlarmChange": false,
     "spokenMotionTrue": false,
     "spokenTamperTrue": false,
-    "spokenDoorOpen": false
+    "spokenDoorOpen": false,
+    "notificationSmodeChange": false,
+    "notificationAlarmChange": false,
+    "notificationNoCommunicationMotion": false,
+    "notificationNoCommunicationContact": false
 };
 
 function onHomeyReady(homeyReady){
@@ -40,12 +45,6 @@ function onHomeyReady(homeyReady){
                 console.log('savedSettings:')
                 console.log(savedSettings)
                 heimdallSettings = savedSettings;
-                // temp
-                if (heimdallSettings.armingDelay == (null || undefined)) {
-                    heimdallSettings.armingDelay = heimdallSettings.triggerDelay
-                    heimdallSettings.alarmDelay = heimdallSettings.triggerDelay
-                }
-                //temp
             }
         }
         document.getElementById('autoRefresh').checked = heimdallSettings.autorefresh;
@@ -69,6 +68,10 @@ function onHomeyReady(homeyReady){
         document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
         document.getElementById('spokenMotionAtArming').checked = heimdallSettings.spokenMotionAtArming;
         document.getElementById('spokenDoorOpenAtArming').checked = heimdallSettings.spokenDoorOpenAtArming;
+        document.getElementById('notificationSmodeChange').checked = heimdallSettings.notificationSmodeChange
+        document.getElementById('notificationAlarmChange').checked = heimdallSettings.notificationAlarmChange
+        document.getElementById('notificationNoCommunicationMotion').checked = heimdallSettings.notificationNoCommunicationMotion
+        document.getElementById('notificationNoCommunicationContact').checked = heimdallSettings.notificationNoCommunicationContact
         if ( document.getElementById('autoRefresh').checked ) {
             document.getElementById("buttonRefresh").style = "display:none";
         } else {
@@ -78,13 +81,14 @@ function onHomeyReady(homeyReady){
     
     showTab(1);
     getLanguage();
-    getStatus();
+    // V1 getStatus();
     refreshHistory();
 
     new Vue({
         el: '#app',
         data: {
           devices: {},
+          zones: {},
           search: '',
           devicesMonitoredFull: [],
           devicesMonitoredPartial: [],
@@ -115,6 +119,18 @@ function onHomeyReady(homeyReady){
                     }
                 });
             },
+            getZones() {
+                Homey.api('GET', '/zones', null, (err, result) => {
+                    if (err)
+                        return Homey.alert('getZones' + err);
+                    var array = Object.keys(result).map(function (key) {
+                        return result[key];
+                    });
+                    this.zones = array
+                    console.log(this.zones)
+                    return this.zones
+                });
+            },
             getDevices() {
                 Homey.api('GET', '/devices', null, (err, result) => {
                     if (err)
@@ -122,6 +138,7 @@ function onHomeyReady(homeyReady){
                     var array = Object.keys(result).map(function (key) {
                         return result[key];
                     });
+                    console.log(array)
                     this.devices = array.filter(this.filterArray);
                 });
             },
@@ -291,33 +308,68 @@ function onHomeyReady(homeyReady){
                 return false;
             },
             filterArray(device) {
-                //if (device.class == "sensor" || device.class == "lock")
-                return device
+                try {
+                    return device.ready
+                } catch(e) {
+                    return false
+                }
             },
-            getBattClass: function(waarde) {
-                if ("number" != typeof waarde)
-                    waarde = "-",
-                    closestClass="100"
-                else {
-                    var s = waarde / 100;
-                    s < 1.1 && (closestClass = "100"),
-                    s < .9 && (closestClass = "80"),
-                    s < .7 && (closestClass = "60"),
-                    s < .5 && (closestClass = "40"),
-                    s < .3 && (closestClass = "20"),
-                    s < .1 && (closestClass = "0"),
-                    waarde = waarde + "%"
-                }  
-                return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
+            getZone: function(zoneId) {
+                var result = "unknown";
+                var zones = this.zones;
+                for (let zone in this.zones) {
+                    if ( this.zones[zone].id == zoneId ) {
+                        result = this.zones[zone].name;
+                    }
+                };
+                return result;
+            },
+            getIcon: function(device) {
+                var result = "unknown";
+                try {
+                    return "<img src=\"" + device.iconObj.url + "\" style=\"height:30px;width:auto;\"/>";
+                } catch(e) {
+                    return "<!-- no device.iconObj.url -->"
+                }
+            },
+            getBattClass: function(capabilitiesObj) {
+                // console.log(capabilitiesObj.measure_battery);
+                // console.log(capabilitiesObj.measure_battery.value);
+                try {
+                    waarde = capabilitiesObj.measure_battery.value
+
+                    if ("number" != typeof waarde)
+                        waarde = "-",
+                        closestClass="100"
+                    else {
+                        var s = waarde / 100;
+                        s < 1.1 && (closestClass = "100"),
+                        s < .9 && (closestClass = "80"),
+                        s < .7 && (closestClass = "60"),
+                        s < .5 && (closestClass = "40"),
+                        s < .3 && (closestClass = "20"),
+                        s < .1 && (closestClass = "0"),
+                        waarde = waarde + "%"
+                    } 
+                    return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
+                } catch(e) { 
+                    return "<!-- no capabilitiesObj.measure_battery.value -->"
+                }
             }
         },
-        mounted() {
-            this.getDevices();
-            this.getDeviceSettings();
+        async mounted() {
+            await this.getZones();
+            await this.getDevices();
+            await this.getDeviceSettings();
         },
         computed: {
             filteredItems() {
-                return this.devices          
+                console.log("Filtered items:")
+                console.log(this.devices)
+                return this.devices
+            },
+            filteredZones() {
+                return this.zones
             }
         }
       })
@@ -331,7 +383,7 @@ function showTab(tab){
     $('.tab').removeClass('tab-active')
     $('.tab').addClass('tab-inactive')
     $('#tabb' + tab).removeClass('tab-inactive')
-    $('#tabb' + tab).addClass('active')
+    $('#tabb' + tab).addClass('tab-active')
     $('.panel').hide()
     $('#tab' + tab).show()
     if ( tab == 1 ) {
@@ -341,6 +393,7 @@ function showTab(tab){
     }
 }
 
+/* V1 Depreciated
 function getStatus() {
     Homey.get('surveillanceStatus', function( err, surveillanceStatus ) {
         if( err ) return Homey.alert( err );
@@ -372,10 +425,14 @@ function getStatus() {
         }
     })
 }
+*/
 
 function getLanguage() {
-    console.log('language: ' + language);
-    document.getElementById("instructions"+language).style.display = "inline";
+    Homey.getLanguage(function (err, language) {
+        (err) ? 'en' : ((language == 'nl') ? 'nl' : 'en');
+        document.getElementById("instructions"+language).style.display = "inline";
+    });
+
 }
 
 function changeArmingDelay() {
@@ -422,6 +479,11 @@ function saveSettings() {
     heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
     heimdallSettings.spokenMotionAtArming = document.getElementById('spokenMotionAtArming').checked;
     heimdallSettings.spokenDoorOpenAtArming = document.getElementById('spokenDoorOpenAtArming').checked;
+    heimdallSettings.notificationSmodeChange = document.getElementById('notificationSmodeChange').checked;
+    heimdallSettings.notificationAlarmChange = document.getElementById('notificationAlarmChange').checked;
+    heimdallSettings.notificationNoCommunicationMotion = document.getElementById('notificationNoCommunicationMotion').checked;
+    heimdallSettings.notificationNoCommunicationContact = document.getElementById('notificationNoCommunicationContact').checked; 
+    heimdallSettings.noCommunicationTime = 24;
     if ( heimdallSettings.spokenMotionAtArming ) {
         document.getElementById('checkMotionAtArming').checked = true
         heimdallSettings.checkMotionAtArming = true
@@ -455,7 +517,7 @@ function refreshHistory(){
         if ( document.getElementById("autoRefresh").checked ){
             showHistory()
         }
-        getStatus();
+        // V1 getStatus();
     }
     setTimeout(refreshHistory, 1000);
 }

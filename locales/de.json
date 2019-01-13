@@ -1,0 +1,145 @@
+{
+    "settings": {
+        "benefit": "Lass Homey dein Heim überwachen!"
+    },
+    "tab1": {
+        "title": "Dashboard",
+        "status": {
+            "title": "Status",
+            "smode": "Überwachungsmodus",
+            "smodeFull": "volle Überwachung",
+            "smodePartial": "teilweise Überwachung",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "Ereignisse",
+            "autoRefresh": "Automatische Aktualisierung",
+            "manualRefresh": "Jetzt aktualisieren",
+            "useColors": "Farben verwenden",
+            "btnClearHistory": "Ereignisse löschen",
+            "btnDownload": "Herunterladen",
+            "date": "Datum",
+            "time": "Zeit",
+            "smode": "Überwachungsmodus",
+            "source": "Quelle",
+            "action": "Aktion"
+        }
+    },
+    "tab2": {
+        "title": "Geräte",
+        "devices": {
+            "devices": "Geräte",
+            "zone": "Zone",
+            "device": "Gerät",
+            "monitor": "Monitor",
+            "dTrigger": "Verzögerter Auslöser",
+            "justLog": "nur Loggen",
+            "delay": "Verzögerung",
+            "log": "Log",
+            "full": "Voll",
+            "partial": "Teilweise"
+        }
+    },
+    "tab3": {
+        "title": "Einstellungen",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Verzögerungen",
+                "loging": "Loging",
+                "check": "Überprüfung",
+                "speech": "Lass Homey dir mitteilen wenn",
+                "notifications": "Schreibe in die Timeline wenn"
+            },
+            "title": "Einstellungen",
+            "arDelay": "Aktivierungsverzögerung",
+            "alDelay": "Alarmverzögerung",
+            "seconds": "Sekunden",
+            "save": "Sichern",
+            "secondsFail": "Die Eingabe ist nicht valide, bitte gib eine Verzögerung von 0-300 Sekunden an",
+            "saveSucces": "Neue Einstellungen gesichert.",
+            "logarmedonly": "Nur bei aktiven Überwachungsmodus",
+            "logtrueonly": "Nicht zur Deaktivierung von Sensoren.",
+            "usetampering": "Nutze Manipulationserkennung",
+            "delayarmingfull": "Um Überwachung zu aktivieren",
+            "delayarmingpartial": "Um Teilüberwachung zu aktivieren",
+            "checkMotionAtArming": "Check Bewegungssensor(en)",
+            "checkContactAtArming": "Check Tür-/Fenstersensor(en)",
+            "checkbeforecountdown": "Führe Check vor Alarmverzögerung durch"
+        },
+        "speech": {
+            "spokenalarmcountdown": "ein Alarmcountdown aktiv ist",
+            "spokenarmcountdown": "ein Aktivierungcountdown aktiv ist",
+            "smodechange": "der Überwachungsmodus wechselte",
+            "alarmchange": "der Alarm aktiviert oder deaktiviert ist",
+            "motiontrue": "Bewegung wenn aktiviert",
+            "tampertrue": "Manipulation  wenn aktiviert",
+            "dooropen": "Tür/Fenster geöffnet wenn aktiviert",
+            "motionatarming": "Bewegungssensor aktiv bei Aktivierung",
+            "dooropenatarming": "Tür/Fenster geöffnet bei Aktivierung"
+        },
+        "notification": {
+            "smodechange": "Überwachungsmodus geändert",
+            "alarmchange": "Der Alarm ist aktiviert oder deaktiviert",
+            "nocommunicationmotion": "Ein Bewegungssensor meldete sich nicht",
+            "nocommunicationcontact": "Ein Kontaktsensor meldete sich nicht",
+            "nocommunicationdescription": "Wenn ein Überwachungsmodus gewählt wurde, prüft Heimdall, ob Geräte sich in den letzten 24 Stunden meldeten."
+        }
+    },
+    "tab4": {
+        "title": "Anleitung",
+        "instructions": {
+            "title": "Anleitung"
+        }
+    },
+    "modes": {
+        "disarmed": "Entsichert",
+        "armed": "Gesichert",
+        "partiallyarmed": "Teils gesichert"
+    },
+    "states": {
+        "open": "offen",
+        "closed": "geschlossen",
+        "motion": "Bewegung erkannt",
+        "nomotion": "keine Bewegung erkannt",
+        "vibration": "Erschütterung erkannt",
+        "novibration": "keine Erschütterung erkannt",
+        "tamper": "Manipulation erkannt",
+        "notamper": "keine Manipulation erkannt"
+    },
+    "speech": {
+        "startalarmcountdown": "Alarm geht aus in ",
+        "startarmcountdown": "Der Überwachungsmodus wird gestellt auf ",
+        "in": " in ",
+        "seconds": " Sekunden",
+        "smodeset": "Der Überwachungsmodus ist gestellt auf ",
+        "alarmactivated": "Der Alarm ist aktiviert.",
+        "alarmdeactivated": "Der Alarm ist deaktiviert."
+    },
+    "atarming": {
+        "on": " an ",
+        "is": " is ",
+        "delayText": ". Das Gerät hat einen verzögerten Auslöser.",
+        "warningMotion": "Warnung, Sensor aktiv. ",
+        "warningContact": "Warnung, Sensor "
+    },
+    "history": {
+        "smodedisarmed": "Überwachungsmodus ist abgeschaltet.",
+        "smodearmed": "Überwachungsmodus ist geschaltet.",
+        "smodepartiallyarmed": "Überwachungsmodus ist teilweise geschaltet.",
+        "smodedelayarmed": "Überwachungsmodus wird gesetzt in ",
+        "smodedelaypartiallyarmed": "Überwachungsmodus wird teilweise gesetzt in ",
+        "seconds": " Sekunden.",
+        "smodedelaychanged": "Aktivierungsountdown ist weniger als 10 Sekunden seit letzter Türmeldung",
+        "alarmdeactivated": "Alarm wurde deaktiviert von ",
+        "alarmactivated": "Alarm ist aktiviert. ",
+        "alarmactivatedflowcard": "Alarm ist aktiviert von Flowcard. ",
+        "smodechangedisabled": "Änderung Überwachungsmodus ist während Deaktivierung nicht möglich.",
+        "triggerdalarm": " Alarm ausgelöst.",
+        "alarmdelayed": "Alarmauslöser wurde verzögert: ",
+        "alarmnotactivated": "Alarm ist nicht aktiviert während Deaktivierung.",
+        "noalarmtriggercountdown": ", Kein Alarmauslöser während Verzögerungscountdown.",
+        "noalarmtriggeralarmstate": ", Kein Alarmauslöser während aktiven Alarmstatus.",
+        "noreport": " wurde nicht gemeldet in ",
+        "lastreport": " Stunden. Letzte Meldung: "
+    }
+}

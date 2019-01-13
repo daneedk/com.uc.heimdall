@@ -1,12 +1,92 @@
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
 }
 
 body {
     margin: 0;
 }
+
+.panel {
+    background-color: rgb(239,239,243)
+}
+
+.text-header {
+    color: rgb(109,109,113);
+    margin-top: 7px;
+    padding-left: 10px;
+    text-transform: uppercase;
+}
+
+.text-description {
+    color: rgb(109,109,113);
+    padding-left: 10px;
+    padding-right: 10px;
+    -webkit-text-size-adjust: 90%;
+}
+
+.settings-spacer {
+    height: 10 px;
+    display: inline-block;
+}
+.settings-itemgroup {
+    display: table;
+    width: 100%;
+    background-color: rgb(255,255,255);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-width: 1px;
+    border-color: rgb(199,199,203);
+}
+
+.settings-item {
+    display: table-row;
+    background-color: rgb(255,255,255);
+}
+
+.settings-item-image {
+    display: table-cell;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.settings-item-text {
+    display: table-cell;
+    padding-left: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: -apple-system;
+    font-size: 14px;
+}
+
+.settings-item-last {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    text-align: right;
+    color: rgb(199,199,203);
+    padding-right: 10px;
+    font-size: 17px;
+}
+
+.settings-item-divider {
+    display: table-cell;
+    margin-left: 75px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-color: rgb(199,199,203);
+}
+
 
 h2 {
     font-size: 16px;
@@ -62,11 +142,13 @@ a:active {
 }
 
 .middle {
-    width: 70px;
+    width: 65px;
+    margin-right: 3px;
 }
 
 .narrow {
-    width: 35px;
+    width: 40px;
+    margin-right: 3px;
 }
 
 .indicator {
@@ -148,14 +230,14 @@ a:active {
 
 .tab-active {
     color: rgb(0, 0, 0);
-    background-color: rgb(255, 255 , 255);
-    border-bottom: 4px solid rgb(255,255,255);
+    background-color: rgb(239, 239 , 243);
+    border-bottom: 4px solid rgb(239,239,243);
 }
 
 .tab-inactive {
     color: rgb(0, 0, 0);
-    background-color: rgb(220, 220 , 220);
-    border-bottom: 1px solid rgb(200,200,200); 
+    background-color: rgb(255, 255 , 255);
+    border-bottom: 1px solid rgb(255,255,255); 
 }
 
 .tab-unused {
@@ -184,6 +266,7 @@ a:active {
     margin: 0px;
     vertical-align: top;
     white-space: nowrap;
+    width: 70%;
 }
 
 .iTableRow {   	
@@ -203,25 +286,15 @@ a:active {
     margin: 0;
     border-top: 1px solid rgb(220,220,220);
     border-left: 1px solid rgb(220,220,220);
-    border-right: 1px solid rgb(220,220,220);            
+    border-right: 1px solid rgb(220,220,220);      
 } 
 
-.rTableHeading {   	
-    display: table-header-group;   	
-    background-color: #ddd; 
-} 
 
 .rTableCell {   	
     display: table-cell;   	
-    padding: 6px 4px;
-    vertical-align: middle;
+    padding: 6px;
+    vertical-align: top;
     white-space: nowrap;
-}
-
-.rTableBatt{
-    display: table-cell;   	
-    padding: 8px 0px;
-
 }
 
 .line{
@@ -244,7 +317,7 @@ a:active {
 }
 
 .rTableHead {
-    background: rgb(240,240,240);
+    background: rgb(255,255,255);
     font-weight: bold;
 }
 
@@ -276,7 +349,7 @@ a:active {
 }
 
 .devicesheight {
-    max-height: 460px;
+    max-height: 511px;
 }
 
 .mal {
@@ -352,7 +425,8 @@ a:active {
     font-size: 7px;
     color: rgba(255,255,255,1);
     text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    text-align: center
+    text-align: center;
+    margin-left: 6px;
 }
 
 .component-battery, .component-battery:after {
@@ -360,7 +434,7 @@ a:active {
     box-shadow: inset 0 -4vw 4vw rgba(0,0,0,0.1);
     border-radius: 2.5px;
     box-sizing: border-box;
-    transition: all .3s
+    transition: all .3s;
 }
 
 .component-battery:after {
@@ -401,3 +475,63 @@ a:active {
 .component-battery.charge-0, .component-battery.charge-0:after {
     background: #ca0000
 }
+
+
+
+.form-switch {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.form-switch i {
+    position: relative;
+    display: inline-block;
+    margin-right: .5rem;
+    width: 46px;
+    height: 26px;
+    background-color: #e6e6e6;
+    border-radius: 23px;
+    vertical-align: text-bottom;
+    transition: all 0.3s linear;
+}
+
+.form-switch i::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 42px;
+    height: 22px;
+    background-color: #fff;
+    border-radius: 11px;
+    transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+    transition: all 0.25s linear;
+}
+
+.form-switch i::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    border-radius: 11px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+    transform: translate3d(2px, 2px, 0);
+    transition: all 0.2s ease-in-out;
+}
+
+.form-switch:active i::after {
+    width: 28px;
+    transform: translate3d(2px, 2px, 0);
+}
+
+.form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
+
+.form-switch input { display: none; }
+
+.form-switch input:checked + i { background-color: #4BD763; }
+
+.form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
+
+.form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }
