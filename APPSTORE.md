@@ -26,7 +26,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
 ## Changes for current version 2.0.0
-* Initial rewrite to Homey V2 firmware
+* Rewrite to Homey V2 firmware
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

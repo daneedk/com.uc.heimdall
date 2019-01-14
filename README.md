@@ -16,7 +16,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Initial rewrite to Homey V2 firmware.
 
 ## Changelog for Heimdall version 1
-* The archived changelog for Heimdal Version 1 can be found in CHANGELOG V1.md 
+* The archived changelog for Heimdal Version 1 can be found in [CHANGELOG V1.md](https://github.com/daneedk/com.uc.heimdall/blob/beta/CHANGELOG%20V1.md) 
 
 Please remember, Heimdall is not intended to be a full blown security system.
 
