@@ -438,7 +438,7 @@ class Heimdall extends Homey.App {
         if ( value == 'disarmed' ) {
             logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
             this.setSurveillanceValue("sd ",value, logLine)
-            Homey.app.deactivateAlarm(false, "Surveillance Mode Switch")
+            Homey.app.deactivateAlarm(false, Homey.__("devices.surveillancemode.name"))
             if ( armCounterRunning ) {
                 // code to cancel an arm command during delayArming
                 console.log('Need to stop arming!')

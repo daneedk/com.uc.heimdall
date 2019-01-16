@@ -2,6 +2,15 @@
     "settings": {
         "benefit": "Let Homey watch over your home."
     },
+    "devices": {
+        "surveillancemode": {
+            "name": "Surveillance Mode Switch"
+        },
+        "alarmoff": {
+            "name": "Alarm Off button"
+        },
+        "flowcard": "Flowcard"
+    },
     "tab1": {
         "title": "Dashboard", 
         "status": {
@@ -45,7 +54,7 @@
         "settings": {
             "settingsgroup": {
                 "delays": "Delays",
-                "loging": "Loging",
+                "logging": "Logging",
                 "check": "Pre-Arming check",
                 "speech": "Let Homey tell you when",
                 "notifications": "Write to Timeline when"

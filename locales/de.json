@@ -2,6 +2,15 @@
     "settings": {
         "benefit": "Lass Homey dein Heim überwachen!"
     },
+    "devices": {
+        "surveillancemode": {
+            "name": "Überwachungsmodus-Schalter"
+        },
+        "alarmoff": {
+            "name": "Aus-Schalter"
+        },
+        "flowcard": "Flowkarte"
+    },
     "tab1": {
         "title": "Dashboard",
         "status": {
@@ -45,7 +54,7 @@
         "settings": {
             "settingsgroup": {
                 "delays": "Verzögerungen",
-                "loging": "Loging",
+                "logging": "Loging",
                 "check": "Überprüfung",
                 "speech": "Lass Homey dir mitteilen wenn",
                 "notifications": "Schreibe in die Timeline wenn"

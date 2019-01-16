@@ -12,6 +12,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
+## Version 2.0.1
+* Fixed translations
+
 ## Version 2.0.0
 * Initial rewrite to Homey V2 firmware.
 

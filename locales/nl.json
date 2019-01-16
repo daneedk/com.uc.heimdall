@@ -2,6 +2,15 @@
     "settings": {
         "benefit": "Laat Homey je huis in de gaten houden."
     },
+    "devices": {
+        "surveillancemode": {
+            "name": "Toezicht Mode knop"
+        },
+        "alarmoff": {
+            "name": "Alarm Uit knop"
+        },
+        "flowcard": "Flowkaart"
+    },
     "tab1": {
         "title": "Dashboard", 
         "status": {
@@ -45,10 +54,10 @@
         "settings": {
             "settingsgroup": {
                 "delays": "Vertraging",
-                "loging": "Loggen",
+                "logging": "Loggen",
                 "check": "Inschakelcontrole",
                 "speech": "Laat Homey het je vertellen als",
-                "notifications": "Schrijf naar Tijdlijn"
+                "notifications": "Schrijf naar Tijdlijn als"
             },
             "title": "Instellingen",
             "arDelay": "Inschakel vertraging",
@@ -57,32 +66,32 @@
             "save": "Bewaar",
             "secondsFail": "De waarde is ongeldig, geef een waarde van 0-300 seconden.",
             "saveSucces": "De nieuwe instellingen zijn opgeslagen.",
-            "logarmedonly": "Alleen loggen als er een Toezicht Mode actief is",
-            "logtrueonly": "Log het deactiveren van een sensor niet",
-            "usetampering": "Luister naar manipulatie berichten van sensoren",
+            "logarmedonly": "Alleen bij actieve Toezicht Mode",
+            "logtrueonly": "Niet bij deactiveren van een sensor",
+            "usetampering": "Luister naar manipulatie berichten",
             "delayarmingfull": "Gebruik vertraging bij Volledige mode",
             "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",            
-            "checkMotionAtArming": "Controleer op actieve beweginssensoren bij het inschakelen",
-            "checkContactAtArming": "Controleer op open deuren/ramen bij het inschakelen",
-            "checkbeforecountdown": "Voer inschakelcontrole uit voor de inschakelvertraging"
+            "checkMotionAtArming": "Controleer bewegingssensoren",
+            "checkContactAtArming": "Controleer deur/raamsensoren",
+            "checkbeforecountdown": "Voer uit voor de inschakelvertraging"
         },
         "speech": {
-            "spokenalarmcountdown": "het aftellen naar het activeren van het Alarm loopt",
-            "spokenarmcountdown": "het aftellen naar het inschakelen van een Toezicht loopt",
-            "smodechange": "de Toezicht Mode wordt veranderd",
-            "alarmchange": "het Alarm wordt geactiveerd of gedeactiveerd",
-            "motiontrue": "er beweging is gedetecteerd als er een Toezicht Mode actief is",
-            "tampertrue": "manipulatie is gedetecteerd bij ingeschakelde Toezicht Mode",
-            "dooropen": "er een deur of raam geopend wordt als er een Toezicht Mode actief is",
-            "motionatarming": "een bewegingssensor actief is bij inschakelen",
-            "dooropenatarming": "een deur of raam open is bij inschakelen"
+            "spokenalarmcountdown": "aftellen naar een Alarm actief is",
+            "spokenarmcountdown": "aftellen naar inschakelen actief is",
+            "smodechange": "de Toezicht Mode veranderd",
+            "alarmchange": "het Alarm wordt ge(de)activeerd",
+            "motiontrue": "er beweging is gedetecteerd",
+            "tampertrue": "er manipulatie is gedetecteerd",
+            "dooropen": "er een deur of raam geopend wordt",
+            "motionatarming": "er beweging is bij inschakelen",
+            "dooropenatarming": "een deur/raam open is bij inschakelen"
         },
         "notification": {
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "nocommunicationmotion": "A motion device hasn't communicated",
-            "nocommunicationcontact": "A contact device hasn't communicated",
-            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours."
+            "smodechange": "de Toezicht Mode veranderd",
+            "alarmchange": "het Alarm wordt ge(de)activeerd",
+            "nocommunicationmotion": "een bewegingssensor zich niet meldt",
+            "nocommunicationcontact": "een contactsensor zich niet meldt",
+            "nocommunicationdescription": "Als een Toezicht Mode wordt geselecteerd test Heimdall of de sensoren de laatste 24 contact gehad hebben."
         }
     },
     "tab4": {
