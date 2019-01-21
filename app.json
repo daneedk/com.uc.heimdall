@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"compatibility": ">=2.0",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
@@ -482,9 +482,9 @@
 		"alarm_heimdall": {
             "type": "boolean",
             "title": {
-				"en": "Alarm state",
-				"nl": "Alarm status",
-				"de": "Alarm status"
+				"en": "state",
+				"nl": "status",
+				"de": "status"
 			},
 			"desc": "The Alarm status",
             "getable": true,

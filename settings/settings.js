@@ -515,7 +515,7 @@ function downloadHistory(){
 function refreshHistory(){
     if ( dashboardVisible == true ) {
         if ( document.getElementById("autoRefresh").checked ){
-            showHistory()
+            showHistory(0)
         }
         // V1 getStatus();
     }
@@ -536,10 +536,12 @@ function changeUseColor() {
     saveSettings();
     showHistory(1);
 }
+
 function showHistory(run) {
     Homey.get('myLog', function(err, logging){
     if( err ) return console.error('showHistory: Could not get history', err);
     if (_myLog !== logging || run == 1 ){
+        console.log("_myLog !== logging || run == 1")
         _myLog = logging
         // Need work here -> done!
         document.getElementById('logtextarea').value = logging;
