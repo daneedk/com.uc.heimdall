@@ -283,10 +283,12 @@ class Heimdall extends Homey.App {
                         this.log('Alarm is triggered:         Yes')
                         let zone = await this.getZone(device.zone)
                         logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " in " + zone + Homey.__("history.triggerdalarm")
+                        /*
                         if ( heimdallSettings.notificationAlarmChange  ) {
                             let message = '**'+device.name+'** in '+ zone + Homey.__("history.triggerdalarm")
                             this.writeNotification(message)
                         }
+                        */
                         if ( sensorType == 'motion' ) {
                             this.speak("motionTrue", device.name + " detected motion") 
                         }
@@ -600,8 +602,9 @@ class Heimdall extends Homey.App {
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
             // Surveillance mode is active
+            let zone = await this.getZone(device.zone)
             if ( source == "Heimdall") {
-                let zone = await this.getZone(device.zone)
+                // let zone = await this.getZone(device.zone)
                 var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': zone };
                 logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivated") + device.name + ": " + sensorState;
             } else {
@@ -611,7 +614,12 @@ class Heimdall extends Homey.App {
             triggerAlarmActivated.trigger(tokens, function(err, result){
                 if( err ) {
                     return Homey.error(err)} ;
-                });   
+                });
+            if ( heimdallSettings.notificationAlarmChange  ) {
+                let message = '**'+device.name+'** in '+ zone + Homey.__("history.triggerdalarm")
+                this.writeNotification(message)
+            }
+
             // speak("alarmChange", "The alarm is activated") 
             this.speak("alarmChange", Homey.__("speech.alarmactivated"))
             // save alarm status
