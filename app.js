@@ -1021,7 +1021,7 @@ actionClearHistory
     .register()
     .on('run', ( args, state, callback ) => {
         Homey.ManagerSettings.set('myLog', '' );
-        this.log ('actionClearHistory: The history data is cleared.');
+        // console.log('actionClearHistory: The history data is cleared.');
         callback( null, true );
     }); 
 
