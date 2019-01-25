@@ -63,7 +63,7 @@
 						"nl": "Waarschuwing",
 						"de": "Warnung"
 					},
-					"example": "Warning"
+					"example": "Warning, sensor is active."
 				}
 			]
 		},
@@ -113,7 +113,7 @@
 						"nl": "Bron",
 						"de": "Quelle"
 					},
-					"example": "-"
+					"example": "Alarm Off Button"
 				}
 			]
 		},
@@ -133,7 +133,7 @@
 						"nl": "Reden",
 						"de": "Grund"
 					},
-					"example": "-"
+					"example": "Door Sensor: Open"
 				},
 				{
 					"name": "Duration",
@@ -253,7 +253,7 @@
 						"nl": "Zone",
 						"de": "Zone"
 					},
-					"example": "-"
+					"example": "Hallway"
 				}
 			]
 		},
@@ -479,6 +479,39 @@
 		]
 	},
 	"capabilities": {
+		"homealarm_state": {
+			"type": "enum",
+			"title": {
+			  "en": "Home Alarm state",
+			  "nl": "Thuisalarm status"
+			},
+			"values": [
+			  {
+				"id": "armed",
+				"title": {
+				  "en": "Armed",
+				  "nl": "Geactiveerd"
+				}
+			  },
+			  {
+				"id": "disarmed",
+				"title": {
+				  "en": "Disarmed",
+				  "nl": "Gedeactiveerd"
+				}
+			  },
+			  {
+				"id": "partially_armed",
+				"title": {
+				  "en": "Partially armed",
+				  "nl": "Deels geactiveerd"
+				}
+			  }
+			],
+			"getable": true,
+			"setable": true,
+			"uiComponent": "picker"
+		},
 		"alarm_heimdall": {
             "type": "boolean",
             "title": {

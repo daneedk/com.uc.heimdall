@@ -81,7 +81,6 @@ function onHomeyReady(homeyReady){
     
     showTab(1);
     getLanguage();
-    // V1 getStatus();
     refreshHistory();
 
     new Vue({
@@ -393,40 +392,6 @@ function showTab(tab){
     }
 }
 
-/* V1 Depreciated
-function getStatus() {
-    Homey.get('surveillanceStatus', function( err, surveillanceStatus ) {
-        if( err ) return Homey.alert( err );
-        surveillance = surveillanceStatus;
-        if( surveillance == 'armed') {
-            document.getElementById("surveillanceModeFull").className = "indicator btn-active";
-            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
-        }
-        else if( surveillance == 'partially_armed' ) 
-        {
-            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "indicator btn-active";
-        }
-        else {
-            document.getElementById("surveillanceModeFull").className = "indicator btn-inactive";
-            document.getElementById("surveillanceModePartial").className = "indicator btn-inactive";
-        }
-    })
-    Homey.get('alarmStatus', function( err, alarmStatus ) {
-        if( err ) return Homey.alert( err );
-        alarm = alarmStatus;
-        if( alarm) {
-            document.getElementById("alarmMode").className = "indicator ind-alarm";
-        }
-        else {
-            if (heimdallSettings.armingDelay != null) {
-                document.getElementById("alarmMode").className = "indicator btn-inactive";
-            }
-        }
-    })
-}
-*/
-
 function getLanguage() {
     Homey.getLanguage(function (err, language) {
         (err) ? 'en' : ((language == 'nl') ? 'nl' : 'en');
@@ -517,7 +482,6 @@ function refreshHistory(){
         if ( document.getElementById("autoRefresh").checked ){
             showHistory(0)
         }
-        // V1 getStatus();
     }
     setTimeout(refreshHistory, 1000);
 }

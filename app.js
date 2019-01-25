@@ -760,7 +760,7 @@ class Heimdall extends Homey.App {
     }
 
     ttArmedCountdown(delay, color, value, logLine) {
-        this.log(' ttArmedCountdown:      ' + delay)
+        this.log('ttArmedCountdown:       ' + delay)
         if ( armCounterRunning ) {
             if (changeTta && delay > 9 ) {
                 delay = 10;
