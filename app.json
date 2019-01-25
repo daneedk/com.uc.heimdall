@@ -483,28 +483,32 @@
 			"type": "enum",
 			"title": {
 			  "en": "Home Alarm state",
-			  "nl": "Thuisalarm status"
+			  "nl": "Thuisalarm status",
+			  "de": "Heim Alarm status"
 			},
 			"values": [
 			  {
 				"id": "armed",
 				"title": {
 				  "en": "Armed",
-				  "nl": "Geactiveerd"
+				  "nl": "Geactiveerd",
+				  "de": "Gesichert"
 				}
 			  },
 			  {
 				"id": "disarmed",
 				"title": {
 				  "en": "Disarmed",
-				  "nl": "Gedeactiveerd"
+				  "nl": "Gedeactiveerd",
+				  "de": "Entsichert"
 				}
 			  },
 			  {
 				"id": "partially_armed",
 				"title": {
 				  "en": "Partially armed",
-				  "nl": "Deels geactiveerd"
+				  "nl": "Deels geactiveerd",
+				  "de": "Teils gesichert"
 				}
 			  }
 			],
