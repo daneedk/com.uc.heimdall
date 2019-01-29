@@ -282,10 +282,10 @@ a:active {
     border-top: 1px solid rgb(220,220,220);
 }
 
-/*.rTableHead {
+.rTableHead {
     background: rgb(255,255,255);
     font-weight: bold;
-}*/
+}
 
 .Overflow {
     margin-bottom: 1em;
