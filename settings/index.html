@@ -10,19 +10,20 @@
     <body>
         <div id="app">
             <p data-i18n="settings.benefit"></p>
-
-            <div class="rTable">
+            <div class="loader" v-if="loading">
+                Loading Heimdall settings...
+            </div>
+            <div id="tabs" class="rTable" style="display: none;">
                 <div class="rTableRow">
                     <div id="tabb1" class="tab tab-active" onclick="showTab(1)" data-i18n="tab1.title">-Dashboard-</div>
                     <div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="tab2.title">-Devices-</div>
                     <div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="tab3.title">-Settings-</div>
                     <div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="tab4.title">-Instructions-</div>
-                    <div class="tab-unused">&nbsp;</div>
                 </div>
             </div>
-            <div style="height:8px" class="panel"></div>
-            <div id="tab1" class="panel">
-                <div style="height:8px"></div>
+            <div id="tab1" class="panel" style="display: none;">
+                <div class="settings-top"></div>
+                <div class="settings-spacer"></div>
 
                 <div class="settings-itemgroup">
                     <div class="settings-item">
@@ -50,10 +51,13 @@
                         </div>
                     </div>
                 </div>
-
-
-                <button style="display:none" id="buttonRefresh" onClick="showHistory(0)" span data-i18n="tab1.history.manualRefresh">-Refresh-</button>
-
+                <div style="display:none" id="buttonRefresh" class="settings-itemgroup">
+                    <div class="settings-item">
+                        <div class="settings-item-button" onClick="showHistory(0)">
+                            <span data-i18n="tab1.history.manualRefresh">-Refresh-</span>
+                        </div>
+                    </div>
+                </div>
                 <div style="height:8px"></div>
                 <textarea id="logtextarea" style="display:none;"></textarea>
                 <div class="Overflow historyheight">
@@ -63,75 +67,65 @@
                 <!--button id="downloadHistory" class="left" onclick="downloadHistory()"  data-i18n="tab1.history.btnDownload">-Download-</button-->
             </div>
             <div id="tab2" class="panel" style="display: none;">
-                <div style="height:8px"></div>
-                <div class="Overflow devicesheight">
-                    <div class="rTable">
-                        <!--div class="rTableRow">
-                            <!--div class="rTableCell line rTableHead" data-i18n="tab2.devices.zone">-Zone-</div>
-                            <div class="rTableCell line rTableHead"></div>
-                            <div class="rTableCell line rTableHead"></div>
-                            <div class="rTableCell line rTableHead" data-i18n="tab2.devices.device">-Device-</div>
-                            <!--div class="rTableCell line rTableHead" data-i18n="tab2.devices.monitor">-Monitor-</div>
-                            <div class="rTableCell line rTableHead" data-i18n="tab2.devices.dTrigger">-Delayed Trigger-</div>
-                            <div class="rTableCell line rTableHead rTableCellLast"></div>
-                        </div-->
+                <div class="settings-top"></div>
+                <div class="settings-spacer"></div>
+                <div class="settings-itemgroup">
+                    <div class="settings-item">
                         <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilitiesObj.alarm_motion || device.capabilitiesObj.alarm_contact || device.capabilitiesObj.alarm_vibration">
-
-                            <!--div class="rTableCell line">{{device.zone.name}}</div-->
-                            <!--div class="rTableCell line"><span v-html="getZone(device.zone)"></span></div-->
-                            <!--div class="rTableBatt line">
-                                <span v-html="getBattClass(device.capabilitiesObj)"></span>
-                            </div-->
                             <div class="rTableCell line">
                                 <span v-html="getIcon(device)"></span><br />
-                                <!-- img :src="device.iconObj.url" style="height:30px;width:auto;"/><br /-->
                                 <span v-html="getBattClass(device.capabilitiesObj)"></span>
                             </div>
-                            <div class="rTableCell line">
+                            <div style="width: 100%" class="rTableCell line">
                                 {{ getZone(device.zone) }}<br />
                                 <b>{{device.name}}</b>
-                            <!--/div>
-                            <div class="rTableCell line"-->
                                 <br />
                                 <a v-if="!isLogged(device)" @click="addLog(device)" class="btn narrow btn-inactive" data-i18n="tab2.devices.log">-Log-</a>
                                 <a v-if="isLogged(device)" @click="removeLog(device)" class="btn narrow btn-active" data-i18n="tab2.devices.log">-Log-</a>
-                                
                                 <a v-if="!isMonitoredFull(device)" @click="addMonitorFull(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.full">-Full-</a>
                                 <a v-if="isMonitoredFull(device)" @click="removeMonitorFull(device)" class="btn middle btn-active" data-i18n="tab2.devices.full">-Full-</a>
                                 <a v-if="!isMonitoredPartial(device)" @click="addMonitorPartial(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.partial">-Partial-</a>
                                 <a v-if="isMonitoredPartial(device)" @click="removeMonitorPartial(device)" class="btn middle btn-active" data-i18n="tab2.devices.partial">-Partial-</a>
-                            <!--/div>
-                            <div class="rTableCell line"-->
                                 <a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.delay">-Delay-</a>
                                 <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn middle btn-active" data-i18n="tab2.devices.delay">-Delay-</a>
                             </div>
-                            
-                            <div class="rTableCell line"></div>
                         </div>
                     </div>
-                </div>                    
+                </div>
             </div>
             <div id="tab3" class="panel" style="display: none;">
+                <div class="settings-top"></div>
                 <div class="settings-spacer"></div>
                 <div data-i18n="tab3.settings.settingsgroup.delays" class="text-header">-Delays-</div>
                 <div class="settings-itemgroup">
-                    <div class="sTableCell inputs">
-                        <label data-i18n="tab3.settings.arDelay">-Arming delay:-</label><br />
-                        <input id="armingDelay" type="text" value="31" onblur="changeArmingDelay()">
-                        <label data-i18n="tab3.settings.seconds">-Seconds-</label>
-                        <br />
-                        <label data-i18n="tab3.settings.alDelay">-Alarm delay:-</label><br />
-                        <input id="alarmDelay" type="text" value="31" onblur="changeAlarmDelay()">
-                        <label data-i18n="tab3.settings.seconds">-Seconds-</label>
-                        <br />
-                    </div>
-                    <div class="settings-item">
-                        <div class="settings-item-divider"></div>
-                        <div class="settings-item-divider"></div>
-                    </div>
                     <div class="settings-item">
                         <div class="settings-item-text">
-                            <span data-i18n="tab3.settings.delayarmingfull">-Use delay when enabling Armed mode-</span>
+                            <span data-i18n="tab3.settings.arDelay">-ArmingDelay-</span>
+                        </div>
+                        <div class="settings-item-input">
+                            <input class="hy-nostyle" id="armingDelay" type="text" value="31" onblur="changeArmingDelay()">
+                            <label data-i18n="tab3.settings.seconds">-Seconds-</label>
+                        </div>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-item-divider"></div>
+                        <div class="settings-item-divider"></div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-text">
+                        <span data-i18n="tab3.settings.alDelay">-Alarm delay:-</span>
+                        </div>
+                        <div class="settings-item-input">
+                            <input class="hy-nostyle" id="alarmDelay" type="text" value="31" onblur="changeAlarmDelay()">
+                            <label data-i18n="tab3.settings.seconds">-Seconds-</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-itemgroup">
+                    <div class="settings-item">
+                        <div class="settings-item-text">
+                            <span data-i18n="tab3.settings.delayarmingfull">-Use when enabling Armed mode-</span>
                         </div>
                         <div class="settings-item-last">
                             <label class="form-switch">
@@ -148,7 +142,7 @@
 
                     <div class="settings-item">
                         <div class="settings-item-text">
-                                <span data-i18n="tab3.settings.delayarmingpartial">-Use delay when enabling Partially Armed mode-</span>
+                                <span data-i18n="tab3.settings.delayarmingpartial">-Use when enabling Partially Armed mode-</span>
                         </div>
                         <div class="settings-item-last">
                             <label class="form-switch">
@@ -423,19 +417,18 @@
 
             </div>
             <div id="tab4" class="panel" style="display: none;">
-                <fieldset class="listContainer">
-                    <legend data-i18n="tab4.instructions.title">-Instructions-</legend>                 
+                <div class="settings-top"></div>
+                <div class="settings-spacer"></div>
+                <div class="settings-itemgroup">
                     <div id="instructionsen" style="display:none">
                         To configure Heimdall you have to do the following:<br />
                         <br />
                         <ul>
-                            <li><b>Create a Surveillance Mode Switch</b></li>
-                            <ul><li>
+                            <li><b>Create a Surveillance Mode Switch</b><br />
                                 Click on the <i>add a device</i> button in your desired zone on the Devices page and select the <i>Mode</i> device from the Heimdall app.<br>
                                 Click on <i>Install</i> to procede followed by clicking on <i>next</i>.
-                            </li></ul>
-                            <li><b>Select the device(s) you want to monitor</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Select the device(s) you want to monitor</b><br />
                                 Go to the Devices tab in Heimdall's settings page and click on the <i>log</i> button if you just want a line in the log when the device state changes.
                                 Click on the <i>Full</i> button if you want the device included when the Surveillance mode is set to <i>Armed</i>
                                 If you want the device included when the Surveillance mode is set to <i>Partially Armed</i> click the <i>Partial</i> button.
@@ -443,138 +436,116 @@
                                 If you want to have a delay between the triggering of a device and activating the alarm you can 
                                 enable a delay by clicking on the <i>Delay</i> button.<br />
                                 The delay that is used can be found on the top of the Settings tab, it is in seconds and ranges from 0-300 seconds.<br />
-                            </li></ul>
-                            <li><b>Create a flow to enable the Surveillance Mode</li>
-                            <ul><li>
+                            </li>
+                            <li><b>Create a flow to enable the Surveillance Mode</b><br />
                                 Heimdall will listen to the selected sensors and will log state changes, depending on the selected options on the settings page. 
                                 Only when Heimdall is in Surveillance Mode a trigger on a sensor will lead to an alarm.
                                 Go to the Homey Flows page and create a flow to set the Surveillance Mode by using the <i>Set Surveillance Mode</i> 
                                 card from the Surveillance Mode Switch and selecting the desired state in the <i>...then</i> part.
-                            </li></ul>
-                            <li><b>Create a flow to disable the Surveillance Mode</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Create a flow to disable the Surveillance Mode</b><br />
                                 To be able to disable the Surveillance Mode with a flow you have to create one and use the <i>Set Surveillance Mode</i> 
                                 card from the Surveillance Mode Switch and selecting the <i>Disarmed</i> state in the <i>...then</i> part.
-                            </li></ul>
-                            <li><b>Create a flow to act on an alarm</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Create a flow to act on an alarm</b><br />
                                 You can decide for yourself what you want Homey to do when the alarm is activated. 
                                 Create a flow and use the <i>The alarm is activated.</i> card in the <i>when...</i> part and select your desired actions in the <i>then...</i> part.<br />
                                 You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
-                            </li></ul>
-                            <li><b>Create a flow to disable the alarm</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Create a flow to disable the alarm</b><br />
                                 To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> part.
-                            </li></ul>
-                            <li><b>Add an Alarm Off Button</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Add an Alarm Off Button</b><br />
                                 To deactivate the alarm using the Homey app on your phone you need to add the <i>Alarm</i> button device in the zone you desire.
-                            </li></ul>
-                            <li><b>Log other information</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Log other information</b><br />
                                 If you like to log more information, for example presence information, 
                                 you can use the <i>Send information to Heimdall</i> card in a flow in the <i>...then</i> part.
-                            </li></ul>
+                            </li>
                         </ul>
                     </div>
                     <div id="instructionsnl" style="display:none">
                         Stel Heimdall op de volgende manier in:<br />
                         <br />
                         <ul>
-                            <li><b>Voeg de Toezicht Mode knop toe</b></li>
-                            <ul><li>
+                            <li><b>Voeg de Toezicht Mode knop toe</b><br />
                                 Klik op het <i>voeg een apparaat toe</i> icoon in de gewenste zone en selecteer het <i>Modus</i> apparaat van de Heimdall app.<br>
                                 Je kan het apparaat een andere naam geven, als je op <i>volgend</i> klikt wordt het apparaat toegevoegd aan Homey. 
-                            </li></ul>
-                            <li><b>Selecteer de apparaten die je wilt controleren</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Selecteer de apparaten die je wilt controleren</b><br />
                                 Ga naar de instellingen pagina en klik op de <i>Log</i> knop als je alleen een regel in de geschiedenis wil als de status van een
                                 sensor veranderd. Klik op de <i>Volledig</i> knop als je de sensor toe wilt voegen aan de <i>Ingeschakeld</i> Toezicht Mode.
                                 Als je de sensor op wil nemen in de <i>Gedeeltelijke</i> Toezicht Mode klik dan op de <i>Gedeeltelijk</i> knop.
                                 Het is mogelijk om zowel <i>Volledig</i> als <i>Gedeeltelijk</i> te selecteren voor 1 sensor.
                                 Als je een vertraging wilt hebben tussen het afgaan van een sensor en het inschakelen van het alarm klik dan op de <i>Vertraagde trigger</i> knop.
                                 De gewenste vertraging kan je op de instellingen pagina instellen van 0-300 seconden.<br />
-                            </li></ul>
-                            <li><b>Maak flows om een Toezicht Mode in te stellen</li>
-                            <ul><li>
+                            </li>
+                            <li><b>Maak flows om een Toezicht Mode in te stellen</b><br />
                                 Heimdall zal naar de geselecteerde sensoren luisteren en afhankelijk van de instellingen op de instellingen pagina dit in de geschiedenis wegschrijven.
                                 Als er een Toezicht Mode ingeschakeld is zal een activeren van een sensor tot het activeren van het alarm leiden.
                                 Ga naar de Homey flow pagina en maak een flow waarin je de <i>Set state</i> kaart van de Toezicht Mode knop gebruikt om de gewenste mode te activeren.
-                            </li></ul>
-                            <li><b>Maak een flow om de Toezicht Mode uit te schakelen</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Maak een flow om de Toezicht Mode uit te schakelen</b><br />
                                 Om de Toezicht Mode uit te schakelen kan er naar de Toezicht Mode knop gebruik gemaakt worden van een flow. Selecteer de <i>Set state</i> kaart 
                                 van de Toezicht Mode Knop, plaats deze in de <i>...dan</i> kolom en selecteer <i>Gedeactiveerd</i>
-                            </li></ul>
-                            <li><b>Maak een flow met acties als het alarm geactiveerd wordt</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Maak een flow met acties als het alarm geactiveerd wordt</b><br />
                                 Je kan zelf kiezen wat Homey moet doen als het alarm geactiveerd wordt.
                                 Maak een flow en gebruik de <i>Het alarm is geactiveerd</i> kaart in de <i>als...</i> kolom en selecteer de gewenste acties in de <i>...dan</i> kolom.
                                 Je kan de tag <i>reden</i> van de kaart gebruiken om te informeren welke sensor het alarm activeerde.
-                            </li></ul>
-                            <li><b>Maak een flow om het alarm uit te schakelen</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Maak een flow om het alarm uit te schakelen</b><br />
                                 Gebruik de <i>Deactiveer Alarm</i> kaart in een flow in de <i>...dan</i> kolom.
-                            </li></ul>
-                            <li><b>Voeg een Alarm Uit Knop toe</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Voeg een Alarm Uit Knop toe</b><br />
                                 Om het alarm uit te kunnen zetten in de Homey telefoon app moet je het <i>Alarm</i> apparaat in de gewenste zone toevoegen.
-                            </li></ul>
-                            <li><b>Log andere informatie</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Log andere informatie</b><br />
                                 Als je meer informatie in de geschiedenis van Heimdall wilt loggen zoals bijvoorbeeld aanwezigheid gebruik dan de <i>Stuur informatie</i> kaart 
                                 in de <i>...dan</i> kolom met de gewenste informatie.
-                            </li></ul>
+                            </li>
                         </ul>
                     </div>
                     <div id="instructionsde" style="display:none">
                         Um Heimdall zu konfigurieren, bitte wie folgt vorgehen:<br />
                         <br />
                         <ul>
-                            <li><b>Überwachungsmodus-Schalter erstellen</b></li>
-                            <ul><li>
+                            <li><b>Überwachungsmodus-Schalter erstellen</b><br />
                                 Klicke auf den <i>Gerät hinzufügen</i> Button in der gewünschten Zone deiner Geräteseite und wähle den <i>Modus</i> des Gerätes aus der Heimdall App.<br>
                                 Klicke auf <i>Installieren</i> um es hinzuzufügen. Nun klicke auf  <i>nächstes</i>.
-                            </li></ul>
-                            <li><b>Wähle die Geräte, die du überwachen möchtest</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Wähle die Geräte, die du überwachen möchtest</b><br />
                                 Gehe zum Geräte-Kartenreiter in Heimdalls Einstellungen und klicke auf den  <i>Log</i> Button, wenn du nur eine Zeile in das Log bei Statusänderung des Gerätes schreiben willst.
                                 Klicke den <i>Volle</i>-Button, um das Gerät mit dabei zu haben, wenn der Überwachungsmodus auf <i>volle Überwachung</i> steht.
                                 Wenn das Gerät bei der <i>teilweise Überwachung</i> dabei sein soll, klicke den  <i>Teilweise</i>-Button.
                                 Es ist auch möglich, <i>Volle</i> und <i>Teilweise</i> für ein Gerät einzustellen.
                                 Wenn eine Verzögerung zwischen Auslösung und der Aktivierung des Alarms gewünscht ist, kann man die Verzögerung durch Klicken des <i>Verzögerung</i>-Buttons aktivieren.<br />
                                 Die genutzte Verzögerung kann oben bei dem Einstellungs-Kartenreiter gefunden werden. Sie wird in einem Bereich von 0-300 Sekunden angegeben.<br />
-                            </li></ul>
-                            <li><b>Erstelle einen Flow, um den Überwachungsmodus zu aktivieren.</li>
-                            <ul><li>
+                            </li>
+                            <li><b>Erstelle einen Flow, um den Überwachungsmodus zu aktivieren.</b><br />
                                 Heimdall wird die gewählten Sensoren beobachten und deren Status mitloggen, so wie in den Einstellungen gewählt. Nur wenn Heimdall im Überwachungsmodus ist, wird ein Auslöser eines Sensors zu einem Alarm führen.
                                 Gehe zu der Homey Flows Seite und erstelle einen Flow zum Wählen des Überwachungsmodus indem du die <i>Überwachungsmodus wählen</i>-Karte vom Überwachungsmodus-Schalter nutzt und dann den gewünschten Modus in der <i>...then</i> Spalte setzt.
-                            </li></ul>
-                            <li><b>Erstelle einen Flow, um den Überwachungsmodus zu deaktivieren.</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Erstelle einen Flow, um den Überwachungsmodus zu deaktivieren.</b><br />
                                 Um mit einem Flow den Überwachungsmodus zu deaktivieren, muss man einen Flow erstellen, die <i>Überwachungsmodus wählen</i>-Karte vom Überwachungsmodus-Schalter nutzen und den <i>deaktiviert</i>-Status in der <i>...then</i> Spalte setzen.
-                            </li></ul>
-                            <li><b>Erstelle einen Flow für den Alarm</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Erstelle einen Flow für den Alarm</b><br />
                                 Man kann selber entscheiden, was man Homey machen lassen will, wenn der Alarm aktiviert bzw. ausgelöst wurde.
                                 Erstelle einen Flow und nutze die <i>Der Alarm ist aktiviert.</i>-Karte in der <i>when...</i>-Spalte und wähle die gewünschte Aktion in der <i>then...</i>-Spalte.<br />
                                 Man kann den Tag <i>Grund</i> auf der Auslöserkarte nutzen, um über das auslösende Gerät informiert zu werden.
-                            </li></ul>
-                            <li><b>Erstelle einen Flow zum Ausschalten des Alarms</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Erstelle einen Flow zum Ausschalten des Alarms</b><br />
                                 Zum Ausschalten des Alarms nutze die <i>Alarm deaktivieren</i>-Karte in einem Flow in der <i>...then</i>-Spalte.
-                            </li></ul>
-                            <li><b>einen Aus-Schalter hinzufügen</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>einen Aus-Schalter hinzufügen</b><br />
                                 Um mit der Homey-App aud dem Smartphone einen Alarm ausschalten zu können, fügt man ein <i>Alarm</i>-Button-Gerät in der gewünschte Zone hinzu.
-                            </li></ul>
-                            <li><b>Andere Information loggen</b></li>
-                            <ul><li>
+                            </li>
+                            <li><b>Andere Information loggen</b><br />
                                 Wenn man mehr Informationen (zum Beispiel Anwesendheits-Informationen) mitloggen möchte, kann man die <i>Sende Information an Heimdall</i>-Karte in einem Flow in der <i>...then</i> Spalte nutzen.
-                            </li></ul>
+                            </li>
                         </ul>
                     </div>
-                </fieldset>
+                </div>
             </div>
         </div>
     </body>

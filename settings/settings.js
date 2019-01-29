@@ -1,4 +1,5 @@
 //let Homey;
+var loading = true;
 let _myLog;
 let surveillance;
 let alarm;
@@ -332,8 +333,6 @@ function onHomeyReady(homeyReady){
                 }
             },
             getBattClass: function(capabilitiesObj) {
-                // console.log(capabilitiesObj.measure_battery);
-                // console.log(capabilitiesObj.measure_battery.value);
                 try {
                     waarde = capabilitiesObj.measure_battery.value
 
@@ -375,14 +374,18 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    loading = false
+    document.getElementById("tabs").style.display = "inline";
     if ( illegalValue ) {
         illegalValue = false;
         return;
     }
-    $('.tab').removeClass('tab-active')
     $('.tab').addClass('tab-inactive')
-    $('#tabb' + tab).removeClass('tab-inactive')
+    $('.tab').removeClass('tab-active')
+
     $('#tabb' + tab).addClass('tab-active')
+    $('#tabb' + tab).removeClass('tab-inactive')
+
     $('.panel').hide()
     $('#tab' + tab).show()
     if ( tab == 1 ) {
@@ -503,42 +506,42 @@ function changeUseColor() {
 
 function showHistory(run) {
     Homey.get('myLog', function(err, logging){
-    if( err ) return console.error('showHistory: Could not get history', err);
-    if (_myLog !== logging || run == 1 ){
-        console.log("_myLog !== logging || run == 1")
-        _myLog = logging
-        // Need work here -> done!
-        document.getElementById('logtextarea').value = logging;
+        if( err ) return console.error('showHistory: Could not get history', err);
+        if (_myLog !== logging || run == 1 ){
+            console.log("_myLog !== logging || run == 1")
+            _myLog = logging
+            // Need work here -> done!
+            document.getElementById('logtextarea').value = logging;
+            
+            let color = ""
+            let htmlstring = "" 
+            let historyArray = logging.split("\n")
+            let dark = false
+            let headerstring = '<div class="rTableRow"><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
         
-        let color = ""
-        let htmlstring = "" 
-        let historyArray = logging.split("\n")
-        let dark = false
-        let headerstring = '<div class="rTableRow"><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
-      
-        historyArray.forEach(element => {
-            element = element.replace(/ \|\| /g,'</div><div class="rTableCell line">')
-            if ( element != "") {
-                if ( dark ) {
-                    color = element.substr(0,3)
-                    color = color.replace("-","d")
-                    dark = false
-                } else {
-                    color = element.substr(0,3)
-                    color = color.replace("-","l")
-                    dark = true
+            historyArray.forEach(element => {
+                element = element.replace(/ \|\| /g,'</div><div class="rTableCell line">')
+                if ( element != "") {
+                    if ( dark ) {
+                        color = element.substr(0,3)
+                        color = color.replace("-","d")
+                        dark = false
+                    } else {
+                        color = element.substr(0,3)
+                        color = color.replace("-","l")
+                        dark = true
+                    }
+                    element = element.substr(3, element.length - 3 )
+                    if (document.getElementById("useColors").checked === false){
+                        color = ""
+                    }
+                    htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell line">' + element + "</div></div>"
                 }
-                element = element.substr(3, element.length - 3 )
-                if (document.getElementById("useColors").checked === false){
-                    color = ""
-                }
-                htmlstring = htmlstring + '<div class="rTableRow ' + color + '"><div class="rTableCell line">' + element + "</div></div>"
-            }
-        });
-        htmlstring = headerstring + htmlstring
-        document.getElementById('historyTable').innerHTML = htmlstring
-    }
-  });
+            });
+            htmlstring = headerstring + htmlstring
+            document.getElementById('historyTable').innerHTML = htmlstring
+        }
+    });
 }
 
 function download(filename, text) {
