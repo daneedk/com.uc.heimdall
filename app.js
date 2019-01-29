@@ -709,7 +709,7 @@ class Heimdall extends Homey.App {
             if ( lineCount > 2000 ) {
                 let deleteItems = parseInt( lineCount * 0.2 );
                 let savedHistoryArray = savedHistory.split(/\r\n|\r|\n/);
-                // let cleanUp = savedHistoryArray.splice(-1*deleteItems, deleteItems, "" );
+                let cleanUp = savedHistoryArray.splice(-1*deleteItems, deleteItems, "" );
                 savedHistory = savedHistoryArray.join('\n'); 
             }
             // end cleanup
