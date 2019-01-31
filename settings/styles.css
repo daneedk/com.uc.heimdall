@@ -230,9 +230,8 @@ a:active {
 
 .tab {
     display: table-cell;   	
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
+    font-size: 4vw;
+    padding: 7px;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -246,6 +245,7 @@ a:active {
 .tab-active {
     color: rgb(0, 0, 0);
     border-bottom: 2px solid rgb(75, 215, 98);
+    font-weight: bold;
 }
 
 .tab-inactive {
