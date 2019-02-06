@@ -105,6 +105,10 @@
         "armed": "Armed",
         "partiallyarmed": "Partially Armed"
     },
+    "enumerate": {
+        "source": "Enumerate Devices",
+        "warning": " is not ready at Enumerating Devices"
+    },
     "states": {
         "open": "Open",
         "closed": "Closed",

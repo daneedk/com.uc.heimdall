@@ -141,23 +141,32 @@ class Heimdall extends Homey.App {
         let allDevices = await this.getDevices();
 
         for (let id in allDevices) {
-            // replaced:
-            // this.addDevice(allDevices[device])
-            // with function below to wait untill device is ready before adding.
-            var device = await this.waitForDevice(allDevices[id])
-            await this.addDevice(device);
+            var device = await this.waitForDevice(allDevices[id],0)
+            if ( device ) {
+                await this.addDevice(device);
+            } 
         };
         this.log('Enumerating devices:        done.')
     }
 
     // Yolo function courtesy of Robert Klep ;)
-    async waitForDevice(id) {
+    async waitForDevice(id, addCounter) {
         const device = await this.api.devices.getDevice({ id: id.id });
         if (device.ready) {
           return device;
         }
         await delay(1000);
-        return this.waitForDevice(id);
+        addCounter++;
+        if ( addCounter < 10 ) {
+            return this.waitForDevice(id,addCounter);
+        } else {
+            this.log("Found Device, not ready:    " + device.name)
+            let nu = getDateTime();
+            // let logLine = "al " + nu + readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
+            let logLine = "al " + nu + readableMode(surveillance) + " || " + Homey.__("enumerate.source") + " || " + device.name + Homey.__("enumerate.warning")
+            this.writeLog(logLine)
+            return false
+        }
     }
 
     // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.

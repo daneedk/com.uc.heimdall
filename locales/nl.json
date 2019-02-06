@@ -105,6 +105,10 @@
         "armed": "Geactiveerd",
         "partiallyarmed": "Gedeeltelijk geactiveerd"
     },
+    "enumerate": {
+        "source": "Identificeren apparaten",
+        "warning": " is niet gereed tijdens het identificaren van apparaten"
+    },
     "states": {
         "open": "Geopend",
         "closed": "Gesloten",

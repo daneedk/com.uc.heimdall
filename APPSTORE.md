@@ -25,8 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.6
-* Settings tabs automaticaly adjust to screenwidth
+## Changes for current version 2.0.7
+* Improved device enumeration
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

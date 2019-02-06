@@ -105,6 +105,10 @@
         "armed": "Gesichert",
         "partiallyarmed": "Teils gesichert"
     },
+    "enumerate": {
+        "source": "Aufzählen von Geräten",
+        "warning": " ist beim Aufzählen von Geräten nicht bereit"
+    },
     "states": {
         "open": "offen",
         "closed": "geschlossen",
