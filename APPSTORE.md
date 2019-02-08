@@ -25,8 +25,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.7
-* Improved device enumeration
+## Changes for current version 2.0.8
+* Added Check status of all sensors function 
+* Prevent starting a new Arming Delay when one is active
+* Minor translation improvements
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

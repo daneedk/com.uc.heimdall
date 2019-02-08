@@ -106,7 +106,7 @@
         "partiallyarmed": "Partially Armed"
     },
     "enumerate": {
-        "source": "Enumerate Devices",
+        "source": "Heimdall",
         "warning": " is not ready at Enumerating Devices"
     },
     "states": {

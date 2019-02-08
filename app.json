@@ -69,6 +69,56 @@
 			]
 		},
 		{
+			"id": "sensorActiveAtSensorCheck",
+			"title": {
+				"en": "Sensor active at Sensor Check.",
+				"nl": "sensor actief bij sensor controle.",
+				"de": "Sensor aktiv bei Sensor Überprufing."
+			},
+			"tokens": [
+				{
+					"name": "Device",
+					"type": "string",
+					"title": {
+						"en": "Device",
+						"nl": "Apparaat",
+						"de": "Gerät"
+					},
+					"example": "Front door"
+				},
+				{
+					"name": "Device type",
+					"type": "string",
+					"title": {
+						"en": "Device type",
+						"nl": "Apparaat type",
+						"de": "Gerät"
+					},
+					"example": "Motion"
+				},
+				{
+					"name": "Zone",
+					"type": "string",
+					"title": {
+						"en": "Zone",
+						"nl": "Zone",
+						"de": "Zone"
+					},
+					"example": "Living room"
+				},
+				{
+					"name": "State",
+					"type": "string",
+					"title": {
+						"en": "State",
+						"nl": "Status",
+						"de": "Status"
+					},
+					"example": "A device"
+				}
+			]
+		},
+		{
 			"id": "AlarmActivated",
 			"title": {
 				"en": "The alarm is activated.",
@@ -304,7 +354,7 @@
 						"nl": "Zone",
 						"de": "Zone"
 					},
-					"example": "Home"
+					"example": "Living Room"
 				}
 			]
 		}
@@ -463,6 +513,14 @@
 				"en": "Check Last Communication",
 				"nl": "Controleer laatste communicatie",
 				"de": "Kontrolliere letzte Kommunikation"
+			}
+		},
+		{
+			"id": "DevicesStateCheck",
+			"title": {
+				"en": "Check status of all sensors",
+				"nl": "Controleer de status van alle sensoren",
+				"de": "Überprüfe Status aller Sensoren"
 			}
 		},
 		{

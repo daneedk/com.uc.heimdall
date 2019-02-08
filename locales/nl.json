@@ -106,8 +106,8 @@
         "partiallyarmed": "Gedeeltelijk geactiveerd"
     },
     "enumerate": {
-        "source": "Identificeren apparaten",
-        "warning": " is niet gereed tijdens het identificaren van apparaten"
+        "source": "Heimdall",
+        "warning": " is niet gereed tijdens het identificeren van apparaten"
     },
     "states": {
         "open": "Geopend",
