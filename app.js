@@ -446,6 +446,7 @@ class Heimdall extends Homey.App {
         }
     }
 
+    // Check the status of the devices triggered by setting a Surveillance Mode
     async checkDevicesState(value, nu) {
         let allDevices = await this.getDevices()
         for (let device in allDevices) {
@@ -453,6 +454,7 @@ class Heimdall extends Homey.App {
         };
     }
 
+    // Check the last communication of a device at setting a Surveillance Mode or from a flow
     async checkDevicesLastCom(value) {
         let allDevices = await this.getDevices()
         for (let device in allDevices) {
@@ -460,6 +462,7 @@ class Heimdall extends Homey.App {
         };
     }
 
+    // Check the status of the devices triggered by a flow
     async checkAllDevicesState() {
         let allDevices = await this.getDevices()
         for (let device in allDevices) {
@@ -579,6 +582,7 @@ class Heimdall extends Homey.App {
         let sensorState = false
         let sensorStateReadable
         let sensorType
+        if ( !device.ready ) return
         if ( 'alarm_motion' in device.capabilitiesObj ) {
             sensorState = device.capabilitiesObj.alarm_motion.value
             sensorStateReadable = readableState(sensorState, 'motion')
