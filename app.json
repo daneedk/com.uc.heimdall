@@ -71,9 +71,9 @@
 		{
 			"id": "sensorActiveAtSensorCheck",
 			"title": {
-				"en": "Sensor active at Sensor Check.",
-				"nl": "sensor actief bij sensor controle.",
-				"de": "Sensor aktiv bei Sensor Überprufing."
+				"en": "Sensor active at Status Check.",
+				"nl": "Sensor actief bij status controle.",
+				"de": "Sensor aktiv bei Status Überprufing."
 			},
 			"tokens": [
 				{
