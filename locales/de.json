@@ -106,8 +106,13 @@
         "partiallyarmed": "Teils gesichert"
     },
     "enumerate": {
-        "source": "Heimdall",
+        "source": "Startup-Check",
         "warning": " reagiert nicht beim Startup-Check der Geräte"
+    },
+    "devicecheck": {
+        "source": "Geräte Check",
+        "warning": " ist nicht mehr bereit",
+        "info": " ist wieder bereit"
     },
     "states": {
         "open": "offen",

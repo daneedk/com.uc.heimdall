@@ -106,8 +106,13 @@
         "partiallyarmed": "Gedeeltelijk geactiveerd"
     },
     "enumerate": {
-        "source": "Heimdall",
-        "warning": " is niet gereed tijdens het identificeren van apparaten"
+        "source": "Startup Check",
+        "warning": " is niet gereed tijdens het starten van Heimdall"
+    },
+    "devicecheck": {
+        "source": "Apparaat check",
+        "warning": " is no longer ready",
+        "info": " is ready again"
     },
     "states": {
         "open": "Geopend",

@@ -106,8 +106,13 @@
         "partiallyarmed": "Partially Armed"
     },
     "enumerate": {
-        "source": "Heimdall",
-        "warning": " is not ready at Enumerating Devices"
+        "source": "Startup Check",
+        "warning": " is not ready at Heimdall start"
+    },
+    "devicecheck": {
+        "source": "Device check",
+        "warning": " is no longer ready",
+        "info": " is ready again"
     },
     "states": {
         "open": "Open",
