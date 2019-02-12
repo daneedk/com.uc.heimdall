@@ -25,8 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.9
-* Improved device not ready handling
+## Changes for current version 2.0.10
+* Added new flow card: The arming delay is activated
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

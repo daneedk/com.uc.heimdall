@@ -11,6 +11,7 @@ let triggerSensorActive = new Homey.FlowCardTrigger('sensorActiveAtSensorCheck')
 let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
 let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
 let triggerAlarmDelayActivated = new Homey.FlowCardTrigger('AlarmDelayActivated');
+let triggerArmDelayActivated = new Homey.FlowCardTrigger('ArmDelayActivated');
 let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
 let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
 let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
@@ -428,6 +429,13 @@ class Heimdall extends Homey.App {
                 armCounterRunning = true;
                 let tta = heimdallSettings.armingDelay;
                 this.ttArmedCountdown(tta,"sa ", value, logLine);
+
+                var tokens= { 'Duration': heimdallSettings.alarmDelay * 1 };
+                triggerArmDelayActivated.trigger(tokens, function(err, result){
+                    if( err ) {
+                        return Homey.error(err)} ;
+                    });
+
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
                 } else { 
@@ -1019,6 +1027,17 @@ triggerAlarmDelayActivated
             callback( null, false );
         } 
     });
+
+triggerArmDelayActivated
+    .register()
+    .on('run', ( args, callback ) => {
+        if ( true ) {
+            callback( null, true );
+        }   
+        else {
+            callback( null, false );
+        } 
+});
 
 triggerTimeTillAlarmChanged
     .register()
