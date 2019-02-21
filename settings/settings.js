@@ -1,5 +1,6 @@
 //let Homey;
 var loading = true;
+var showDevice = false;
 let _myLog;
 let surveillance;
 let alarm;
@@ -7,6 +8,7 @@ var allDevices;
 var logArmedOnly;
 var logTrueOnly;
 var dashboardVisible = true;
+var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
 var language = "nl";
@@ -83,6 +85,7 @@ function onHomeyReady(homeyReady){
     showTab(1);
     getLanguage();
     refreshHistory();
+    refreshStatus();
 
     new Vue({
         el: '#app',
@@ -139,7 +142,7 @@ function onHomeyReady(homeyReady){
                         return result[key];
                     });
                     console.log(array)
-                    this.devices = array.filter(this.filterArray);
+                    this.devices = array     //.filter(this.filterArray);
                 });
             },
             async addMonitorFull(device) {
@@ -271,7 +274,7 @@ function onHomeyReady(homeyReady){
                         return Homey.alert(err);
                 })
             },
-            isMonitoredFull(obj) {
+            isMonitoredFull: function(obj) {
                 var i;
                 for (i = 0; i < this.devicesMonitoredFull.length; i++) {
                     if (this.devicesMonitoredFull[i] && this.devicesMonitoredFull[i].id == obj.id) {
@@ -280,7 +283,7 @@ function onHomeyReady(homeyReady){
                 }
                 return false;
             },
-            isMonitoredPartial(obj) {
+            isMonitoredPartial: function(obj) {
                 var i;
                 for (i = 0; i < this.devicesMonitoredPartial.length; i++) {
                     if (this.devicesMonitoredPartial[i] && this.devicesMonitoredPartial[i].id == obj.id) {
@@ -289,7 +292,7 @@ function onHomeyReady(homeyReady){
                 }
                 return false;
             },
-            isDelayed(obj) {
+            isDelayed: function(obj) {
                 var i;
                 for (i = 0; i < this.devicesDelayed.length; i++) {
                     if (this.devicesDelayed[i] && this.devicesDelayed[i].id == obj.id) {
@@ -298,7 +301,7 @@ function onHomeyReady(homeyReady){
                 }
                 return false;
             },
-            isLogged(obj) {
+            isLogged: function(obj) {
                 var i;
                 for (i = 0; i < this.devicesLogged.length; i++) {
                     if (this.devicesLogged[i] && this.devicesLogged[i].id == obj.id) {
@@ -324,12 +327,23 @@ function onHomeyReady(homeyReady){
                 };
                 return result;
             },
+            displayDevice: function(device) {
+                showDevice = false
+                for ( let id in device.capabilities ) {
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[id] ) ) {
+                        showDevice = true
+                    }
+                }    
+            },
             getIcon: function(device) {
-                var result = "unknown";
                 try {
-                    return "<img src=\"" + device.iconObj.url + "\" style=\"height:30px;width:auto;\"/>";
+                    if ( device.ready ) {
+                        return "<img src=\"" + device.iconObj.url + "\" class=\"icon-device\"/>";
+                    } else {
+                        return "<img src=\"./images/broken.svg\" class=\"icon-device\"/>";                        
+                    }
                 } catch(e) {
-                    return "<!-- no device.iconObj.url -->"
+                    return "<!-- Error fetching image -->";
                 }
             },
             getBattClass: function(capabilitiesObj) {
@@ -353,6 +367,47 @@ function onHomeyReady(homeyReady){
                 } catch(e) { 
                     return "<!-- no capabilitiesObj.measure_battery.value -->"
                 }
+            },
+            getLastSeen: function(device) {
+                let mostRecentComE = 0
+                for ( let capability in device.capabilitiesObj ) {
+                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+
+                    if ( lu > mostRecentComE  ) {
+                        mostRecentComE = lu
+                    }
+                }
+                if ( mostRecentComE == 0 ) return "not available"
+                let mostRecentComH = new Date( mostRecentComE )
+                let result = "<span id='ls-" + device.id + "'>" + mostRecentComH.toLocaleString() + "</span>"
+                return result
+            },
+            getCapabilityImage: function(device) {
+                let result = "";
+                for ( let capability in device.capabilitiesObj ) {
+                    if ( capability === "alarm_contact" ) {
+                        if ( device.capabilitiesObj.alarm_contact.value ) {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/contact.svg\" class=\"icon-capability active\"/>"    
+                        } else {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/contact.svg\" class=\"icon-capability\"/>"
+                        }
+                    }
+                    if ( capability === "alarm_motion" ) {
+                        if ( device.capabilitiesObj.alarm_motion.value ) {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"    
+                        } else {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/motion.svg\" class=\"icon-capability\"/>"
+                        }
+                    }
+                    if ( capability === "alarm_vibration" ) {
+                        if ( device.capabilitiesObj.alarm_vibration.value ) {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
+                        } else {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
+                        }
+                    }
+                }
+                return result
             }
         },
         async mounted() {
@@ -362,8 +417,6 @@ function onHomeyReady(homeyReady){
         },
         computed: {
             filteredItems() {
-                console.log("Filtered items:")
-                console.log(this.devices)
                 return this.devices
             },
             filteredZones() {
@@ -388,11 +441,20 @@ function showTab(tab){
 
     $('.panel').hide()
     $('#tab' + tab).show()
-    if ( tab == 1 ) {
-        dashboardVisible = true
-    } else {
-        dashboardVisible = false
-    }
+    dashboardVisible = ( tab == 1 ) ? true : false
+    statusVisible = ( tab == 2 ) ? true : false    
+}
+
+function showSubTab(tab){
+    $('.subTab').addClass('tab-inactive')
+    $('.subTab').removeClass('tab-active')
+
+    $('#subTabb' + tab).addClass('tab-active')
+    $('#subTabb' + tab).removeClass('tab-inactive')
+
+    $('.subPanel').hide()
+    $('#subTab' + tab).show()
+    statusVisible = ( tab == 1 ) ? true : false
 }
 
 function getLanguage() {
@@ -400,7 +462,25 @@ function getLanguage() {
         (err) ? 'en' : ((language == 'nl') ? 'nl' : 'en');
         document.getElementById("instructions"+language).style.display = "inline";
     });
+}
 
+function getAllDevices() {
+    Homey.api('GET', '/devices', null, (err, result) => {
+        if (err)
+            return Homey.alert('getDevices' + err);
+        var array = Object.keys(result).map(function (key) {
+            return result[key];
+        });
+        allDevices = array    //.filter(this.filterArray);
+    });
+}
+
+function filterArray(device) {
+    try {
+        return device.ready
+    } catch(e) {
+        return false
+    }
 }
 
 function changeArmingDelay() {
@@ -471,22 +551,29 @@ function saveSettings() {
     Homey.set('settings', heimdallSettings );
 }
 
-function clearHistory(){
+function clearHistory() {
     Homey.set('myLog', '');
     showHistory(0);
 };
 
-function downloadHistory(){
+function downloadHistory() {
     download('Heimdall history.txt', document.getElementById('logtextarea').value);
 };
 
-function refreshHistory(){
+function refreshHistory() {
     if ( dashboardVisible == true ) {
         if ( document.getElementById("autoRefresh").checked ){
             showHistory(0)
         }
     }
     setTimeout(refreshHistory, 1000);
+}
+
+function refreshStatus() {
+    if ( statusVisible == true ) {
+        showStatus()
+    }
+    setTimeout(refreshStatus, 1000);
 }
 
 function changeAutoRefresh() {
@@ -542,6 +629,46 @@ function showHistory(run) {
             document.getElementById('historyTable').innerHTML = htmlstring
         }
     });
+}
+
+async function showStatus() {
+    await getAllDevices();
+    for ( let id in allDevices ) {
+        let device = allDevices[id]
+        for ( let capability in device.capabilitiesObj ) {
+            if ( capability === "alarm_contact" ) {
+                if ( device.capabilitiesObj.alarm_contact.value ) {
+                    $('#'+device.id).addClass('active')
+                } else {
+                    $('#'+device.id).removeClass('active')
+                }
+            }
+            if ( capability === "alarm_motion" ) {
+                if ( device.capabilitiesObj.alarm_motion.value ) {
+                    $('#'+device.id).addClass('active')
+                } else {
+                    $('#'+device.id).removeClass('active')
+                }
+            }
+            if ( capability === "alarm_vibration" ) {
+                if ( device.capabilitiesObj.alarm_vibration.value ) {
+                    $('#'+device.id).addClass('active')
+                } else {
+                    $('#'+device.id).removeClass('active')
+                }
+            }
+            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( capability) ) {
+                let mostRecentComE = 0
+                let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                if ( lu > mostRecentComE  ) {
+                    mostRecentComE = lu
+                }
+                let mostRecentComH = new Date( mostRecentComE )
+                let lastSeen = "ls-" + device.id
+                document.getElementById(lastSeen).innerHTML = mostRecentComH.toLocaleString()
+            }
+        }
+    }
 }
 
 function download(filename, text) {

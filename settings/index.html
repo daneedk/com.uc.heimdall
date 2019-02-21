@@ -22,7 +22,6 @@
             <div id="tab1" class="panel" style="display: none;">
                 <div class="settings-top"></div>
                 <div class="settings-spacer"></div>
-
                 <div class="settings-itemgroup">
                     <div class="settings-item">
                         <div class="settings-item-text">
@@ -66,26 +65,58 @@
             </div>
             <div id="tab2" class="panel" style="display: none;">
                 <div class="settings-top"></div>
-                <div class="settings-spacer"></div>
-                <div class="settings-itemgroup">
-                    <div class="settings-item">
-                        <div class="rTableRow" v-for="device in filteredItems" v-if="device.capabilitiesObj.alarm_motion || device.capabilitiesObj.alarm_contact || device.capabilitiesObj.alarm_vibration">
-                            <div class="rTableCell line">
-                                <span v-html="getIcon(device)"></span><br />
-                                <span v-html="getBattClass(device.capabilitiesObj)"></span>
+                <div id="subTabs" class="rTable" style="background-color: white">
+                    <div id="subTabb1" class="subTab tab-active" onclick="showSubTab(1)" data-i18n="tab2.subtab1.title">-Status-</div>
+                    <div id="subTabb2" class="subTab tab-inactive" onclick="showSubTab(2)" data-i18n="tab2.subtab2.title">-Settings-</div>
+                </div>
+                <div id="subTab1" class="subPanel">
+                    <div class="settings-top"></div>
+                    <div class="settings-spacer"></div>
+                    <div class="settings-itemgroup">
+                        <div class="settings-item" v-for="device in filteredItems">
+                            {{ displayDevice(device) }}
+                            <div class="rTableRow line" v-if="showDevice">
+                                <div class="rTableCell line">
+                                    <div class="icon-cell" v-html="getIcon(device)"></div>
+                                    <span v-html="getBattClass(device.capabilitiesObj)"></span>
+                                </div>
+                                <div class="rTableCell line">
+                                    {{ getZone(device.zone) }}<br />
+                                    <b>{{device.name}}</b>
+                                    <br />
+
+                                    <span data-i18n="tab2.subtab1.lastseen"></span> <span v-html="getLastSeen(device)"></span>
+                                </div>
+                                <div class='rTableCell settings-item-last line' v-html="getCapabilityImage(device)">
+                                </div>
                             </div>
-                            <div style="width: 100%" class="rTableCell line">
-                                {{ getZone(device.zone) }}<br />
-                                <b>{{device.name}}</b>
-                                <br />
-                                <a v-if="!isLogged(device)" @click="addLog(device)" class="btn narrow btn-inactive" data-i18n="tab2.devices.log">-Log-</a>
-                                <a v-if="isLogged(device)" @click="removeLog(device)" class="btn narrow btn-active" data-i18n="tab2.devices.log">-Log-</a>
-                                <a v-if="!isMonitoredFull(device)" @click="addMonitorFull(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.full">-Full-</a>
-                                <a v-if="isMonitoredFull(device)" @click="removeMonitorFull(device)" class="btn middle btn-active" data-i18n="tab2.devices.full">-Full-</a>
-                                <a v-if="!isMonitoredPartial(device)" @click="addMonitorPartial(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.partial">-Partial-</a>
-                                <a v-if="isMonitoredPartial(device)" @click="removeMonitorPartial(device)" class="btn middle btn-active" data-i18n="tab2.devices.partial">-Partial-</a>
-                                <a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.delay">-Delay-</a>
-                                <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn middle btn-active" data-i18n="tab2.devices.delay">-Delay-</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="subTab2" class="subPanel" style="display: none;">
+                    <div class="settings-top"></div>
+                    <div class="settings-spacer"></div>
+                    <div class="settings-itemgroup">
+                        <div class="settings-item" v-for="device in filteredItems">
+                            {{ displayDevice(device) }}
+                            <div class="rTableRow line" v-if="showDevice">
+                                <div class="rTableCell line">
+                                    <div class="icon-cell" v-html="getIcon(device)"></div>
+                                    <span v-html="getBattClass(device.capabilitiesObj)"></span>
+                                </div>
+                                <div style="width: 100%" class="rTableCell line">
+                                    {{ getZone(device.zone) }}<br />
+                                    <b>{{device.name}}</b>
+                                    <br />
+                                    <a v-if="!isLogged(device)" @click="addLog(device)" class="btn narrow btn-inactive" data-i18n="tab2.devices.log">-Log-</a>
+                                    <a v-if="isLogged(device)" @click="removeLog(device)" class="btn narrow btn-active" data-i18n="tab2.devices.log">-Log-</a>
+                                    <a v-if="!isMonitoredFull(device)" @click="addMonitorFull(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.full">-Full-</a>
+                                    <a v-if="isMonitoredFull(device)" @click="removeMonitorFull(device)" class="btn middle btn-active" data-i18n="tab2.devices.full">-Full-</a>
+                                    <a v-if="!isMonitoredPartial(device)" @click="addMonitorPartial(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.partial">-Partial-</a>
+                                    <a v-if="isMonitoredPartial(device)" @click="removeMonitorPartial(device)" class="btn middle btn-active" data-i18n="tab2.devices.partial">-Partial-</a>
+                                    <a v-if="!isDelayed(device)" @click="addDelay(device)" class="btn middle btn-inactive" data-i18n="tab2.devices.delay">-Delay-</a>
+                                    <a v-if="isDelayed(device)" @click="removeDelay(device)" class="btn middle btn-active" data-i18n="tab2.devices.delay">-Delay-</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -139,8 +139,10 @@ class Heimdall extends Homey.App {
 
         api.devices.on('device.create', async(id) => {
             await this.log('New device found!')
-            var device = await this.waitForDevice(id)
-            await this.addDevice(device);
+            var device = await this.waitForDevice(id,0)
+            if ( device ) {
+                await this.addDevice(device);
+            }
         });
 
         api.devices.on('device.delete', async(id) => {
@@ -637,6 +639,9 @@ class Heimdall extends Homey.App {
                     devicesNotReadyAtStart = devicesNotReadyAtStart.splice(deviceNotReady,1)
                     // And log it
                     this.log("Device now ready:           " + device.name)
+                    let nu = getDateTime();
+                    let logLine = "ao " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.ready")
+                    this.writeLog(logLine)
                     return false
                 }
             }
@@ -647,7 +652,7 @@ class Heimdall extends Homey.App {
                     // Log this
                     this.log("Device became ready again:  " + device.name)
                     let nu = getDateTime();
-                    let logLine = "ao " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.info")
+                    let logLine = "ao " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.readyagain")
                     this.writeLog(logLine)
                     // Remove the device from deviceNotReady list
                     let x = devicesNotReady.splice( deviceReady, 1 )

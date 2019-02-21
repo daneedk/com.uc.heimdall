@@ -15,6 +15,10 @@ body {
     background-color: rgb(239,239,243)
 }
 
+.subPanel {
+    background-color: rgb(239,239,243)
+}
+
 .text-header {
     color: rgb(109,109,113);
     margin-top: 7px;
@@ -228,6 +232,35 @@ a:active {
     border-color: rgb(220, 220, 220);
 }
 
+.icon-cell {
+    width: 30px;
+    display: table-cell-block !important;
+    vertical-align: middle;
+}
+.icon-cell > * {
+    margin: auto;
+    display: block;
+}
+
+.icon-device {
+    width:auto;
+    height:auto;
+    max-width:30px;
+    max-height:30px;
+}
+
+.icon-capability {
+    margin-top: 13px;
+    width:auto;
+    height:auto;
+    max-width:40px;
+    max-height:40px;
+}
+
+.active {
+    filter: invert(.1) sepia(1) saturate(100) brightness(80%) !important;
+}
+
 .tab {
     display: table-cell;   	
     font-size: 4vw;
@@ -256,6 +289,19 @@ a:active {
 
 .tab-unused {
     border-bottom: 1px solid rgb(200,200,200);   
+}
+
+.subTab {
+    display: table-cell;   	
+    font-size: 4vw;
+    padding: 7px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    width: 50%;
+    height: 100%;
 }
 
 .rTable {   	
@@ -376,7 +422,9 @@ a:active {
     color: rgba(255,255,255,1);
     text-shadow: 0 1px 1px rgba(0,0,0,0.1);
     text-align: center;
-    margin-left: 6px;
+    margin-top: 14px;
+    margin-left: 3px;
+    transform:scale(1.5);
 }
 
 .component-battery, .component-battery:after {

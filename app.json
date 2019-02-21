@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.10",
+	"version": "2.0.11",
 	"compatibility": ">=2.0",
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
@@ -19,7 +19,7 @@
 			"username": "daneedekruyff"
 		  }
 		}
-	  },
+	},
 	"tags": {
 		"en": [ "Home", "Alarm", "Alert", "Homeyalarm", "System", "Tools", "Log", "Surveillance" ],
 		"nl": [ "Huis", "Alarm", "Homeyalarm", "Systeem", "Beveilig", "Beveiliging", "Toezicht" ],

@@ -36,6 +36,14 @@
     },
     "tab2": {
         "title": "Apparaten",
+        "subtab1": {
+            "title": "Status",
+            "lastseen": "Last seen:",
+            "na": "not available"
+        },
+        "subtab2": {
+            "title": "Settings"
+        },
 		"devices": {
             "devices": "Apparaten",
             "zone": "Zone",
@@ -111,8 +119,9 @@
     },
     "devicecheck": {
         "source": "Apparaat check",
-        "warning": " is no longer ready",
-        "info": " is ready again"
+        "warning": " is niet meer gereed",
+        "ready": " is gereed",
+        "readyagain": " is weer gereed"
     },
     "states": {
         "open": "Geopend",
