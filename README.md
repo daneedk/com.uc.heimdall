@@ -12,6 +12,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
+## Version 2.0.12
+* Updated athom-api (2.1.166)
+
 ## Version 2.0.11
 * Split Devices page into status- and settingspage
 

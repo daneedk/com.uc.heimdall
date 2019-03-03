@@ -25,8 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.11
-* Split Devices page into status- and settingspage
+## Changes for current version 2.0.12
+* Updated athom-api (2.1.166)
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

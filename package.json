@@ -1,10 +1,10 @@
 {
     "name": "com.uc.heimdall",
-    "version": "2.0.11",
+    "version": "2.0.12",
     "description": "This app turns homey into a simple surveillance system",
     "main": "app.js",
     "dependencies": {
-        "athom-api": "^2.1.147"
+        "athom-api": "^2.1.166"
     },
     "author": "Danee de Kruyff <daneedekruyff@outlook.com>",
     "license": "MIT"
