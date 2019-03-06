@@ -255,7 +255,7 @@ class Heimdall extends Homey.App {
         }
         let nu = getDateTime();
         let color = "   ";
-        let logLine;
+        let logLine = "";
         let sourceDeviceFull = isMonitoredFull(device)
         let sourceDevicePartial = isMonitoredPartial(device)
         let sourceDeviceLog = isLogged(device)
@@ -401,7 +401,7 @@ class Heimdall extends Homey.App {
     setSurveillanceMode(value, source) {
         this.log('setSurveillanceMode:        ' + value);
         let nu = getDateTime();
-        let logLine
+        let logLine = "";
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( value == 'disarmed' ) {
             logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
@@ -704,7 +704,7 @@ class Heimdall extends Homey.App {
         if ( nu == "" ) { 
             nu = getDateTime()
         }
-        let logLine;
+        let logLine = "";
         alarm=true;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
@@ -737,10 +737,12 @@ class Heimdall extends Homey.App {
             if ( aModeDevice != undefined) {
                 this.log("aModeDevice alarm_heimdall: activated")
                 aModeDevice.setCapabilityValue('alarm_heimdall', true)
+                aModeDevice.setCapabilityValue('alarm_generic', true)
             }
             if ( sModeDevice != undefined) {
                 this.log("sModeDevice alarm_heimdall: activated")
                 sModeDevice.setCapabilityValue('alarm_heimdall', true)
+                sModeDevice.setCapabilityValue('alarm_generic', true)
             } 
         }
         else {
@@ -797,9 +799,11 @@ class Heimdall extends Homey.App {
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false)
+                aModeDevice.setCapabilityValue('alarm_generic', false)
             }
             if ( sModeDevice != undefined) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', false)
+                sModeDevice.setCapabilityValue('alarm_generic', false)
             }
             var tokens = { 'Source': source }
             triggerAlarmDeactivated.trigger(tokens, function(err, result){
