@@ -160,7 +160,7 @@
         "alarmdeactivated": "Alarm is gedeactiveerd.",
         "alarmactivated": "Alarm is geactiveerd. ",
         "alarmactivatedflowcard": "Alarm is geactiveerd door de Flowcard. ",
-        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens uitschakelen.",
+        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd door uitschakelen.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
         "alarmnotactivated": "Alarm is niet geactiveerd door uitschakelen Toezicht Mode.",
