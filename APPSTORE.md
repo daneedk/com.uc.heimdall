@@ -25,9 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.13
-* Added Alarm Indicator to Alarm Off Button (Requires removing and adding the device)
-* Added Alarm Indicator to Surveillance Mode Switch (Requires removing and adding the device)
+## Changes for current version 2.0.14
+* Improved dutch translations
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

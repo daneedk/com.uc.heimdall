@@ -129,6 +129,12 @@ class Heimdall extends Homey.App {
         if ( heimdallSettings.noCommunicationTime == (null || undefined) || heimdallSettings.noCommunicationTime == 12 ) {
             heimdallSettings.noCommunicationTime = 24
         };
+
+        let language = Homey.ManagerI18n.getLanguage()
+        Homey.ManagerSettings.set('language', language, function( err ){
+            if( err ) return Homey.alert( err );
+        });
+
         this.enumerateDevices();
     }
 

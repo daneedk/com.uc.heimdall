@@ -38,11 +38,11 @@
         "title": "Apparaten",
         "subtab1": {
             "title": "Status",
-            "lastseen": "Last seen:",
-            "na": "not available"
+            "lastseen": "Laatst gezien:",
+            "na": "niet beschikbaar"
         },
         "subtab2": {
-            "title": "Settings"
+            "title": "Instellingen"
         },
 		"devices": {
             "devices": "Apparaten",
@@ -74,7 +74,7 @@
             "save": "Bewaar",
             "secondsFail": "De waarde is ongeldig, geef een waarde van 0-300 seconden.",
             "saveSucces": "De nieuwe instellingen zijn opgeslagen.",
-            "logarmedonly": "Alleen bij actieve Toezicht Mode",
+            "logarmedonly": "Alleen bij ingeschakelde Toezicht Mode",
             "logtrueonly": "Niet bij deactiveren van een sensor",
             "usetampering": "Luister naar manipulatie berichten",
             "delayarmingfull": "Gebruik vertraging bij Volledige mode",
@@ -109,9 +109,9 @@
         }
     },
     "modes": {
-        "disarmed": "Gedeactiveerd",
-        "armed": "Geactiveerd",
-        "partiallyarmed": "Gedeeltelijk geactiveerd"
+        "disarmed": "Uitgeschakeld",
+        "armed": "Ingeschakeld",
+        "partiallyarmed": "Deels ingeschakeld"
     },
     "enumerate": {
         "source": "Startup Check",
@@ -150,20 +150,20 @@
         "warningContact": "Waarschuwing, sensor "
     },
     "history": {
-        "smodedisarmed": "Toezicht mode is gedeactiveerd.",
-        "smodearmed": "Toezicht mode is geactiveerd.",
-        "smodepartiallyarmed": "Toezicht mode is gedeeltelijk geactiveerd.",
-        "smodedelayarmed": "Toezicht mode wordt geactiveerd over ",
-        "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk geactiveerd over ",
+        "smodedisarmed": "Toezicht mode is uitgeschakeld.",
+        "smodearmed": "Toezicht mode is ingeschakeld.",
+        "smodepartiallyarmed": "Toezicht mode is gedeeltelijk ingeschakeld.",
+        "smodedelayarmed": "Toezicht mode wordt ingeschakeld over ",
+        "smodedelaypartiallyarmed": "Toezicht mode wordt gedeeltelijk ingeschakeld over ",
         "seconds": " seconden.",
         "smodedelaychanged": "Inschakelvertraging is verlaagt naar 10 seconden door Laatste Deur handeling",
         "alarmdeactivated": "Alarm is gedeactiveerd.",
         "alarmactivated": "Alarm is geactiveerd. ",
         "alarmactivatedflowcard": "Alarm is geactiveerd door de Flowcard. ",
-        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens deactiveren.",
+        "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd wegens uitschakelen.",
         "triggerdalarm": " activeerde Alarm.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
-        "alarmnotactivated": "Alarm is niet geactiveerd door deactiveren Toezicht Mode.",
+        "alarmnotactivated": "Alarm is niet geactiveerd door uitschakelen Toezicht Mode.",
         "noalarmtriggercountdown": ", geen alarm trigger omdat er een vertraagde trigger actief is.",
         "noalarmtriggeralarmstate": ", geen alarm trigger omdat het Alarm al geactiveerd is.",
         "noreport": " heeft al  ",

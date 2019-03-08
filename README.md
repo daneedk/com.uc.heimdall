@@ -12,7 +12,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
-## Changes for current version 2.0.13
+## Version 2.0.14
+* Improved dutch translations
+
+## Version 2.0.13
 * Added Alarm indicator to Alarm Off Button (Requires removing and adding the device)
 * Added Alarm indicator to Surveillance Mode Switch (Requires removing and adding the device)
 

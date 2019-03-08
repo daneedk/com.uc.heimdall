@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.13",
+	"version": "2.0.14",
 	"compatibility": ">=2.0",
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
@@ -265,7 +265,7 @@
 			"id": "TimeTillArmed",
 			"title":{
 				"en": "The time untill armed changed",
-				"nl": "De tijd tot geactiveerd wijzigt",
+				"nl": "De tijd tot ingeschakeld wijzigt",
 				"de": "Zeit bis Aktivierung geändert",
 				"fr": ""
 			},
@@ -434,7 +434,7 @@
 								"id": "armed",
 								"label": {
 									"en": "Armed",
-									"nl": "Geactiveerd",
+									"nl": "Ingeschakeld",
 									"de": "Aktiviert",
 									"fr": ""
 								}
@@ -443,7 +443,7 @@
 								"id": "disarmed",
 								"label": {
 									"en": "Disarmed",
-									"nl": "Gedeactiveerd",
+									"nl": "Uitgeschakeld",
 									"de": "Deaktiviert",
 									"fr": ""
 								}
@@ -452,7 +452,7 @@
 								"id": "partially_armed",
 								"label": {
 									"en": "Partially Armed",
-									"nl": "Deels geactiveerd",
+									"nl": "Deels ingeschakeld",
 									"de": "Teilweise aktiviert",
 									"fr": ""
 								}
@@ -507,7 +507,7 @@
 							"id": "armed",
 							"label": {
 								"en": "Armed",
-								"nl": "Geactiveerd",
+								"nl": "Ingeschakeld",
 								"de": "Aktiviert",
 								"fr": ""
 							}
@@ -516,7 +516,7 @@
 							"id": "disarmed",
 							"label": {
 								"en": "Disarmed",
-								"nl": "Gedeactiveerd",
+								"nl": "Uitgeschakeld",
 								"de": "Deaktiviert",
 								"fr": ""
 							}
@@ -525,7 +525,7 @@
 							"id": "partially_armed",
 							"label": {
 								"en": "Partially Armed",
-								"nl": "Deels geactiveerd",
+								"nl": "Deels ingeschakeld",
 								"de": "Teilweise aktiviert",
 								"fr": ""
 							}
@@ -626,7 +626,7 @@
 				"id": "armed",
 				"title": {
 				  "en": "Armed",
-				  "nl": "Geactiveerd",
+				  "nl": "Ingeschakeld",
 				  "de": "Gesichert",
 					"fr": ""
 				}
@@ -635,7 +635,7 @@
 				"id": "disarmed",
 				"title": {
 				  "en": "Disarmed",
-				  "nl": "Gedeactiveerd",
+				  "nl": "Uitgeschakeld",
 				  "de": "Entsichert",
 					"fr": ""
 				}
@@ -644,7 +644,7 @@
 				"id": "partially_armed",
 				"title": {
 				  "en": "Partially armed",
-				  "nl": "Deels geactiveerd",
+				  "nl": "Deels ingeschakeld",
 				  "de": "Teils gesichert",
 					"fr": ""
 				}

@@ -11,7 +11,7 @@ var dashboardVisible = true;
 var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
-var language = "nl";
+var language = "en";
 var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
@@ -81,7 +81,7 @@ function onHomeyReady(homeyReady){
             document.getElementById("buttonRefresh").style = "display:block";
         }
     });
-    
+
     showTab(1);
     getLanguage();
     refreshHistory();
@@ -142,7 +142,7 @@ function onHomeyReady(homeyReady){
                         return result[key];
                     });
                     console.log(array)
-                    this.devices = array     //.filter(this.filterArray);
+                    this.devices = array
                 });
             },
             async addMonitorFull(device) {
@@ -457,10 +457,18 @@ function showSubTab(tab){
     statusVisible = ( tab == 1 ) ? true : false
 }
 
-function getLanguage() {
-    Homey.getLanguage(function (err, language) {
-        (err) ? 'en' : ((language == 'nl') ? 'nl' : 'en');
-        document.getElementById("instructions"+language).style.display = "inline";
+async function getLanguage() {
+    await Homey.get('language', function(err, savedLanguage) {
+        if ( err ) {
+            language = "en"
+        } else {
+            if (savedLanguage != (null || undefined)) {
+                language = savedLanguage;
+            } else {
+                language = "en"
+            }
+        }
+        document.getElementById("instructions"+language).style.display = "inline";   
     });
 }
 
@@ -471,7 +479,7 @@ function getAllDevices() {
         var array = Object.keys(result).map(function (key) {
             return result[key];
         });
-        allDevices = array    //.filter(this.filterArray);
+        allDevices = array
     });
 }
 
