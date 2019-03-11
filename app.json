@@ -11,8 +11,7 @@
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
-		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}],
-		"translators": [{"name": "Philipp Schnittger"}]
+		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
 	},
 	"contributing": {
 		"donate": {
@@ -707,7 +706,7 @@
 				"button": {
 					"title":{
 						"en": "Turn off",
-						"nl": "Schakel uit",
+						"nl": "Deactiveer",
 						"de": "Ausschalten",
 						"fr": "Turn off"
 					},
@@ -762,7 +761,7 @@
 				"button": {
 					"title":{
 						"en": "Turn off",
-						"nl": "Schakel uit",
+						"nl": "Deactiveer",
 						"de": "Ausschalten",
 						"fr": "Turn off"
 					},
