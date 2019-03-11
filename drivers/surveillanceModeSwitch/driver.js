@@ -5,7 +5,6 @@ const Homey = require('homey');
 class Heimdall extends Homey.Driver {
 
     onInit() {
-
         new Homey.FlowCardAction('SetSurveillance')
           .register()
           .registerRunListener(( args, state ) => {
@@ -17,11 +16,9 @@ class Heimdall extends Homey.Driver {
 
             return Promise.resolve( true );
           })
-
     }
 
     onPairListDevices( data, callback ){
-
         callback( null, [
             {
                 name: 'Surveillance',
@@ -30,8 +27,8 @@ class Heimdall extends Homey.Driver {
                 }
             }
         ]);
-
     }
+    
 }
 
 module.exports = Heimdall;

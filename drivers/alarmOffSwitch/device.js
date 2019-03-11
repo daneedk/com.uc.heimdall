@@ -29,19 +29,15 @@ class Heimdall extends Homey.Device {
 
     // this method is called when the Device has requested a state change (turned on or off)
     onCapabilityBoolean( value, opts, callback ) {
-
-        // Switch Surveillance Mode is clicked
+        // Alarm Off Button is clicked
         if ( this.getData().id == "aMode" ){
-            // this.log('Alarm button clicked:   ' + value);
-            // Homey.app.deactivateAlarm(false, 'Alarm Off Button' ,function(err){
+            // this.log('Alarm button clicked:      ' + value);
             Homey.app.deactivateAlarm(false, Homey.__("devices.alarmoff.name") ,function(err){
                 if( err ) return Homey.alert( err );
             });
         }
-
         // Then, emit a callback ( err, result )
         callback( null );
-
         // or, return a Promise
         return Promise.reject( new Error('Switching the device failed!') );
     }

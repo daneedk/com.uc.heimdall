@@ -5,7 +5,6 @@ const Homey = require('homey');
 class Heimdall extends Homey.Driver {
 
     onPairListDevices( data, callback ){
-
         callback( null, [
             {
                 name: 'Alarm',
@@ -14,9 +13,8 @@ class Heimdall extends Homey.Driver {
                 }
             }
         ]);
-
     }
-
+    
 }
 
 module.exports = Heimdall;

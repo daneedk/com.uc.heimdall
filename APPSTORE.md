@@ -25,8 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.14
-* Improved dutch translations
+## Changes for current version 2.0.15
+* Added Alarm Off function to Surveillance Mode Switch
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
