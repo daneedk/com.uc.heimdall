@@ -438,7 +438,7 @@ class Heimdall extends Homey.App {
                 let tta = heimdallSettings.armingDelay;
                 this.ttArmedCountdown(tta,"sa ", value, logLine);
 
-                var tokens= { 'Duration': heimdallSettings.alarmDelay * 1 };
+                var tokens= { 'Duration': heimdallSettings.armingDelay * 1 };
                 triggerArmDelayActivated.trigger(tokens, function(err, result){
                     if( err ) {
                         return Homey.error(err)} ;

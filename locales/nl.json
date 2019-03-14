@@ -130,7 +130,7 @@
         "nomotion": "Geen beweging gedetecteerd",
         "vibration": "Vibratie gedetecteerd",
         "novibration": "Geen vibratie gedetecteerd",
-        "tamper": "Manipulaite gedetecteerd",
+        "tamper": "Manipulatie gedetecteerd",
         "notamper": "Geen manipulatie meer gedetecteerd"
     },
     "speech": {

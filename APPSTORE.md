@@ -8,9 +8,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Any device that has contact detection, i.e. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
 
 ## Supported Languages:
-* English
-* Dutch
-* German
+* 🇬🇧English
+* 🇳🇱Nederlands
+* 🇩🇪Deutsch
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
@@ -25,8 +25,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.15
-* Added Alarm Off function to Surveillance Mode Switch
+## Changes for current version 2.0.16
+* Fixed tag value on The arming delay is started card
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

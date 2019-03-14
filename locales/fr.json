@@ -1,105 +1,105 @@
 {
     "settings": {
-        "benefit": "Let Homey watch over your home."
+        "benefit": "Laissez Homey surveiller votre maison"
     },
     "devices": {
         "surveillancemode": {
-            "name": "Surveillance Mode Switch"
+            "name": "Interrupteur de mode de surveillance"
         },
         "alarmoff": {
-            "name": "Alarm Off button"
+            "name": "Bouton d'arrít de l'alarme"
         },
         "flowcard": "Flowcard"
     },
     "tab1": {
-        "title": "Dashboard", 
+        "title": "Tableau de bord", 
         "status": {
-            "title": "Status",
-            "smode": "Surveillance Mode",
-            "smodeFull": "Full Surveillance Mode",
-            "smodePartial": "Partial Surveillance Mode",
-            "alarm": "Alarm"
+            "title": "Statuts",
+            "smode": "Mode Surveillance",
+            "smodeFull": "Mode Surveillance complëte",
+            "smodePartial": "Mode Surveillance partielle",
+            "alarm": "Alarme"
         },
         "history": {
-            "title": "History",
-            "autoRefresh": "Auto refresh",
-            "manualRefresh": "Refresh",
-            "useColors": "Use colors",
-            "btnClearHistory": "Clear history",
-            "btnDownload": "Download",
+            "title": "Historique",
+            "autoRefresh": "Rafraóchissement automatique",
+            "manualRefresh": "Rafraóchir",
+            "useColors": "Utiliser des couleurs",
+            "btnClearHistory": "Nettoyer l'historique",
+            "btnDownload": "Tèlècharger",
             "date": "Date",
-            "time": "Time",
-            "smode": "Surveillance Mode",
+            "time": "Heure",
+            "smode": "Mode Surveillance",
             "source": "Source",
             "action": "Action"
         }
     },
     "tab2": {
-        "title": "Devices",
+        "title": "Objets",
         "subtab1": {
-            "title": "Status",
-            "lastseen": "Last seen:",
-            "na": "not available"
+            "title": "Statuts",
+            "lastseen": "Derniëre vue:",
+            "na": "Indisponible"
         },
         "subtab2": {
-            "title": "Settings"
+            "title": "Paramëtres"
         },
         "devices": {
-            "devices": "Devices",
+            "devices": "Objets",
             "zone": "Zone",
-            "device": "Device",
-            "monitor": "Monitor",
-            "dTrigger": "Delayed Trigger",
-            "justLog": "Just log",
-            "delay": "Delay",
-            "log": "Log",
-            "full": "Full",
-            "partial": "Partial"
+            "device": "Objet",
+            "monitor": "Moniteur",
+            "dTrigger": "Dèclencheur retardè",
+            "justLog": "Juste connectè",
+            "delay": "Dèlais",
+            "log": "Journal",
+            "full": "Complet",
+            "partial": "Partiel"
         }
     },
     "tab3": {
-        "title": "Settings",
+        "title": "Paramëtres",
         "settings": {
             "settingsgroup": {
-                "delays": "Delays",
-                "logging": "Logging",
-                "check": "Pre-Arming check",
-                "speech": "Let Homey tell you when",
-                "notifications": "Write to Timeline when"
+                "delays": "Dèlais",
+                "logging": "Connexion",
+                "check": "Vèrification avant activation",
+                "speech": "Laissez Homey vous dire quand",
+                "notifications": "…crire dans le flux quand"
             },
-            "title": "Settings",
-            "arDelay": "Arming delay",
-            "alDelay": "Alarm delay",
-            "seconds": "Seconds",
-            "save": "Save",
-            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
-            "saveSucces": "The new settings are saved.",
-            "logarmedonly": "Only when a Surveillance mode is active",
-            "logtrueonly": "Not for deactivating of sensors",
-            "usetampering": "Use tamper detection",
-            "delayarmingfull": "Use when enabling Armed mode",
-            "delayarmingpartial": "Use when enabling Partially Armed mode",
-            "checkMotionAtArming": "Check motion sensor(s)",
-            "checkContactAtArming": "Check door/window sensor(s)",
-            "checkbeforecountdown": "Perform check before Arming Delay"
+            "title": "Paramëtres",
+            "arDelay": "Dèlai d'activation",
+            "alDelay": "Dèlai de l'alarme",
+            "seconds": "Secondes",
+            "save": "Enregistrer",
+            "secondsFail": "La valeur n'est pas valide, veuillez entrer un dèlai compris entre 0 et 300 secondes.",
+            "saveSucces": "Les nouveaux paramëtres ont ètè enregistrès.",
+            "logarmedonly": "Seulement en mode actif",
+            "logtrueonly": "Pas pour la dèsactivation de capteurs",
+            "usetampering": "Utiliser la dètection d'altèration",
+            "delayarmingfull": "lors de l'activation du mode complet",
+            "delayarmingpartial": "lors de l'activation du mode partiel",
+            "checkMotionAtArming": "Vèrifier les capteurs de mouvement",
+            "checkContactAtArming": "Vérifier les capteurs de porte/fenêtre",
+            "checkbeforecountdown": "Vérifier avant le délai d'armement"
         },
         "speech": {
-            "spokenalarmcountdown": "an Alarm countdown is active",
-            "spokenarmcountdown": "an Arming countdown is active",
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "motiontrue": "motion is detected when armed",
-            "tampertrue": "tampering is detected when armed",
-            "dooropen": "a door or window is opened when armed",
-            "motionatarming": "a motion sensor is active when arming",
-            "dooropenatarming": "a door or window is open when arming"
+            "spokenalarmcountdown": "un compte ‡ rebours d'alarme est actif",
+            "spokenarmcountdown": "un compte ‡ rebours d'activation est actif",
+            "smodechange": "le Mode Surveillance a ètè modifiè",
+            "alarmchange": "l'alarme est acivèe ou dèsactivèe",
+            "motiontrue": "un mouvement est dètectè lorsqu'il est actif",
+            "tampertrue": "une altèration est dètectèe lorqu'il est actif",
+            "dooropen": "un porte ou une fenítre est ouverte lorqu'il est actif",
+            "motionatarming": "un capteur de mouvement est actif lors de l'activation",
+            "dooropenatarming": "une porte ou une fenítre est ouverte lors de l'activation"
         },
         "notification": {
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "nocommunicationmotion": "A motion device hasn't communicated",
-            "nocommunicationcontact": "A contact device hasn't communicated",
-            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours."
+            "smodechange": "le Mode Surveillance a ètè modifiè",
+            "alarmchange": "l'alarme est acivèe ou dèsactivèe",
+            "nocommunicationmotion": "Un capteur de mouvement n'a pas communiqué",
+            "nocommunicationcontact": "Un capteur de contact n'a pas communiqué",
+            "nocommunicationdescription": "Lorsque le Mode Surveillance est sèlectionnè, Heimdall vèrifie si les diffèrents objets ont communiquè au cours des 24 derniëres heures."
         }
     },
     "tab4": {
@@ -109,64 +109,64 @@
         }
     },
     "modes": {
-        "disarmed": "Disarmed",
-        "armed": "Armed",
-        "partiallyarmed": "Partially Armed"
+        "disarmed": "Dèsactivè",
+        "armed": "Activè",
+        "partiallyarmed": "Partiellement activè"
     },
     "enumerate": {
-        "source": "Startup Check",
-        "warning": " is not ready at Heimdall start"
+        "source": "Vèrification de dèmarrage",
+        "warning": " n'est pas prít au dèmarrage de Heimdall"
     },
     "devicecheck": {
-        "source": "Device check",
-        "warning": " is no longer ready",
-        "ready": " is ready",
-        "readyagain": " is ready again"
+        "source": "Vèrification de l'objet",
+        "warning": " n'est plus prít",
+        "ready": " est prít",
+        "readyagain": " est ‡ nouveau prít"
     },
     "states": {
-        "open": "Open",
-        "closed": "Closed",
-        "motion": "Motion detected",
-        "nomotion": "No motion detected",
-        "vibration": "Vibration detected",
-        "novibration": "No vibration detected",
-        "tamper": "Tampering detected",
-        "notamper": "No more tampering detected"
+        "open": "Ouvert",
+        "closed": "Fermè",
+        "motion": "Mouvement dètectè",
+        "nomotion": "Aucun mouvement dètectè",
+        "vibration": "Vibration dètectèe",
+        "novibration": "Aucune vibration dètectèe",
+        "tamper": "Altèration dètectèe",
+        "notamper": "Aucune altèration dètectèe"
     },
     "speech": {
-        "startalarmcountdown": "The alarm will go off in ",
-        "startarmcountdown": "The Surveillance mode will be set to ",
-        "in": " in ",
-        "seconds": " seconds",
-        "smodeset": "The surveillance mode is set to ",
-        "alarmactivated": "The alarm is activated",
-        "alarmdeactivated": "The alarm is deactivated"
+        "startalarmcountdown": "L'alarme sonnera dans ",
+        "startarmcountdown": "Le Mode Surveillance sera règlè sur ",
+        "in": " dans ",
+        "seconds": " secondes",
+        "smodeset": "Le Mode Surveillance est règlè sur ",
+        "alarmactivated": "L'alarme est activèe",
+        "alarmdeactivated": "L'alarme est dèsactivèe"
     },
     "atarming": {
-        "on": " on ",
-        "is": " is ",
-        "delayText": ". This device has a delayed trigger.",
-        "warningMotion": "Warning, sensor active. ",
-        "warningContact": "Warning, sensor "
+        "on": " le ",
+        "is": " est ",
+        "delayText": ". Cet objet possëde un dèclenchement retardè.",
+        "warningMotion": "Attention, capteur actif. ",
+        "warningContact": "Attention, capteur "
     },
     "history": {
-        "smodedisarmed": "Surveillance mode is disarmed.",
-        "smodearmed": "Surveillance mode is armed.",
-        "smodepartiallyarmed": "Surveillance mode is partially armed.",
-        "smodedelayarmed": "Surveillance mode will be armed in ",
-        "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
-        "seconds": " seconds.",
-        "smodedelaychanged": "Arming countdown is lowered to 10 seconds due to Last Door sequence",
-        "alarmdeactivated": "Alarm is deactivated by ",
-        "alarmactivated": "Alarm is activated. ",
-        "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
-        "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
-        "triggerdalarm": " triggered Alarm.",
-        "alarmdelayed": "Alarmtrigger is delayed: ", 
-        "alarmnotactivated": "Alarm is not activated due to disarming.",
-        "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
-        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
-        "noreport": " has not reported in ",
-        "lastreport": " hours. Last report: "
+        "smodedisarmed": "Le Mode Surveillance est dèsactivè.",
+        "smodearmed": "Le Mode Surveillance est activè.",
+        "smodepartiallyarmed": "Le Mode Surveillance est partiellement activè.",
+        "smodedelayarmed": "Le Mode Surveillance sera activè dans ",
+        "smodedelaypartiallyarmed": "Le Mode Surveillance sera partiellement activè dans ",
+        "seconds": " secondes.",
+        "smodedelaychanged": "Le compte ‡ rebours de l'activation a ètè rèduit ‡ 10 secondes",
+        "alarmdeactivated": "L'alarme a ètè dèsactivèe par ",
+        "alarmactivated": "L'alarme a ètè activèe. ",
+        "alarmactivatedflowcard": "L'alarme a ètè activèe par une Flowcard. ",
+        "smodechangedisabled": "Le changement du Mode Surveillance est dèsactivè en raison de la dèsactivation.",
+        "triggerdalarm": " alarme dèclenchèe.",
+        "alarmdelayed": "le dèclenchement de l'alarme est retardèe: ", 
+        "alarmnotactivated": "L'alarme est dèsactivèe en raison de la dèsactivation",
+        "noalarmtriggercountdown": ", pas de dèclenchement de l'alarme en raison du compte ‡ rebours.",
+        "noalarmtriggeralarmstate": ", pas de dèclenchement de l'alarme en raison d'une alarme dèj‡ active.",
+        "noreport": " n'a pas signalè dans ",
+        "lastreport": " heures. Dernier rapport: "
     }
 }
