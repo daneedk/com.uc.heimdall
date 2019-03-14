@@ -27,6 +27,7 @@ Please post your questions/remarks on the [Athom community forum](https://commun
 
 ## Changes for current version 2.0.16
 * Fixed tag value on The arming delay is started card
+* Added translators to App Store
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

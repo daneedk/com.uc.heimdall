@@ -11,7 +11,8 @@
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
-		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}]
+		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}],
+		"translators": [{"name": "🇬🇧 Danee de Kruyff"},{"name": "🇳🇱 Danee de Kruyff"},{"name": "🇩🇪 Philipp Schnittger"}]
 	},
 	"contributing": {
 		"donate": { "paypal": { "username": "daneedekruyff" } }

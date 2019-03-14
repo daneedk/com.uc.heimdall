@@ -14,6 +14,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Version 2.0.16
 * Fixed tag value on The arming delay is started card ([Github](https://github.com/daneedk/com.uc.heimdall/issues/37))
+* Added translators to App Store
 
 ## Version 2.0.15
 * Added Alarm Off function to Surveillance Mode Switch
