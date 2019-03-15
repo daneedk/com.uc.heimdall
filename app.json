@@ -12,7 +12,7 @@
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
 	"contributors": {
 		"developers": [{"name": "Danee de Kruyff","email": "daneedekruyff@outlook.com"}],
-		"translators": [{"name": "🇬🇧 Danee de Kruyff"},{"name": "<br />🇳🇱 Danee de Kruyff"},{"name": "<br />🇩🇪 Philipp Schnittger"}]
+		"translators": [{"name": "🇬🇧 Danee de Kruyff"},{"name": "🇳🇱 Danee de Kruyff"},{"name": "🇩🇪 Philipp Schnittger"}]
 	},
 	"contributing": {
 		"donate": { "paypal": { "username": "daneedekruyff" } }
