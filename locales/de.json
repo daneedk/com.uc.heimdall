@@ -38,11 +38,11 @@
         "title": "Geräte",
         "subtab1": {
             "title": "Status",
-            "lastseen": "Last seen:",
-            "na": "not available"
+            "lastseen": "Zuletzt gesehen:",
+            "na": "nicht verfügbar"
         },
         "subtab2": {
-            "title": "Settings"
+            "title": "Einstellungen"
         },
         "devices": {
             "devices": "Geräte",

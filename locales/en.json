@@ -37,7 +37,7 @@
     "tab2": {
         "title": "Devices",
         "subtab1": {
-            "title": "Status",
+            "title": "State",
             "lastseen": "Last seen:",
             "na": "not available"
         },

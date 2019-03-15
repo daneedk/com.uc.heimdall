@@ -12,6 +12,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
+## Version 2.0.17
+* Translation improvements
+
 ## Version 2.0.16
 * Fixed tag value on The arming delay is started card ([Github](https://github.com/daneedk/com.uc.heimdall/issues/37))
 * Added translators to App Store
