@@ -36,10 +36,7 @@ class Heimdall extends Homey.Device {
                 if( err ) return Homey.alert( err );
             });
         }
-        // Then, emit a callback ( err, result )
-        callback( null );
-        // or, return a Promise
-        return Promise.reject( new Error('Switching the device failed!') );
+        return Promise.resolve( true );
     }
 
 }

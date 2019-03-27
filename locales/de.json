@@ -90,7 +90,7 @@
             "alarmchange": "der Alarm aktiviert oder deaktiviert ist",
             "motiontrue": "Bewegung wenn aktiviert",
             "tampertrue": "Manipulation  wenn aktiviert",
-            "dooropen": "Tür/Fenster geöffnet wenn aktiviert",
+            "dooropen": "Tür/Fenster wird geöffnet wenn aktiviert",
             "motionatarming": "Bewegungssensor aktiv bei Aktivierung",
             "dooropenatarming": "Tür/Fenster geöffnet bei Aktivierung"
         },

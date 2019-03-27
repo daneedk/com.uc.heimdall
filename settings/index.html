@@ -574,6 +574,50 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="instructionsfr" style="display:none">
+                        Pour configurer Heimdall, vous devez procéder comme suit: <br />
+                        <br />
+                        <ul>
+                            <li> <b> Créer un commutateur de mode de surveillance </b> <br />
+                                Cliquez sur le bouton <i> ajouter un périphérique </i> dans la zone de votre choix sur la page Périphériques et sélectionnez le périphérique <i> Mode </i> dans l'application Heimdall. <br>
+                                Cliquez sur <i> Installer </i> pour procéder, puis sur <i> Suivant </i>.
+                            </li>
+                            <li> <b> Sélectionnez le (s) périphérique (s) que vous souhaitez surveiller </b> <br />
+                                Accédez à l'onglet Périphériques de la page de paramètres de Heimdall et cliquez sur le bouton <i> Journal </i> si vous souhaitez simplement une ligne dans le journal lorsque l'état du périphérique change.
+                                Cliquez sur le bouton <i> Complet </i> si vous souhaitez que le périphérique soit inclus lorsque le mode de surveillance est défini sur <i> Armé </i>.
+                                Si vous souhaitez que le périphérique soit inclus lorsque le mode Surveillance est défini sur <i> Partiellement armé </i>, cliquez sur le bouton <i> Partiel </i>.
+                                Il est possible de sélectionner à la fois <i> Complet </i> et <i> Partiel </i> pour un seul périphérique.
+                                Si vous voulez avoir un délai entre le déclenchement ou un appareil et l'activation de l'alarme, vous pouvez
+                                activez un délai en cliquant sur le bouton <i> Retard </i>. <br />
+                                Le délai utilisé se trouve en haut de l'onglet Paramètres, il est en secondes et va de 0 à 300 secondes. <br />
+                            </li>
+                            <li> <b> Créer un flux pour activer le mode de surveillance </b> <br />
+                                Heimdall écoutera les capteurs sélectionnés et enregistrera les changements d'état, en fonction des options sélectionnées sur la page des paramètres.
+                                Ce n'est que lorsque Heimdall déclenche un capteur en mode surveillance que celui-ci déclenche une alarme.
+                                Accédez à la page Flux Homey et créez un flux pour définir le mode de surveillance à l'aide du <i> Définir le mode de surveillance </i>.
+                                carte du sélecteur de mode de surveillance et sélectionnez l’état souhaité dans la partie <i> ... puis </i>.
+                            </li>
+                            <li> <b> Créer un flux pour désactiver le mode de surveillance </b> <br />
+                                Pour pouvoir désactiver le mode de surveillance avec un flux, vous devez en créer un et utiliser le <i> Régler le mode de surveillance </i>.
+                                carte du sélecteur de mode de surveillance et sélectionnez l’état <i> Désarmé </i> dans la partie <i> ... puis </i>.
+                            </li>
+                            <li> <b> Créer un flux pour agir sur une alarme </b> <br />
+                                Vous pouvez décider vous-même de ce que vous voulez que Homey fasse lorsque l'alarme est activée.
+                                Créez un flux et utilisez la <i> L’alarme est activée. </i> dans la partie <i> when ... </i> et sélectionnez les actions souhaitées dans le <i> puis ... </i> partie. <br />
+                                Vous pouvez utiliser la balise <i> Reason </i> de la carte de déclenchement pour savoir quel périphérique déclenche l'alarme.
+                            </li>
+                            <li> <b> Créez un flux pour désactiver l'alarme </b> <br />
+                                Pour désactiver l'alarme, utilisez la carte <i> Désactiver l'alarme </i> dans un flux de la partie <i> ... puis </i>.
+                            </li>
+                            <li> <b> Ajouter un bouton de désactivation de l'alarme </b> <br />
+                                Pour désactiver l'alarme à l'aide de l'application Homey sur votre téléphone, vous devez ajouter le dispositif de bouton <i> Alarme </i> dans la zone souhaitée.
+                            </li>
+                            <li> <b> Consignez d'autres informations </b> <br />
+                                Si vous souhaitez enregistrer plus d'informations, par exemple des informations de présence,
+                                vous pouvez utiliser la carte <i> Envoyer des informations à Heimdall </i> dans un flux de la partie <i> ... then </i>.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

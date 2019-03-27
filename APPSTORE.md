@@ -11,6 +11,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * 🇬🇧English
 * 🇳🇱Nederlands
 * 🇩🇪Deutsch
+* 🇫🇷Français (Available when Athom releases French language support)
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
@@ -25,8 +26,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.17
-* Translation improvements
+## Changes for current version 2.0.18
+* Code cleanup
+* Added French translation (Work in progress)
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
