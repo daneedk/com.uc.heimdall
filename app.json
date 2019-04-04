@@ -52,7 +52,7 @@
 			"id": "sensorActiveAtArming",
 			"title": {
 				"en": "Sensor active at arming.",
-				"nl": "sensor actief bij inschakelen.",
+				"nl": "Sensor actief bij inschakelen.",
 				"de": "Sensor aktiv bei Einschaltung.",
 				"fr": "Capteur actif à l'armement."
 			},
