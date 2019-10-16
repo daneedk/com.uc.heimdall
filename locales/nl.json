@@ -78,7 +78,9 @@
             "logtrueonly": "Niet bij deactiveren van een sensor",
             "usetampering": "Luister naar manipulatie berichten",
             "delayarmingfull": "Gebruik vertraging bij Volledige mode",
-            "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",            
+            "delayarmingpartial": "Gebruik vertraging bij Gedeeltelijke mode",
+            "alarmwhiledelayed" : "Alarm tijdens Alarm vertraging toestaan",
+            "alarmwhiledelayeddescription": "Activeren van een sensor als er een Alarm vertraging actief zal direct het Alarm activeren.",
             "checkMotionAtArming": "Controleer bewegingssensoren",
             "checkContactAtArming": "Controleer deur/raamsensoren",
             "checkbeforecountdown": "Voer uit voor de inschakelvertraging"
@@ -99,7 +101,8 @@
             "alarmchange": "het Alarm wordt ge(de)activeerd",
             "nocommunicationmotion": "een bewegingssensor zich niet meldt",
             "nocommunicationcontact": "een contactsensor zich niet meldt",
-            "nocommunicationdescription": "Als een Toezicht Mode wordt geselecteerd test Heimdall of de sensoren de laatste 24 contact gehad hebben."
+            "nocommunicationdescription": "Als een Toezicht Mode wordt geselecteerd test Heimdall of de sensoren de laatste 24 contact gehad hebben.",
+            "alarmwhiledelayeddescription": "Als er een sensor geactiveerd wordt tijdens een Alarm vertraging wordt het Alarm direct geactiveerd."
         }
     },
     "tab4": {
@@ -161,7 +164,8 @@
         "alarmactivated": "Alarm is geactiveerd. ",
         "alarmactivatedflowcard": "Alarm is geactiveerd door de Flowcard. ",
         "smodechangedisabled": "Wijziging van de Toezicht Mode is geannuleerd door uitschakelen.",
-        "triggerdalarm": " activeerde Alarm.",
+        "triggerdalarm": " activeerde Alarm",
+        "delayoverruled": ", uitgestelde Alarm activatie is overruled.",
         "alarmdelayed": "Alarm activatie is uitgesteld: ", 
         "alarmnotactivated": "Alarm is niet geactiveerd door uitschakelen Toezicht Mode.",
         "noalarmtriggercountdown": ", geen alarm trigger omdat er een vertraagde trigger actief is.",

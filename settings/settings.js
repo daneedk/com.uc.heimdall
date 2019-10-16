@@ -16,7 +16,8 @@ var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
     "delayArmingFull": false,
-    "delayArmingPartial": false,    
+    "delayArmingPartial": false,
+    "alarmWhileDelayed": false,
     "logArmedOnly": false,
     "logTrueOnly": false,
     "useTampering": false,
@@ -56,6 +57,7 @@ function onHomeyReady(homeyReady){
         document.getElementById('alarmDelay').value = heimdallSettings.alarmDelay;
         document.getElementById('delayArmingFull').checked = heimdallSettings.delayArmingFull;
         document.getElementById('delayArmingPartial').checked = heimdallSettings.delayArmingPartial;
+        document.getElementById('alarmWhileDelayed').checked = heimdallSettings.alarmWhileDelayed;
         document.getElementById('logArmedOnly').checked = heimdallSettings.logArmedOnly;
         document.getElementById('logTrueOnly').checked = heimdallSettings.logTrueOnly;
         document.getElementById('useTampering').checked = heimdallSettings.useTampering;
@@ -520,6 +522,7 @@ function saveSettings() {
     heimdallSettings.alarmDelay = document.getElementById('alarmDelay').value;
     heimdallSettings.delayArmingFull = document.getElementById('delayArmingFull').checked;
     heimdallSettings.delayArmingPartial = document.getElementById('delayArmingPartial').checked;
+    heimdallSettings.alarmWhileDelayed = document.getElementById('alarmWhileDelayed').checked;
     heimdallSettings.logArmedOnly = document.getElementById('logArmedOnly').checked;
     heimdallSettings.logTrueOnly = document.getElementById('logTrueOnly').checked;
     heimdallSettings.useTampering = document.getElementById('useTampering').checked;

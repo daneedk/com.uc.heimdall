@@ -180,7 +180,29 @@
                             </label>
                         </div>
                     </div>
+                    <div class="settings-item">
+                        <div class="settings-item-divider"></div>
+                        <div class="settings-item-divider"></div>
+                    </div>
+
+                    <div class="settings-item">
+                        <div class="settings-item-text">
+                                <span data-i18n="tab3.settings.alarmwhiledelayed">-Allow activating alarm while in alarm delay-</span>
+                        </div>
+                        <div class="settings-item-last">
+                            <label class="form-switch">
+                                <input id="alarmWhileDelayed" type="checkbox" onclick="saveSettings()">
+                                <i></i>
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="text-description">
+                    <span data-i18n="tab3.notification.alarmwhiledelayeddescription">-Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately.-</span>
+                </div>
+
                 <div class="settings-spacer"></div>
                 <div data-i18n="tab3.settings.settingsgroup.logging" class="text-header">-Logging-</div>
                 <div class="settings-itemgroup">
@@ -615,6 +637,49 @@
                             <li> <b> Consignez d'autres informations </b> <br />
                                 Si vous souhaitez enregistrer plus d'informations, par exemple des informations de présence,
                                 vous pouvez utiliser la carte <i> Envoyer des informations à Heimdall </i> dans un flux de la partie <i> ... then </i>.
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="instructionsit" style="display:none">
+                        Per configurare Heimdall devi fare i seguenti passaggi:<br />
+                        <br />
+                        <ul>
+                            <li><b>Creare un interruttore "Modalità Sorveglianza"</b><br />
+                                Vai alla schermata dei "Dispositivi" e fai Click sull'icona  <i>più</i> per aggiungere un nuovo dispositivo e seleziona "Heimdall" tra le applicazioni disponibili. Scegli il dispositivo <i>Mode</i> tra quelli disponibili.<br>
+                                Fai clic su <i>Installa</i> e per terminare l'installazione fai clic su <i>Avanti</i>.
+                            </li>
+                            <li><b>Seleziona i dispositivi da monitorare nella pagina delle impostazioni di Heimdall.</b><br />
+                                Vai nella schermata dei "Dispositivi" all'interno delle impostazioni di Heimdall e fai clic sul pulsante  <i>Log</i> se vuoi che il cambiamento dello stato di un sensore venga riportato solamente all'interno della TimeLine.
+                                Fai clic sul pulsante <i>Totale</i> se vuoi che il dispositivo venga incluso quando la Modalità di Sorveglianza è nello stato di <i>Armato</i>
+                                Se invece vuoi che il dispositivo sia incluso quando la Modalità di Sorveglianza è nello stato di <i>Parzialmente Armato</i> fai clic sul pulsante <i>Parziale</i>.
+                                E' possibile selezionare l'opzione <i>Totale</i> e <i>Parziale</i> per ogni dispositivo.
+                                Se vuoi che ci sia un ritardo di tempo dell'attivazione del dispositivo a seguito dell'inserimento dell'allarme lo puoi attivare facendo clic sul pulsante <i>Ritardo</i>.<br />
+                                Il ritardo utilizzato si trova nella parte superiore della scheda Impostazioni, è espresso in secondi e va da 0 a 300 secondi.<br />
+                            </li>
+                            <li><b>Creare un flusso per abilitare la Modalità di Sorveglianza</b><br />
+                                Heimdall controllerà i sensori selezionati e registrerà i cambiamenti del loro stato, a seconda delle opzioni selezionate nella pagina delle impostazioni.
+                                Solo quando Heimdall è in Modalità Sorveglianza, un trigger su un sensore provoca un allarme.
+                                Vai alla pagina dei flussi su Homey e crea un flusso per impostare la Modalità Sorveglianza scegliendo la scheda <i>Imposta Modalità di Sorveglianza</i> 
+                                dall'interruttore Modalità Sorveglianza e selezionare lo stato desiderato nella sezione <i>...Then</i>.
+                            </li>
+                            <li><b>Create a flow to disable the Surveillance Mode</b><br />
+                                To be able to disable the Surveillance Mode with a flow you have to create one and use the <i>Set Surveillance Mode</i> 
+                                card from the Surveillance Mode Switch and selecting the <i>Disarmed</i> state in the <i>...then</i> part.
+                            </li>
+                            <li><b>Create a flow to act on an alarm</b><br />
+                                You can decide for yourself what you want Homey to do when the alarm is activated. 
+                                Create a flow and use the <i>The alarm is activated.</i> card in the <i>when...</i> part and select your desired actions in the <i>then...</i> part.<br />
+                                You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
+                            </li>
+                            <li><b>Create a flow to disable the alarm</b><br />
+                                To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> part.
+                            </li>
+                            <li><b>Add an Alarm Off Button</b><br />
+                                To deactivate the alarm using the Homey app on your phone you need to add the <i>Alarm</i> button device in the zone you desire.
+                            </li>
+                            <li><b>Log other information</b><br />
+                                If you like to log more information, for example presence information, 
+                                you can use the <i>Send information to Heimdall</i> card in a flow in the <i>...then</i> part.
                             </li>
                         </ul>
                     </div>

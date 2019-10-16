@@ -79,6 +79,8 @@
             "usetampering": "Nutze Manipulationserkennung",
             "delayarmingfull": "Um Überwachung zu aktivieren",
             "delayarmingpartial": "Um Teilüberwachung zu aktivieren",
+            "alarmwhiledelayed" : "Alarm in Alarmverzögerung zulassen",
+            "alarmwhiledelayeddescription": "Das Auslösen eines Sensors während einer Alarmverzögerung aktiviert den Alarmstatus sofort.",
             "checkMotionAtArming": "Check Bewegungssensor(en)",
             "checkContactAtArming": "Check Tür-/Fenstersensor(en)",
             "checkbeforecountdown": "Führe Check vor Alarmverzögerung durch"
@@ -99,7 +101,8 @@
             "alarmchange": "Der Alarm ist aktiviert oder deaktiviert",
             "nocommunicationmotion": "Ein Bewegungssensor meldete sich nicht",
             "nocommunicationcontact": "Ein Kontaktsensor meldete sich nicht",
-            "nocommunicationdescription": "Wenn ein Überwachungsmodus gewählt wurde, prüft Heimdall, ob Geräte sich in den letzten 24 Stunden meldeten."
+            "nocommunicationdescription": "Wenn ein Überwachungsmodus gewählt wurde, prüft Heimdall, ob Geräte sich in den letzten 24 Stunden meldeten.",
+            "alarmwhiledelayeddescription": "Wenn Sie einen Sensor auslösen, während eine Alarmverzögerung ausgeführt wird, wird der Alarmstatus sofort aktiviert."
         }
     },
     "tab4": {
@@ -161,7 +164,8 @@
         "alarmactivated": "Alarm ist aktiviert. ",
         "alarmactivatedflowcard": "Alarm ist aktiviert von Flowcard. ",
         "smodechangedisabled": "Änderung Überwachungsmodus ist während Deaktivierung nicht möglich.",
-        "triggerdalarm": " Alarm ausgelöst.",
+        "triggerdalarm": " Alarm ausgelöst",
+        "delayoverruled": ", Der verzögerte Alarmauslöser wird überstimmt.",
         "alarmdelayed": "Alarmauslöser wurde verzögert: ",
         "alarmnotactivated": "Alarm ist nicht aktiviert während Deaktivierung.",
         "noalarmtriggercountdown": ", Kein Alarmauslöser während Verzögerungscountdown.",

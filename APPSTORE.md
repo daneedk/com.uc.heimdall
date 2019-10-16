@@ -11,7 +11,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * 🇬🇧English
 * 🇳🇱Nederlands
 * 🇩🇪Deutsch
-* 🇫🇷Français (Available when Athom releases French language support)
+* 🇫🇷Français
+* 🇮🇹Italiano
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
@@ -26,8 +27,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.19
-* Updated athom-api (2.1.179)
+## Changes for current version 2.0.20
+* Added 'Allow Alarm while in alarm delay'
+* Added Italian translation
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

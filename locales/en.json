@@ -79,6 +79,8 @@
             "usetampering": "Use tamper detection",
             "delayarmingfull": "Use when enabling Armed mode",
             "delayarmingpartial": "Use when enabling Partially Armed mode",
+            "alarmwhiledelayed" : "Allow Alarm while in Alarm Delay",
+            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately.",
             "checkMotionAtArming": "Check motion sensor(s)",
             "checkContactAtArming": "Check door/window sensor(s)",
             "checkbeforecountdown": "Perform check before Arming Delay"
@@ -99,7 +101,8 @@
             "alarmchange": "the Alarm is activated or deactivated",
             "nocommunicationmotion": "A motion device hasn't communicated",
             "nocommunicationcontact": "A contact device hasn't communicated",
-            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours."
+            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours.",
+            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately."
         }
     },
     "tab4": {
@@ -161,7 +164,8 @@
         "alarmactivated": "Alarm is activated. ",
         "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
         "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
-        "triggerdalarm": " triggered Alarm.",
+        "triggerdalarm": " triggered Alarm",
+        "delayoverruled": ", delayed Alarmtrigger is overruled.",
         "alarmdelayed": "Alarmtrigger is delayed: ", 
         "alarmnotactivated": "Alarm is not activated due to disarming.",
         "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",

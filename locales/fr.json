@@ -79,6 +79,8 @@
             "usetampering": "Utiliser la détection d'altération",
             "delayarmingfull": "lors de l'activation du mode complet",
             "delayarmingpartial": "lors de l'activation du mode partiel",
+            "alarmwhiledelayed" : "Autoriser l'alarme pendant le délai d'alarme",
+            "alarmwhiledelayeddescription": "Le déclenchement d'un capteur alors qu'un délai d'alarme est en cours active immédiatement l'état d'alarme..",
             "checkMotionAtArming": "Vérifier les capteurs de mouvement",
             "checkContactAtArming": "Vérifier les capteurs de porte/fenêtre",
             "checkbeforecountdown": "Vérifier avant le délai d'armement"
@@ -99,7 +101,8 @@
             "alarmchange": "l'alarme est acivée ou désactivée",
             "nocommunicationmotion": "Un capteur de mouvement n'a pas communiqué",
             "nocommunicationcontact": "Un capteur de contact n'a pas communiqué",
-            "nocommunicationdescription": "Lorsque le Mode Surveillance est sélectionné, Heimdall vérifie si les diffèrents objets ont communiqué au cours des 24 dernières heures."
+            "nocommunicationdescription": "Lorsque le Mode Surveillance est sélectionné, Heimdall vérifie si les diffèrents objets ont communiqué au cours des 24 dernières heures.",
+            "alarmwhiledelayeddescription": "Le déclenchement d'un capteur alors qu'un délai d'alarme est en cours active immédiatement l'état d'alarme."
         }
     },
     "tab4": {
@@ -161,7 +164,8 @@
         "alarmactivated": "L'alarme a été activée. ",
         "alarmactivatedflowcard": "L'alarme a été activée par une Flowcard. ",
         "smodechangedisabled": "Le changement du Mode Surveillance est désactivé en raison de la désactivation.",
-        "triggerdalarm": " alarme déclenchée.",
+        "triggerdalarm": " alarme déclenchée",
+        "delayoverruled": ", delayed Alarmtrigger is overruled.",
         "alarmdelayed": "le déclenchement de l'alarme est retardée: ", 
         "alarmnotactivated": "L'alarme est désactivée en raison de la désactivation",
         "noalarmtriggercountdown": ", pas de déclenchement de l'alarme en raison du compte à rebours.",

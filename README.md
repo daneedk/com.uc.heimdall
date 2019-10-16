@@ -12,6 +12,10 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
+## Version 2.0.20
+* Added 'Allow Alarm while in alarm delay'
+* Added Italian translation
+
 ## Version 2.0.19
 * Updated athom-api (2.1.179)
 
