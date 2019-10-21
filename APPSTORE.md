@@ -28,9 +28,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
 ## Changes for current version 2.0.21
-* Added flowcard to check if a device is delayed
-* Added flowcard to add delay to device
-* Added flowcard to remove delay from device
+* Added condition flowcard to check if a device is delayed
+* Added action flowcard to add delay to device
+* Added action flowcard to remove delay from device
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  

@@ -13,9 +13,9 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
 ## Version 2.0.21
-* Added flowcard to check if a device is delayed
-* Added flowcard to add delay to device
-* Added flowcard to remove delay from device
+* Added condition flowcard to check if a device is delayed
+* Added action flowcard to add delay to device
+* Added action flowcard to remove delay from device
 
 ## Version 2.0.20
 * Added 'Allow Alarm while in alarm delay'
