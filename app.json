@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.20",
+	"version": "2.0.21",
 	"compatibility": ">=2.0.5",
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
@@ -17,7 +17,7 @@
 			{"name": "🇳🇱 Danee de Kruyff"},
 			{"name": "🇩🇪 Philipp Schnittger"},
 			{"name": "🇫🇷 Julien Moors"},
-			{"name": "🇮🇹 Massari Massimiliano"}
+			{"name": "🇮🇹 Massimiliano Massari"}
 		]
 	},
 	"contributing": {
@@ -540,140 +540,209 @@
 					"fr": "l'état d'alarme !{{est |n'est pas }} actif",
 					"it": "Stato Allarme è !{{attivo |non attivo}}"
 				}
+			},
+			{
+				"id": "IsDelayedDevice",
+				"title": {
+					"en": "Device is !{{delayed |not delayed}}",
+					"nl": "Apparaat is !{{vertraagd |niet vertraagd}}",
+					"de": "Device is !{{delayed |not delayed}}",
+					"fr": "Device is !{{delayed |not delayed}}",
+					"it": "Device is !{{delayed |not delayed}}"
+				},
+				"args": [
+					{
+					  "name": "device",
+					  "type": "autocomplete",
+					  "placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					  }
+					}
+				  ]
 			}
 		],
 		"actions": [
-		{
-			"id": "SetSurveillance",
-			"title": {
-				"en": "Set Surveillance Mode",
-				"nl": "Stel Toezicht Modus in",
-				"de": "Überwachungsmodus stellen",
-				"fr": "Définir le mode de surveillance",
-				"it": "Imposta Modalità di Sorveglianza"
-			},
-			"args": [
-				{
-					  "name": "surveillance",
-					  "type": "dropdown",
-					  "values": [
-						{
-							"id": "armed",
-							"label": {
-								"en": "Armed",
-								"nl": "Ingeschakeld",
-								"de": "Aktiviert",
-								"fr": "Activée",
-								"it": "Armato"
-							}
-						},
-						  {
-							"id": "disarmed",
-							"label": {
-								"en": "Disarmed",
-								"nl": "Uitgeschakeld",
-								"de": "Deaktiviert",
-								"fr": "Desactivée",
-								"it": "Disarmato"
-							}
-						  },
-						  {
-							"id": "partially_armed",
-							"label": {
-								"en": "Partially Armed",
-								"nl": "Deels ingeschakeld",
-								"de": "Teilweise aktiviert",
-								"fr": "Partiellement activé",
-								"it": "Parzialmente Armato"
-							}
-						  }
-					  ]
+			{
+				"id": "SetSurveillance",
+				"title": {
+					"en": "Set Surveillance Mode",
+					"nl": "Stel Toezicht Modus in",
+					"de": "Überwachungsmodus stellen",
+					"fr": "Définir le mode de surveillance",
+					"it": "Imposta Modalità di Sorveglianza"
 				},
-				{
-					"name": "device",
-					"type": "device",
-					"filter": "driver_id=surveillanceModeSwitch"
+				"args": [
+					{
+						"name": "surveillance",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "armed",
+								"label": {
+									"en": "Armed",
+									"nl": "Ingeschakeld",
+									"de": "Aktiviert",
+									"fr": "Activée",
+									"it": "Armato"
+								}
+							},
+							{
+								"id": "disarmed",
+								"label": {
+									"en": "Disarmed",
+									"nl": "Uitgeschakeld",
+									"de": "Deaktiviert",
+									"fr": "Desactivée",
+									"it": "Disarmato"
+								}
+							},
+							{
+								"id": "partially_armed",
+								"label": {
+									"en": "Partially Armed",
+									"nl": "Deels ingeschakeld",
+									"de": "Teilweise aktiviert",
+									"fr": "Partiellement activé",
+									"it": "Parzialmente Armato"
+								}
+							}
+						]
+					},
+					{
+						"name": "device",
+						"type": "device",
+						"filter": "driver_id=surveillanceModeSwitch"
+					}
+				]
+			},
+			{
+				"id": "SendInfo",
+				"title": {
+					"en": "Send information to Heimdall",
+					"nl": "Stuur informatie naar Heimdall",
+					"de": "Sende Informationen an Heimdall",
+					"fr": "Envoyer des informations à Heimdall",
+					"it": "Invia informazioni a Heimdall"
+				},
+				"args": [{
+					"name": "log",
+					"type": "text"
+				}]
+			},
+			{
+				"id": "ClearHistory",
+				"title": {
+					"en": "Clear Heimdall history",
+					"nl": "Verwijder Heimdall geschiedenis",
+					"de": "Lösche alle Heimdall Ereignisse",
+					"fr": "Effacer l'historique de Heimdall",
+					"it": "Cancella la storia di Heimdall"
 				}
-			]
-		},
-		{
-			"id": "SendInfo",
-			"title": {
-				"en": "Send information to Heimdall",
-				"nl": "Stuur informatie naar Heimdall",
-				"de": "Sende Informationen an Heimdall",
-				"fr": "Envoyer des informations à Heimdall",
-				"it": "Invia informazioni a Heimdall"
 			},
-			"args": [{
-				"name": "log",
-				"type": "text"
-			}]
-		},
-		{
-			"id": "ClearHistory",
-			"title": {
-				"en": "Clear Heimdall history",
-				"nl": "Verwijder Heimdall geschiedenis",
-				"de": "Lösche alle Heimdall Ereignisse",
-				"fr": "Effacer l'historique de Heimdall",
-				"it": "Cancella la storia di Heimdall"
-			}
-		},
-		{
-			"id": "ActivateAlarm",
-			"title": {
-				"en": "Activate Alarm",
-				"nl": "Activeer Alarm",
-				"de": "Aktiviere Alarm",
-				"fr": "Activer l'alarme",
-				"it": "Attiva Allarme"
-			}
-		},
-		{
-			"id": "DeactivateAlarm",
-			"title": {
-				"en": "Deactivate Alarm",
-				"nl": "Deactiveer Alarm",
-				"de": "Deaktiviere Alarm",
-				"fr": "Désactiver l'alarme",
-				"it": "Disattiva Allarme"
-			}
-		},
-		{
-			"id": "CheckLastCommunication",
-			"title": {
-				"en": "Check Last Communication",
-				"nl": "Controleer laatste communicatie",
-				"de": "Kontrolliere letzte Kommunikation",
-				"fr": "Vérifier la dernière communication",
-				"it": "Verifica l'ultima comunicazione"
-			}
-		},
-		{
-			"id": "DevicesStateCheck",
-			"title": {
-				"en": "Check status of all sensors",
-				"nl": "Controleer de status van alle sensoren",
-				"de": "Überprüfe Status aller Sensoren",
-				"fr": "Vérifier l'état de tous les capteurs",
-				"it": "Verifica lo stato di tutti i sensori"
-			}
-		},
-		{
-			"id": "SendNotification",
-			"title": {
-				"en": "Send information to Timeline",
-				"nl": "Stuur informatie naar Timeline",
-				"de": "Sende Informationen an Timeline",
-				"fr": "Envoyer des informations à Timeline",
-				"it": "Invia informazioni alla Timeline"
+			{
+				"id": "ActivateAlarm",
+				"title": {
+					"en": "Activate Alarm",
+					"nl": "Activeer Alarm",
+					"de": "Aktiviere Alarm",
+					"fr": "Activer l'alarme",
+					"it": "Attiva Allarme"
+				}
 			},
-			"args": [{
-				"name": "message",
-				"type": "text"
-			}]
-		}
+			{
+				"id": "DeactivateAlarm",
+				"title": {
+					"en": "Deactivate Alarm",
+					"nl": "Deactiveer Alarm",
+					"de": "Deaktiviere Alarm",
+					"fr": "Désactiver l'alarme",
+					"it": "Disattiva Allarme"
+				}
+			},
+			{
+				"id": "CheckLastCommunication",
+				"title": {
+					"en": "Check Last Communication",
+					"nl": "Controleer laatste communicatie",
+					"de": "Kontrolliere letzte Kommunikation",
+					"fr": "Vérifier la dernière communication",
+					"it": "Verifica l'ultima comunicazione"
+				}
+			},
+			{
+				"id": "DevicesStateCheck",
+				"title": {
+					"en": "Check status of all sensors",
+					"nl": "Controleer de status van alle sensoren",
+					"de": "Überprüfe Status aller Sensoren",
+					"fr": "Vérifier l'état de tous les capteurs",
+					"it": "Verifica lo stato di tutti i sensori"
+				}
+			},
+			{
+				"id": "SendNotification",
+				"title": {
+					"en": "Send information to Timeline",
+					"nl": "Stuur informatie naar Timeline",
+					"de": "Sende Informationen an Timeline",
+					"fr": "Envoyer des informations à Timeline",
+					"it": "Invia informazioni alla Timeline"
+				},
+				"args": [{
+					"name": "message",
+					"type": "text"
+				}]
+			},
+			{
+				"id": "AddDelayToDevice",
+				"title": {
+					"en": "Add Delay to device",
+					"nl": "Voeg Vertraging toe aan apparaat",
+					"de": "Add Delay to device",
+					"fr": "Add Delay to device",
+					"it": "Add Delay to device"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "RemoveDelayFromDevice",
+				"title": {
+					"en": "Remove Delay from device",
+					"nl": "Verwijder Vertraging van apparaat",
+					"de": "Remove Delay from device",
+					"fr": "Remove Delay from device",
+					"it": "Remove Delay from device"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			}
 		]
 	},
 	"capabilities": {
