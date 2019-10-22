@@ -1,3 +1,5 @@
+![image][storebackdrop]
+
 # Heimdall - Let Homey watch over your home
 
 This app enables you to use your Homey as a surveillance system.
@@ -27,10 +29,8 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.21
-* Added condition flowcard to check if a device is delayed
-* Added action flowcard to add delay to device
-* Added action flowcard to remove delay from device
+## Changes for current version 2.0.22
+* 
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
@@ -42,3 +42,4 @@ If you like the app, consider buying me a beer!
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
+[storebackdrop]: https://raw.githubusercontent.com/daneedk/com.uc.heimdall/beta/assets/images/storebackdrop.png
