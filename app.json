@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.21",
+	"version": "2.0.22",
 	"compatibility": ">=2.0.5",
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
@@ -546,9 +546,32 @@
 				"title": {
 					"en": "Device is !{{delayed |not delayed}}",
 					"nl": "Apparaat is !{{vertraagd |niet vertraagd}}",
-					"de": "Device is !{{delayed |not delayed}}",
-					"fr": "Device is !{{delayed |not delayed}}",
-					"it": "Device is !{{delayed |not delayed}}"
+					"de": "Gerät ist !{{verzögert |nicht verzögert}}",
+					"fr": "L'appareil !{{est en retard |n'est pas retardé}}",
+					"it": "Il dispositivo !{{ |non }} è in ritardo "
+				},
+				"args": [
+					{
+					  "name": "device",
+					  "type": "autocomplete",
+					  "placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					  }
+					}
+				  ]
+			},
+			{
+				"id": "IsLoggedDevice",
+				"title": {
+					"en": "Device is !{{logged |not logged}}",
+					"nl": "Apparaat wordt !{{gelogd |niet gelogd}}",
+					"de": "Device is !{{logged |not logged}}",
+					"fr": "Device is !{{logged |not logged}}",
+					"it": "Device is !{{logged |not logged}}"
 				},
 				"args": [
 					{
@@ -702,9 +725,9 @@
 				"title": {
 					"en": "Add Delay to device",
 					"nl": "Voeg Vertraging toe aan apparaat",
-					"de": "Add Delay to device",
-					"fr": "Add Delay to device",
-					"it": "Add Delay to device"
+					"de": "Verzögerung zum Gerät hinzufügen",
+					"fr": "Ajouter un délai à l'appareil",
+					"it": "Aggiungi ritardo al dispositivo"
 				},
 				"args": [
 					{
@@ -725,9 +748,55 @@
 				"title": {
 					"en": "Remove Delay from device",
 					"nl": "Verwijder Vertraging van apparaat",
-					"de": "Remove Delay from device",
-					"fr": "Remove Delay from device",
-					"it": "Remove Delay from device"
+					"de": "Verzögerung vom Gerät entfernen",
+					"fr": "Supprimer le délai de l'appareil",
+					"it": "Rimuovi ritardo dal dispositivo"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "AddLoggingToDevice",
+				"title": {
+					"en": "Add Logging to device",
+					"nl": "Voeg Loggen toe aan apparaat",
+					"de": "Loging zum Gerät hinzufügen",
+					"fr": "Ajouter un Connexion à l'appareil",
+					"it": "Aggiungi Registro Eventi al dispositivo"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "RemoveLoggingFromDevice",
+				"title": {
+					"en": "Remove Logging from device",
+					"nl": "Verwijder Loggen van apparaat",
+					"de": "Loging vom Gerät entfernen",
+					"fr": "Supprimer le Connexion de l'appareil",
+					"it": "Rimuovi Registro Eventi dal dispositivo"
 				},
 				"args": [
 					{
