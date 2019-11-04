@@ -6,7 +6,7 @@
 	"description": { "en": "This app turns homey into a simple surveillance system" },
 	"category": [ "security", "tools" ],
 	"images": { "large": "assets/images/large.png", "small": "assets/images/small.png" },
-	"version": "2.0.22",
+	"version": "2.0.23",
 	"compatibility": ">=2.0.5",
 	"brandColor": "#4BD762",
 	"author": { "name": "Danee de Kruyff", "email": "daneedekruyff@outlook.com" },
@@ -527,7 +527,7 @@
 					"en": "Alarm countdown !{{active |not active}}",
 					"nl": "Alarm vertraging !{{actief |niet actief}}",
 					"de": "Alarmcountdown !{{aktiv |nicht aktiv}}",
-					"fr": "compte à rebours d'alarme !{{ |pas }} actif",
+					"fr": "Compte à rebours d'alarme !{{ |pas }} actif",
 					"it": "Countdown Allarme !{{attivo |non attivo}}"
 				}
 			},
@@ -537,7 +537,7 @@
 					"en": "Alarm state is !{{active |not active}}",
 					"nl": "Alarm status is !{{actief |niet actief}}",
 					"de": "Alarmstatus !{{aktiv |nicht aktiv}}",
-					"fr": "l'état d'alarme !{{est |n'est pas }} actif",
+					"fr": "L'état d'alarme !{{est |n'est pas }} actif",
 					"it": "Stato Allarme è !{{attivo |non attivo}}"
 				}
 			},
@@ -569,9 +569,55 @@
 				"title": {
 					"en": "Device is !{{logged |not logged}}",
 					"nl": "Apparaat wordt !{{gelogd |niet gelogd}}",
-					"de": "Device is !{{logged |not logged}}",
-					"fr": "Device is !{{logged |not logged}}",
-					"it": "Device is !{{logged |not logged}}"
+					"de": "Gerät wird !{{gelogd |nicht gelogd}}",
+					"fr": "L'appareil !{{est |n'est pas}} connecté",
+					"it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}"
+				},
+				"args": [
+					{
+					  "name": "device",
+					  "type": "autocomplete",
+					  "placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					  }
+					}
+				  ]
+			},
+			{
+				"id": "IsFullDevice",
+				"title": {
+					"en": "Device is !{{part|not part}} of Full Surveillance Mode",
+					"nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+					"de": "Gerät ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+					"fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+					"it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa"
+				},
+				"args": [
+					{
+					  "name": "device",
+					  "type": "autocomplete",
+					  "placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					  }
+					}
+				  ]
+			},
+			{
+				"id": "IsPartialDevice",
+				"title": {
+					"en": "Device is !{{part|not part}} of Partial Surveillance Mode",
+					"nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+					"de": "Gerät ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+					"fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+					"it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale"
 				},
 				"args": [
 					{
@@ -595,7 +641,7 @@
 					"en": "Set Surveillance Mode",
 					"nl": "Stel Toezicht Modus in",
 					"de": "Überwachungsmodus stellen",
-					"fr": "Définir le mode de surveillance",
+					"fr": "Définir le Mode de Surveillance",
 					"it": "Imposta Modalità di Sorveglianza"
 				},
 				"args": [
@@ -797,6 +843,98 @@
 					"de": "Loging vom Gerät entfernen",
 					"fr": "Supprimer le Connexion de l'appareil",
 					"it": "Rimuovi Registro Eventi dal dispositivo"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "AddDeviceToPartial",
+				"title": {
+					"en": "Add device to Partial Surveillance Mode",
+					"nl": "Voeg apparaat toe aan Gedeeltelijke Toezicht Mode",
+					"de": "Gerät zum Teilüberwachungsmodus hinzufügen",
+					"fr": "Ajouter un appareil au Mode de Surveillance Partielle",
+					"it": "Aggiungi dispositivo alla Modalità di Sorveglianza Parziale"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "RemoveDeviceFromPartial",
+				"title": {
+					"en": "Remove device from Partial Surveillance Mode",
+					"nl": "Verwijder apparaat uit Gedeeltelijke Toezicht Mode",
+					"de": "Gerät aus dem Teilüberwachungsmodus entfernen",
+					"fr": "Supprimer l'appareil du Mode de Surveillance Partielle",
+					"it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Parziale"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "AddDeviceToFull",
+				"title": {
+					"en": "Add device to Full Surveillance Mode",
+					"nl": "Voeg apparaat toe aan Volledige Toezicht Mode",
+					"de": "Gerät zum vollständigen Überwachungsmodus hinzufügen",
+					"fr": "Ajouter un appareil en Mode de Surveillance Complète",
+					"it": "Aggiungi dispositivo alla Modalità di Sorveglianza Completa"
+				},
+				"args": [
+					{
+					"name": "device",
+					"type": "autocomplete",
+					"placeholder": {
+						"en": "device",
+						"nl": "Apparaat",
+						"de": "Gerät",
+						"fr": "Appareil",
+						"it": "Dispositivo"
+					}
+					}
+				]
+			},
+			{
+				"id": "RemoveDeviceFromFull",
+				"title": {
+					"en": "Remove device from Full Surveillance Mode",
+					"nl": "Verwijder apparaat uit Volledige Toezicht Mode",
+					"de": "Gerät aus dem Vollständigen Überwachungsmodus entfernen",
+					"fr": "Supprimer l'appareil du Mode de Surveillance Complète",
+					"it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Completa"
 				},
 				"args": [
 					{

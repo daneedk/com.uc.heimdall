@@ -29,10 +29,10 @@ const conditionIsDelayedDevice = new Homey.FlowCardCondition('IsDelayedDevice');
 // new 2.0.22
 const conditionIsLoggedDevice = new Homey.FlowCardCondition('IsLoggedDevice');
 // end new 2.0.22
-/*
+// new 2.0.23
 const conditionIsFullDevice = new Homey.FlowCardCondition('IsFullDevice');
 const conditionIsPartialDevice = new Homey.FlowCardCondition('IsPartialDevice');
-*/
+// end new 2.0.23
 
 // Flow actions
 const actionInputHistory = new Homey.FlowCardAction('SendInfo');
@@ -50,6 +50,12 @@ const actionRemoveDelayFromDevice = new Homey.FlowCardAction('RemoveDelayFromDev
 const actionAddLoggingToDevice = new Homey.FlowCardAction('AddLoggingToDevice');
 const actionRemoveLoggingFromDevice = new Homey.FlowCardAction('RemoveLoggingFromDevice');
 // end new 2.0.22
+// new 2.0.23
+const actionAddDeviceToPartial = new Homey.FlowCardAction('AddDeviceToPartial');
+const actionRemoveDeviceFromPartial = new Homey.FlowCardAction('RemoveDeviceFromPartial');
+const actionAddDeviceToFull = new Homey.FlowCardAction('AddDeviceToFull');
+const actionRemoveDeviceFromFull = new Homey.FlowCardAction('RemoveDeviceFromFull');
+// end new 2.0.23
 
 var surveillance;
 var alarm = false;
@@ -123,7 +129,7 @@ class Heimdall extends Homey.App {
     }
 
     async onInit() {
-        this.log('init Heimdall 2.0.22        ----------------------')
+        this.log('init Heimdall 2.0.23        ----------------------')
         let nu = getDateTime();
         this.api = await this.getApi();
 
@@ -1241,7 +1247,9 @@ conditionIsDelayedDevice
             Homey.app.getUsableDevices()
         )
     });
+// end new 2.0.21
 
+// new 2.0.22
 conditionIsLoggedDevice
     .register()
     .on('run', ( args, state, callback ) => {
@@ -1255,7 +1263,9 @@ conditionIsLoggedDevice
             Homey.app.getUsableDevices()
         )
 });
-/*
+// end new 2.0.22
+
+// new 2.0.23
 conditionIsFullDevice
     .register()
     .on('run', ( args, state, callback ) => {
@@ -1283,8 +1293,7 @@ conditionIsPartialDevice
             Homey.app.getUsableDevices()
         )
 });
-*/
-// end new 2.0.21
+// end new 2.0.23
 
 //Flow actions functions
 actionInputHistory
@@ -1398,16 +1407,75 @@ actionRemoveLoggingFromDevice
     })
 // end new 2.0.22
 
+// new 2.0.23
+actionAddDeviceToPartial
+    .register()
+    .on('run', ( args, state, callback ) => {
+        // Perform action here
+        addMonitorPartialTo(args.device)
+        callback( null, true );
+    })
+    .getArgument('device')
+    .registerAutocompleteListener((query, args) => {
+        return Promise.resolve(
+            Homey.app.getUsableDevices()
+        )
+    })
+
+actionRemoveDeviceFromPartial
+    .register()
+    .on('run', ( args, state, callback ) => {
+        // Perform action here
+        removeMonitorPartialFrom(args.device)
+        callback( null, true );
+    })
+    .getArgument('device')
+    .registerAutocompleteListener((query, args) => {
+        return Promise.resolve(
+            Homey.app.getUsableDevices()
+        )
+    })
+
+actionAddDeviceToFull
+    .register()
+    .on('run', ( args, state, callback ) => {
+        // Perform action here
+        addMonitorFullTo(args.device)
+        callback( null, true );
+    })
+    .getArgument('device')
+    .registerAutocompleteListener((query, args) => {
+        return Promise.resolve(
+            Homey.app.getUsableDevices()
+        )
+    })
+
+actionRemoveDeviceFromFull
+    .register()
+    .on('run', ( args, state, callback ) => {
+        // Perform action here
+        removeMonitorFullFrom(args.device)
+        callback( null, true );
+    })
+    .getArgument('device')
+    .registerAutocompleteListener((query, args) => {
+        return Promise.resolve(
+            Homey.app.getUsableDevices()
+        )
+    })
+// end new 2.0.23
+
 // End Flow card functions //////////////////////////////////////////////////
 
 // Sensor settings functions ////////////////////////////////////////////////
+
 // Should this device be logged
-function isLogged(obj) {
+function isLogged(device) {
     let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
     let i;
     if ( devicesLogged !== null ) {
         for (i = 0; i < devicesLogged.length; i++) {
-            if (devicesLogged[i] && devicesLogged[i].id == obj.id) {
+            if (devicesLogged[i] && devicesLogged[i].id == device.id) {
                 return true;
             }
         }
@@ -1456,12 +1524,12 @@ function removeLoggingFrom(device) {
 }
 
 // Should this device be monitored
-function isMonitoredFull(obj) {
+function isMonitoredFull(device) {
     let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
     let i;
     if ( devicesMonitoredFull !== null ) {
         for (i = 0; i < devicesMonitoredFull.length; i++) {
-            if (devicesMonitoredFull[i] && devicesMonitoredFull[i].id == obj.id) {
+            if (devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id) {
                 return true;
             }
         }
@@ -1488,9 +1556,7 @@ function removeMonitorFullFrom(device) {
     if ( isMonitoredFull(device) ) {
         console.log("----------------------------------")
         console.log("device " + device.name + " is monitored full -> remove full")
-
         let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
-
         if ( devicesMonitoredFull !== null) {
             let i;
             for (i = 0; i < devicesMonitoredFull.length; i++) {
@@ -1501,6 +1567,11 @@ function removeMonitorFullFrom(device) {
             Homey.ManagerSettings.set('monitoredFullDevices',devicesMonitoredFull)
             console.log(device.name + " monitored full: " + isMonitoredFull(device))
         }
+        if ( !isMonitoredPartial(device) ) {
+            console.log(device.name + " monitored partial: " + isMonitoredPartial(device))
+            console.log(device.name + " is no longer monitored -> remove Delay")
+            removeDelayFrom(device)
+        }
 
     } else {
         console.log("Device " + device.name + " is not monitored full -> do nothing")
@@ -1508,12 +1579,12 @@ function removeMonitorFullFrom(device) {
 }
 
 // Should this device be monitored
-function isMonitoredPartial(obj) {
+function isMonitoredPartial(device) {
     let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
     let i;
     if ( devicesMonitoredPartial !== null ) {
         for (i = 0; i < devicesMonitoredPartial.length; i++) {
-            if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == obj.id) {
+            if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id) {
                 return true;
             }
         }
@@ -1524,7 +1595,14 @@ function isMonitoredPartial(obj) {
 // add Monitor Partial to Device
 function addMonitorPartialTo(device) {
     if ( !isMonitoredPartial(device) ) {
-    
+        let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
+        devicesMonitoredPartial.push(device)
+        Homey.ManagerSettings.set('monitoredPartialDevices',devicesMonitoredPartial)
+        console.log("Device partially monitored: " + isMonitoredPartial(device))
+        if ( isLogged(device) ) {
+            console.log("device is logged -> remove log")
+            removeLoggingFrom(device)
+        }
     }
 }
 
@@ -1546,6 +1624,11 @@ function removeMonitorPartialFrom(device) {
             Homey.ManagerSettings.set('monitoredPartialDevices',devicesMonitoredPartial)
             console.log(device.name + " monitored partially: " + isMonitoredPartial(device))
         }
+        if ( !isMonitoredFull(device) ) {
+            console.log(device.name + " monitored full: " + isMonitoredFull(device))
+            console.log(device.name + " is no longer monitored -> remove Delay")
+            removeDelayFrom(device)
+        }
 
     } else {
         console.log("Device " + device.name + " is not monitored partially -> do nothing")
@@ -1553,12 +1636,12 @@ function removeMonitorPartialFrom(device) {
 }
 
 // Should this trigger be delayed
-function isDelayed(obj) {
+function isDelayed(device) {
     let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
     let i;
     if ( devicesDelayed !== null) {
         for (i = 0; i < devicesDelayed.length; i++) {
-            if (devicesDelayed[i] && devicesDelayed[i].id == obj.id) {
+            if (devicesDelayed[i] && devicesDelayed[i].id == device.id) {
                 return true;
             }
         }

@@ -12,11 +12,19 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
+## Version 2.0.23
+* Added condition flowcard to check if a device is part of the Partial Surveillance Mode
+* Added action flowcard to add a device to the Partial Surveillance Mode
+* Added action flowcard to remove a device from the Partial Surveillance Mode
+* Added condition flowcard to check if a device is part of the Full Surveillance Mode
+* Added action flowcard to add a device to the Full Surveillance Mode
+* Added action flowcard to remove a device from the Full Surveillance Mode
+
 ## Version 2.0.22
+* Fixed bug, introduced in 2.0.21, that caused devices to not log
 * Added condition flowcard to check if a device is logged
 * Added action flowcard to add logging to device
 * Added action flowcard to remove logging from device
-* Fixed bug, introduced in 2.0.21, that caused devices to not log
 
 ## Version 2.0.21
 * Added condition flowcard to check if a device is delayed

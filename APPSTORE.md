@@ -1,6 +1,6 @@
-![image][storebackdrop]
-
 # Heimdall - Let Homey watch over your home
+
+![image][storebackdrop]
 
 This app enables you to use your Homey as a surveillance system.
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
@@ -29,11 +29,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.22
-* Added condition flowcard to check if a device is logged
-* Added action flowcard to add logging to device
-* Added action flowcard to remove logging from device
-* Fixed bug, introduced in 2.0.21, that caused devices to not log
+## Changes for current version 2.0.23
+* Added condition flowcard to check if a device is part of the Partial Surveillance Mode
+* Added action flowcard to add a device to the Partial Surveillance Mode
+* Added action flowcard to remove a device from the Partial Surveillance Mode
+* Added condition flowcard to check if a device is part of the Full Surveillance Mode
+* Added action flowcard to add a device to the Full Surveillance Mode
+* Added action flowcard to remove a device from the Full Surveillance Mode
 
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
