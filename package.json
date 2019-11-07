@@ -1,6 +1,6 @@
 {
     "name": "com.uc.heimdall",
-    "version": "2.0.23",
+    "version": "2.0.24",
     "description": "This app turns homey into a simple surveillance system",
     "main": "app.js",
     "dependencies": {
