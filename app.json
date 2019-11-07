@@ -235,7 +235,7 @@
 		{
 			"id": "AlarmDelayActivated",
 			"title": {
-				"en": "The alarm delay is activated",
+				"en": "The alarm delay is activated.",
 				"nl": "De alarm vertraging is geactiveerd.",
 				"de": "Alarmverzögerung ist aktiviert.",
 				"fr": "Le délai d'alarme est activé.",
