@@ -683,6 +683,50 @@
                             </li>
                         </ul>
                     </div>
+                    <div id = "instructionsv" style = "display: none">
+                        För att konfigurera Heimdall behöver du göra följande: <br />
+                        <br />
+                        <ul>
+                            <li> <b> Skapa en övervakningslägesbrytare </b> <br />
+                                Klicka på <i> lägg till en enhet </i> i önskad zon på sidan Enheter och välj <i> Läge </i> -enheten från Heimdall-appen. <br>
+                                Klicka på <i> Installera </i> för att fortsätta och klicka sedan på <i> nästa </i>.
+                            </li>
+                            <li> <b> Välj de enheter som du vill övervaka </b> <br />
+                                Gå till fliken Enheter på Heimdalls inställningssida och klicka på <i> Logg </i> -knappen om du bara vill ha en rad i loggen när enhetstillståndet ändras.
+                                Klicka på <i> Full </i> -knappen om du vill att enheten ska inkluderas när övervakningsläget är inställt på <i> Tillkopplad </i>
+                                Om du vill att enheten ska inkluderas när övervakningsläget är inställt på <i> Delvis tillkopplad </i> klicka på <i> Delvis </i> -knappen.
+                                Det är möjligt att välja både <i> Full </i> och <i> Delvis </i> för en enhet.
+                                Om du vill ha en fördröjning mellan utlösning av en enhet och aktivering av alarmet kan du 
+                                aktivera en fördröjning genom att klicka på <i> Fördröj </i> -knappen. <br />
+                                Fördröjningen som används kan hittas längst upp på fliken Inställningar, den är i sekunder och sträcker sig från 0-300 sekunder. <br />
+                            </li>
+                            <li> <b> Skapa ett flöde för att aktivera övervakningsläget </b> <br />
+                                Heimdall lyssnar på de valda sensorerna och loggar tillståndsändringar beroende på de valda alternativen på inställningssidan. 
+                                Först när Heimdall är i övervakningsläge leder en trigger på en sensor till ett larm.
+                                Gå till sidan Homey Flows och skapa ett flöde för att ställa in övervakningsläge med <i> Ange övervakningsläge </i> 
+                                kortet från övervakningslägesväljaren och välj önskat tillstånd i <i> ...då </i> delen.
+                            </li>
+                            <li> <b> Skapa ett flöde för att inaktivera övervakningsläget </b> <br />
+                                För att kunna inaktivera övervakningsläget via ett flöde behöver du först skapa ett och då använda <i> Ange övervakningsläge </i> 
+                                kortet från övervakningslägesväljaren och välja <i> Frånkopplad </i> -läget i <i> ...Då </i> -delen.
+                            </li>
+                            <li> <b> Skapa ett flöde för att agera på ett larm </b> <br />
+                                Du kan själv bestämma vad du vill att Homey ska göra när larmet löser ut. 
+                                Skapa ett flöde och använd <i> Larmet är utlöst </i> kortet i <i> När... </i> delen och välj önskade åtgärder i <i> ...Då </ i > delen. <br />
+                                Du kan använda taggen <i> Orsak </i> på triggerkortet för att informera dig om vilken enhet som aktiverade larmet.
+                            </li>
+                            <li> <b> Skapa ett flöde för att inaktivera larmet </b> <br />
+                                För att inaktivera larmet använder du <i> Deaktivera alarm </i> -kortet i ett flöde i <i> ...Då </i> -delen.
+                            </li>
+                            <li> <b> Lägg till en avstängningsknapp </b> <br />
+                                För att inaktivera larmet med hjälp av Homey-appen på din telefon måste du lägga till <i> Alarm </i> -knappen i den zon du önskar.
+                            </li>
+                            <li> <b> Logga in annan information </b> <br />
+                                Om du vill logga mer information, till exempel närvaroinformation, 
+                                Du kan använda <i> Sänd information till Heimdall </i> -kortet i ett flöde i <i> ...Då </i> -delen.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
