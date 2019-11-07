@@ -234,13 +234,13 @@
 		{
 			"id": "AlarmDelayActivated",
 			"title": {
-				"en": "Source",
+				"en": "The alarm delay is activated.",
 				"nl": "De alarm vertraging is geactiveerd.",
 				"de": "Alarmverzögerung ist aktiviert.",
 				"fr": "Le délai d'alarme est activé.",
 				"it": "Il ritardo dell'allarme è attivato.",
-				"nb": "Source",
-				"sv": "Source"
+				"nb": "The alarm delay is activated.",
+				"sv": "The alarm delay is activated."
 			},
 			"tokens": [
 				{
