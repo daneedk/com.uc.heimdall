@@ -22,3 +22,4 @@ How do I get it to work?
 • Add an Alarm Off Button
 
 Please visit the Heimdall topic on the Athom Community Forum for more information, click on Visit forum >> under Community in the grey block below.
+(Or copy this link https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
