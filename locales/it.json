@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", nessun trigger di allarme dovuto allo stato di allarme attivo.",
         "noreport": " non ha segnalato in ",
         "lastreport": " ore. Ultimo rapporto: "
+    },
+    "notification": {
+        "smodeset1": "**Modalità di Sorveglianza**  impostata su ",
+        "smodeset2": ""
     }
 }

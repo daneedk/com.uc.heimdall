@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
         "noreport": " has not reported in ",
         "lastreport": " hours. Last report: "
+    },
+    "notification": {
+        "smodeset1": "**Overvåkingsmodus** satt til ",
+        "smodeset2": ""
     }
 }

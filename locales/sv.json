@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", inget alarm löser ut pga gällande alarmstatus.",
         "noreport": " har inte rapporterat på ",
         "lastreport": " timmar. Senaste rapporten: "
+    },
+    "notification": {
+        "smodeset1": "**Övervakningsläge** inställt på ",
+        "smodeset2": ""
     }
 }

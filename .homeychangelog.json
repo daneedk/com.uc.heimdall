@@ -1,0 +1,32 @@
+{
+  "2.0.24": {
+    "en": "* Added Swedish language"
+  },
+  "2.0.25": {
+    "en": "• Added Swedish language • Localised notification on Surveillance Mode change • Fixed some French translations"
+  },
+  "2.0.26": {
+    "en": "* Version bump due to app store changes"
+  },
+  "2.0.27": {
+    "en": "* Version bump due to app store changes"
+  },
+  "2.0.28": {
+    "en": "* Version bump due to app store changes"
+  },
+  "2.0.29": {
+    "en": "* Version bump due to app store changes"
+  },
+  "2.0.30": {
+    "en": "* Version bump due to app store changes"
+  },
+  "2.0.31": {
+    "en": "• Added Swedish language • Localised notification on Surveillance Mode change • Fixed some French translations",
+    "nl": "• Zweedse taal toegevoegd • Gelokaliseerde melding bij wijziging van toezichtmodus • Enkele Franse vertalingen verbeterd",
+    "de": "• Schwedische Sprache hinzugefügt. • Lokalisierte Benachrichtigung bei Änderung des Überwachungsmodus. • Einige französische Übersetzungen wurden korrigiert",
+    "fr": "• Ajout de la langue suédoise • Notification localisée sur le changement de mode de surveillance • Correction de certaines traductions en français",
+    "it": "• Aggiunta lingua svedese • Notifica localizzata sulla modifica della modalità di sorveglianza • Correzione di alcune traduzioni in francese",
+    "no": "• Lagt til svensk språk • Lokalisert varsling om endring i overvåkingsmodus • Fikset noen franske oversettelser",
+    "sv": "• Tillagt svenska språk • Lokaliserad meddelande om övervakningsläge förändring • Fixade några franska översättningar"
+  }
+}

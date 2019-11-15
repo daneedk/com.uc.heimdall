@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", geen alarm trigger omdat het Alarm al geactiveerd is.",
         "noreport": " heeft al  ",
         "lastreport": " uren geen info gestuurd. Laatste info: "
+    },
+    "notification": {
+        "smodeset1": "**Toezicht Mode** ",
+        "smodeset2": " ingeschakeld"
     }
 }

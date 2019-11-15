@@ -62,10 +62,10 @@
         "settings": {
             "settingsgroup": {
                 "delays": "Délais",
-                "logging": "Connexion",
+                "logging": "Journalisation",
                 "check": "Vérification avant activation",
                 "speech": "Laissez Homey vous dire quand",
-                "notifications": "…crire dans le flux quand"
+                "notifications": "Écrire dans le flux quand"
             },
             "title": "Paramètres",
             "arDelay": "Délai d'activation",
@@ -77,8 +77,8 @@
             "logarmedonly": "Seulement en mode actif",
             "logtrueonly": "Pas pour désactiver les capteurs",
             "usetampering": "Utiliser la détection d'altération",
-            "delayarmingfull": "lors de l'activation du mode complet",
-            "delayarmingpartial": "lors de l'activation du mode partiel",
+            "delayarmingfull": "Lors de l'activation du mode complet",
+            "delayarmingpartial": "Lors de l'activation du mode partiel",
             "alarmwhiledelayed" : "Autoriser l'alarme pendant le délai d'alarme",
             "alarmwhiledelayeddescription": "Le déclenchement d'un capteur alors qu'un délai d'alarme est en cours active immédiatement l'état d'alarme..",
             "checkMotionAtArming": "Vérifier les capteurs de mouvement",
@@ -88,8 +88,8 @@
         "speech": {
             "spokenalarmcountdown": "un compte à rebours d'alarme est actif",
             "spokenarmcountdown": "un compte à rebours d'activation est actif",
-            "smodechange": "le Mode Surveillance a changé",
-            "alarmchange": "l'alarme est activée ou désactivée",
+            "smodechange": "Le Mode Surveillance a changé",
+            "alarmchange": "L'alarme est activée ou désactivée",
             "motiontrue": "un mouvement est détecté lorsqu'il est actif",
             "tampertrue": "une altération est détectée lorqu'il est actif",
             "dooropen": "un porte ou une fenêtre est ouverte lorqu'il est actif",
@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", pas de déclenchement de l'alarme en raison d'une alarme déjà active.",
         "noreport": " n'a pas signalé dans ",
         "lastreport": " heures. Dernier rapport: "
+    },
+    "notification": {
+        "smodeset1": "**Mode surveillance** réglé sur ",
+        "smodeset2": ""
     }
 }

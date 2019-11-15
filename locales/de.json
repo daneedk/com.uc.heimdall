@@ -172,5 +172,9 @@
         "noalarmtriggeralarmstate": ", Kein Alarmauslöser während aktiven Alarmstatus.",
         "noreport": " wurde nicht gemeldet in ",
         "lastreport": " Stunden. Letzte Meldung: "
+    },
+    "notification": {
+        "smodeset1": "**Überwachungsmodus** auf ",
+        "smodeset2": " eingestellt"
     }
 }

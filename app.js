@@ -745,15 +745,25 @@ class Heimdall extends Homey.App {
             this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
             this.log('setSurveillanceValue:       '+ value)
             if ( heimdallSettings.notificationSmodeChange ) {
-                let message = '**Surveillance Mode** set to ' + readableMode(value)
+                ///////////////////////////////////////////////////////////////////
+                //                        Needs localisation                     //
+                ///////////////////////////////////////////////////////////////////
+                // let message = '**Surveillance Mode** set to ' + readableMode(value)
+                let message = Homey.__("notification.smodeset1") + readableMode(value) + Homey.__("notification.smodeset2")
                 this.writeNotification(message)
             }
             var tokens = { 'mode': readableMode(value) };
+            /*
             triggerSurveillanceChanged.trigger(tokens, function(err, result){
-                    if ( err ) {
-                        return Homey.error(err)
-                    }
-                } );
+                if ( err ) {
+                    return Homey.error(err)
+                }
+            } );
+            */
+            triggerSurveillanceChanged.trigger(tokens)
+                .catch(this.error)
+                .then()
+
             // check the states of the sensors 
             if ( value != 'disarmed' && !heimdallSettings.checkBeforeCountdown ) {
                 Homey.app.checkDevicesState(value, nu)
@@ -1040,6 +1050,7 @@ Homey.ManagerSettings.on('set', (variable) => {
 // Flow triggers functions
 triggerSurveillanceChanged
     .register()
+    /*
     .on('run', ( args, callback ) => {
         callback( null, true );
         /*
@@ -1049,8 +1060,9 @@ triggerSurveillanceChanged
         else {
             callback( null, false );
         } 
-        */
+        * /
     });
+    */
 
 triggerSensorActiveAtArming
     .register()
