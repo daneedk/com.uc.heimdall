@@ -12,10 +12,13 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Add an Alarm Off Button.
 * Detailed instructions can be found on the Instructions tab in the apps settings.
 
-## Version 2.0.32
+## Version 2.0.33
 * Added Swedish language
 * Localised notification on Surveillance Mode change
 * Fixed some French translations
+
+## Version 2.0.32
+* Version bump due to app store changes
 
 ## Version 2.0.31
 * Version bump due to app store changes

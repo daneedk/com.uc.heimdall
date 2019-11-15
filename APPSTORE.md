@@ -27,7 +27,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the Athom community forum: https://community.athom.com/t/134
 
-## Version 2.0.32
+## Version 2.0.33
 * Added Swedish language
 * Localised notification on Surveillance Mode change
 * Fixed some French translations
