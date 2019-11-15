@@ -31,18 +31,11 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
 
-## Changes for current version 2.0.24
-* Code cleanup
-
 An extensive changelog is available [here](https://community.athom.com/t/134/3)
  
-More detailed technical information available at the [Github app page](https://github.com/daneedk/com.uc.heimdall)
-
 ## Donate
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
-
-
 
 ## Version 2.0.33
 * Added Swedish language
