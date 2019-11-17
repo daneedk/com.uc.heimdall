@@ -35,4 +35,14 @@
     "no": "• Lagt til svensk språk • Lokalisert varsling om endring i overvåkningsmodus • Fikset noen franske oversettelser",
     "sv": "• Tillagt svenska språk • Lokaliserad meddelande om övervakningsläge förändring • Fixade några franska översättningar"
   }
+  ,
+  "2.0.34": {
+    "en": "Added Swedish language • Added Norwegian language • Localised notification on Surveillance Mode change • Fixed some French translations",
+    "nl": "Zweedse taal toegevoegd • Noorse taal toegevoegd • Gelokaliseerde melding bij wijziging van toezichtmodus • Enkele Franse vertalingen verbeterd",
+    "de": "Schwedische Sprache hinzugefügt. • Norwegische Sprache hinzugefügt • Lokalisierte Benachrichtigung bei Änderung des Überwachungsmodus. • Einige französische Übersetzungen wurden korrigiert",
+    "fr": "Ajout de la langue suédoise • Ajout de la langue norvégienne • Notification localisée sur le changement de mode de surveillance • Correction de certaines traductions en français",
+    "it": "Aggiunta lingua svedese • Aggiunta la lingua norvegese • Notifica localizzata sulla modifica della modalità di sorveglianza • Correzione di alcune traduzioni in francese",
+    "no": "Lagt til svensk språk • Lagt til norsk språk • Lokalisert varsling om endring i overvåkningsmodus • Fikset noen franske oversettelser",
+    "sv": "Tillagt svenska språk • Lade till norskt språk • Lokaliserad meddelande om övervakningsläge förändring • Fixade några franska översättningar"
+  }
 }
