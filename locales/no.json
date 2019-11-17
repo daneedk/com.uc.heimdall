@@ -1,180 +1,180 @@
 {
     "settings": {
-        "benefit": "Let Homey watch over your home."
+        "benefit": "La Homey overvåke ditt hjem."
     },
     "devices": {
         "surveillancemode": {
-            "name": "Surveillance Mode Switch"
+            "name": "Modusbryter"
         },
         "alarmoff": {
-            "name": "Alarm Off Button"
+            "name": "Knapp for frakobling av alarm"
         },
-        "flowcard": "Flowcard"
+        "flowcard": "Flytkort"
     },
     "tab1": {
-        "title": "Dashboard", 
+        "title": "Dashbord",
         "status": {
             "title": "Status",
-            "smode": "Surveillance Mode",
-            "smodeFull": "Full Surveillance Mode",
-            "smodePartial": "Partial Surveillance Mode",
+            "smode": "Overvåkningsmodus",
+            "smodeFull": "Full overvåkning",
+            "smodePartial": "Delvis overvåkning",
             "alarm": "Alarm"
         },
         "history": {
-            "title": "History",
-            "autoRefresh": "Auto refresh",
-            "manualRefresh": "Refresh",
-            "useColors": "Use colors",
-            "btnClearHistory": "Clear history",
-            "btnDownload": "Download",
-            "date": "Date",
-            "time": "Time",
-            "smode": "Surveillance Mode",
-            "source": "Source",
-            "action": "Action"
+            "title": "Historie",
+            "autoRefresh": "Automatisk oppdatering",
+            "manualRefresh": "Oppdater",
+            "useColors": "Bruk farger",
+            "btnClearHistory": "Slett historie",
+            "btnDownload": "Last ned",
+            "date": "Dato",
+            "time": "Tidspunkt",
+            "smode": "Overvåkningsmodus",
+            "source": "Kilde",
+            "action": "Handling"
         }
     },
     "tab2": {
-        "title": "Devices",
+        "title": "Enheter",
         "subtab1": {
-            "title": "State",
-            "lastseen": "Last seen:",
-            "na": "not available"
+            "title": "Status",
+            "lastseen": "Sist sett:",
+            "na": "ikke tilgjengelig"
         },
         "subtab2": {
-            "title": "Settings"
+            "title": "Innstillinger"
         },
         "devices": {
-            "devices": "Devices",
-            "zone": "Zone",
-            "device": "Device",
+            "devices": "Enheter",
+            "zone": "Sone",
+            "device": "Enhet",
             "monitor": "Monitor",
-            "dTrigger": "Delayed Trigger",
-            "justLog": "Just log",
-            "delay": "Delay",
-            "log": "Log",
+            "dTrigger": "Forsinket utløser",
+            "justLog": "Bare logging",
+            "delay": "Forsinket",
+            "log": "Logg",
             "full": "Full",
-            "partial": "Partial"
+            "partial": "Delvis"
         }
     },
     "tab3": {
-        "title": "Settings",
+        "title": "Innstillinger",
         "settings": {
             "settingsgroup": {
-                "delays": "Delays",
+                "delays": "Forsinkelser",
                 "logging": "Logging",
-                "check": "Pre-Arming check",
-                "speech": "Let Homey tell you when",
-                "notifications": "Write to Timeline when"
+                "check": "Kontroll før tilkobling",
+                "speech": "La Homey fortelle deg når",
+                "notifications": "Skriv til tidslinjen når"
             },
-            "title": "Settings",
-            "arDelay": "Arming delay",
-            "alDelay": "Alarm delay",
-            "seconds": "Seconds",
-            "save": "Save",
-            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
-            "saveSucces": "The new settings are saved.",
-            "logarmedonly": "Only when a Surveillance mode is active",
-            "logtrueonly": "Not for deactivating of sensors",
-            "usetampering": "Use tamper detection",
-            "delayarmingfull": "Use when enabling Armed mode",
-            "delayarmingpartial": "Use when enabling Partially Armed mode",
-            "alarmwhiledelayed" : "Allow Alarm while in Alarm Delay",
-            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately.",
-            "checkMotionAtArming": "Check motion sensor(s)",
-            "checkContactAtArming": "Check door/window sensor(s)",
-            "checkbeforecountdown": "Perform check before Arming Delay"
+            "title": "Innstillinger",
+            "arDelay": "Tilkoblingsforsinkelse",
+            "alDelay": "Alarmforsinkelse",
+            "seconds": "Sekunder",
+            "save": "Lagre",
+            "secondsFail": "Verdien er ikke gyldig. Vennligst angi en verdi mellom 0-300 sekunder",
+            "saveSucces": "Innstillingene ble lagret.",
+            "logarmedonly": "Kun når overvåkningsmodus er aktivert",
+            "logtrueonly": "Ikke for deaktivering av sensorer",
+            "usetampering": "Bruk sabotasje-detektor",
+            "delayarmingfull": "Bruk under aktivering av tilkoblet modus",
+            "delayarmingpartial": "Bruk under aktivering av delvis tilkoblet modus",
+            "alarmwhiledelayed" : "Tillat alarm under pågående alarmforsinkelse",
+            "alarmwhiledelayeddescription": "Utløsning av en sensor under pågående alarmforsinkelse vil aktivere alarmen umiddelbart.",
+            "checkMotionAtArming": "Sjekk bevegelsessensor(er)",
+            "checkContactAtArming": "Sjekk dør/vindussensor(er)",
+            "checkbeforecountdown": "Utfør sjekk før alarmforsinkelse"
         },
         "speech": {
-            "spokenalarmcountdown": "an Alarm countdown is active",
-            "spokenarmcountdown": "an Arming countdown is active",
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "motiontrue": "motion is detected when armed",
-            "tampertrue": "tampering is detected when armed",
-            "dooropen": "a door or window is opened when armed",
-            "motionatarming": "a motion sensor is active when arming",
-            "dooropenatarming": "a door or window is open when arming"
+            "spokenalarmcountdown": "en alarmnedtelling er aktiv",
+            "spokenarmcountdown": "en tilkoblingsnedtelling er aktiv",
+            "smodechange": "overvåkningsmodus endret",
+            "alarmchange": "alarmen er utløst eller deaktivert",
+            "motiontrue": "bevegelse detektert i tilkoblet modus",
+            "tampertrue": "sabotasje detektert i tilkoblet modus",
+            "dooropen": "en dør eller et vindu ble åpnet i tilkoblet modus",
+            "motionatarming": "en bevegelsessensor er aktiv under tilkobling",
+            "dooropenatarming": "en dør eller et vindu er åpent under tilkobling"
         },
         "notification": {
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "nocommunicationmotion": "A motion device hasn't communicated",
-            "nocommunicationcontact": "A contact device hasn't communicated",
-            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours.",
-            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately."
+            "smodechange": "Overvåkningsmodus endret",
+            "alarmchange": "Alarmen er utløst eller deaktivert",
+            "nocommunicationmotion": "En bevegelsessensor ikke har kommunisert",
+            "nocommunicationcontact": "En kontaktenhet ikke har kommunisert",
+            "nocommunicationdescription": "Når en overvåkningsmodus er valgt vil Heimdall sjekke om enhetene har kommunisert i løpet av de siste 24 timer.",
+            "alarmwhiledelayeddescription": "Utløsning av en sensor under pågående alarmforsinkelse vil aktivere alarmen umiddelbart."
         }
     },
     "tab4": {
-        "title": "Instructions",
+        "title": "Instruksjoner",
         "instructions": {
-            "title": "Instructions"
+            "title": "Instruksjoner"
         }
     },
     "modes": {
-        "disarmed": "Disarmed",
-        "armed": "Armed",
-        "partiallyarmed": "Partially Armed"
+        "disarmed": "Frakoblet",
+        "armed": "Tilkoblet",
+        "partiallyarmed": "Delvis tilkoblet"
     },
     "enumerate": {
-        "source": "Startup Check",
-        "warning": " is not ready at Heimdall start"
+        "source": "Oppstartsjekk",
+        "warning": " er ikke klar ved oppstart av Heimdall"
     },
     "devicecheck": {
-        "source": "Device check",
-        "warning": " is no longer ready",
-        "ready": " is ready",
-        "readyagain": " is ready again"
+        "source": "Enhetskontroll",
+        "warning": " er ikke lenger klar",
+        "ready": " er klar",
+        "readyagain": " er klar igjen"
     },
     "states": {
-        "open": "Open",
-        "closed": "Closed",
-        "motion": "Motion detected",
-        "nomotion": "No motion detected",
-        "vibration": "Vibration detected",
-        "novibration": "No vibration detected",
-        "tamper": "Tampering detected",
-        "notamper": "No more tampering detected"
+        "open": "Åpen",
+        "closed": "Lukket",
+        "motion": "Bevegelse detektert",
+        "nomotion": "Ingen bevegelse detektert",
+        "vibration": "Vibrasjon detektert",
+        "novibration": "Ingen vibrasjon detektert",
+        "tamper": "Sabotasje detektert",
+        "notamper": "Ingen sabotasje detektert"
     },
     "speech": {
-        "startalarmcountdown": "The alarm will go off in ",
-        "startarmcountdown": "The Surveillance mode will be set to ",
-        "in": " in ",
-        "seconds": " seconds",
-        "smodeset": "The surveillance mode is set to ",
-        "alarmactivated": "The alarm is activated",
-        "alarmdeactivated": "The alarm is deactivated"
+        "startalarmcountdown": "Alarmen vil starte om ",
+        "startarmcountdown": "Overvåkningsmodus vil bli endret til ",
+        "in": " om ",
+        "seconds": " sekunder",
+        "smodeset": "Overvåkningsmodus er satt til ",
+        "alarmactivated": "Alarmen er utløst",
+        "alarmdeactivated": "Alarmen er deaktivert"
     },
     "atarming": {
-        "on": " on ",
-        "is": " is ",
-        "delayText": ". This device has a delayed trigger.",
-        "warningMotion": "Warning, sensor active. ",
-        "warningContact": "Warning, sensor "
+        "on": " på ",
+        "is": " er ",
+        "delayText": ". Enheten har en forsinket utløsning.",
+        "warningMotion": "Advarsel, sensor aktiv. ",
+        "warningContact": "Advarsel, sensor "
     },
     "history": {
-        "smodedisarmed": "Surveillance mode is disarmed.",
-        "smodearmed": "Surveillance mode is armed.",
-        "smodepartiallyarmed": "Surveillance mode is partially armed.",
-        "smodedelayarmed": "Surveillance mode will be armed in ",
-        "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
-        "seconds": " seconds.",
-        "smodedelaychanged": "Arming countdown is lowered to 10 seconds due to Last Door sequence",
-        "alarmdeactivated": "Alarm is deactivated by ",
-        "alarmactivated": "Alarm is activated. ",
-        "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
-        "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
-        "triggerdalarm": " triggered Alarm",
-        "delayoverruled": ", delayed Alarmtrigger is overruled.",
-        "alarmdelayed": "Alarmtrigger is delayed: ", 
-        "alarmnotactivated": "Alarm is not activated due to disarming.",
-        "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
-        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
-        "noreport": " has not reported in ",
-        "lastreport": " hours. Last report: "
+        "smodedisarmed": "Overvåkningsmodus er frakoblet.",
+        "smodearmed": "Overvåkningsmodus er tilkoblet.",
+        "smodepartiallyarmed": "Overvåkningsmodus er delvis tilkoblet.",
+        "smodedelayarmed": "Overvåkningsmodus vil bli aktivert om ",
+        "smodedelaypartiallyarmed": "Overvåkningsmodus vil bli delvis aktivert om ",
+        "seconds": " sekunder.",
+        "smodedelaychanged": "Tilkoblingsnedtelling er lavere enn 10 sekunder grunnet siste døråpning",
+        "alarmdeactivated": "Alarmen er deaktivert av ",
+        "alarmactivated": "Alarmen er utløst. ",
+        "alarmactivatedflowcard": "Alarmen er deaktivert via et flytkort. ",
+        "smodechangedisabled": "Endring av overvåkningsmodus er deaktivert grunnet frakobling.",
+        "triggerdalarm": " utløst alarm",
+        "delayoverruled": ", forsinket alarmutløsning er avvist.",
+        "alarmdelayed": "Alarmutløsning er forsinket: ",
+        "alarmnotactivated": "Alarm er ikke utløst grunne frakobling.",
+        "noalarmtriggercountdown": ", ingen alarm utløses grunned pågående forsinket nedtelling.",
+        "noalarmtriggeralarmstate": ", ingen alarm utløses grunnet aktiv alarmstatus.",
+        "noreport": " har ikke rapportert på ",
+        "lastreport": " timer. Siste rapporting: "
     },
     "notification": {
-        "smodeset1": "**Overvåkingsmodus** satt til ",
+        "smodeset1": "**Overvåkningsmodus** satt til ",
         "smodeset2": ""
     }
 }

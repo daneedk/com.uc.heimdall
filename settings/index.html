@@ -728,46 +728,45 @@
                         </ul>
                     </div>
                     <div id="instructionsno" style="display:none">
-                        To configure Heimdall you have to do the following:<br />
+                        For å konfigurere Heimdall gjør du følgende:<br />
                         <br />
                         <ul>
-                            <li><b>Create a Surveillance Mode Switch</b><br />
-                                Click on the <i>add a device</i> button in your desired zone on the Devices page and select the <i>Mode</i> device from the Heimdall app.<br>
-                                Click on <i>Install</i> to procede followed by clicking on <i>next</i>.
+                            <li><b>Lag en bryter for å endre overvåkningsmodus</b><br />
+                                Klikk på <i>legg til enhet</i>-knappen i ønsket sone under Enheter-fanen og velg <i>Modus</i>-enheten under Heimdall appen.<br>
+                                Klikk på <i>Installer</i> og deretter <i>neste</i>.
                             </li>
-                            <li><b>Select the device(s) you want to monitor</b><br />
-                                Go to the Devices tab in Heimdall's settings page and click on the <i>log</i> button if you just want a line in the log when the device state changes.
-                                Click on the <i>Full</i> button if you want the device included when the Surveillance mode is set to <i>Armed</i>
-                                If you want the device included when the Surveillance mode is set to <i>Partially Armed</i> click the <i>Partial</i> button.
-                                It is possible to select both <i>Full</i> and <i>Partial</i> for one device.
-                                If you want to have a delay between the triggering of a device and activating the alarm you can 
-                                enable a delay by clicking on the <i>Delay</i> button.<br />
-                                The delay that is used can be found on the top of the Settings tab, it is in seconds and ranges from 0-300 seconds.<br />
+                            <li><b>Velg enheten(e) du ønsker å overvåke</b><br />
+                                Gå til Enheter-fanen i Heimdalls innstillinger-side og klikk på <i>logg</i>-knappen om du kun ønsker å logge når enhetens status endres.
+                                Klikk på <i>Full</i>-knappen om du ønsker at enheten skal inkluderes når overvåkningsmodus er satt til <i>Tilkoblet</i>
+                                Om du ønsker at enheten skal inkluderes når overvåkningsmodus er satt til <i>Delvis tilkoblet</i> klikker du på <i>Delvis</i>-knappen.
+                                Det er mulig å velge både <i>Full</i> og <i>Delvis</i> for en enhet.
+                                Om du øsnker en forsinkelse mellom utløsning av enheten og aktivering av alarm kan du skru på forsinkelse ved å trykke på <i>Forsinkelse</i>-knappen.<br />
+                                Lengden på forsinkelsen kan settes under Innstillinger. Den er angitt i sekunder og kan settes mellom 0-300 sekunder.<br />
                             </li>
-                            <li><b>Create a flow to enable the Surveillance Mode</b><br />
-                                Heimdall will listen to the selected sensors and will log state changes, depending on the selected options on the settings page. 
-                                Only when Heimdall is in Surveillance Mode a trigger on a sensor will lead to an alarm.
-                                Go to the Homey Flows page and create a flow to set the Surveillance Mode by using the <i>Set Surveillance Mode</i> 
-                                card from the Surveillance Mode Switch and selecting the desired state in the <i>...then</i> part.
+                            <li><b>Hvordan lage en flyt for å tilkoble overvåkninsmodus</b><br />
+                                Heimdall overvåker de valgte sensorer og vil logge når status endres, avhengig av valgte innstillinger.
+                                Kun når Heimdall er i tilkoblet overvåkningsmodus vil utløsning av en sensor føre aktivere alarmen.
+                                Gå til Homeys flyt-side og lag en flyt for å endre overvåkningsmodus ved å bruke <i>Sett overvåkningsmodus</i>
+                                -kortet fra Modusbryter og velg ønsket modus i <i>Så...</i> delen.
                             </li>
-                            <li><b>Create a flow to disable the Surveillance Mode</b><br />
-                                To be able to disable the Surveillance Mode with a flow you have to create one and use the <i>Set Surveillance Mode</i> 
-                                card from the Surveillance Mode Switch and selecting the <i>Disarmed</i> state in the <i>...then</i> part.
+                            <li><b>Hvordan lage en flyt for å frakoble overvåkninsmodus</b><br />
+                                For å frakoble Overvåkningsmodus med en flyt må du opprette en og bruke <i>Sett overvåkningsmodus</i>-kort
+                                fra Modusbryter og velge <i>Frakoblet</i> modus i <i>Så...</i> delen.
                             </li>
-                            <li><b>Create a flow to act on an alarm</b><br />
-                                You can decide for yourself what you want Homey to do when the alarm is activated. 
-                                Create a flow and use the <i>The alarm is activated.</i> card in the <i>when...</i> part and select your desired actions in the <i>then...</i> part.<br />
+                            <li><b>Lag en flyt for å reagere på en alarm</b><br />
+                                Du kan velge selv hva du ønsket at Homey skal gjøre når alarmen blir utløst..
+                                Lag en flyt og bruk <i>Alarmen er utløst.</i>-kortet i <i>Når...</i> delen og velg ønskede handlinger i <i>Så...</i> delen.<br />
                                 You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
                             </li>
-                            <li><b>Create a flow to disable the alarm</b><br />
-                                To deactivate the alarm use the <i>Deactivate Alarm</i> card in a flow in the <i>...then</i> part.
+                            <li><b>Lag en flyt for å deaktivere alarmen</b><br />
+                                For å stoppe alarmen bruk <i>Deaktiver Alarm</i>-kortet i en flyt i <i>Så...</i> delen.
                             </li>
-                            <li><b>Add an Alarm Off Button</b><br />
-                                To deactivate the alarm using the Homey app on your phone you need to add the <i>Alarm</i> button device in the zone you desire.
+                            <li><b>Legg til en "Alarm av"-knapp</b><br />
+                                For å deaktivere alarmen med Homey appen må du legge til en <i>Knapp for frakobling av alarm</i>-enhet i ønsket sone.
                             </li>
-                            <li><b>Log other information</b><br />
-                                If you like to log more information, for example presence information, 
-                                you can use the <i>Send information to Heimdall</i> card in a flow in the <i>...then</i> part.
+                            <li><b>Logg annen informasjon</b><br />
+                                Om du ønsker å logge mer informasjon, for eksempel tilstedeværelse,
+                                kan du bruke <i>Send informasjon til Heimdall</i>-kortet i en flyt i <i>Så...</i> delen.
                             </li>
                         </ul>
                     </div>
