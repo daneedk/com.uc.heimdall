@@ -727,6 +727,49 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="instructionsno" style="display:none">
+                        For å konfigurere Heimdall gjør du følgende:<br />
+                        <br />
+                        <ul>
+                            <li><b>Lag en bryter for å endre overvåkningsmodus</b><br />
+                                Klikk på <i>legg til enhet</i>-knappen i ønsket sone under Enheter-fanen og velg <i>Modus</i>-enheten under Heimdall appen.<br>
+                                Klikk på <i>Installer</i> og deretter <i>neste</i>.
+                            </li>
+                            <li><b>Velg enheten(e) du ønsker å overvåke</b><br />
+                                Gå til Enheter-fanen i Heimdalls innstillinger-side og klikk på <i>logg</i>-knappen om du kun ønsker å logge når enhetens status endres.
+                                Klikk på <i>Full</i>-knappen om du ønsker at enheten skal inkluderes når overvåkningsmodus er satt til <i>Tilkoblet</i>
+                                Om du ønsker at enheten skal inkluderes når overvåkningsmodus er satt til <i>Delvis tilkoblet</i> klikker du på <i>Delvis</i>-knappen.
+                                Det er mulig å velge både <i>Full</i> og <i>Delvis</i> for en enhet.
+                                Om du øsnker en forsinkelse mellom utløsning av enheten og aktivering av alarm kan du skru på forsinkelse ved å trykke på <i>Forsinkelse</i>-knappen.<br />
+                                Lengden på forsinkelsen kan settes under Innstillinger. Den er angitt i sekunder og kan settes mellom 0-300 sekunder.<br />
+                            </li>
+                            <li><b>Hvordan lage en flyt for å tilkoble overvåkninsmodus</b><br />
+                                Heimdall overvåker de valgte sensorer og vil logge når status endres, avhengig av valgte innstillinger.
+                                Kun når Heimdall er i tilkoblet overvåkningsmodus vil utløsning av en sensor føre aktivere alarmen.
+                                Gå til Homeys flyt-side og lag en flyt for å endre overvåkningsmodus ved å bruke <i>Sett overvåkningsmodus</i>
+                                -kortet fra Modusbryter og velg ønsket modus i <i>Så...</i> delen.
+                            </li>
+                            <li><b>Hvordan lage en flyt for å frakoble overvåkninsmodus</b><br />
+                                For å frakoble Overvåkningsmodus med en flyt må du opprette en og bruke <i>Sett overvåkningsmodus</i>-kort
+                                fra Modusbryter og velge <i>Frakoblet</i> modus i <i>Så...</i> delen.
+                            </li>
+                            <li><b>Lag en flyt for å reagere på en alarm</b><br />
+                                Du kan velge selv hva du ønsket at Homey skal gjøre når alarmen blir utløst..
+                                Lag en flyt og bruk <i>Alarmen er utløst.</i>-kortet i <i>Når...</i> delen og velg ønskede handlinger i <i>Så...</i> delen.<br />
+                                You can use the tag <i>Reason</i> on the trigger card to inform you which device activated the alarm.
+                            </li>
+                            <li><b>Lag en flyt for å deaktivere alarmen</b><br />
+                                For å stoppe alarmen bruk <i>Deaktiver Alarm</i>-kortet i en flyt i <i>Så...</i> delen.
+                            </li>
+                            <li><b>Legg til en "Alarm av"-knapp</b><br />
+                                For å deaktivere alarmen med Homey appen må du legge til en <i>Knapp for frakobling av alarm</i>-enhet i ønsket sone.
+                            </li>
+                            <li><b>Logg annen informasjon</b><br />
+                                Om du ønsker å logge mer informasjon, for eksempel tilstedeværelse,
+                                kan du bruke <i>Send informasjon til Heimdall</i>-kortet i en flyt i <i>Så...</i> delen.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
