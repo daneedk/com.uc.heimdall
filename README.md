@@ -38,7 +38,7 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.0.34
+## Version 2.0.35
 * Added Swedish language
 * Added Norwegian language
 * Localised notification on Surveillance Mode change

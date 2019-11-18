@@ -25,7 +25,7 @@
     "large": "assets/images/large.png",
     "small": "assets/images/small.png"
   },
-  "version": "2.0.34",
+  "version": "2.0.35",
   "compatibility": ">=2.0.5",
   "brandColor": "#4BD762",
   "author": {
@@ -146,9 +146,12 @@
       "Övervakning"
     ]
   },
+  "bugs": {
+    "url": "https://github.com/daneedk/com.uc.heimdall/issues"
+  },
   "homeyCommunityTopicId": 134,
   "source": "https://github.com/daneedk/com.uc.heimdall",
-  "support": "https://github.com/daneedk/com.uc.heimdall/issues",
+  "support": "https://community.athom.com/t/134",
   "flow": {
     "triggers": [
       {
