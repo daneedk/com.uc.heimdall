@@ -1,26 +1,32 @@
-All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
+Heimdall erkennt aufgrund ausgewählter Sensoren alle Bewegungen und geöffnete bzw. geschlossene Türen und Fenster.
+Alle diese Ereignisse werden protokolliert und wenn sich Heimdall in einem Überwachungsmodus befindet, wird der Alarm ausgelöst.
 
-Supported Languages:
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
 
-Supported Devices
-• Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
-• Any device that has contact detection, i.e. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
-• Devices that don't have these capabilities can most likely be integrated by using a Virtual Device.
+Unterstützte Sprachen:
+🇬🇧 Englisch
+🇳🇱 Holländisch
+🇩🇪 Deutsch
+🇫🇷 Französisch
+🇮🇹 Italienisch
+🇸🇪 Schwedisch
+🇳🇴 Norwegisch
 
-How do I get it to work?
-• Add a Surveillance Mode Switch.
-• Select the devices to monitor on the settings page. 
-• Add flows to activate and deactivate the desired Surveillance Mode.
-• Add a flow with the desired actions when the alarm is triggered.
-• Add a flow to deactivate the alarm.
-• Add an Alarm Off Button
+Unterstützte Geräte
+• Alle Geräte mit Bewegungserkennung, z. B. der Fibaro-Bewegungssensor, der Aeotec-MultiSensor, der Xiaomi-Sensor für den menschlichen Körper usw.
+• Alle Geräte mit Kontakterkennung, z. B. Fibaro-Tür- / Fenstersensor, Aeotec-Einbautürsensor usw.
+• Geräte, die nicht über diese Funktionen verfügen, können höchstwahrscheinlich mithilfe eines virtuellen Geräts integriert werden.
 
-Please visit the Heimdall topic on the Athom Community Forum for more information, click on Visit forum >> under Community in the grey block below.
-(Or copy this link and paste it in your browsers address bar: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
+
+Wie bringe ich es zum Laufen?
+• Fügen Sie einen Überwachungsmodusschalter hinzu.
+• Wählen Sie auf der Einstellungsseite die zu überwachenden Geräte aus.
+• Fügen Sie Flows hinzu, um den gewünschten Überwachungsmodus zu aktivieren und zu deaktivieren.
+• Fügen Sie einen Flow mit den gewünschten Aktionen hinzu, wenn der Alarm ausgelöst wird.
+• Fügen Sie einen Flow hinzu, um den Alarm zu deaktivieren.
+• Fügen Sie einen Alarm-Aus-Button hinzu
+
+
+
+Bitte besuchen Sie das Heimdall-Topic im Athom Community-Forum, um weitere Informationen zu erhalten. 
+Klicken Sie unten im grauen Block unter Community auf Forum besuchen.
+(Oder kopieren Sie diesen Link und fügen Sie ihn in die Adressleiste Ihres Browsers ein: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
