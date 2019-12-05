@@ -8,6 +8,8 @@ Supporterade språk
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
+🇩🇰Danish
+🇪🇸Spanish
 
 Supporterade Enheter
 • Alla enheter som har rörelsesensor, t.ex. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
