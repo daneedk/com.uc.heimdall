@@ -1,6 +1,6 @@
-All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
+Alle gedetecteerde beweging en open/gesloten deur en ramen op geselecteerde sensoren zal Heimdall zien. Al deze gebeurtenissen worden naar het log geschreven en als er een Toezicht Mode actief is zal het Alarm geactiveerd worden.
 
-Supported Languages:
+Ondersteunde talen
 🇬🇧English
 🇳🇱Nederlands
 🇩🇪Deutsch
@@ -9,18 +9,19 @@ Supported Languages:
 🇸🇪Svenska
 🇳🇴Norsk
 
-Supported Devices
-• Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
-• Any device that has contact detection, i.e. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
-• Devices that don't have these capabilities can most likely be integrated by using a Virtual Device.
+Ondersteunde apparaten
+• Elk apparaat met bewegingsdetectie, bijv.  Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
+• Elk apparaat met contactdetectie, bijv. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
+• Apparaten die van zichzelf niet deze mogelijkheden hebben kunnen waarschijnlijk met een Virtueel Apparaat toch gebruikt worden.
 
-How do I get it to work?
-• Add a Surveillance Mode Switch.
-• Select the devices to monitor on the settings page. 
-• Add flows to activate and deactivate the desired Surveillance Mode.
-• Add a flow with the desired actions when the alarm is triggered.
-• Add a flow to deactivate the alarm.
-• Add an Alarm Off Button
+Hoe krijg ik het werkend?
+• Voeg een Toezicht Mode schakelaar toe.
+• Selecteer de apparaten die in de gaten gehouden moeten worden op de instellingen pagina.
+• Maak flows om de gewenste Toezicht Mode in te stellen
+• Maak een flow met de gewenste actie als het Alarm geactiveerd wordt.
+• Maak een flow om het Alarm uit te schakelen.
+• Voeg een knop toe om het Alarm uit te zetten.
 
-Please visit the Heimdall topic on the Athom Community Forum for more information, click on Visit forum >> under Community in the grey block below.
-(Or copy this link and paste it in your browsers address bar: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
+Bekijk het Heimdall topic op het Athom community forum voor meer informatie. Klik op Bezoek forum >> onder Community in het grijze blok hieronder.
+
+(Of kopieer deze link en plak deze in de adres regel van je browser: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)

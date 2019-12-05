@@ -1,6 +1,6 @@
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
 
-Supported Languages:
+Supported Languages
 🇬🇧English
 🇳🇱Nederlands
 🇩🇪Deutsch

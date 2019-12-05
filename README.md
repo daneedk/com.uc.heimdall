@@ -38,11 +38,9 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.0.35
-* Added Swedish language
-* Added Norwegian language
-* Localised notification on Surveillance Mode change
-* Fixed some French translations
+## Version 2.0.36
+* Added localised app description for the app store
+* Fixed some Dutch translations
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png

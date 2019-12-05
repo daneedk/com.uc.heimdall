@@ -745,10 +745,6 @@ class Heimdall extends Homey.App {
             this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
             this.log('setSurveillanceValue:       '+ value)
             if ( heimdallSettings.notificationSmodeChange ) {
-                ///////////////////////////////////////////////////////////////////
-                //                        Needs localisation                     //
-                ///////////////////////////////////////////////////////////////////
-                // let message = '**Surveillance Mode** set to ' + readableMode(value)
                 let message = Homey.__("notification.smodeset1") + readableMode(value) + Homey.__("notification.smodeset2")
                 this.writeNotification(message)
             }
