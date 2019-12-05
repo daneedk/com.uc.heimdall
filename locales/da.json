@@ -1,0 +1,180 @@
+{
+    "settings": {
+        "benefit": "Let Homey watch over your home."
+    },
+    "devices": {
+        "surveillancemode": {
+            "name": "Surveillance Mode Switch"
+        },
+        "alarmoff": {
+            "name": "Alarm Off Button"
+        },
+        "flowcard": "Flowcard"
+    },
+    "tab1": {
+        "title": "Dashboard", 
+        "status": {
+            "title": "Status",
+            "smode": "Surveillance Mode",
+            "smodeFull": "Full Surveillance Mode",
+            "smodePartial": "Partial Surveillance Mode",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "History",
+            "autoRefresh": "Auto refresh",
+            "manualRefresh": "Refresh",
+            "useColors": "Use colors",
+            "btnClearHistory": "Clear history",
+            "btnDownload": "Download",
+            "date": "Date",
+            "time": "Time",
+            "smode": "Surveillance Mode",
+            "source": "Source",
+            "action": "Action"
+        }
+    },
+    "tab2": {
+        "title": "Devices",
+        "subtab1": {
+            "title": "State",
+            "lastseen": "Last seen:",
+            "na": "not available"
+        },
+        "subtab2": {
+            "title": "Settings"
+        },
+        "devices": {
+            "devices": "Devices",
+            "zone": "Zone",
+            "device": "Device",
+            "monitor": "Monitor",
+            "dTrigger": "Delayed Trigger",
+            "justLog": "Just log",
+            "delay": "Delay",
+            "log": "Log",
+            "full": "Full",
+            "partial": "Partial"
+        }
+    },
+    "tab3": {
+        "title": "Settings",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Delays",
+                "logging": "Logging",
+                "check": "Pre-Arming check",
+                "speech": "Let Homey tell you when",
+                "notifications": "Write to Timeline when"
+            },
+            "title": "Settings",
+            "arDelay": "Arming delay",
+            "alDelay": "Alarm delay",
+            "seconds": "Seconds",
+            "save": "Save",
+            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
+            "saveSucces": "The new settings are saved.",
+            "logarmedonly": "Only when a Surveillance mode is active",
+            "logtrueonly": "Not for deactivating of sensors",
+            "usetampering": "Use tamper detection",
+            "delayarmingfull": "Use when enabling Armed mode",
+            "delayarmingpartial": "Use when enabling Partially Armed mode",
+            "alarmwhiledelayed" : "Allow Alarm while in Alarm Delay",
+            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately.",
+            "checkMotionAtArming": "Check motion sensor(s)",
+            "checkContactAtArming": "Check door/window sensor(s)",
+            "checkbeforecountdown": "Perform check before Arming Delay"
+        },
+        "speech": {
+            "spokenalarmcountdown": "an Alarm countdown is active",
+            "spokenarmcountdown": "an Arming countdown is active",
+            "smodechange": "the Surveillance Mode changed",
+            "alarmchange": "the Alarm is activated or deactivated",
+            "motiontrue": "motion is detected when armed",
+            "tampertrue": "tampering is detected when armed",
+            "dooropen": "a door or window is opened when armed",
+            "motionatarming": "a motion sensor is active when arming",
+            "dooropenatarming": "a door or window is open when arming"
+        },
+        "notification": {
+            "smodechange": "the Surveillance Mode changed",
+            "alarmchange": "the Alarm is activated or deactivated",
+            "nocommunicationmotion": "A motion device hasn't communicated",
+            "nocommunicationcontact": "A contact device hasn't communicated",
+            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours.",
+            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately."
+        }
+    },
+    "tab4": {
+        "title": "Instructions",
+        "instructions": {
+            "title": "Instructions"
+        }
+    },
+    "modes": {
+        "disarmed": "Disarmed",
+        "armed": "Armed",
+        "partiallyarmed": "Partially Armed"
+    },
+    "enumerate": {
+        "source": "Startup Check",
+        "warning": " is not ready at Heimdall start"
+    },
+    "devicecheck": {
+        "source": "Device check",
+        "warning": " is no longer ready",
+        "ready": " is ready",
+        "readyagain": " is ready again"
+    },
+    "states": {
+        "open": "Open",
+        "closed": "Closed",
+        "motion": "Motion detected",
+        "nomotion": "No motion detected",
+        "vibration": "Vibration detected",
+        "novibration": "No vibration detected",
+        "tamper": "Tampering detected",
+        "notamper": "No more tampering detected"
+    },
+    "speech": {
+        "startalarmcountdown": "The alarm will go off in ",
+        "startarmcountdown": "The Surveillance mode will be set to ",
+        "in": " in ",
+        "seconds": " seconds",
+        "smodeset": "The surveillance mode is set to ",
+        "alarmactivated": "The alarm is activated",
+        "alarmdeactivated": "The alarm is deactivated"
+    },
+    "atarming": {
+        "on": " on ",
+        "is": " is ",
+        "delayText": ". This device has a delayed trigger.",
+        "warningMotion": "Warning, sensor active. ",
+        "warningContact": "Warning, sensor "
+    },
+    "history": {
+        "smodedisarmed": "Surveillance mode is disarmed.",
+        "smodearmed": "Surveillance mode is armed.",
+        "smodepartiallyarmed": "Surveillance mode is partially armed.",
+        "smodedelayarmed": "Surveillance mode will be armed in ",
+        "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
+        "seconds": " seconds.",
+        "smodedelaychanged": "Arming countdown is lowered to 10 seconds due to Last Door sequence",
+        "alarmdeactivated": "Alarm is deactivated by ",
+        "alarmactivated": "Alarm is activated. ",
+        "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
+        "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
+        "triggerdalarm": " triggered Alarm",
+        "delayoverruled": ", delayed Alarmtrigger is overruled.",
+        "alarmdelayed": "Alarmtrigger is delayed: ", 
+        "alarmnotactivated": "Alarm is not activated due to disarming.",
+        "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
+        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
+        "noreport": " has not reported in ",
+        "lastreport": " hours. Last report: "
+    },
+    "notification": {
+        "smodeset1": "**Surveillance Mode** set to ",
+        "smodeset2": ""
+    }
+}
