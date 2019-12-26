@@ -8,6 +8,7 @@ Supported Languages
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
+🇪🇸Español
 
 Supported Devices
 • Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

@@ -9,8 +9,8 @@ Unterstützte Sprachen
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Danish
-🇪🇸Spanish
+🇩🇰Dansk
+🇪🇸Español
 
 Unterstützte Geräte
 • Alle Geräte mit Bewegungserkennung, z. B. der Fibaro-Bewegungssensor, der Aeotec-MultiSensor, der Xiaomi-Sensor für den menschlichen Körper usw.

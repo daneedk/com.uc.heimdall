@@ -8,8 +8,8 @@ Langues supportées:
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Danish
-🇪🇸Spanish
+🇩🇰Dansk
+🇪🇸Español
 
 Périphériques supportés:
 • tout périphérique qui possède une fonction de détection de mouvement, par ex. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor, etc.;
