@@ -1,180 +1,180 @@
 {
     "settings": {
-        "benefit": "Let Homey watch over your home."
+        "benefit": "Deja que Homey vigile tu casa."
     },
     "devices": {
         "surveillancemode": {
-            "name": "Surveillance Mode Switch"
+            "name": "Interruptor de modo de vigilancia"
         },
         "alarmoff": {
-            "name": "Alarm Off Button"
+            "name": "Botón de alarma desactivada"
         },
         "flowcard": "Flowcard"
     },
     "tab1": {
-        "title": "Dashboard", 
+        "title": "Tablero", 
         "status": {
-            "title": "Status",
-            "smode": "Surveillance Mode",
-            "smodeFull": "Full Surveillance Mode",
-            "smodePartial": "Partial Surveillance Mode",
-            "alarm": "Alarm"
+            "title": "Estado",
+            "smode": "Modo de vigilancia",
+            "smodeFull": "Modo completo de vigilancia",
+            "smodePartial": "Modo parcial de vigilancia",
+            "alarm": "Alarma"
         },
         "history": {
-            "title": "History",
-            "autoRefresh": "Auto refresh",
-            "manualRefresh": "Refresh",
-            "useColors": "Use colors",
-            "btnClearHistory": "Clear history",
-            "btnDownload": "Download",
-            "date": "Date",
-            "time": "Time",
-            "smode": "Surveillance Mode",
-            "source": "Source",
-            "action": "Action"
+            "title": "Histórico",
+            "autoRefresh": "Auto actualizar",
+            "manualRefresh": "Actualizar",
+            "useColors": "Usar colores",
+            "btnClearHistory": "Limpiar histórico",
+            "btnDownload": "Descarga",
+            "date": "Fecha",
+            "time": "Hora",
+            "smode": "Modo vigilancia",
+            "source": "Fuente",
+            "action": "Acción"
         }
     },
     "tab2": {
-        "title": "Devices",
+        "title": "Dispositivos",
         "subtab1": {
-            "title": "State",
-            "lastseen": "Last seen:",
-            "na": "not available"
+            "title": "Estado",
+            "lastseen": "visto última vez:",
+            "na": "no disponible"
         },
         "subtab2": {
-            "title": "Settings"
+            "title": "Configuración"
         },
         "devices": {
-            "devices": "Devices",
-            "zone": "Zone",
-            "device": "Device",
+            "devices": "Dispositivos",
+            "zone": "Zona",
+            "device": "Dispositivo",
             "monitor": "Monitor",
-            "dTrigger": "Delayed Trigger",
-            "justLog": "Just log",
-            "delay": "Delay",
-            "log": "Log",
-            "full": "Full",
-            "partial": "Partial"
+            "dTrigger": "Disparador retardado",
+            "justLog": "Solo inicie sesión",
+            "delay": "retardo",
+            "log": "Registro",
+            "full": "Completo",
+            "partial": "Parcial"
         }
     },
     "tab3": {
-        "title": "Settings",
+        "title": "Configuración",
         "settings": {
             "settingsgroup": {
-                "delays": "Delays",
-                "logging": "Logging",
-                "check": "Pre-Arming check",
-                "speech": "Let Homey tell you when",
-                "notifications": "Write to Timeline when"
+                "delays": "Retardo",
+                "logging": "iniciando sesión",
+                "check": "Comprobación previa a la activación",
+                "speech": "Deja que Homey te diga cuándo",
+                "notifications": "Escribir en la línea de tiempo cuando"
             },
-            "title": "Settings",
-            "arDelay": "Arming delay",
-            "alDelay": "Alarm delay",
-            "seconds": "Seconds",
-            "save": "Save",
-            "secondsFail": "The value is not valid, please enter a delay in the range of 0-300 seconds",
-            "saveSucces": "The new settings are saved.",
-            "logarmedonly": "Only when a Surveillance mode is active",
-            "logtrueonly": "Not for deactivating of sensors",
-            "usetampering": "Use tamper detection",
-            "delayarmingfull": "Use when enabling Armed mode",
-            "delayarmingpartial": "Use when enabling Partially Armed mode",
-            "alarmwhiledelayed" : "Allow Alarm while in Alarm Delay",
-            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately.",
-            "checkMotionAtArming": "Check motion sensor(s)",
-            "checkContactAtArming": "Check door/window sensor(s)",
-            "checkbeforecountdown": "Perform check before Arming Delay"
+            "title": "Configuración",
+            "arDelay": "Retardo de activación",
+            "alDelay": "Retardo de la alarma",
+            "seconds": "Segundos",
+            "save": "Guardar",
+            "secondsFail": "El valor no es válido, ingrese un retardo en el rango de 0-300 segundos",
+            "saveSucces": "Nuevas configuraciones guardadas.",
+            "logarmedonly": "Solo cuando un modo de vigilancia está activo",
+            "logtrueonly": "No para desactivar sensores",
+            "usetampering": "Usar detección de manipulación",
+            "delayarmingfull": "Úselo cuando habilite el modo Activo",
+            "delayarmingpartial": "Úselo cuando habilite el modo Activado Parcial",
+            "alarmwhiledelayed" : "Permitir alarma mientras está en Retardo de alarma",
+            "alarmwhiledelayeddescription": "Disparar un sensor mientras se está ejecutando un Retardo de alarma activará el Estado de alarma inmediatamente.",
+            "checkMotionAtArming": "Verifique el/los sensor(es) de movimiento",
+            "checkContactAtArming": "Verifique el/los sensores de puerta/ventana",
+            "checkbeforecountdown": "Realizar verificación antes del Retardo de Activación"
         },
         "speech": {
-            "spokenalarmcountdown": "an Alarm countdown is active",
-            "spokenarmcountdown": "an Arming countdown is active",
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "motiontrue": "motion is detected when armed",
-            "tampertrue": "tampering is detected when armed",
-            "dooropen": "a door or window is opened when armed",
-            "motionatarming": "a motion sensor is active when arming",
-            "dooropenatarming": "a door or window is open when arming"
+            "spokenalarmcountdown": "una cuenta atrás de alarma está activa",
+            "spokenarmcountdown": "una cuenta atrás de armado está activa",
+            "smodechange": "el modo de vigilancia ha cambiado",
+            "alarmchange": "la alarma está activada o desactivada",
+            "motiontrue": "se detecta movimiento cuando está armado",
+            "tampertrue": "se detecta manipulación cuando está armado",
+            "dooropen": "se abre una puerta o ventana cuando está armado",
+            "motionatarming": "un sensor de movimiento está activo al armar",
+            "dooropenatarming": "una puerta o ventana está abierta al armar"
         },
         "notification": {
-            "smodechange": "the Surveillance Mode changed",
-            "alarmchange": "the Alarm is activated or deactivated",
-            "nocommunicationmotion": "A motion device hasn't communicated",
-            "nocommunicationcontact": "A contact device hasn't communicated",
-            "nocommunicationdescription": "When a Surveillance Mode is selected Heimdall checks if the devices have communicated in the last 24 hours.",
-            "alarmwhiledelayeddescription": "Tripping a sensor while an Alarm Delay is running will activate the Alarm State immediately."
+            "smodechange": "el modo de vigilancia ha cambiado",
+            "alarmchange": "la alarma está activada o desactivada",
+            "nocommunicationmotion": "Un dispositivo de movimiento no ha comunicado.",
+            "nocommunicationcontact": "Un dispositivo de contacto no ha comunicado",
+            "nocommunicationdescription": "Cuando se selecciona un modo de vigilancia, Heimdall comprueba si los dispositivos se han comunicado en las últimas 24 horas.",
+            "alarmwhiledelayeddescription": "Disparar un sensor mientras se está ejecutando un Retardo de alarma activará el Estado de alarma inmediatamente."
         }
     },
     "tab4": {
-        "title": "Instructions",
+        "title": "Instrucciones",
         "instructions": {
-            "title": "Instructions"
+            "title": "Instrucciones"
         }
     },
     "modes": {
-        "disarmed": "Disarmed",
-        "armed": "Armed",
-        "partiallyarmed": "Partially Armed"
+        "disarmed": "Desarmado",
+        "armed": "Armado",
+        "partiallyarmed": "Parcialmente armado"
     },
     "enumerate": {
-        "source": "Startup Check",
-        "warning": " is not ready at Heimdall start"
+        "source": "Comprobación inicial",
+        "warning": " no está listo al inicio de Heimdall"
     },
     "devicecheck": {
-        "source": "Device check",
-        "warning": " is no longer ready",
-        "ready": " is ready",
-        "readyagain": " is ready again"
+        "source": "Comprobación de dispositivo",
+        "warning": " ya no está listo",
+        "ready": " está listo",
+        "readyagain": " está listo nuevamente"
     },
     "states": {
-        "open": "Open",
-        "closed": "Closed",
-        "motion": "Motion detected",
-        "nomotion": "No motion detected",
-        "vibration": "Vibration detected",
-        "novibration": "No vibration detected",
-        "tamper": "Tampering detected",
-        "notamper": "No more tampering detected"
+        "open": "Abierto",
+        "closed": "Cerrado",
+        "motion": "Movimiento detectado",
+        "nomotion": "No se detecta movimiento",
+        "vibration": "Vibración detectada",
+        "novibration": "No se detecta vibración",
+        "tamper": "Manipulación detectada",
+        "notamper": "No se detecta manipulación"
     },
     "speech": {
-        "startalarmcountdown": "The alarm will go off in ",
-        "startarmcountdown": "The Surveillance mode will be set to ",
-        "in": " in ",
-        "seconds": " seconds",
-        "smodeset": "The surveillance mode is set to ",
-        "alarmactivated": "The alarm is activated",
-        "alarmdeactivated": "The alarm is deactivated"
+        "startalarmcountdown": "La alarma sonará en ",
+        "startarmcountdown": "El modo de vigilancia se establecerá en ",
+        "in": " en ",
+        "seconds": " segundos",
+        "smodeset": "El modo de vigilancia está configurado en ",
+        "alarmactivated": "La alarma está activada",
+        "alarmdeactivated": "La alarma está desactivada"
     },
     "atarming": {
-        "on": " on ",
-        "is": " is ",
-        "delayText": ". This device has a delayed trigger.",
-        "warningMotion": "Warning, sensor active. ",
-        "warningContact": "Warning, sensor "
+        "on": " en ",
+        "is": " es ",
+        "delayText": ". Este dispositivo tiene una activación con retardo.",
+        "warningMotion": "Aviso, sensor activo. ",
+        "warningContact": "Aviso, sensor "
     },
     "history": {
-        "smodedisarmed": "Surveillance mode is disarmed.",
-        "smodearmed": "Surveillance mode is armed.",
-        "smodepartiallyarmed": "Surveillance mode is partially armed.",
-        "smodedelayarmed": "Surveillance mode will be armed in ",
-        "smodedelaypartiallyarmed": "Surveillance mode will be partially armed in ",
-        "seconds": " seconds.",
-        "smodedelaychanged": "Arming countdown is lowered to 10 seconds due to Last Door sequence",
-        "alarmdeactivated": "Alarm is deactivated by ",
-        "alarmactivated": "Alarm is activated. ",
-        "alarmactivatedflowcard": "Alarm is activated from Flowcard. ",
-        "smodechangedisabled": "Changing Surveillance Mode is disabled due to disarming.",
-        "triggerdalarm": " triggered Alarm",
-        "delayoverruled": ", delayed Alarmtrigger is overruled.",
-        "alarmdelayed": "Alarmtrigger is delayed: ", 
-        "alarmnotactivated": "Alarm is not activated due to disarming.",
-        "noalarmtriggercountdown": ", no alarm trigger due to running delay countdown.",
-        "noalarmtriggeralarmstate": ", no alarm trigger due to active Alarmstate.",
-        "noreport": " has not reported in ",
-        "lastreport": " hours. Last report: "
+        "smodedisarmed": "El modo de vigilancia está desactivado.",
+        "smodearmed": "El modo de vigilancia está activado.",
+        "smodepartiallyarmed": "El modo de vigilancia está parcialmente activado.",
+        "smodedelayarmed": "El modo de vigilancia se activará en ",
+        "smodedelaypartiallyarmed": "El modo de vigilancia estará parcialmente activado en ",
+        "seconds": " segundos.",
+        "smodedelaychanged": "La cuenta regresiva de armado se reduce a 10 segundos debido a la secuencia de la última puerta",
+        "alarmdeactivated": "La alarma está desactivada por ",
+        "alarmactivated": "Alarma activada. ",
+        "alarmactivatedflowcard": "Alarma activada desde un Flowcard. ",
+        "smodechangedisabled": "Cambiar el modo de vigilancia está deshabilitado debido al desarmado.",
+        "triggerdalarm": " alarma disparada",
+        "delayoverruled": ", el disparador de alarma retardado se anula.",
+        "alarmdelayed": "El disparador de alarma se retrasa: ", 
+        "alarmnotactivated": "La alarma no está activada debido al desarmado.",
+        "noalarmtriggercountdown": ", sin activación de alarma debido a estar activa una cuenta atrás retardada.",
+        "noalarmtriggeralarmstate": ", sin activación de alarma debido al estado de alarma activo.",
+        "noreport": " no ha informado en ",
+        "lastreport": " horas. Último reporte: "
     },
     "notification": {
-        "smodeset1": "**Surveillance Mode** set to ",
+        "smodeset1": "** Modo de vigilancia ** establecido en ",
         "smodeset2": ""
-    }
+	}
 }

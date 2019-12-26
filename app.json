@@ -16,8 +16,8 @@
     "it": "Trasforma il tuo Homey in un sistema di sorveglianza",
     "no": "Gjør din Homey til et overvåkningssystem",
     "sv": "Förvandla din Homey till ett övervakningssystem",
-    "da": "Turn your Homey into a surveillance system",
-    "se": "Turn your Homey into a surveillance system"
+    "da": "Gør din Homey til et overvågningssystem",
+    "es": "Convierte tu Homey en un sistema de vigilancia"
   },
   "category": [
     "security",
@@ -62,6 +62,9 @@
       },
       {
         "name": "🇳🇴Espen Ljosland"
+      },
+	  {
+        "name": "🇪🇸Eduardo Riveiro Rodríguez"
       }
     ]
   },
@@ -158,16 +161,16 @@
       "Log",
       "Surveillance"
     ],
-    "se": [
-      "Home",
-      "Alarm",
-      "Alert",
+    "es": [
+      "Casa",
+      "Alarma",
+      "Alerta",
       "Homeyalarm",
-      "System",
-      "Security",
-      "Tools",
-      "Log",
-      "Surveillance"
+      "Sistema",
+      "Seguridad",
+      "Herramientas",
+      "Registro",
+      "Vigilancia"
     ]
   },
   "bugs": {
@@ -189,7 +192,7 @@
           "no": "Overvåkningsmodus er endret.",
           "sv": "Övervakningsläget har ändrats.",
           "da": "Surveillance Mode changed.",
-          "se": "Surveillance Mode changed."
+          "es": "Modo de vigilancia ha cambiado."
         },
         "tokens": [
           {
@@ -204,7 +207,7 @@
               "no": "Overvåkningsmodus",
               "sv": "Övervakningsläge",
               "da": "Surveillance Mode",
-              "es": "Surveillance Mode"
+              "es": "Modo de vigilancia"
             },
             "example": "Disarmed"
           }
@@ -221,7 +224,7 @@
           "no": "Sensor aktiv ved tilkobling.",
           "sv": "Sensor aktiv vid tillkoppling.",
           "da": "Sensor active at arming.",
-          "es": "Sensor active at arming."
+          "es": "Sensor activo en el armado."
         },
         "tokens": [
           {
@@ -236,7 +239,7 @@
               "no": "Advarsel",
               "sv": "Varning",
               "da": "Warning",
-              "es": "Warning"
+              "es": "Aviso"
             },
             "example": "Warning, sensor is active."
           }
@@ -253,7 +256,7 @@
           "no": "Sensor aktiv ved statuskontroll.",
           "sv": "Sensor aktiv vid statuskontroll.",
           "da": "Sensor active at Status Check.",
-          "es": "Sensor active at Status Check."
+          "es": "Sensor activo en la comprobación de estado."
         },
         "tokens": [
           {
@@ -268,7 +271,7 @@
               "no": "Enhet",
               "sv": "Enhet",
               "da": "Device",
-              "es": "Device"
+              "es": "Dispositivo"
             },
             "example": "Front door"
           },
@@ -284,7 +287,7 @@
               "no": "Device type",
               "sv": "Enhetstyp",
               "da": "Device type",
-              "es": "Device type"
+              "es": "Tipo de dispositivo"
             },
             "example": "Contact"
           },
@@ -300,7 +303,7 @@
               "no": "Sone",
               "sv": "Zon",
               "da": "Zone",
-              "es": "Zone"
+              "es": "Zona"
             },
             "example": "Hallway"
           },
@@ -316,7 +319,7 @@
               "no": "Status",
               "sv": "Status",
               "da": "State",
-              "es": "State"
+              "es": "Estado"
             },
             "example": "Open"
           }
@@ -333,7 +336,7 @@
           "no": "Alarmen er utløst.",
           "sv": "Alarmet är utlöst.",
           "da": "The alarm is activated.",
-          "es": "The alarm is activated."
+          "es": "La alarma está activada."
         },
         "tokens": [
           {
@@ -348,7 +351,7 @@
               "no": "Årsak",
               "sv": "Orsak",
               "da": "Reason",
-              "es": "Reason"
+              "es": "Razón"
             },
             "example": "A door opened"
           },
@@ -364,7 +367,7 @@
               "no": "Sone",
               "sv": "Zon",
               "da": "Zone",
-              "es": "Zone"
+              "es": "Zona"
             },
             "example": "Hallway"
           }
@@ -381,7 +384,7 @@
           "no": "Alarmen er deaktivert.",
           "sv": "Alarmet är frånkopplat.",
           "da": "The alarm is deactivated.",
-          "es": "The alarm is deactivated."
+          "es": "La alarma está desactivada."
         },
         "tokens": [
           {
@@ -396,7 +399,7 @@
               "no": "Kilde",
               "sv": "Källa",
               "da": "Source",
-              "es": "Source"
+              "es": "Fuente"
             },
             "example": "Alarm Off Button"
           }
@@ -413,7 +416,7 @@
           "no": "Forsinket alarm er aktivert",
           "sv": "Larmfördröjning är aktiverad",
           "da": "The alarm delay is activated.",
-          "es": "The alarm delay is activated."
+          "es": "El retardo de la alarma está activado."
         },
         "tokens": [
           {
@@ -428,7 +431,7 @@
               "no": "Årsak",
               "sv": "Orsak",
               "da": "Reason",
-              "es": "Reason"
+              "es": "Razón"
             },
             "example": "Door Sensor: Open"
           },
@@ -444,7 +447,7 @@
               "no": "Varighet",
               "sv": "Varaktighet",
               "da": "Duration",
-              "es": "Duration"
+              "es": "Duración"
             },
             "example": 30
           }
@@ -461,7 +464,7 @@
           "no": "Tilkoblingsforinkelse er aktivert.",
           "sv": "Fördröjd tillkoppling är aktiverad.",
           "da": "The arming delay is activated.",
-          "es": "The arming delay is activated."
+          "es": "El retardo de armado está activado."
         },
         "tokens": [
           {
@@ -476,7 +479,7 @@
               "no": "Varighet",
               "sv": "Varaktighet",
               "da": "Duration",
-              "es": "Duration"
+              "es": "Duración"
             },
             "example": 30
           }
@@ -493,7 +496,7 @@
           "no": "Tid til alarmen endres",
           "sv": "Tid till dess larmet ändras",
           "da": "The time until alarm changed",
-          "es": "The time until alarm changed"
+          "es": "El tiempo hasta que la alarma cambió"
         },
         "tokens": [
           {
@@ -508,7 +511,7 @@
               "no": "Sekunder til alarm",
               "sv": "Sekunder kvar till alarm",
               "da": "Seconds until alarm",
-              "es": "Seconds until alarm"
+              "es": "Segundos hasta alarma"
             },
             "example": 30
           }
@@ -525,7 +528,7 @@
           "no": "Tid til tilkobling endres",
           "sv": "Tid till dess tillkoppling ändras",
           "da": "The time until armed changed",
-          "es": "The time until armed changed"
+          "es": "El tiempo hasta que cambió el armado"
         },
         "tokens": [
           {
@@ -540,7 +543,7 @@
               "no": "Sekunder til tilkobling",
               "sv": "Sekunder kvar till aktivering",
               "da": "Seconds until armed",
-              "es": "Seconds until armed"
+              "es": "Segundos hasta armado"
             },
             "example": 30
           }
@@ -557,7 +560,7 @@
           "no": "En linje ble skrevet i loggen",
           "sv": "En rad skrevs i loggen",
           "da": "A logline was written",
-          "es": "A logline was written"
+          "es": "Una línea de registro ha sido escrita"
         },
         "tokens": [
           {
@@ -572,7 +575,7 @@
               "no": "Enhet",
               "sv": "Enhet",
               "da": "Device",
-              "es": "Device"
+              "es": "Dispositivo"
             },
             "example": "Motion Sensor"
           },
@@ -588,7 +591,7 @@
               "no": "Status",
               "sv": "Status",
               "da": "State",
-              "es": "State"
+              "es": "Estado"
             },
             "example": "Motion detected"
           }
@@ -605,7 +608,7 @@
           "no": "Sensor utløst i alarmstatus",
           "sv": "Sensor utlöst i larmläge",
           "da": "Sensor tripped in Alarmstate",
-          "es": "Sensor tripped in Alarmstate"
+          "es": "Sensor disparado en estado de alarma"
         },
         "tokens": [
           {
@@ -620,7 +623,7 @@
               "no": "Status",
               "sv": "Status",
               "da": "State",
-              "es": "State"
+              "es": "Estado"
             },
             "example": "Motion detected"
           },
@@ -636,7 +639,7 @@
               "no": "Enhet",
               "sv": "Enhet",
               "da": "Device",
-              "es": "Device"
+              "es": "Dispositivo"
             },
             "example": "Motion Sensor"
           },
@@ -652,7 +655,7 @@
               "no": "sone",
               "sv": "Zon",
               "da": "Zone",
-              "es": "Zone"
+              "es": "Zona"
             },
             "example": "Hallway"
           }
@@ -669,7 +672,7 @@
           "no": "Ingen informasjon mottatt",
           "sv": "Ingen information mottagen",
           "da": "No information received",
-          "es": "No information received"
+          "es": "No se recibió información."
         },
         "tokens": [
           {
@@ -684,7 +687,7 @@
               "no": "Timer uten informasjon",
               "sv": "Timmar utan information",
               "da": "Hours no information",
-              "es": "Hours no information"
+              "es": "Horas sin información"
             },
             "example": 24
           },
@@ -700,7 +703,7 @@
               "no": "Sist oppdatert",
               "sv": "Senaste uppdateringen",
               "da": "Last update",
-              "es": "Last update"
+              "es": "Última actualización"
             },
             "example": "2019-01-15 13:37:00"
           },
@@ -716,7 +719,7 @@
               "no": "Enhet",
               "sv": "Enhet",
               "da": "Device",
-              "es": "Device"
+              "es": "Dispositivo"
             },
             "example": "Motion Sensor"
           },
@@ -732,7 +735,7 @@
               "no": "sone",
               "sv": "Zon",
               "da": "Zone",
-              "es": "Zone"
+              "es": "Zona"
             },
             "example": "Living Room"
           }
@@ -751,7 +754,7 @@
           "no": "Overvåkningsmodus er !{{ |ikke }}",
           "sv": "Övervakningsläge är !{{ |inte }}",
           "da": "Surveillance mode is !{{ |not }}",
-          "es": "Surveillance mode is !{{ |not }}"
+          "es": "El modo de vigilancia es !{{ |no }}"
         },
         "titleFormatted": {
           "en": "Surveillance mode is !{{ |not }} [[surveillance]]",
@@ -762,7 +765,7 @@
           "no": "Overvåkningsmodus er !{{ |ikke }} [[surveillance]]",
           "sv": "Övervakningsläge är !{{ |inte }} [[surveillance]]",
           "da": "Surveillance mode is !{{ |not }} [[surveillance]]",
-          "es": "Surveillance mode is !{{ |not }} [[surveillance]]"
+          "es": "El modo de vigilancia es !{{ |no }} [[surveillance]]"
         },
         "args": [
           {
@@ -780,7 +783,7 @@
                   "no": "Tilkoblet",
                   "sv": "Aktiverad",
                   "da": "Armed",
-                  "es": "Armed"
+                  "es": "Armado"
                 }
               },
               {
@@ -794,7 +797,7 @@
                   "no": "Frakoblet",
                   "sv": "Inaktiverad",
                   "da": "Disarmed",
-                  "es": "Disarmed"
+                  "es": "Desarmado"
                 }
               },
               {
@@ -808,7 +811,7 @@
                   "no": "Delvis tilkoblet",
                   "sv": "Delvis aktiverad",
                   "da": "Partially Armed",
-                  "es": "Partially Armed"
+                  "es": "Parcialmente armado"
                 }
               }
             ]
@@ -826,7 +829,7 @@
           "no": "Nedtelling for tilkobling !{{aktiv |ikke aktiv}}",
           "sv": "Nedräkning för tillkoppling !{{aktiv |inte aktiv}}",
           "da": "Arming countdown !{{active |not active}}",
-          "es": "Arming countdown !{{active |not active}}"
+          "es": "Cuenta atrás de armado !{{activa |no activa}}"
         }
       },
       {
@@ -840,7 +843,7 @@
           "no": "Nedtelling for alarm !{{aktiv |ikke aktiv}}",
           "sv": "Nedräkning för alarm !{{aktiv |inte aktiv}}",
           "da": "Alarm countdown !{{active |not active}}",
-          "es": "Alarm countdown !{{active |not active}}"
+          "es": "Cuenta atrás de alarma !{{activa |no activa}}"
         }
       },
       {
@@ -854,7 +857,7 @@
           "no": "Alarmstatus et !{{utløst |ikke utløst}}",
           "sv": "Alarmstatus är !{{aktiv |inte aktiv}}", 
           "da": "Alarm state is !{{active |not active}}",
-          "es": "Alarm state is !{{active |not active}}"
+          "es": "El estado de alarma es !{{activo |no activo}}"
         }
       },
       {
@@ -868,7 +871,7 @@
           "no": "Enhet er !{{forsinket |ikke forsinket}}",
           "sv": "Enhet är !{{fördröjd |inte fördröjd}}", 
           "da": "Device is !{{delayed |not delayed}}",
-          "es": "Device is !{{delayed |not delayed}}"
+          "es": "Es dispositivo está !{{retardado |no retardado}}"
         },
         "args": [
           {
@@ -883,7 +886,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -899,7 +902,7 @@
           "no": "Enhet er !{{logget |ikke logget}}",
           "sv": "Enhet är !{{loggad |inte loggad}}", 
           "da": "Device is !{{logged |not logged}}",
-          "es": "Device is !{{logged |not logged}}"
+          "es": "El dispositivo está !{{registrado |no registrado}}"
         },
         "args": [
           {
@@ -914,7 +917,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -930,7 +933,7 @@
           "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
           "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge", 
           "da": "Device is !{{part|not part}} of Full Surveillance Mode",
-          "es": "Device is !{{part|not part}} of Full Surveillance Mode"
+          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
         },
         "args": [
           {
@@ -945,7 +948,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -961,7 +964,7 @@
           "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
           "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge", 
           "da": "Device is !{{part|not part}} of Partial Surveillance Mode",
-          "es": "Device is !{{part|not part}} of Partial Surveillance Mode"
+          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
         },
         "args": [
           {
@@ -976,7 +979,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -994,7 +997,7 @@
           "no": "Sett overvåkningsmodus",
           "sv": "Ange övervakningsläge",
           "da": "Set Surveillance Mode",
-          "es": "Set Surveillance Mode"
+          "es": "Establecer modo de vigilancia"
         },
         "args": [
           {
@@ -1012,7 +1015,7 @@
                   "no": "Tilkoblet",
                   "sv": "Tillkopplad",
                   "da": "Armed",
-                  "es": "Armed"
+                  "es": "Armado"
                 }
               },
               {
@@ -1026,7 +1029,7 @@
                   "no": "Frakoblet",
                   "sv": "Frånkopplad",
                   "da": "Disarmed",
-                  "es": "Disarmed"
+                  "es": "Desarmado"
                 }
               },
               {
@@ -1040,7 +1043,7 @@
                   "no": "Delvis tilkoblet",
                   "sv": "Delvis tillkopplad",
                   "da": "Partially Armed",
-                  "es": "Partially Armed"
+                  "es": "Parcialmente armado"
                 }
               }
             ]
@@ -1063,7 +1066,7 @@
           "no": "Send informasjon til Heimdall",
           "sv": "Sänd information till Heimdall",
           "da": "Send information to Heimdall",
-          "es": "Send information to Heimdall"
+          "es": "Enviar información a Heimdall"
         },
         "args": [
           {
@@ -1083,7 +1086,7 @@
           "no": "Slett historikk Heimdall",
           "sv": "Rensa historik för Heimdall",
           "da": "Clear Heimdall history",
-          "es": "Clear Heimdall history"
+          "es": "Borrar el historial de Heimdall"
         }
       },
       {
@@ -1097,7 +1100,7 @@
           "no": "Aktiver Alarm",
           "sv": "Aktivera Alarm",
           "da": "Activate Alarm",
-          "es": "Activate Alarm"
+          "es": "Activar Alarma"
         }
       },
       {
@@ -1111,7 +1114,7 @@
           "no": "Deaktiver Alarm",
           "sv": "Deaktivera Alarm",
           "da": "Deactivate Alarm",
-          "es": "Deactivate Alarm"
+          "es": "Desactivar Alarma"
         }
       },
       {
@@ -1125,7 +1128,7 @@
           "no": "Sjekk siste kommunikasjon",
           "sv": "Kontrollera den senaste kommunikationen",
           "da": "Check Last Communication",
-          "es": "Check Last Communication"
+          "es": "Comprobar última comunicación"
         }
       },
       {
@@ -1139,7 +1142,7 @@
           "no": "Sjekk status på alle sensorer",
           "sv": "Kontrollera status på alla sensorer",
           "da": "Check status of all sensors",
-          "es": "Check status of all sensors"
+          "es": "Verificar el estado de todos los sensores"
         }
       },
       {
@@ -1153,7 +1156,7 @@
           "no": "Send informasjon til Tidslinjen",
           "sv": "Sänd information till Tidslinjen",
           "da": "Send information to Timeline",
-          "es": "Send information to Timeline"
+          "es": "Enviar información a la línea temporal"
         },
         "args": [
           {
@@ -1173,7 +1176,7 @@
           "no": "Legg forsinkelse til enhet",
           "sv": "Addera en fördröjning till en enhet",
           "da": "Add Delay to device",
-          "es": "Add Delay to device"
+          "es": "añadir retardo al dispositivo"
         },
         "args": [
           {
@@ -1188,7 +1191,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1204,7 +1207,7 @@
           "no": "Fjern forsinkelse fra enhet",
           "sv": "Ta bort en fördröjning från en enhet",
           "da": "Remove Delay from device",
-          "es": "Remove Delay from device"
+          "es": "retirar retardo al dispositivo"
         },
         "args": [
           {
@@ -1219,7 +1222,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1235,7 +1238,7 @@
           "no": "Legg til logging for enhet",
           "sv": "Addera loggning till en enhet",
           "da": "Add Logging to device",
-          "es": "Add Logging to device"
+          "es": "Añadir registro al dispositivo"
         },
         "args": [
           {
@@ -1250,7 +1253,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1266,7 +1269,7 @@
           "no": "Fjern logging fra enhet",
           "sv": "Ta bort loggning från en enhet",
           "da": "Remove Logging from device",
-          "es": "Remove Logging from device"
+          "es": "retirar registro al dispositivo"
         },
         "args": [
           {
@@ -1281,7 +1284,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1297,7 +1300,7 @@
           "no": "Legg enhet til for Delvis overvåkning",
           "sv": "Addera en enhet till partiellt övervakningsläge",
           "da": "Add device to Partial Surveillance Mode",
-          "es": "Add device to Partial Surveillance Mode"
+          "es": "Agregar dispositivo al modo de vigilancia parcial"
         },
         "args": [
           {
@@ -1312,7 +1315,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1328,7 +1331,7 @@
           "no": "Fjern enhet fra Delvis overvåkning",
           "sv": "To bort en enhet från partiellt övervakningsläge",
           "da": "Remove device from Partial Surveillance Mode",
-          "es": "Remove device from Partial Surveillance Mode"
+          "es": "Eliminar dispositivo del modo de vigilancia parcial"
         },
         "args": [
           {
@@ -1343,7 +1346,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1359,7 +1362,7 @@
           "no": "Legg enhet til Full overvåkning",
           "sv": "Addera en enhet till fullt övervakningsläge",
           "da": "Add device to Full Surveillance Mode",
-          "es": "Add device to Full Surveillance Mode"
+          "es": "Agregar dispositivo al modo de vigilancia completa"
         },
         "args": [
           {
@@ -1374,7 +1377,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1390,7 +1393,7 @@
           "no": "Fjern enhet fra Full overvåkning",
           "sv": "Ta bort en enhet från fullt övervakningsläge",
           "da": "Remove device from Full Surveillance Mode",
-          "es": "Remove device from Full Surveillance Mode"
+          "es": "Eliminar dispositivo del modo de vigilancia completa"
         },
         "args": [
           {
@@ -1405,7 +1408,7 @@
               "no": "enhet",
               "sv": "enhet",
               "da": "device",
-              "es": "device"
+              "es": "dispositivo"
             }
           }
         ]
@@ -1424,7 +1427,7 @@
         "no": "Alarmstatus for hjemmet",
         "sv": "Alarmstatus för hemmet",
         "da": "Home Alarm state",
-        "es": "Home Alarm state"
+        "es": "Estado de alarma de casa"
       },
       "values": [
         {
@@ -1438,7 +1441,7 @@
             "no": "Tilkoblet",
             "sv": "Tillkopplad",
             "da": "Armed",
-            "es": "Armed"
+            "es": "Armada"
           }
         },
         {
@@ -1452,7 +1455,7 @@
             "no": "Frakoblet",
             "sv": "Frånkopplad",
             "da": "Disarmed",
-            "es": "Disarmed"
+            "es": "Desarmada"
           }
         },
         {
@@ -1466,7 +1469,7 @@
             "no": "Delvis tilkoblet",
             "sv": "Delvis tillkopplad",
             "da": "Partially armed",
-            "es": "Partially armed"
+            "es": "Parcialmante armada"
           }
         }
       ],
@@ -1485,7 +1488,7 @@
         "no": "status",
         "sv": "status",
         "da": "state",
-        "es": "state"
+        "es": "Estado"
       },
       "desc": "The Alarm status",
       "getable": true,
@@ -1504,7 +1507,7 @@
         "no": "status",
         "sv": "status",
         "da": "state",
-        "es": "state"
+        "es": "Estado"
       },
       "desc": "The Alarm status",
       "getable": true,
@@ -1525,7 +1528,7 @@
         "no": "Modus",
         "sv": "Läge",
         "da": "Mode",
-        "es": "Mode"
+        "es": "Modo"
       },
       "images": {
         "large": "drivers/surveillanceModeSwitch/assets/images/large.png",
@@ -1553,7 +1556,7 @@
             "no": "Skru av",
             "sv": "Stäng av",
             "da": "Turn off",
-            "es": "Turn off"
+            "es": "Apagar"
           },
           "desc": "Button to turn Alarm off",
           "preventTag": true
@@ -1569,7 +1572,7 @@
             "no": "ALARM",
             "sv": "ALARM",
             "da": "ALARM",
-            "es": "ALARM"
+            "es": "ALARMA"
           },
           "titleFalse": {
             "en": "All is quiet",
@@ -1580,7 +1583,7 @@
             "no": "Alt er ok",
             "sv": "Allt är lugnt",
             "da": "All is quiet",
-            "es": "All is quiet"
+            "es": "Todo esta tranquilo"
           }
         }
       },
@@ -1609,7 +1612,7 @@
         "no": "Alarm",
         "sv": "Alarm",
         "da": "Alarm",
-        "es": "Alarm"
+        "es": "Alarma"
       },
       "images": {
         "large": "drivers/alarmOffSwitch/assets/images/large.png",
@@ -1632,7 +1635,7 @@
             "no": "Skru av",
             "sv": "Stäng av",
             "da": "Turn off",
-            "es": "Turn off"
+            "es": "Apagar"
           },
           "desc": "Button to turn Alarm off",
           "preventTag": true
@@ -1648,7 +1651,7 @@
             "no": "ALARM",
             "sv": "ALARM",
             "da": "ALARM",
-            "es": "ALARM"
+            "es": "ALARMA"
           },
           "titleFalse": {
             "en": "All is quiet",
@@ -1659,7 +1662,7 @@
             "no": "Alt er ok",
             "sv": "Allt är lugnt",
             "da": "All is quiet",
-            "es": "All is quiet"
+            "es": "Todo esta tranquilo"
           }
         }
       },

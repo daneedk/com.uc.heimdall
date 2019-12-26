@@ -1,6 +1,6 @@
-All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
+Heimdall verá todo el movimiento detectado y apertura/cierre de ventanas/puertas en los sensores seleccionados. Todos estos eventos se registrarán y cuando Heimdall esté en modo de vigilancia, se activará la alarma.
 
-Supported Languages
+Idiomas soportados
 🇬🇧English
 🇳🇱Nederlands
 🇩🇪Deutsch
@@ -9,20 +9,20 @@ Supported Languages
 🇸🇪Svenska
 🇳🇴Norsk
 🇩🇰Danish
-🇪🇸Spanish
+🇪🇸Español
 
-Supported Devices
-• Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
-• Any device that has contact detection, i.e. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
-• Devices that don't have these capabilities can most likely be integrated by using a Virtual Device.
+Dispositivos soportados
+• Cualquier dispositivo que tenga detección de movimiento., p.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
+• Cualquier dispositivo que tenga detección de contacto., p.e. Fibaro Door/Window Sensor, Aeotec Recessed Door Sensor etc.
+• Lo más probable es que los dispositivos que no tienen estas capacidades se puedan integrar utilizando un dispositivo virtual.
 
-How do I get it to work?
-• Add a Surveillance Mode Switch.
-• Select the devices to monitor on the settings page. 
-• Add flows to activate and deactivate the desired Surveillance Mode.
-• Add a flow with the desired actions when the alarm is triggered.
-• Add a flow to deactivate the alarm.
-• Add an Alarm Off Button
+¿Cómo hago para que funcione?
+• Agregar un interruptor de modo de vigilancia.
+• Seleccione los dispositivos a monitorear en la página de configuración. 
+• Añada flows para activar y desactivar el modo de vigilancia deseado.
+• Añada un flow con las acciones deseadas cuando se active la alarma.
+• Añada un flow para desactivar la alarma.
+• Añada un botón para desactivar la alarma.
 
-Please visit the Heimdall topic on the Athom Community Forum for more information, click on Visit forum >> under Community in the grey block below.
-(Or copy this link and paste it in your browsers address bar: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
+Visite el tópico de Heimdall en el Foro de la comunidad de Athom para obtener más información, haga clic en el link de abajo.
+(O copie este enlace y péguelo en la barra de direcciones de su navegador: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)

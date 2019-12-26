@@ -770,6 +770,46 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="instructionses" style="display:none">
+                        Para configurar Heimdall, debes hacer lo siguiente:<br />
+                        <br />
+                        <ul>
+                            <li><b>Cree un interruptor de modo de vigilancia</b><br />
+                                Haga clic en el botón <i>Agregar</i> (+) un dispositivo en la zona deseada en la página Dispositivos y seleccione el dispositivo <i>Modo</i> en la aplicación Heimdall. 
+                                Haga clic en <i>Instalar</i> para continuar, luego haga clic en <i>Siguiente</i>.
+                            </li>
+                            <li><b>Seleccione los dispositivos que desea monitorear</b><br />
+                                Vaya a la pestaña <i>Dispositivos</i> y en la pestaña <i>configuración</i> de Heimdall y haga clic en el botón de registro si solo desea registrar cuando cambia el estado del dispositivo.
+                                Haga clic en el botón <i>Completo</i> si desea que se incluya el dispositivo cuando el modo Vigilancia esté configurado en Armado.
+                                Si deseas que se incluya el dispositivo cuando el modo Vigilancia está configurado como Armado parcial, haga clic en el botón <i>Parcial</i>.
+                                Es posible seleccionar tanto Completo como Parcial para un dispositivo.
+                                Si desea tener un retraso entre la activación de un dispositivo y la activación de la alarma, puede habilitar un retardo haciendo clic en el botón <i>retardo</i>. 
+                                El retardo que se utiliza se puede encontrar en la parte superior en la pestaña Configuración, está en segundos y varía de 0 a 300.
+                            </li>
+                            <li><b>Cree un flow para habilitar el modo de vigilancia</b><br />
+                                Heimdall monitorizará los sensores seleccionados y registrará los cambios de estado, según las opciones seleccionadas en la página de <i>configuración</i>.
+                                Solo cuando Heimdall está en modo de vigilancia, un disparador en un sensor dará lugar a una alarma.
+                                Vaya a la página Flows de Homey y cree un flow para establecer el Modo de vigilancia utilizando la tarjeta <i>Establecer modo de vigilancia</i> y seleccionando el estado deseado en el apartado Then… .
+                            </li>
+                            <li><b>Cree un flujo para deshabilitar el modo de vigilancia</b><br />
+                                Para poder deshabilitar el Modo de vigilancia con un flow, debe crear uno y usar la tarjeta <i>Establecer modo de vigilancia</i> y seleccionar el estado Desarmado en el apartado Then... .
+                            </li>
+                            <li><b>Crea un flow para actuar sobre una alarma</b><br />
+                                Puedes decidir por ti mismo lo que quieres que haga Homey cuando se active la alarma.
+                                Cree un flow y use la tarjeta <i>La alarma está activada</i> en la parte <i>When...</i> y seleccione las acciones deseadas en la parte <i>Then...</i>.
+                                Puede usar la etiqueta <i>Razón</i> en la tarjeta de activación para informarle qué dispositivo activó la alarma.                           
+                            </li>
+                            <li><b>Cree un flow para desactivar la alarma.</b><br />
+                                Para desactivar la alarma, use la tarjeta <i>Desactivar alarma</i> en el apartado <i>Then…</i> del flow.
+                            </li>
+                            <li><b>Agregar un botón de alarma desactivada</b><br />
+                                Para desactivar la alarma usando la aplicación Homey en su teléfono, debe agregar el dispositivo de botón de alarma en la zona que desee. 
+                            </li>
+                            <li><b>Registrar otra información</b><br />
+                                Si desea registrar más información, por ejemplo, información de presencia, puede usar la tarjeta <i>Enviar información a Heimdall</i> en el apartado <i>Then…</i> de un flow.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
