@@ -8,7 +8,6 @@ Supporterade språk
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Supporterade Enheter

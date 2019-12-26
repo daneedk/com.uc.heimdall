@@ -8,7 +8,6 @@ Idiomas soportados
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Dispositivos soportados

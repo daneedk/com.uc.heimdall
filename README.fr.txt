@@ -8,7 +8,6 @@ Langues supportées:
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Périphériques supportés:

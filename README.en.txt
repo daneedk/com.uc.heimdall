@@ -8,7 +8,6 @@ Supported Languages
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Supported Devices

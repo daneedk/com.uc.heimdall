@@ -18,6 +18,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * 🇮🇹Italiano
 * 🇸🇪Svenska
 * 🇳🇴Norsk
+* 🇪🇸Español
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.

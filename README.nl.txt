@@ -8,7 +8,6 @@ Ondersteunde talen
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Ondersteunde apparaten

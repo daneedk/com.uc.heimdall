@@ -9,7 +9,6 @@ Unterstützte Sprachen
 🇮🇹Italiano
 🇸🇪Svenska
 🇳🇴Norsk
-🇩🇰Dansk
 🇪🇸Español
 
 Unterstützte Geräte
