@@ -63,14 +63,14 @@
     "sv": "Lade till lokaliserad appbeskrivning för app store • Fixade några nederländska översättningar"
   },
   "2.0.37": {
-    "en": "Added Danish language • Added Spanish language",
-    "nl": "Deense taal toegevoegd • Spaanse taal toegevoegd",
-    "de": "Dänische Sprache hinzugefügt • Spanische Sprache hinzugefügt",
-    "fr": "Ajout de la langue danoise • Ajout de la langue espagnole",
-    "it": "Aggiunta lingua danese • Aggiunta lingua spagnola",
-    "no": "Lagt til dansk språk • Lagt til spansk språk",
-    "sv": "Lagt till danskt språk • Lagt till spanska",
-    "da": "Tilføjet dansk sprog • Tilføjet spansk sprog",
-    "es": "Idioma danés agregado • Idioma español agregado"
+    "en": "Added Spanish language",
+    "nl": "Spaanse taal toegevoegd",
+    "de": "Spanische Sprache hinzugefügt",
+    "fr": "Ajout de la langue espagnole",
+    "it": "Aggiunta lingua spagnola",
+    "no": "Lagt til spansk språk",
+    "sv": "Lagt till spanska",
+    "da": "Tilføjet spansk sprog",
+    "es": "Idioma español agregado"
   }
 }

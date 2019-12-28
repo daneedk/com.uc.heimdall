@@ -40,7 +40,6 @@ If you like the app, consider buying me a beer!
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
 ## Version 2.0.37
-* Added Danish language 
 * Added Spanish language
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
