@@ -9,6 +9,7 @@ Ondersteunde talen
 🇸🇪Svenska
 🇳🇴Norsk
 🇪🇸Español
+🇩🇰Dansk
 
 Ondersteunde apparaten
 • Elk apparaat met bewegingsdetectie, bijv.  Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

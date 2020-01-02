@@ -9,6 +9,7 @@ Idiomas soportados
 🇸🇪Svenska
 🇳🇴Norsk
 🇪🇸Español
+🇩🇰Dansk
 
 Dispositivos soportados
 • Cualquier dispositivo que tenga detección de movimiento., p.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

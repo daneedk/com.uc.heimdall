@@ -19,6 +19,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * 🇸🇪Svenska
 * 🇳🇴Norsk
 * 🇪🇸Español
+* 🇩🇰Dansk
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
@@ -39,8 +40,10 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.0.37
-* Added Spanish language
+## Version 2.0.38
+* Added **Zone** tag to **A logine was written** flowcard
+* Code cleanup
+* Added Danish language
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png

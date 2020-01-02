@@ -32,8 +32,7 @@ class Heimdall extends Homey.Device {
     onCapabilityHomealarmState( newState, opts ) {
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){
-            // this.log('Surveillance Mode device clicked: ' + newState);
-            // Homey.app.setSurveillanceMode(newState, 'Surveillance Mode Switch' ,function(err){
+            this.log('Surveillance Mode switch clicked: ' + newState);
             Homey.app.setSurveillanceMode(newState, Homey.__("devices.surveillancemode.name") ,function(err){
                 if( err ) return Homey.alert( err );
             });
@@ -46,7 +45,7 @@ class Heimdall extends Homey.Device {
         // this.log('setNewState: ', newState);
         this.setCapabilityValue('homealarm_state', newState)
           .catch( this.error );
-        // this.log('Surveillance Mode flow activated: ' + newState);
+        this.log('Surveillance Mode Flow Card activated: ' + newState);
         Homey.app.setSurveillanceMode(newState, Homey.__("devices.flowcard") ,function(err){
             if( err ) return Homey.alert( err );
         });
@@ -56,7 +55,7 @@ class Heimdall extends Homey.Device {
     onCapabilityBoolean( value, opts, callback ) {
         // Surveillance Mode Switch is clicked
         if ( this.getData().id == "sMode" ){
-            //this.log('Surveillance Mode clicked: ' + value);
+            this.log('Surveillance Mode clicked: ' + value);
             Homey.app.deactivateAlarm(false, Homey.__("devices.surveillancemode.name") ,function(err){
                 if( err ) return Homey.alert( err );
             });

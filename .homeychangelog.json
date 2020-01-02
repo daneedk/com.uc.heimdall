@@ -72,5 +72,16 @@
     "sv": "Lagt till spanska",
     "da": "Tilføjet spansk sprog",
     "es": "Idioma español agregado"
+  },
+  "2.0.38": {
+    "en": "Added Danish language • Added Zone tag to A logline was written flowcard",
+    "nl": "Deense taal toegevoegd • Zone tag toegevoegd aan de Een logregel is geschreven flow kaart",
+    "de": "Dänische Sprache hinzugefügt • Zonen Tag zu Eine Meldung wurde geschrieben flow karte hinzugefügt",
+    "fr": "Ajout de la langue danoise • Ajout d'une balise de zone à la carte de flux Une logline a été écrite",
+    "it": "Aggiunta lingua danese • Aggiunto tag di zona alla scheda Nota nella TimeLine è stata scritta flow",
+    "no": "Lagt til dansk språk • Lagt sonemerke til En linje ble skrevet i loggen flow kortet",
+    "sv": "Lagt till danskt språk • Lade till Zone tagg till En rad skrevs i loggen flow kortet",
+    "da": "Tilføjet dansk sprog • Føjet zonemærke til Der blev skrevet en logline flow kort",
+    "es": "Idioma danés agregado • Etiqueta de zona agregada a Una línea de registro ha sido escrita tarjeta de flujo"
   }
 }
