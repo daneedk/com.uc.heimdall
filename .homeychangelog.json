@@ -83,5 +83,16 @@
     "sv": "Lagt till danskt språk • Lade till Zone tagg till En rad skrevs i loggen flow kortet",
     "da": "Tilføjet dansk sprog • Føjet zonemærke til Der blev skrevet en logline flow kort",
     "es": "Idioma danés agregado • Etiqueta de zona agregada a Una línea de registro ha sido escrita tarjeta de flujo"
+  },
+  "2.0.39": {
+    "en": "Updated Athom API to 3.1.20",
+    "nl": "Athom API bijgewerkt naar 3.1.20",
+    "de": "Athom API auf 3.1.20 aktualisiert",
+    "fr": "API Athom mise à jour vers 3.1.20",
+    "it": "API Athom aggiornata alla 3.1.20",
+    "no": "Oppdaterte Athom API til 3.1.20",
+    "sv": "Uppdaterad Athom API till 3.1.20",
+    "da": "Opdateret Athom API til 3.1.20",
+    "es": "API Athom actualizada a 3.1.20"
   }
 }
