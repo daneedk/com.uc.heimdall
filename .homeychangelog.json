@@ -94,5 +94,16 @@
     "sv": "Uppdaterad Athom API till 3.1.20",
     "da": "Opdateret Athom API til 3.1.20",
     "es": "API Athom actualizada a 3.1.20"
+  },
+  "2.0.40": {
+    "en": "Fixed bug in Pre-Arming Check",
+    "nl": "Probleem in inschakelcontrole verholpen",
+    "de": "Fehler in Überprüfung behoben",
+    "fr": "Correction d'un bug dans la vérification avant activation",
+    "it": "Bug risolto nel controllo Pre-Inserimento",
+    "no": "Fikset feil i kontroll før tilkobling",
+    "sv": "Fixat fel i kontroll innan tillkoppling",
+    "da": "Rettet fejl i før tilkoblings tjek",
+    "es": "Se corrigió el error en la comprobación previa la activación"
   }
 }

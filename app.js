@@ -469,7 +469,7 @@ class Heimdall extends Homey.App {
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         if ( value === 'disarmed' ) {
             logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
-            this.setSurveillanceValue("sd ",value, logLine)
+            this.setSurveillanceValue("sd ",value, logLine, false)
             Homey.app.deactivateAlarm(false, Homey.__("devices.surveillancemode.name"))
             if ( armCounterRunning ) {
                 // code to cancel an arm command during delayArming
@@ -513,7 +513,7 @@ class Heimdall extends Homey.App {
             } else {
                 this.log('Arming is delayed:          No')
                 armCounterRunning = true;
-                this.setSurveillanceValue("sa ",value, logLine)
+                this.setSurveillanceValue("sa ",value, logLine, true)
             }
             if ( value === 'armed' || value === 'partially_armed' ) {
                 Homey.app.checkDevicesLastCom(value)
@@ -522,7 +522,7 @@ class Heimdall extends Homey.App {
     }
 
     // Actually sets the Surveillance Mode 
-    setSurveillanceValue(color,value, logLine) {
+    setSurveillanceValue(color,value, logLine, deviceCheck) {
         let nu = getDateTime();
         logLine = color + nu + logLine;
         surveillance = Homey.ManagerSettings.get('surveillanceStatus');
@@ -546,7 +546,7 @@ class Heimdall extends Homey.App {
                 .then()
 
             // check the states of the sensors 
-            if ( value != 'disarmed' && !heimdallSettings.checkBeforeCountdown ) {
+            if ( deviceCheck ) {
                 Homey.app.checkDevicesState(value, nu)
             }
         } else {
@@ -966,12 +966,20 @@ class Heimdall extends Homey.App {
                 }, 1000);
             }
             else if ( delay == 0) {
-                this.setSurveillanceValue(color, value, logLine)
+                if ( heimdallSettings.checkBeforeCountdown ) {
+                    this.setSurveillanceValue(color, value, logLine, false)
+                } else {
+                    this.setSurveillanceValue(color, value, logLine, true)
+                }
             }
         }
         else {
             this.log('ttArmedCountdown:           armCounterRunning = false')
-            this.setSurveillanceValue(color, value, logLine)
+            if ( heimdallSettings.checkBeforeCountdown ) {
+                this.setSurveillanceValue(color, value, logLine, false)
+            } else {
+                this.setSurveillanceValue(color, value, logLine, true)
+            }
         }
     }
     

@@ -40,9 +40,9 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.0.39
-* Updated Athom API to 3.1.20
-* Code cleanup
+## Version 2.0.40
+* Fixed bug in Pre-Arming Check
+
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
 [pp-donate-image]: https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png
