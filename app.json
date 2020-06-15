@@ -27,7 +27,7 @@
     "large": "assets/images/large.png",
     "small": "assets/images/small.png"
   },
-  "version": "2.0.41",
+  "version": "2.0.42",
   "compatibility": ">=2.0.5",
   "brandColor": "#4BD762",
   "author": {
@@ -63,10 +63,10 @@
       {
         "name": "🇳🇴Espen Ljosland"
       },
-	    {
+      {
         "name": "🇪🇸Eduardo Riveiro Rodríguez"
       },
-	    {
+      {
         "name": "🇩🇰Erik Madsen"
       }
     ]
@@ -874,7 +874,7 @@
           "fr": "L'état d'alarme !{{est |n'est pas }} actif",
           "it": "Stato Allarme è !{{attivo |non attivo}}",
           "no": "Alarmstatus et !{{utløst |ikke utløst}}",
-          "sv": "Alarmstatus är !{{aktiv |inte aktiv}}", 
+          "sv": "Alarmstatus är !{{aktiv |inte aktiv}}",
           "da": "Alarm status er !{{aktiv |ikke aktiv}}",
           "es": "El estado de alarma es !{{activo |no activo}}"
         }
@@ -888,7 +888,7 @@
           "fr": "L'appareil !{{est en retard |n'est pas retardé}}",
           "it": "Il dispositivo !{{ |non }} è in ritardo ",
           "no": "Enhet er !{{forsinket |ikke forsinket}}",
-          "sv": "Enhet är !{{fördröjd |inte fördröjd}}", 
+          "sv": "Enhet är !{{fördröjd |inte fördröjd}}",
           "da": "Enhed er !{{forsinket |ikke forsinket}}",
           "es": "Es dispositivo está !{{retardado |no retardado}}"
         },
@@ -919,7 +919,7 @@
           "fr": "L'appareil !{{est |n'est pas}} connecté",
           "it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}",
           "no": "Enhet er !{{logget |ikke logget}}",
-          "sv": "Enhet är !{{loggad |inte loggad}}", 
+          "sv": "Enhet är !{{loggad |inte loggad}}",
           "da": "Enhed er !{{logget |ikke logget}}",
           "es": "El dispositivo está !{{registrado |no registrado}}"
         },
@@ -950,7 +950,7 @@
           "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
           "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
           "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
-          "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge", 
+          "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge",
           "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
         },
@@ -981,7 +981,7 @@
           "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
           "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
           "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
-          "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge", 
+          "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
           "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
         },
