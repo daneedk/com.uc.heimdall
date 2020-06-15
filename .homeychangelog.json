@@ -105,5 +105,16 @@
     "sv": "Fixat fel i kontroll innan tillkoppling",
     "da": "Rettet fejl i før tilkoblings tjek",
     "es": "Se corrigió el error en la comprobación previa la activación"
+  },
+  "2.0.41": {
+    "en": "No functional changes, resubmission to enable App Store languages",
+    "nl": "Geen functionele wijzigingen, opnieuw ingedient om App Store talen te activeren",
+    "de": "Keine funktionalen Änderungen, erneutes Senden, um App Store-Sprachen zu aktivieren",
+    "fr": "Aucune modification fonctionnelle, nouvelle soumission pour activer les langues de l'App Store",
+    "it": "Nessuna modifica funzionale, reinvio per abilitare le lingue dell'App Store",
+    "no": "Ingen funksjonelle endringer, gjeninnlevering for å aktivere App Store-språk",
+    "sv": "Inga funktionella ändringar, återinsändning för att aktivera App Store-språk",
+    "da": "Ingen funktionelle ændringer, genindgivelse for at aktivere App Store-sprog",
+    "es": "Sin cambios funcionales, vuelva a enviar para habilitar los idiomas de App Store"
   }
 }

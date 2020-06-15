@@ -27,7 +27,7 @@
     "large": "assets/images/large.png",
     "small": "assets/images/small.png"
   },
-  "version": "2.0.40",
+  "version": "2.0.41",
   "compatibility": ">=2.0.5",
   "brandColor": "#4BD762",
   "author": {
