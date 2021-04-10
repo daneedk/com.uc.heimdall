@@ -39,7 +39,7 @@ module.exports = [
         }
     },
     {
-        description: 'Receive information to write to the log',
+        description: 'Receive information from external keypad',
         method: 'post',
         path: '/keypad/:type',
         fn: function(args, callback) {
