@@ -332,6 +332,7 @@ function onHomeyReady(homeyReady){
             displayDevice: function(device) {
                 showDevice = false
                 for ( let id in device.capabilities ) {
+                    //if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
                     if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[id] ) ) {
                         showDevice = true
                     }

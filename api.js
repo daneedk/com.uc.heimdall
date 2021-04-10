@@ -37,5 +37,15 @@ module.exports = [
               callback("not a valid status request", null);
             }
         }
+    },
+    {
+        description: 'Receive information to write to the log',
+        method: 'post',
+        path: '/keypad/:type',
+        fn: function(args, callback) {
+            Homey.app.processKeypadCommands(args, args.params.type)
+                .then(res => callback(null, res) )
+                .catch(error => callback(error, null));
+        }  
     }
 ]

@@ -6,6 +6,8 @@ const delay = time => new Promise(res=>setTimeout(res,time));
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
+// let triggerSurveillanceChanged = this.homey.flow.getDeviceTriggerCard('SurveillanceChanged');
+
 let triggerSensorActiveAtArming = new Homey.FlowCardTrigger('sensorActiveAtArming');
 let triggerSensorActive = new Homey.FlowCardTrigger('sensorActiveAtSensorCheck');
 let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
@@ -84,6 +86,14 @@ var changeTta = false;
 var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 
+var testUsers = {
+    "users": [
+      { "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
+      { "name": "Danee2", "pincode": "654321", "admin": false, "valid": true },
+      { "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
+    ]
+  };
+
 class Heimdall extends Homey.App {
     // Get API control function
     getApi() {
@@ -116,10 +126,43 @@ class Heimdall extends Homey.App {
         return result;
     }
 
+    async processKeypadCommands(post,type) {
+        if ( checkAPIKEY(post.body.APIKEY) ) {
+            let nu = getDateTime();
+            let logLine = "";
+
+            if ( type == "action") {
+                let userObject = this.getUserInfo(post.body.value, this.users);
+                if ( userObject["valid"]) {
+                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " +userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    this.writeLog(logLine);
+                    if ( post.body.action != "none") {
+                        this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
+                    }
+
+                } else {
+                    logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    this.writeLog(logLine);
+
+                    this.log("Invalid code entered: " + userObject["pincode"])
+                }
+            } else if ( type == "battery") {
+
+            }
+            return "Heimdall: message processed"
+        } else {
+            return "Heimdall: APIKEY error"
+        }
+    }
+
     async onInit() {
         this.log('init Heimdall 2.0.39        ----------------------')
         let nu = getDateTime();
         this.api = await this.getApi();
+
+    //  // test test test test
+    this.users = testUsers
+    //  // /test test test test
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
         this.log('Surveillance Mode:          ' + surveillance);
@@ -1027,6 +1070,20 @@ class Heimdall extends Homey.App {
     {
         Homey.ManagerApi.realtime(event, details)
     }
+
+    getUserInfo(codeString, userList) {
+        if ( codeString.length > 3 ) {
+          let userObject = userList.users.find( record => record.pincode === codeString);
+          if ( userObject) {
+                return userObject
+          } else {
+                return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
+          }   
+        } else {
+            return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
+        }
+    }
+
 }
 module.exports = Heimdall;
 
@@ -1482,6 +1539,14 @@ function removeDelayFrom(device) {
 }
 
 // End Sensor settings functions ////////////////////////////////////////////
+
+function checkAPIKEY(APIKEY) {
+    if ( APIKEY == Homey.env.APIKEY1 || APIKEY == Homey.env.APIKEY2 || APIKEY == Homey.env.APIKEY3 || APIKEY == Homey.env.APIKEY4 || APIKEY == Homey.env.APIKEY5 ) {
+        return true
+    } else {
+        return false
+    }
+}
 
 function readableState(sensorState, type) {
     if (type == 'motion') {
