@@ -136,27 +136,39 @@ class Heimdall extends Homey.App {
                 if ( userObject["valid"]) {
                     logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " +userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
-                    if ( post.body.action != "none") {
+                    if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
                         this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
-                    }
+                        return "Found user, changed Surveillance Mode to " + post.body.action
+                    } else if ( post.body.action == "enter" ) {
+                        // TODO
 
+                        return "Found user, action is Enter"
+                    } else if ( post.body.action == "cancel") {
+                        // TODO
+
+                        return "Found user, action is Cancel"
+                    } else {
+                        return "Found user, action " + post.body.action + " is unknown"
+                    }
+                    
                 } else {
                     logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
 
                     this.log("Invalid code entered: " + userObject["pincode"])
+                    return "Invalid code entered. Logline written, no further action"
                 }
             } else if ( type == "battery") {
 
             }
-            return "Heimdall: message processed"
+            
         } else {
             return "Heimdall: APIKEY error"
         }
     }
 
     async onInit() {
-        this.log('init Heimdall 2.0.39        ----------------------')
+        this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
         let nu = getDateTime();
         this.api = await this.getApi();
 

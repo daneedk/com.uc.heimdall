@@ -892,6 +892,17 @@
           "da": "Enhed er !{{forsinket |ikke forsinket}}",
           "es": "Es dispositivo está !{{retardado |no retardado}}"
         },
+        "titleFormatted": {
+          "en": "[[device]] is !{{delayed |not delayed}}",
+          "nl": "[[device]] is !{{vertraagd |niet vertraagd}}",
+          "de": "[[device]] ist !{{verzögert |nicht verzögert}}",
+          "fr": "[[device]] !{{est en retard |n'est pas retardé}}",
+          "it": "[[device]] !{{ |non }} è in ritardo ",
+          "no": "[[device]] er !{{forsinket |ikke forsinket}}",
+          "sv": "[[device]] är !{{fördröjd |inte fördröjd}}",
+          "da": "[[device]] er !{{forsinket |ikke forsinket}}",
+          "es": "[[device]] está !{{retardado |no retardado}}"
+        },
         "args": [
           {
             "name": "device",
@@ -922,6 +933,17 @@
           "sv": "Enhet är !{{loggad |inte loggad}}",
           "da": "Enhed er !{{logget |ikke logget}}",
           "es": "El dispositivo está !{{registrado |no registrado}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{logged |not logged}}",
+          "nl": "[[device]] wordt !{{gelogd |niet gelogd}}",
+          "de": "[[device]] wird !{{gelogd |nicht gelogd}}",
+          "fr": "[[device]] !{{est |n'est pas}} connecté",
+          "it": "[[device]] !{{è in fase di registrazione |non viene registrato}}",
+          "no": "[[device]] er !{{logget |ikke logget}}",
+          "sv": "[[device]] är !{{loggad |inte loggad}}",
+          "da": "[[device]] er !{{logget |ikke logget}}",
+          "es": "[[device]] está !{{registrado |no registrado}}"
         },
         "args": [
           {
@@ -954,6 +976,17 @@
           "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
         },
+        "titleFormatted": {
+          "en": "[[device]] is !{{part|not part}} of Full Surveillance Mode",
+          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+          "de": "[[device]] ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
+          "no": "[[device]] er !{{del|ikke del}} av Full overvåkning",
+          "sv": "[[device]] är !{{del|inte del}} av Fullt Övervakningsläge",
+          "da": "[[device]] er !{{del|ikke del}} af Fuld Overvågning tilstand",
+          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia completa"
+        },
         "args": [
           {
             "name": "device",
@@ -984,6 +1017,17 @@
           "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
           "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{part|not part}} of Partial Surveillance Mode",
+          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+          "de": "[[device]] ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
+          "no": "[[device]] er !{{del|ikke del}} av Delvis overvåkning",
+          "sv": "[[device]] är !{{del|inte del}} av partiellt övervakningsläge",
+          "da": "[[device]] er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
+          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia parcial"
         },
         "args": [
           {
@@ -1017,6 +1061,17 @@
           "sv": "Ange övervakningsläge",
           "da": "Sæt Overvågnings Tilstand",
           "es": "Establecer modo de vigilancia"
+        },
+        "titleFormatted": {
+          "en": "Set Surveillance Mode to [[surveillance]]",
+          "nl": "Stel Toezicht Modus in op [[surveillance]]",
+          "de": "Überwachungsmodus stellen [[surveillance]]",
+          "fr": "Définir le Mode de Surveillance [[surveillance]]",
+          "it": "Imposta Modalità di Sorveglianza [[surveillance]]",
+          "no": "Sett overvåkningsmodus [[surveillance]]",
+          "sv": "Ange övervakningsläge [[surveillance]]",
+          "da": "Sæt Overvågnings Tilstand [[surveillance]]",
+          "es": "Establecer modo de vigilancia [[surveillance]]"
         },
         "args": [
           {
@@ -1086,6 +1141,17 @@
           "sv": "Sänd information till Heimdall",
           "da": "Send information til Heimdall",
           "es": "Enviar información a Heimdall"
+        },
+        "titleFormatted": {
+          "en": "Send [[log]] to Heimdall",
+          "nl": "Stuur [[log]] naar Heimdall",
+          "de": "Sende [[log]] an Heimdall",
+          "fr": "Envoyer des [[log]] à Heimdall",
+          "it": "Invia [[log]] a Heimdall",
+          "no": "Send [[log]] til Heimdall",
+          "sv": "Sänd [[log]] till Heimdall",
+          "da": "Send [[log]] til Heimdall",
+          "es": "Enviar [[log]] a Heimdall"
         },
         "args": [
           {
@@ -1177,6 +1243,17 @@
           "da": "Send information til Tidslinie",
           "es": "Enviar información a la línea temporal"
         },
+        "titleFormatted": {
+          "en": "Send [[message]] to Timeline",
+          "nl": "Stuur [[message]] naar Timeline",
+          "de": "Sende [[message]] an Timeline",
+          "fr": "Envoyer des [[message]] à Timeline",
+          "it": "Invia [[message]] alla Timeline",
+          "no": "Send [[message]] til Tidslinjen",
+          "sv": "Sänd [[message]] till Tidslinjen",
+          "da": "Send [[message]] til Tidslinie",
+          "es": "Enviar [[message]] a la línea temporal"
+        },
         "args": [
           {
             "name": "message",
@@ -1196,6 +1273,17 @@
           "sv": "Addera en fördröjning till en enhet",
           "da": "Tilføj forsinkelse til enhed",
           "es": "añadir retardo al dispositivo"
+        },
+        "titleFormatted": {
+          "en": "Add Delay to [[device]]",
+          "nl": "Voeg Vertraging toe aan [[device]]",
+          "de": "Verzögerung zum [[device]] hinzufügen",
+          "fr": "Ajouter un délai à [[device]]",
+          "it": "Aggiungi ritardo al [[device]]",
+          "no": "Legg forsinkelse til [[device]]",
+          "sv": "Addera en fördröjning till en [[device]]",
+          "da": "Tilføj forsinkelse til [[device]]",
+          "es": "añadir retardo al [[device]]"
         },
         "args": [
           {
@@ -1228,6 +1316,17 @@
           "da": "Fjern forsinkelse fra enhed",
           "es": "retirar retardo al dispositivo"
         },
+        "titleFormatted": {
+          "en": "Remove Delay from [[device]]",
+          "nl": "Verwijder Vertraging van [[device]]",
+          "de": "Verzögerung vom [[device]] entfernen",
+          "fr": "Supprimer le délai de [[device]]",
+          "it": "Rimuovi ritardo dal [[device]]",
+          "no": "Fjern forsinkelse fra [[device]]",
+          "sv": "Ta bort en fördröjning från en [[device]]",
+          "da": "Fjern forsinkelse fra [[device]]",
+          "es": "retirar retardo al [[device]]"
+        },
         "args": [
           {
             "name": "device",
@@ -1259,6 +1358,17 @@
           "da": "Tilføj logning for enhed",
           "es": "Añadir registro al dispositivo"
         },
+        "titleFormatted": {
+          "en": "Add Logging to [[device]]",
+          "nl": "Voeg Loggen toe aan [[device]]",
+          "de": "Loging zum [[device]] hinzufügen",
+          "fr": "Ajouter un Connexion à [[device]]",
+          "it": "Aggiungi Registro Eventi al [[device]]",
+          "no": "Legg til logging for [[device]]",
+          "sv": "Addera loggning till en [[device]]",
+          "da": "Tilføj logning for [[device]]",
+          "es": "Añadir registro al [[device]]"
+        },        
         "args": [
           {
             "name": "device",
@@ -1289,6 +1399,17 @@
           "sv": "Ta bort loggning från en enhet",
           "da": "Fjern logning fra enhed",
           "es": "retirar registro al dispositivo"
+        },
+        "titleFormatted": {
+          "en": "Remove Logging from [[device]]",
+          "nl": "Verwijder Loggen van [[device]]",
+          "de": "Loging vom [[device]] entfernen",
+          "fr": "Supprimer le Connexion de [[device]]",
+          "it": "Rimuovi Registro Eventi dal [[device]]",
+          "no": "Fjern logging fra [[device]]",
+          "sv": "Ta bort loggning från en [[device]]",
+          "da": "Fjern logning fra [[device]]",
+          "es": "retirar registro al [[device]]"
         },
         "args": [
           {
@@ -1321,6 +1442,17 @@
           "da": "Tilføj en enhed til Delvis Overvågnings Tilstand",
           "es": "Agregar dispositivo al modo de vigilancia parcial"
         },
+        "titleFormatted": {
+          "en": "Add [[device]] to Partial Surveillance Mode",
+          "nl": "Voeg [[device]] toe aan Gedeeltelijke Toezicht Mode",
+          "de": "[[device]] zum Teilüberwachungsmodus hinzufügen",
+          "fr": "Ajouter [[device]] au Mode de Surveillance Partielle",
+          "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Parziale",
+          "no": "Legg [[device]] til for Delvis overvåkning",
+          "sv": "Addera en [[device]] till partiellt övervakningsläge",
+          "da": "Tilføj en [[device]] til Delvis Overvågnings Tilstand",
+          "es": "Agregar [[device]] al modo de vigilancia parcial"
+        },
         "args": [
           {
             "name": "device",
@@ -1351,6 +1483,17 @@
           "sv": "To bort en enhet från partiellt övervakningsläge",
           "da": "Fjern enhed fra Delvis Overvågnings Tilstand",
           "es": "Eliminar dispositivo del modo de vigilancia parcial"
+        },
+        "titleFormatted": {
+          "en": "Remove [[device]] from Partial Surveillance Mode",
+          "nl": "Verwijder [[device]] uit Gedeeltelijke Toezicht Mode",
+          "de": "[[device]] aus dem Teilüberwachungsmodus entfernen",
+          "fr": "Supprimer [[device]] du Mode de Surveillance Partielle",
+          "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Parziale",
+          "no": "Fjern [[device]] fra Delvis overvåkning",
+          "sv": "To bort en [[device]] från partiellt övervakningsläge",
+          "da": "Fjern [[device]] fra Delvis Overvågnings Tilstand",
+          "es": "Eliminar [[device]] del modo de vigilancia parcial"
         },
         "args": [
           {
@@ -1383,6 +1526,17 @@
           "da": "Tilføj en enhed til Fuld Overvågnings Tilstand",
           "es": "Agregar dispositivo al modo de vigilancia completa"
         },
+        "titleFormatted": {
+          "en": "Add [[device]] to Full Surveillance Mode",
+          "nl": "Voeg [[device]] toe aan Volledige Toezicht Mode",
+          "de": "[[device]] zum vollständigen Überwachungsmodus hinzufügen",
+          "fr": "Ajouter [[device]] en Mode de Surveillance Complète",
+          "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Completa",
+          "no": "Legg [[device]] til Full overvåkning",
+          "sv": "Addera en [[device]] till fullt övervakningsläge",
+          "da": "Tilføj en [[device]] til Fuld Overvågnings Tilstand",
+          "es": "Agregar [[device]] al modo de vigilancia completa"
+        },
         "args": [
           {
             "name": "device",
@@ -1413,6 +1567,17 @@
           "sv": "Ta bort en enhet från fullt övervakningsläge",
           "da": "Fjern en enhed fra Fuld Overvågnings Tilstand",
           "es": "Eliminar dispositivo del modo de vigilancia completa"
+        },
+        "titleFormatted": {
+          "en": "Remove [[device]] from Full Surveillance Mode",
+          "nl": "Verwijder [[device]] uit Volledige Toezicht Mode",
+          "de": "[[device]] aus dem Vollständigen Überwachungsmodus entfernen",
+          "fr": "Supprimer [[device]] du Mode de Surveillance Complète",
+          "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Completa",
+          "no": "Fjern [[device]] fra Full overvåkning",
+          "sv": "Ta bort en [[device]] från fullt övervakningsläge",
+          "da": "Fjern en [[device]] fra Fuld Overvågnings Tilstand",
+          "es": "Eliminar [[device]] del modo de vigilancia completa"
         },
         "args": [
           {
