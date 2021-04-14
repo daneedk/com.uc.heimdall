@@ -41,7 +41,7 @@ If you like the app, consider buying me a beer!
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
 ## Version 2.0.43
-* Preparing for Ring Keypad
+* Preparing for Ring Keypad support
 
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
