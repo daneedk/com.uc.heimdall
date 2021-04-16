@@ -165,7 +165,11 @@ class Heimdall extends Homey.App {
                     this.writeLog(logLine);
 
                     this.log("Invalid code entered: " + userObject["pincode"])
-                    return "Invalid code entered. Logline written, no further action"
+                    if ( post.body.value.length > 0 ) {
+                        return "Invalid code entered. Logline written, no further action"
+                    } else {
+                        return "No code entered. Logline written, no further action"
+                    }
                 }
             } else if ( type == "battery") {
 
