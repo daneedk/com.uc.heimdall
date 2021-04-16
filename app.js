@@ -47,6 +47,15 @@ const actionRemoveDeviceFromPartial = new Homey.FlowCardAction('RemoveDeviceFrom
 const actionAddDeviceToFull = new Homey.FlowCardAction('AddDeviceToFull');
 const actionRemoveDeviceFromFull = new Homey.FlowCardAction('RemoveDeviceFromFull');
 
+/* // SDKv3 
+this.actionInputNotification = this.homey.flow.getActionCard('SendNotification');
+this.actionInputNotification
+  .registerRunListener( async(args, state ) => {
+      this.writeNotification(args.message)
+      return Promise.resolve( true );
+  })
+*/
+
 var surveillance;
 var alarm = false;
 var heimdallSettings = [];
@@ -451,6 +460,8 @@ class Heimdall extends Homey.App {
                             // Trigger Time Till Alarm flow card
                             let tta = heimdallSettings.alarmDelay - 1;
                             this.ttAlarmCountdown(tta, device,sensorStateReadable);
+                            // Generate Homey wide event for starting the Alarm Delay
+                            this.logRealtime("Alarm Delay", tta + 1);
                         } 
                         else {
                             this.log('Trigger is delayed:         No')
@@ -488,6 +499,8 @@ class Heimdall extends Homey.App {
                     // a Doorsensor with a delay is opened and closed while the arming countdown is running
                     this.log('lastDoor:                   Closed, countdown will be lowered')
                     changeTta = true;
+                    // Generate Homey wide event for Last Door Function
+                    this.logRealtime( "Last Door function","Activated" );
                 }
             }
 
@@ -554,6 +567,9 @@ class Heimdall extends Homey.App {
                 triggerArmDelayActivated.trigger(tokens)
                     .catch(this.error)
                     .then()
+                
+                // Generate Homey wide event for starting the Arming Delay
+                this.logRealtime("Arming Delay", tta);
 
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
@@ -588,6 +604,7 @@ class Heimdall extends Homey.App {
             Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
                 if ( err ) return Homey.alert( err );
             });
+            // Generate Homey wide event for setting the Surveillance Mode
             this.logRealtime("Surveillance Mode", value)
             this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
             this.log('setSurveillanceValue:       '+ value)
@@ -868,6 +885,7 @@ class Heimdall extends Homey.App {
         }  
         // write information to log
         this.writeLog(logLine)
+        // Generate Homey wide event for setting the Alarm Status
         this.logRealtime("Alarm Status", alarm)
     }
 
@@ -882,6 +900,9 @@ class Heimdall extends Homey.App {
         triggerSensorActiveAtArming.trigger(tokens)
             .catch(this.error)
             .then()
+
+        // Generate Homey wide event for an active sensor at arming
+        this.logRealtime( "Sensor State at Arming","Active" );
 
         // tell user
         if ( sensorType == 'motion' && heimdallSettings.spokenMotionAtArming) {
@@ -1078,6 +1099,7 @@ class Heimdall extends Homey.App {
         }
     }
 
+    // Generate Homey wide event
     logRealtime(event, details)
     {
         Homey.ManagerApi.realtime(event, details)
