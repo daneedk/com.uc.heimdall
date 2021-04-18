@@ -476,13 +476,24 @@
                 <div class="settings-itemgroup">
                     <div class="settings-item">
                         <div class="settings-item-text">
+                            <span>Username</span>
+                            <span>Pincode</span>
+                            <span>Enabled</span>
+                        </div>
+                    </div>
+                    <div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>
+                <!--/div>
+                <div class="settings-itemgroup"-->
+                    <div class="settings-item">
+                        <div class="settings-item-text">
                             <!--span data-i18n="tab3.settings.arDelay">-ArmingDelay-</span-->
                             <span>Linker deel</span>
                         </div>
-                        <div class="settings-item-input">
-                            <!--input class="hy-nostyle" id="armingDelay" type="text" value="31" onblur="changeArmingDelay()">
-                            <label data-i18n="tab3.settings.seconds">-Seconds-</label-->
-                            <label>Rechter deel</label>
+                        <div class="settings-item-last">
+                            <label class="form-switch">
+                                <input id="userEnabled" type="checkbox" onclick="saveSettings()">
+                                <i></i>
+                            </label>
                         </div>
                     </div>
                 </div>
