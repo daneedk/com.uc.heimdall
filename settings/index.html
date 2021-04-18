@@ -16,8 +16,10 @@
             <div id="tabs" class="rTable" style="display: none;">
                     <div id="tabb1" class="tab tab-active" onclick="showTab(1)" data-i18n="tab1.title">-Dashboard-</div>
                     <div id="tabb2" class="tab tab-inactive" onclick="showTab(2)" data-i18n="tab2.title">-Devices-</div>
+                    <div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="tab4.title">-Users-</div>
                     <div id="tabb3" class="tab tab-inactive" onclick="showTab(3)" data-i18n="tab3.title">-Settings-</div>
-                    <div id="tabb4" class="tab tab-inactive" onclick="showTab(4)" data-i18n="tab4.title">-Instructions-</div>
+                    <div id="tabb5" class="tab tab-inactive" onclick="showTab(5)"><img src="./images/instructions.svg" class="icon-instructions"></div>
+                    <!--div id="tabb5" class="tab tab-inactive" onclick="showTab(5)" data-i18n="tab5.title">-Instructions-</div-->
             </div>
             <div id="tab1" class="panel" style="display: none;">
                 <div class="settings-top"></div>
@@ -468,6 +470,24 @@
 
             </div>
             <div id="tab4" class="panel" style="display: none;">
+                <div class="settings-top"></div>
+                <div class="settings-spacer"></div>
+                <div data-i18n="tab4.users.usersgroup.users" class="text-header">-Users-</div>
+                <div class="settings-itemgroup">
+                    <div class="settings-item">
+                        <div class="settings-item-text">
+                            <!--span data-i18n="tab3.settings.arDelay">-ArmingDelay-</span-->
+                            <span>Linker deel</span>
+                        </div>
+                        <div class="settings-item-input">
+                            <!--input class="hy-nostyle" id="armingDelay" type="text" value="31" onblur="changeArmingDelay()">
+                            <label data-i18n="tab3.settings.seconds">-Seconds-</label-->
+                            <label>Rechter deel</label>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <div id="tab5" class="panel" style="display: none;">
                 <div class="settings-top"></div>
                 <div class="settings-spacer"></div>
                 <div class="settings-itemgroup">

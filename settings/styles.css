@@ -258,6 +258,14 @@ a:active {
     max-height:40px;
 }
 
+.icon-instructions {
+    margin-top: 2px;
+    width:auto;
+    height:auto;
+    max-width:35px;
+    max-height:35px;
+}
+
 .active {
     filter: invert(.1) sepia(1) saturate(100) brightness(80%) !important;
 }

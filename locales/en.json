@@ -106,7 +106,15 @@
         }
     },
     "tab4": {
-        "title": "Instructions",
+        "title": "Users",
+        "users": {
+            "usersgroup": {
+                "users": "Users"
+            }
+        }
+    },
+    "tab5": {
+        "title": "(I)",
         "instructions": {
             "title": "Instructions"
         }
