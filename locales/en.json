@@ -109,7 +109,11 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users"
+                "users": "Users",
+                "enterpin": "Please enter PIN",
+                "enter": "Ok",
+                "validating": "Validating",
+                "invalidpin": "Invalid PIN entered"
             }
         }
     },

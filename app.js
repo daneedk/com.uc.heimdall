@@ -95,13 +95,11 @@ var changeTta = false;
 var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 
-var testUsers = {
-    "users": [
-      { "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
-      { "name": "Danee2", "pincode": "654321", "admin": false, "valid": true },
-      { "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
-    ]
-  };
+var testUsers = [
+    { "id":1, "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
+    { "id":2, "name": "Danee2", "pincode": "654321", "admin": false, "valid": true },
+    { "id":3, "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
+];
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -188,6 +186,26 @@ class Heimdall extends Homey.App {
     //  // test test test test
     this.users = testUsers
     //  // /test test test test
+
+        Homey.ManagerSettings.on('set', (key) => {
+            if (key === 'codeString') {
+                
+                let codeString = Homey.ManagerSettings.get('codeString');
+                if (codeString == null) return
+                let result = this.getUserInfo(codeString, this.users);
+                if ( result.admin ){
+                    result = this.users;
+                } else if ( !result.valid ) {
+                    result = null;
+                };
+                Homey.ManagerSettings.set('transferUsers', result, function( err ){
+                    if ( err ) return Homey.alert( err );
+                });
+                Homey.ManagerSettings.set('codeString', null, function( err ){
+                    if ( err ) return Homey.alert( err );
+                });
+            }
+        });
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
         this.log('Surveillance Mode:          ' + surveillance);
@@ -1111,17 +1129,16 @@ class Heimdall extends Homey.App {
 
     getUserInfo(codeString, userList) {
         if ( codeString.length > 3 ) {
-          let userObject = userList.users.find( record => record.pincode === codeString);
-          if ( userObject) {
+            let userObject = userList.find( record => record.pincode === codeString);
+            if ( userObject ) {
                 return userObject
-          } else {
+            } else {
                 return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
-          }   
+            }   
         } else {
             return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
         }
     }
-
 }
 module.exports = Heimdall;
 

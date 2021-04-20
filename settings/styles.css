@@ -142,6 +142,41 @@ body {
     padding: 3px 0 3px 0;
 }
 
+.users-pin-input {
+    display: table-cell;
+    padding-right: 10px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    vertical-align: middle;
+    text-align: right;
+    white-space: nowrap;
+    font-family: -apple-system;
+    font-size: 13px;
+}
+
+.users-pin-input input {
+    width:33%;
+    margin-right: 22px;
+    border: 0;
+    border-radius: 0;
+    font-size: 16px;
+    text-align: right;
+    border-bottom: 1px solid rgb(75, 215, 98);
+    padding: 3px 0 3px 0;
+}
+
+.users-validating-text {
+    background-color: rgb(255,255,255);
+    padding-left: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: -apple-system;
+    font-size: 14px;
+    text-align: center;
+}
+
 .instructions {
     display: table;
     background-color: rgb(255,255,255);

@@ -473,30 +473,31 @@
                 <div class="settings-top"></div>
                 <div class="settings-spacer"></div>
                 <div data-i18n="tab4.users.usersgroup.users" class="text-header">-Users-</div>
-                <div class="settings-itemgroup">
+                <div id="pinentry" class="settings-itemgroup">
                     <div class="settings-item">
                         <div class="settings-item-text">
-                            <span>Username</span>
-                            <span>Pincode</span>
-                            <span>Enabled</span>
+                            <span data-i18n="tab4.users.usersgroup.enterpin">-Please enter PIN-</span>
                         </div>
-                    </div>
-                    <div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>
-                <!--/div>
-                <div class="settings-itemgroup"-->
-                    <div class="settings-item">
-                        <div class="settings-item-text">
-                            <!--span data-i18n="tab3.settings.arDelay">-ArmingDelay-</span-->
-                            <span>Linker deel</span>
-                        </div>
-                        <div class="settings-item-last">
-                            <label class="form-switch">
-                                <input id="userEnabled" type="checkbox" onclick="saveSettings()">
-                                <i></i>
-                            </label>
+                        <div class="users-pin-input">
+                            <input class="hy-nostyle" id="pin" type="text" value="" autocomplete="off" maxlength="6">
+                            <a @click="enterPIN()" class="btn narrow btn-inactive" data-i18n="tab4.users.usersgroup.enter">-Ok-</a>
                         </div>
                     </div>
                 </div>
+                <div id="userspane" class="settings-itemgroup" style="display: none;">
+                    <div class="settings-item">
+                        <div class="settings-item-text">
+                            <span id="users">Users be here</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="validating" class="users-validating-text" style="display: none;">
+                    <span data-i18n="tab4.users.usersgroup.validating">-validating-</span>
+                </div>
+                <div id="invalidpin" class="users-validating-text" style="display: none;">
+                    <span data-i18n="tab4.users.usersgroup.invalidpin">-Invalid PIN entered-</span>
+                </div>
+
             </div>   
             <div id="tab5" class="panel" style="display: none;">
                 <div class="settings-top"></div>

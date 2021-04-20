@@ -94,6 +94,7 @@ function onHomeyReady(homeyReady){
         data: {
           devices: {},
           zones: {},
+          savedUsers: {},
           search: '',
           devicesMonitoredFull: [],
           devicesMonitoredPartial: [],
@@ -145,6 +146,23 @@ function onHomeyReady(homeyReady){
                     });
                     console.log(array)
                     this.devices = array
+                });
+            },
+            getUsers() {
+                Homey.get('users', (err, result) => {
+                    if ( err ) {
+                        return Homey.alert('getUsers' + err );
+                    } else {
+                        if (result == (null || undefined)) {
+                            result = [
+                                { "id":1, "name": "Danee1", "admin": true, "valid": true },
+                                { "id":2, "name": "Danee2", "admin": false, "valid": true },
+                                { "id":3, "name": "Danee3", "admin": false, "valid": true }
+                              ]
+                        }
+                        console.log(result);
+                        this.savedUsers = result
+                    }
                 });
             },
             async addMonitorFull(device) {
@@ -411,12 +429,26 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 return result
+            },
+            getUser: function(user) {
+                var result = "unknown";
+                // console.log("Username",user.name);
+                // console.log("Username",user.pin);
+                // console.log("Username",user.admin);
+                // console.log("Username",user.valid);
+                for (let item in this.savedUsers) {
+                    if ( this.savedUsers[item].name == user.name ) {
+                        result = this.savedUsers[item].name;
+                    }
+                };
+                return result;
             }
         },
         async mounted() {
             await this.getZones();
             await this.getDevices();
             await this.getDeviceSettings();
+            //await this.getUsers();
         },
         computed: {
             filteredItems() {
@@ -424,6 +456,9 @@ function onHomeyReady(homeyReady){
             },
             filteredZones() {
                 return this.zones
+            },
+            filteredUsers() {
+                return this.savedUsers
             }
         }
       })
@@ -515,6 +550,36 @@ function changeAlarmDelay() {
         saveSettings();
     }
 }
+
+
+function enterPIN() {
+    let searchPin = document.getElementById('pin').value;
+    Homey.set('codeString', searchPin );
+    document.getElementById("invalidpin").style.display = "none";
+    document.getElementById("validating").style.display = "block";
+    setTimeout(readUsers(), 1000);
+}
+
+function readUsers() {
+    Homey.get('transferUsers', function(err, result) {
+        if ( err ) {
+            console.log("transferUsers Error");
+            //setTimeout(readUsers(), 1000);
+        } else {
+            if (result != (null || undefined)) {
+                console.log("result");
+                console.log(result);
+                document.getElementById("pinentry").style.display = "none";
+                document.getElementById("userspane").style.display = "block";
+                document.getElementById("users").innerHTML = JSON.stringify(result);
+            } else {
+                document.getElementById("invalidpin").style.display = "block";
+            }
+        }
+        document.getElementById("validating").style.display = "none";   
+    });
+}
+
 
 function saveSettings() {
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
