@@ -94,7 +94,6 @@ function onHomeyReady(homeyReady){
         data: {
           devices: {},
           zones: {},
-          savedUsers: {},
           search: '',
           devicesMonitoredFull: [],
           devicesMonitoredPartial: [],
@@ -146,23 +145,6 @@ function onHomeyReady(homeyReady){
                     });
                     console.log(array)
                     this.devices = array
-                });
-            },
-            getUsers() {
-                Homey.get('users', (err, result) => {
-                    if ( err ) {
-                        return Homey.alert('getUsers' + err );
-                    } else {
-                        if (result == (null || undefined)) {
-                            result = [
-                                { "id":1, "name": "Danee1", "admin": true, "valid": true },
-                                { "id":2, "name": "Danee2", "admin": false, "valid": true },
-                                { "id":3, "name": "Danee3", "admin": false, "valid": true }
-                              ]
-                        }
-                        console.log(result);
-                        this.savedUsers = result
-                    }
                 });
             },
             async addMonitorFull(device) {
@@ -429,26 +411,12 @@ function onHomeyReady(homeyReady){
                     }
                 }
                 return result
-            },
-            getUser: function(user) {
-                var result = "unknown";
-                // console.log("Username",user.name);
-                // console.log("Username",user.pin);
-                // console.log("Username",user.admin);
-                // console.log("Username",user.valid);
-                for (let item in this.savedUsers) {
-                    if ( this.savedUsers[item].name == user.name ) {
-                        result = this.savedUsers[item].name;
-                    }
-                };
-                return result;
             }
         },
         async mounted() {
             await this.getZones();
             await this.getDevices();
             await this.getDeviceSettings();
-            //await this.getUsers();
         },
         computed: {
             filteredItems() {
@@ -456,9 +424,6 @@ function onHomeyReady(homeyReady){
             },
             filteredZones() {
                 return this.zones
-            },
-            filteredUsers() {
-                return this.savedUsers
             }
         }
       })
@@ -480,7 +445,15 @@ function showTab(tab){
     $('.panel').hide()
     $('#tab' + tab).show()
     dashboardVisible = ( tab == 1 ) ? true : false
-    statusVisible = ( tab == 2 ) ? true : false    
+    statusVisible = ( tab == 2 ) ? true : false   
+    if ( tab != 4 ) {
+        document.getElementById("pinentry").style.display = "";
+        document.getElementById("userspane").style.display = "none";
+        document.getElementById("invalidpin").style.display = "none"; 
+        document.getElementById("validating").style.display = "none";
+        document.getElementById("pin").value = "";
+        document.getElementById("userspane").innerHTML = "";
+    } 
 }
 
 function showSubTab(tab){
@@ -557,13 +530,13 @@ function enterPIN() {
     Homey.set('codeString', searchPin );
     document.getElementById("invalidpin").style.display = "none";
     document.getElementById("validating").style.display = "block";
-    setTimeout(readUsers(), 1000);
+    setTimeout(readUsers(), 1500);
 }
 
 function readUsers() {
     Homey.get('transferUsers', function(err, result) {
         if ( err ) {
-            console.log("transferUsers Error");
+            console.log("transferUsers Error", err);
             //setTimeout(readUsers(), 1000);
         } else {
             if (result != (null || undefined)) {
@@ -571,13 +544,53 @@ function readUsers() {
                 console.log(result);
                 document.getElementById("pinentry").style.display = "none";
                 document.getElementById("userspane").style.display = "block";
-                document.getElementById("users").innerHTML = JSON.stringify(result);
+                displayUsers(result);
             } else {
                 document.getElementById("invalidpin").style.display = "block";
             }
         }
         document.getElementById("validating").style.display = "none";   
     });
+}
+
+function displayUsers(users) {
+    let items=""
+    let isAdmin = false;
+    for (user in users) {
+        console.log(users[user].admin);
+        if (users[user].admin) { userType = "Administrator"; isAdmin=true } else { userType = "User" };
+        let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
+        let item2 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
+        let item3 = '</div><div class="settings-item-last">';
+        let item4 = '<span onclick="editUser(' + users[user].id + ')">></span>';
+        let item5 = '</div></div>';
+
+        let item6 = '<div id=userEdit' + users[user].id + ' class="settings-item" style="display: none;"><div class="settings-item-text">';
+        let item7 = '<span>Username</span><br /><input class="hy-nostyle" id="userName' + users[user].id + '" type="text" value="' + users[user].name + '"></input><br /><br />';
+        let item8 = '<span>Administrator</span><br /><label class="form-switch"><input id="userAdministrator" type="checkbox"><i></i></label>';
+        let item9 = '</div><div class="settings-item-text">';
+        let item10 = '<span>Pincode</span><br /><input class="hy-nostyle" id="userPIN' + users[user].id+ '" type="text" value="' + users[user].pincode + '"></input><br /><br />'
+        let item11 = '<span>Enabled</span><br /><label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label>';
+        let item12 = '</div></div>';
+
+        let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
+        items = items + item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 + item11 + item12 + itemLast;
+    }
+    if ( isAdmin ) {
+        let item = '<div class="settings-item"><div class="users-user-add"><span >+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
+        items = items + item;
+    }
+    newHTML = items.substr(0,items.length-115);
+    console.log(newHTML);
+                
+    document.getElementById("userspane").innerHTML = newHTML;
+}
+
+function editUser(userId) {
+    console.log(userId);
+
+    document.getElementById("user"+userId).style.display = "none";
+    document.getElementById("userEdit"+userId).style.display = "block";
 }
 
 

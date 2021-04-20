@@ -97,7 +97,7 @@ var devicesNotReady = [];
 
 var testUsers = [
     { "id":1, "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
-    { "id":2, "name": "Danee2", "pincode": "654321", "admin": false, "valid": true },
+    { "id":2, "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
     { "id":3, "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
 ];
 
@@ -197,6 +197,9 @@ class Heimdall extends Homey.App {
                     result = this.users;
                 } else if ( !result.valid ) {
                     result = null;
+                } else {
+                    console.log("single user");
+                    result = [result];
                 };
                 Homey.ManagerSettings.set('transferUsers', result, function( err ){
                     if ( err ) return Homey.alert( err );

@@ -177,6 +177,18 @@ body {
     text-align: center;
 }
 
+.users-user-add {
+    display: table-cell;
+    padding-left: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: -apple-system;
+    font-size: 14px;
+    color: rgb(0,100,255);
+}
+
 .instructions {
     display: table;
     background-color: rgb(255,255,255);
