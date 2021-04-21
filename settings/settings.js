@@ -600,9 +600,11 @@ function addUser(userId) {
 
     document.getElementById("userEnabled").checked = true;
     document.getElementById("userId").value = userId
+    checkSave();
     canDelete = false; 
     $('#deleteButton').removeClass('btn-active');
     $('#deleteButton').addClass('btn-inactive');
+
 }
 
 
