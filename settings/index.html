@@ -501,31 +501,31 @@
                             <input hidden id="userId"></input>
                             <span>Username</span>
                             <div class="users-input">
-                                <input id="userName" class="hy-nostyle" type="text" value="" autocomplete="off"></input>
+                                <input id="userName" class="hy-nostyle" type="text" value="" autocomplete="off" onkeyup="checkSave()"></input>
                             </div>
                             <span>Administrator</span><br />
                             <div class="user-checkbox">
-                                <label class="form-switch"><input id="userAdministrator" type="checkbox"><i></i></label><br /><br />
+                                <label class="form-switch"><input id="userAdmin" type="checkbox" onclick="checkAdmin()"><i></i></label><br /><br />
                             </div>
                         </div>
                         <div class="settings-item-text">
                             <span>Pincode</span><br />
                             <div class="users-input">
-                                <input id="userPIN" class="hy-nostyle" type="text" value="" autocomplete="off"></input>
+                                <input id="userPIN" class="hy-nostyle" type="text" value="" autocomplete="off" onkeyup="checkSave()"></input>
                             </div>
                             <span>Enabled</span><br />
                             <div class="user-checkbox">
-                                <label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label><br /><br />
+                                <label class="form-switch"><input id="userEnabled" type="checkbox" onclick="checkEnable()"><i></i></label><br /><br />
                             </div>
                         </div>
                     </div>
                     <div class="settings-item">
                         <div class="settings-item-text">
-                            <a @click="saveUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.save">-Save-</a>
+                            <a id="saveButton" @click="saveUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.save">-Save-</a>
                             <a @click="cancelUser()" class="btn middle btn-active" data-i18n="tab4.users.usersgroup.cancel">-Cancel-</a>
                         </div>
                         <div class="settings-item-text">
-                            <a @click="deleteUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.delete">-Delete-</a>
+                            <a id="deleteButton" @click="deleteUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.delete">-Delete-</a>
                         </div>
                     </div>
                 </div>

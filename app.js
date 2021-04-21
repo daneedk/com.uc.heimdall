@@ -207,6 +207,14 @@ class Heimdall extends Homey.App {
                 Homey.ManagerSettings.set('codeString', null, function( err ){
                     if ( err ) return Homey.alert( err );
                 });
+            } else if (key === 'savedUser') {
+                let savedUser = Homey.ManagerSettings.get('savedUser');
+                this.log(savedUser);
+
+            } else if (key === 'deleteUser') {
+                let deleteUser = Homey.ManagerSettings.get('deleteUser');
+                this.log(deleteUser);
+                
             }
         });
 

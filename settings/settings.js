@@ -13,6 +13,12 @@ var illegalValue = false;
 var heimdallSettings = {};
 var language = "en";
 var numUsers = 0;
+var numAdmins = 0;
+var numAdminsBeforeSave = 0;
+var newUser = 0;
+var transferedUsers = {};
+var canSave = false;
+var canDelete = false;
 var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
@@ -546,6 +552,7 @@ function readUsers() {
                 console.log(result);
                 document.getElementById("pinentry").style.display = "none";
                 document.getElementById("userspane").style.display = "block";
+                transferedUsers = result;
                 displayUsers(result);
             } else {
                 document.getElementById("invalidpin").style.display = "block";
@@ -559,11 +566,13 @@ function displayUsers(users) {
     let items=""
     let isAdmin = false;
     numUsers = users.length
+    numAdmins = 0;
+    newUser = 0;
     for (user in users) {
         console.log(users[user].admin);
         let fullUser = JSON.stringify(users[user]);
-        console.log(fullUser)
-        if (users[user].admin) { userType = "Administrator"; isAdmin=true } else { userType = "User" };
+        if ( users[user].id > newUser ) {newUser = users[user].id;}
+        if (users[user].admin) { userType = "Administrator"; isAdmin=true; numAdmins += 1} else { userType = "User" };
         let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
         let item2 = '<input hidden id="userAll' + users[user].id + '" value=' + fullUser + '></input>';
         let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
@@ -574,14 +583,15 @@ function displayUsers(users) {
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item1 + item2 + item3 + item4 + item5 + item6 + itemLast;
     }
+    newUser += 1;
     if ( isAdmin ) {
-        let item = '<div class="settings-item"><div class="users-user-add"><span onclick="addUser(' + numUsers + ')">+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
+        let item = '<div class="settings-item"><div class="users-user-add"><span onclick="addUser(' + newUser + ')">+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item;
     }
     newHTML = items.substr(0,items.length-115);
-    console.log(newHTML);
-                
     document.getElementById("userspane").innerHTML = newHTML;
+    
+    console.log(newHTML);
 }
 
 function addUser(userId) {
@@ -590,11 +600,86 @@ function addUser(userId) {
 
     document.getElementById("userEnabled").checked = true;
     document.getElementById("userId").value = userId
+    canDelete = false; 
+    $('#deleteButton').removeClass('btn-active');
+    $('#deleteButton').addClass('btn-inactive');
+}
 
+
+function countAdmins() {
+    numAdmins = 0;
+    for (user in transferedUsers) {
+        console.log(transferedUsers[user].admin);
+        if (transferedUsers[user].admin) { numAdmins += 1}
+    }
+    console.log(numAdmins);
+    return numAdmins;
+}
+
+function checkSave() {
+    let userName = document.getElementById("userName").value;
+    let userPIN = document.getElementById("userPIN").value;
+    if ( userName.length > 3 && userPIN.length > 3) {
+        canSave = true;
+        $('#saveButton').removeClass('btn-inactive');
+        $('#saveButton').addClass('btn-active');
+    } else {
+        canSave = false;
+        $('#saveButton').removeClass('btn-active');
+        $('#saveButton').addClass('btn-inactive');
+    }
+}
+
+function checkAdmin() {
+    let userAdmin = document.getElementById("userAdmin").checked;
+    console.log("begin ",numAdmins);
+    if ( userAdmin ) {
+        numAdmins +=1;
+        numAdminsBeforeSave +=1;
+        console.log("plus ",numAdmins);
+    } else  {
+        if ( numAdmins < 2 ) { 
+            Homey.alert("There is no other Administrator, action not allowed");
+            document.getElementById("userAdmin").checked = true;
+            console.log("geen ",numAdmins);
+        } else {
+            numAdmins -=1;
+            numAdminsBeforeSave -=1;
+            console.log("min ",numAdmins);
+        }
+    }
+}
+
+function checkEnable() {
+    let userEnabled = document.getElementById("userEnabled").checked;
+    let userAdmin = document.getElementById("userAdmin").checked;
+    if ( !userEnabled ) {
+        if ( numAdmins < 2 && userAdmin) { 
+            Homey.alert("There is no other Administrator, action not allowed");
+            document.getElementById("userEnabled").checked = true;
+        }
+    }
 }
 
 function saveUser() {
+    if ( !canSave ) return;
 
+    let userAdmin = true;
+    let userEnabled = true;
+
+    let userId = document.getElementById("userId").value;
+    let userName = document.getElementById("userName").value;
+    let userPIN = document.getElementById("userPIN").value;
+    if ( userId != 0 ) { 
+        userAdmin = document.getElementById("userAdmin").checked;
+        userEnabled = document.getElementById("userEnabled").checked;
+    }
+    
+    let user = {id: userId, name: userName, pincode: userPIN, admin: userAdmin, valid: userEnabled}
+
+    Homey.set('savedUser', user );
+
+    cancelUser();
 }
 
 function cancelUser() {
@@ -603,12 +688,23 @@ function cancelUser() {
     document.getElementById("userId").value = "";
     document.getElementById("userName").value = "";
     document.getElementById("userPIN").value = "";
-    document.getElementById("userAdministrator").checked = false;
+    document.getElementById("userAdmin").checked = false;
     document.getElementById("userEnabled").checked = false;
+    if ( numAdminsBeforeSave != 0 ) { numAdmins -=1 }
+    console.log("cancel ",numAdmins);
 }
 
 function deleteUser() {
-    
+
+    if ( !canDelete ) return;
+
+    let userId = document.getElementById("userId").value;
+
+    let user = {id: userId, name: false, pincode: false, admin: false, valid: false}
+
+    Homey.set('deleteUser', user );
+
+    cancelUser();
 }
 
 function editUser(userId) {
@@ -621,8 +717,18 @@ function editUser(userId) {
     document.getElementById("userId").value = userId;
     document.getElementById("userName").value = user.name;
     document.getElementById("userPIN").value = user.pincode;
-    document.getElementById("userAdministrator").checked = user.admin;
+    document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
+    checkSave();
+    if ( userId == 0 ) {
+        canDelete = false; 
+        $('#deleteButton').removeClass('btn-active');
+        $('#deleteButton').addClass('btn-inactive');
+    } else {
+        canDelete = true; 
+        $('#deleteButton').removeClass('btn-inactive');
+        $('#deleteButton').addClass('btn-active');
+    }
 }
 
 
