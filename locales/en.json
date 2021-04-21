@@ -112,11 +112,16 @@
                 "users": "Users",
                 "enterpin": "Please enter PIN",
                 "enter": "Ok",
+                "processing": "Processing",
                 "validating": "Validating",
                 "invalidpin": "Invalid PIN entered",
                 "save": "Save",
                 "cancel": "Cancel",
-                "delete": "Delete"
+                "delete": "Delete",
+                "username": "Username",
+                "administrator": "Administrator",
+                "pin": "PIN",
+                "enabled": "Enabled"
             }
         }
     },

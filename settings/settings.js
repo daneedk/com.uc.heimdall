@@ -538,7 +538,7 @@ function enterPIN() {
     Homey.set('codeString', searchPin );
     document.getElementById("invalidpin").style.display = "none";
     document.getElementById("validating").style.display = "block";
-    setTimeout(readUsers(), 1000);
+    setTimeout(readUsers(), 1500);
 }
 
 function readUsers() {
@@ -577,7 +577,7 @@ function displayUsers(users) {
         let item2 = '<input hidden id="userAll' + users[user].id + '" value=' + fullUser + '></input>';
         let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
         let item4 = '</div><div class="settings-item-last">';
-        let item5 = '<span onclick="editUser(' + users[user].id + ')"> > </span>';
+        let item5 = '<span onclick="editUser(' + users[user].id + ',' + numUsers + ')"> > </span>';
         let item6 = '</div></div>';
 
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
@@ -590,7 +590,7 @@ function displayUsers(users) {
     }
     newHTML = items.substr(0,items.length-115);
     document.getElementById("userspane").innerHTML = newHTML;
-    
+    document.getElementById("processing").style.display = "none";
     console.log(newHTML);
 }
 
@@ -607,7 +607,6 @@ function addUser(userId) {
 
 }
 
-
 function countAdmins() {
     numAdmins = 0;
     for (user in transferedUsers) {
@@ -621,7 +620,7 @@ function countAdmins() {
 function checkSave() {
     let userName = document.getElementById("userName").value;
     let userPIN = document.getElementById("userPIN").value;
-    if ( userName.length > 3 && userPIN.length > 3) {
+    if ( userName.length > 1 && userPIN.length > 3) {
         canSave = true;
         $('#saveButton').removeClass('btn-inactive');
         $('#saveButton').addClass('btn-active');
@@ -664,6 +663,7 @@ function checkEnable() {
 }
 
 function saveUser() {
+    console.log("saveUser");
     if ( !canSave ) return;
 
     let userAdmin = true;
@@ -681,10 +681,14 @@ function saveUser() {
 
     Homey.set('savedUser', user );
 
+
     cancelUser();
+    //setTimeout(readUsers(), 2000);
+    setTimeout(enterPIN(), 2000);
 }
 
 function cancelUser() {
+    document.getElementById("processing").style.display = "block";
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
     document.getElementById("userId").value = "";
@@ -697,20 +701,20 @@ function cancelUser() {
 }
 
 function deleteUser() {
-
+    console.log("deleteUser");
     if ( !canDelete ) return;
 
     let userId = document.getElementById("userId").value;
-
     let user = {id: userId, name: false, pincode: false, admin: false, valid: false}
-
     Homey.set('deleteUser', user );
 
     cancelUser();
+    //setTimeout(readUsers(), 2000);
+    setTimeout(enterPIN(), 2000);
 }
 
-function editUser(userId) {
-    console.log(userId);
+function editUser(userId, numUsers) {
+
     let user = JSON.parse(document.getElementById("userAll"+userId).value);
 
     document.getElementById("userspane").style.display = "none";
@@ -722,14 +726,22 @@ function editUser(userId) {
     document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
     checkSave();
-    if ( userId == 0 ) {
+    if ( userId == 0 || numUsers == 1 ) {
         canDelete = false; 
         $('#deleteButton').removeClass('btn-active');
         $('#deleteButton').addClass('btn-inactive');
+        document.getElementById("userAdminLbl").style.display = "none";
+        document.getElementById("userAdminCbx").style.display = "none";
+        document.getElementById("userEnabledLbl").style.display = "none";
+        document.getElementById("userEnabledCbx").style.display = "none";
     } else {
         canDelete = true; 
         $('#deleteButton').removeClass('btn-inactive');
         $('#deleteButton').addClass('btn-active');
+        document.getElementById("userAdminLbl").style.display = "";
+        document.getElementById("userAdminCbx").style.display = "";
+        document.getElementById("userEnabledLbl").style.display = "";
+        document.getElementById("userEnabledCbx").style.display = "";
     }
 }
 

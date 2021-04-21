@@ -96,9 +96,9 @@ var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 
 var testUsers = [
-    { "id":0, "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
-    { "id":1, "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
-    { "id":2, "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
+    { "id": "0", "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
+    { "id": "1", "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
+    { "id": "2", "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
 ];
 
 class Heimdall extends Homey.App {
@@ -189,7 +189,6 @@ class Heimdall extends Homey.App {
 
         Homey.ManagerSettings.on('set', (key) => {
             if (key === 'codeString') {
-                
                 let codeString = Homey.ManagerSettings.get('codeString');
                 if (codeString == null) return
                 let result = this.getUserInfo(codeString, this.users);
@@ -209,13 +208,52 @@ class Heimdall extends Homey.App {
                 });
             } else if (key === 'savedUser') {
                 let savedUser = Homey.ManagerSettings.get('savedUser');
-                this.log(savedUser);
+                let searchId = savedUser.id
+                let userObject = this.users.find( record => record.id == searchId);
+                if ( !userObject ) {
+                    this.users.push(savedUser)
+                    /*
+                    Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
+                        if ( err ) return Homey.alert( err );
+                    });
+                    */
+                } else {
+                    let newUsers = [];
+                    for (let user in this.users) {
+                        if ( this.users[user].id == searchId ) {
+                            newUsers.push(savedUser);
+                        } else {
+                            newUsers.push(this.users[user]);
+                        }
+                    }
+                    this.users = newUsers;
+                    /*
+                    Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
+                        if ( err ) return Homey.alert( err );
+                    });
+                    */
+                }
 
             } else if (key === 'deleteUser') {
                 let deleteUser = Homey.ManagerSettings.get('deleteUser');
-                this.log(deleteUser);
-                
+                let searchId = deleteUser.id;
+
+                let newUsers = [];
+                for (let user in this.users) {
+                    if ( this.users[user].id == searchId ) {
+                        // do nothing, skip record
+                    } else {
+                        newUsers.push(this.users[user]);
+                    }
+                }
+                this.users = newUsers;
+                /*
+                Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
+                    if ( err ) return Homey.alert( err );
+                });
+                */                
             }
+
         });
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
