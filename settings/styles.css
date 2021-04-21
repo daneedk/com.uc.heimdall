@@ -165,6 +165,35 @@ body {
     padding: 3px 0 3px 0;
 }
 
+.users-input {
+    display: table-cell;
+    padding-right: 10px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    vertical-align: middle;
+    text-align: right;
+    white-space: nowrap;
+    font-family: -apple-system;
+    font-size: 13px;
+}
+
+.user-checkbox {
+    text-align: right; 
+    margin-right: 18px; 
+    padding-top: 11px;
+}
+
+.users-input input {
+    width:90%;
+    margin-right: 22px;
+    border: 0;
+    border-radius: 0;
+    font-size: 16px;
+    text-align: right;
+    border-bottom: 1px solid rgb(75, 215, 98);
+    padding: 3px 0 3px 0;
+}
+
 .users-validating-text {
     background-color: rgb(255,255,255);
     padding-left: 10px;

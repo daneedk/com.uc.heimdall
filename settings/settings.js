@@ -12,6 +12,7 @@ var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
 var language = "en";
+var numUsers = 0;
 var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
@@ -449,6 +450,7 @@ function showTab(tab){
     if ( tab != 4 ) {
         document.getElementById("pinentry").style.display = "";
         document.getElementById("userspane").style.display = "none";
+        document.getElementById("useredit").style.display = "none";
         document.getElementById("invalidpin").style.display = "none"; 
         document.getElementById("validating").style.display = "none";
         document.getElementById("pin").value = "";
@@ -530,7 +532,7 @@ function enterPIN() {
     Homey.set('codeString', searchPin );
     document.getElementById("invalidpin").style.display = "none";
     document.getElementById("validating").style.display = "block";
-    setTimeout(readUsers(), 1500);
+    setTimeout(readUsers(), 1000);
 }
 
 function readUsers() {
@@ -556,28 +558,24 @@ function readUsers() {
 function displayUsers(users) {
     let items=""
     let isAdmin = false;
+    numUsers = users.length
     for (user in users) {
         console.log(users[user].admin);
+        let fullUser = JSON.stringify(users[user]);
+        console.log(fullUser)
         if (users[user].admin) { userType = "Administrator"; isAdmin=true } else { userType = "User" };
         let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
-        let item2 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
-        let item3 = '</div><div class="settings-item-last">';
-        let item4 = '<span onclick="editUser(' + users[user].id + ')">></span>';
-        let item5 = '</div></div>';
-
-        let item6 = '<div id=userEdit' + users[user].id + ' class="settings-item" style="display: none;"><div class="settings-item-text">';
-        let item7 = '<span>Username</span><br /><input class="hy-nostyle" id="userName' + users[user].id + '" type="text" value="' + users[user].name + '"></input><br /><br />';
-        let item8 = '<span>Administrator</span><br /><label class="form-switch"><input id="userAdministrator" type="checkbox"><i></i></label>';
-        let item9 = '</div><div class="settings-item-text">';
-        let item10 = '<span>Pincode</span><br /><input class="hy-nostyle" id="userPIN' + users[user].id+ '" type="text" value="' + users[user].pincode + '"></input><br /><br />'
-        let item11 = '<span>Enabled</span><br /><label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label>';
-        let item12 = '</div></div>';
+        let item2 = '<input hidden id="userAll' + users[user].id + '" value=' + fullUser + '></input>';
+        let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
+        let item4 = '</div><div class="settings-item-last">';
+        let item5 = '<span onclick="editUser(' + users[user].id + ')"> > </span>';
+        let item6 = '</div></div>';
 
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
-        items = items + item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 + item11 + item12 + itemLast;
+        items = items + item1 + item2 + item3 + item4 + item5 + item6 + itemLast;
     }
     if ( isAdmin ) {
-        let item = '<div class="settings-item"><div class="users-user-add"><span >+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
+        let item = '<div class="settings-item"><div class="users-user-add"><span onclick="addUser(' + numUsers + ')">+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item;
     }
     newHTML = items.substr(0,items.length-115);
@@ -586,11 +584,45 @@ function displayUsers(users) {
     document.getElementById("userspane").innerHTML = newHTML;
 }
 
+function addUser(userId) {
+    document.getElementById("userspane").style.display = "none";
+    document.getElementById("useredit").style.display = "block";
+
+    document.getElementById("userEnabled").checked = true;
+    document.getElementById("userId").value = userId
+
+}
+
+function saveUser() {
+
+}
+
+function cancelUser() {
+    document.getElementById("userspane").style.display = "block";
+    document.getElementById("useredit").style.display = "none";
+    document.getElementById("userId").value = "";
+    document.getElementById("userName").value = "";
+    document.getElementById("userPIN").value = "";
+    document.getElementById("userAdministrator").checked = false;
+    document.getElementById("userEnabled").checked = false;
+}
+
+function deleteUser() {
+    
+}
+
 function editUser(userId) {
     console.log(userId);
+    let user = JSON.parse(document.getElementById("userAll"+userId).value);
 
-    document.getElementById("user"+userId).style.display = "none";
-    document.getElementById("userEdit"+userId).style.display = "block";
+    document.getElementById("userspane").style.display = "none";
+    document.getElementById("useredit").style.display = "block";
+
+    document.getElementById("userId").value = userId;
+    document.getElementById("userName").value = user.name;
+    document.getElementById("userPIN").value = user.pincode;
+    document.getElementById("userAdministrator").checked = user.admin;
+    document.getElementById("userEnabled").checked = user.valid;
 }
 
 

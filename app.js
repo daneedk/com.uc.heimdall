@@ -96,9 +96,9 @@ var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 
 var testUsers = [
-    { "id":1, "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
-    { "id":2, "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
-    { "id":3, "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
+    { "id":0, "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
+    { "id":1, "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
+    { "id":2, "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
 ];
 
 class Heimdall extends Homey.App {

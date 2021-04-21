@@ -499,34 +499,24 @@
                     <div class="settings-item">
                         <div class="settings-item-text">
                             <input hidden id="userId"></input>
-                            <span>Username</span>
-                            <div class="users-input">
-                                <input id="userName" class="hy-nostyle" type="text" value="" autocomplete="off"></input>
-                            </div>
+                            <div><span>Username</span></div>
+                            <div class=" users-pin-input">
+                            <input id="userName" class="hy-nostyle" type="text" value="" autocomplete="off"></input></div>
                             <span>Administrator</span><br />
-                            <div class="user-checkbox">
-                                <label class="form-switch"><input id="userAdministrator" type="checkbox"><i></i></label><br /><br />
-                            </div>
-                        </div>
-                        <div class="settings-item-text">
-                            <span>Pincode</span><br />
-                            <div class="users-input">
-                                <input id="userPIN" class="hy-nostyle" type="text" value="" autocomplete="off"></input>
-                            </div>
-                            <span>Enabled</span><br />
-                            <div class="user-checkbox">
-                                <label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label><br /><br />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="settings-item">
-                        <div class="settings-item-text">
+                            <label class="form-switch"><input id="userAdministrator" type="checkbox"><i></i></label><br /><br />
                             <a @click="saveUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.save">-Save-</a>
                             <a @click="cancelUser()" class="btn middle btn-active" data-i18n="tab4.users.usersgroup.cancel">-Cancel-</a>
                         </div>
                         <div class="settings-item-text">
+                            <span>Pincode</span><br />
+                            <input id="userPIN" class="hy-nostyle" type="text" value="" autocomplete="off"></input><br /><br />
+                            <span>Enabled</span><br />
+                            <label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label><br /><br />
                             <a @click="deleteUser()" class="btn middle btn-inactive" data-i18n="tab4.users.usersgroup.delete">-Delete-</a>
                         </div>
+                    </div>
+                    <div class="settings-item">
+                        
                     </div>
                 </div>
 
