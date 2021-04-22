@@ -94,12 +94,7 @@ var lastDoor = false;
 var changeTta = false;
 var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
-
-var testUsers = [
-    { "id": "0", "name": "Danee1", "pincode": "123456", "admin": true, "valid": true },
-    { "id": "1", "name": "Danee2", "pincode": "654321", "admin": false, "valid": false },
-    { "id": "2", "name": "Danee3", "pincode": "000000", "admin": false, "valid": true }
-];
+var timeout = 100;
 
 class Heimdall extends Homey.App {
     // Get API control function
@@ -131,6 +126,57 @@ class Heimdall extends Homey.App {
             }
         };
         return result;
+    }
+
+    async getUsers(pin) {
+        await delay(timeout);
+        timeout = timeout * 1.5;
+        if ( this.users != undefined ) {
+            let userObject = this.getUserInfo(pin, this.users);
+            if ( userObject.admin ) {
+                console.log("admin");
+                timeout = 100;
+                return this.users;
+            } else {
+                console.log("user");
+                return [userObject];
+            } 
+        } else {
+            return [{ 'id': 0, 'name': 'New user', 'pincode': '000000', 'admin': true, 'valid': true}];
+        }
+    }
+
+    async processUsers(modifiedUser, action) {
+        modifiedUser = modifiedUser.body;
+        Homey.ManagerSettings.set('nousers', false);
+        let searchId = modifiedUser.id;
+        let newUsers = [];
+        if ( this.users ) {
+            let userObject = this.users.find( record => record.id == searchId);
+            if ( !userObject ) {
+                // new user
+                console.log("processUser !userObject: ")
+                newUsers = this.users;
+                newUsers.push(modifiedUser)
+            } else {
+                // existing user
+                for (let user in this.users) {
+                    if ( this.users[user].id == searchId ) {
+                        if ( action === "save") {
+                            newUsers.push(modifiedUser);
+                        }
+                    } else {
+                        newUsers.push(this.users[user]);
+                    }
+                }
+            }
+        } else {
+            // first user
+            newUsers.push(modifiedUser)
+        }
+        this.users = newUsers;
+        return "Succes";
+
     }
 
     async processKeypadCommands(post,type) {
@@ -183,78 +229,10 @@ class Heimdall extends Homey.App {
         let nu = getDateTime();
         this.api = await this.getApi();
 
-    //  // test test test test
-    this.users = testUsers
-    //  // /test test test test
-
-        Homey.ManagerSettings.on('set', (key) => {
-            if (key === 'codeString') {
-                let codeString = Homey.ManagerSettings.get('codeString');
-                if (codeString == null) return
-                let result = this.getUserInfo(codeString, this.users);
-                if ( result.admin ){
-                    result = this.users;
-                } else if ( !result.valid ) {
-                    result = null;
-                } else {
-                    console.log("single user");
-                    result = [result];
-                };
-                Homey.ManagerSettings.set('transferUsers', result, function( err ){
-                    if ( err ) return Homey.alert( err );
-                });
-                Homey.ManagerSettings.set('codeString', null, function( err ){
-                    if ( err ) return Homey.alert( err );
-                });
-            } else if (key === 'savedUser') {
-                let savedUser = Homey.ManagerSettings.get('savedUser');
-                let searchId = savedUser.id
-                let userObject = this.users.find( record => record.id == searchId);
-                if ( !userObject ) {
-                    this.users.push(savedUser)
-                    /*
-                    Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
-                        if ( err ) return Homey.alert( err );
-                    });
-                    */
-                } else {
-                    let newUsers = [];
-                    for (let user in this.users) {
-                        if ( this.users[user].id == searchId ) {
-                            newUsers.push(savedUser);
-                        } else {
-                            newUsers.push(this.users[user]);
-                        }
-                    }
-                    this.users = newUsers;
-                    /*
-                    Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
-                        if ( err ) return Homey.alert( err );
-                    });
-                    */
-                }
-
-            } else if (key === 'deleteUser') {
-                let deleteUser = Homey.ManagerSettings.get('deleteUser');
-                let searchId = deleteUser.id;
-
-                let newUsers = [];
-                for (let user in this.users) {
-                    if ( this.users[user].id == searchId ) {
-                        // do nothing, skip record
-                    } else {
-                        newUsers.push(this.users[user]);
-                    }
-                }
-                this.users = newUsers;
-                /*
-                Homey.ManagerSettings.set('transferUsers', this.users, function( err ){
-                    if ( err ) return Homey.alert( err );
-                });
-                */                
-            }
-
-        });
+        //this.users = Homey.ManagerSettings.get('users');
+        if (  this.users === undefined ) {
+            Homey.ManagerSettings.set('nousers', true);
+        }
 
         surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
         this.log('Surveillance Mode:          ' + surveillance);

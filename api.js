@@ -39,6 +39,27 @@ module.exports = [
         }
     },
     {
+        description: 'Retrieve users',
+        method: 'GET',
+        path: '/users/:pin',
+        fn: function(args, callback) {
+            Homey.app.getUsers(args.params.pin).then(res => {
+                callback(null, res);
+            })
+                .catch(error => callback(error, null));
+        }  
+    },
+    {
+        description: 'Return users',
+        method: 'post',
+        path: '/users/:action',
+        fn: function(args, callback) {
+            Homey.app.processUsers(args, args.params.action)
+                .then(res => callback(null, res) )
+                .catch(error => callback(error, null));
+        }  
+    },
+    {
         description: 'Receive information from external keypad',
         method: 'post',
         path: '/keypad/:type',
