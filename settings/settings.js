@@ -693,9 +693,7 @@ function checkEnable() {
 }
 
 function saveUser() {
-    console.log("saveUser");
     if ( !canSave ) return;
-
     document.getElementById("validating").style.display = "block";
 
     let userAdmin = true;
@@ -727,7 +725,6 @@ function cancelUser() {
 }
 
 function deleteUser() {
-    console.log("deleteUser");
     if ( !canDelete ) return;
 
     let userId = document.getElementById("userId").value;
@@ -737,11 +734,7 @@ function deleteUser() {
 }
 
 function processUser(modifiedUser,action) {
-    console.log("processUser Action: ", action);
-    console.log("processUser ModifiedUser: ", modifiedUser);
-
     Homey.set('nousers', false );
-
     Homey.api('POST', '/users/' + action, modifiedUser )
         .then((result) => {
             console.log('Heimdall API success reply: ', result);
@@ -751,10 +744,8 @@ function processUser(modifiedUser,action) {
         });
 
     canCancel = true;
-
     cancelUser();
     if ( noUser ) {
-        console.log( "Pincode", modifiedUser.pincode );
         document.getElementById('pin').value = modifiedUser.pincode;
         noUser = false;
         $('#cancelButton').removeClass('btn-inactive');
@@ -769,8 +760,6 @@ function processUser(modifiedUser,action) {
 }
 
 function editUser(userId, numUsers) {
-    console.log(document.getElementById("userAll"+userId).value);
-
     let user = JSON.parse(document.getElementById("userAll"+userId).value);
 
     document.getElementById("userspane").style.display = "none";
