@@ -622,7 +622,6 @@ function displayUsers(users) {
     newHTML = items.substr(0,items.length-115);
     document.getElementById("userspane").innerHTML = newHTML;
     document.getElementById("processing").style.display = "none";
-    console.log(newHTML);
 }
 
 function addUser(userId) {
