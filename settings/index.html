@@ -479,7 +479,7 @@
                             <span data-i18n="tab4.users.usersgroup.enterpin">-Please enter PIN-</span>
                         </div>
                         <div class="users-pin-input">
-                            <input class="hy-nostyle" id="pin" type="text" value="" autocomplete="off" maxlength="6">
+                            <input class="hy-nostyle" id="pin" type="text" inputmode="numeric" value="" autocomplete="off" maxlength="6">
                             <a @click="enterPIN()" class="btn narrow btn-active" data-i18n="tab4.users.usersgroup.enter">-Ok-</a>
                         </div>
                     </div>
@@ -514,7 +514,7 @@
                         <div class="settings-item-text">
                             <span data-i18n="tab4.users.usersgroup.pin">-PIN-</span><br />
                             <div class="users-input">
-                                <input id="userPIN" class="hy-nostyle" type="text" value="" autocomplete="off" onkeyup="checkSave()"></input>
+                                <input id="userPIN" class="hy-nostyle" type="text" inputmode="numeric" value="" autocomplete="off" maxlength="6" onkeyup="checkSave()"></input>
                             </div>
                             <span id="userEnabledLbl" data-i18n="tab4.users.usersgroup.enabled">Enabled</span><br />
                             <div id="userEnabledCbx" class="user-checkbox">
