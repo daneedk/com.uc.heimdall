@@ -665,10 +665,16 @@ function checkAdmin() {
     let userAdmin = document.getElementById("userAdmin").checked;
     console.log("begin ",numAdmins);
     if ( userAdmin ) {
+        canDelete = false;
+        $('#deleteButton').removeClass('btn-active');
+        $('#deleteButton').addClass('btn-inactive');
         numAdmins +=1;
         numAdminsBeforeSave +=1;
         console.log("plus ",numAdmins);
     } else  {
+        canDelete = true;
+        $('#deleteButton').removeClass('btn-inactive');
+        $('#deleteButton').addClass('btn-active');
         if ( numAdmins < 2 ) { 
             Homey.alert("There is no other Administrator, action not allowed");
             document.getElementById("userAdmin").checked = true;

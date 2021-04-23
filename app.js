@@ -130,15 +130,15 @@ class Heimdall extends Homey.App {
 
     async getUsers(pin) {
         await delay(timeout);
-        timeout = timeout * 1.5;
+        timeout = timeout * 1.5; // Brute Force protection
         if ( this.users != undefined ) {
             let userObject = this.getUserInfo(pin, this.users);
             if ( userObject.admin ) {
-                console.log("admin");
-                timeout = 100;
+                timeout = 100; // reset Brute Force protection
+                // user is an Administrator, return all users
                 return this.users;
             } else {
-                console.log("user");
+                // return the user whos PIN was entered
                 return [userObject];
             } 
         } else {
