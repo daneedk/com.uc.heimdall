@@ -458,6 +458,7 @@ function showTab(tab){
         document.getElementById("pinentry").style.display = "";
         document.getElementById("userspane").style.display = "none";
         document.getElementById("useredit").style.display = "none";
+        document.getElementById("usereditdescription").style.display = "none";
         document.getElementById("invalidpin").style.display = "none"; 
         document.getElementById("validating").style.display = "none";
         document.getElementById("pin").value = "";
@@ -490,6 +491,7 @@ function prepareUsersTab() {
                 document.getElementById("userAdmin").disabled = true;
                 document.getElementById("userEnabled").checked = true;
                 document.getElementById("userEnabled").disabled = true;
+                document.getElementById("usereditdescription").style.display = "block";
                 canCancel = false;
                 $('#cancelButton').removeClass('btn-active');
                 $('#cancelButton').addClass('btn-inactive');
@@ -561,16 +563,54 @@ function enterPIN() {
     document.getElementById("invalidpin").style.display = "none";
     document.getElementById("validating").style.display = "block";
     let searchPin = document.getElementById('pin').value;
-
+console.log("Pin ",searchPin);
+    /*
+    Homey.api('POST', '/users/' + action, postBody )
+    .then((result) => {
+        console.log('Heimdall API success reply: ', result);
+    })
+    */
+/*
+    Homey.api('GET', '/users/' + searchPin)
+        .then((result) => {
+            transferedUsers = Object.keys(result).map(function (key) {
+                return result[key];
+            });
+            console.log(transferedUsers);
+   
+            let numUsers = transferedUsers.length
+            if (numUsers = 1 ) {
+                isAdmin = transferedUsers[0].admin;
+                if ( isAdmin == null ) {
+                    document.getElementById("validating").style.display = "none";
+                    document.getElementById("invalidpin").style.display = "block";
+                    document.getElementById("pinentry").style.display = "";
+                    document.getElementById("userspane").style.display = "none";
+                    return;
+                }
+            }
+            document.getElementById("pinentry").style.display = "none";
+            document.getElementById("userspane").style.display = "block";
+            document.getElementById("validating").style.display = "none";
+            displayUsers(transferedUsers);            
+        })
+        .catch((error) => {
+            document.getElementById("validating").style.display = "none";
+            document.getElementById("invalidpin").style.display = "block";
+            return Homey.alert('enterPIN: ' + error); 
+        });
+*/
+    
     Homey.api('GET', '/users/' + searchPin, null, (err, result) => {
         if (err) {
             document.getElementById("validating").style.display = "none";
             document.getElementById("invalidpin").style.display = "block";
-            return Homey.alert('getUsers: ' + err); 
-        }
+            return Homey.alert('enterPIN: ' + err); 
+        };
         transferedUsers = Object.keys(result).map(function (key) {
             return result[key];
         });
+
         console.log(transferedUsers);
 
         let numUsers = transferedUsers.length
@@ -589,6 +629,7 @@ function enterPIN() {
         document.getElementById("validating").style.display = "none";
         displayUsers(transferedUsers);
     });
+    
 }
 
 function displayUsers(users) {
@@ -599,8 +640,8 @@ function displayUsers(users) {
     for (user in users) {
         let fullUser = JSON.stringify(users[user]);
         if ( users[user].id > newUser ) {newUser = users[user].id;}
-        if ( users[user].admin ) { userType = "Administrator"; isAdmin=true; } else { userType = "User" };
-        if ( !users[user].valid ) { userType = "Disabled" };
+        if ( users[user].admin ) { userType = Homey.__("tab4.users.usersgroup.administrator"); isAdmin=true; } else { userType = Homey.__("tab4.users.usersgroup.user") };
+        if ( !users[user].valid ) { userType = Homey.__("tab4.users.usersgroup.disabled") };
         let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
         let item2 = '<input hidden id="userAll' + users[user].id + '" value=\'' + fullUser + '\'></input>';
         let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
@@ -618,13 +659,11 @@ function displayUsers(users) {
     }
     newHTML = items.substr(0,items.length-115);
     document.getElementById("userspane").innerHTML = newHTML;
-    document.getElementById("processing").style.display = "none";
 }
 
 function addUser(userId) {
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";
-
     document.getElementById("userEnabled").checked = true;
     document.getElementById("userId").value = userId
     if ( userId != 0 ) {
@@ -687,6 +726,7 @@ function cancelUser() {
     if ( !canCancel ) return;
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
+    document.getElementById("usereditdescription").style.display = "none";
     document.getElementById("userId").value = "";
     document.getElementById("userName").value = "";
     document.getElementById("userPIN").value = "";
@@ -746,7 +786,6 @@ function editUser(userId) {
 
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";
-
     document.getElementById("userId").value = userId;
     document.getElementById("userName").value = user.name;
     document.getElementById("userPIN").value = user.pincode;

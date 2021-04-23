@@ -112,7 +112,6 @@
                 "users": "Users",
                 "enterpin": "Please enter PIN",
                 "enter": "Ok",
-                "processing": "Processing",
                 "validating": "Validating",
                 "invalidpin": "Invalid PIN entered",
                 "save": "Save",
@@ -120,8 +119,11 @@
                 "delete": "Delete",
                 "username": "Username",
                 "administrator": "Administrator",
+                "user": "User",
                 "pin": "PIN",
-                "enabled": "Enabled"
+                "enabled": "Enabled",
+                "disabled": "Disabled",
+                "editdescription": "Please create your first user. This user will always be Administrator and can't be disabled or deleted"
             }
         }
     },

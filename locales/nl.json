@@ -109,19 +109,20 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users",
-                "enterpin": "Please enter PIN",
+                "users": "Gebruikers",
+                "enterpin": "Voer je Pincode in",
                 "enter": "Ok",
-                "processing": "Processing",
-                "validating": "Validating",
-                "invalidpin": "Invalid PIN entered",
-                "save": "Save",
-                "cancel": "Cancel",
-                "delete": "Delete",
-                "username": "Username",
-                "administrator": "Administrator",
-                "pin": "PIN",
-                "enabled": "Enabled"
+                "validating": "Controleren",
+                "invalidpin": "Ongeldige Pincode ingevoerd",
+                "save": "Opslaan",
+                "cancel": "Annuleren",
+                "delete": "Verwijderen",
+                "username": "Gebruikersnaam",
+                "administrator": "Beheerder",
+                "user": "Gebruiker",
+                "pin": "Pincode",
+                "enabled": "Ingeschakeld",
+                "disabled": "Uitgeschakeld"
             }
         }
     },
