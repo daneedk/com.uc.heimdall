@@ -106,7 +106,27 @@
         }
     },
     "tab4": {
-        "title": "Anleitung",
+        "title": "Users",
+        "users": {
+            "usersgroup": {
+                "users": "Users",
+                "enterpin": "Please enter PIN",
+                "enter": "Ok",
+                "processing": "Processing",
+                "validating": "Validating",
+                "invalidpin": "Invalid PIN entered",
+                "save": "Save",
+                "cancel": "Cancel",
+                "delete": "Delete",
+                "username": "Username",
+                "administrator": "Administrator",
+                "pin": "PIN",
+                "enabled": "Enabled"
+            }
+        }
+    },
+    "tab5": {
+        "title": "(A)",
         "instructions": {
             "title": "Anleitung"
         }
