@@ -12,9 +12,7 @@ var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
 var language = "en";
-var numUsers = 0;
-var numAdmins = 0;
-var numAdminsBeforeSave = 0;
+// var numUsers = 0;
 var newUser = 0;
 var noUser = false;
 var transferedUsers = {};
@@ -484,14 +482,14 @@ function showSubTab(tab){
 function prepareUsersTab() {
     Homey.get('nousers', function(err, nouser) {
         if ( err ) {
-            console.log("nousers ", err)
+            return Homey.alert('prepareUsersTab: ' + err); 
         } else {
             if ( nouser ) {
                 document.getElementById("pinentry").style.display = "none";
-                document.getElementById("userAdminLbl").style.display = "none";
-                document.getElementById("userAdminCbx").style.display = "none";
-                document.getElementById("userEnabledLbl").style.display = "none";
-                document.getElementById("userEnabledCbx").style.display = "none";
+                document.getElementById("userAdmin").checked = true;
+                document.getElementById("userAdmin").disabled = true;
+                document.getElementById("userEnabled").checked = true;
+                document.getElementById("userEnabled").disabled = true;
                 canCancel = false;
                 $('#cancelButton').removeClass('btn-active');
                 $('#cancelButton').addClass('btn-inactive');
@@ -575,7 +573,7 @@ function enterPIN() {
         });
         console.log(transferedUsers);
 
-        numUsers = transferedUsers.length
+        let numUsers = transferedUsers.length
         if (numUsers = 1 ) {
             isAdmin = transferedUsers[0].admin;
             if ( isAdmin == null ) {
@@ -596,19 +594,18 @@ function enterPIN() {
 function displayUsers(users) {
     let items=""
     isAdmin = false;
-    numUsers = users.length
-    numAdmins = 0;
+    // numUsers = users.length
     newUser = 0;
     for (user in users) {
         let fullUser = JSON.stringify(users[user]);
         if ( users[user].id > newUser ) {newUser = users[user].id;}
-        if ( users[user].admin ) { userType = "Administrator"; isAdmin=true; numAdmins += 1} else { userType = "User" };
+        if ( users[user].admin ) { userType = "Administrator"; isAdmin=true; } else { userType = "User" };
         if ( !users[user].valid ) { userType = "Disabled" };
         let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
         let item2 = '<input hidden id="userAll' + users[user].id + '" value=\'' + fullUser + '\'></input>';
         let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
         let item4 = '</div><div class="settings-item-last">';
-        let item5 = '<span onclick="editUser(' + users[user].id + ',' + numUsers + ')"> > </span>';
+        let item5 = '<span onclick="editUser(' + users[user].id + ')"> > </span>';
         let item6 = '</div></div>';
 
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
@@ -630,21 +627,15 @@ function addUser(userId) {
 
     document.getElementById("userEnabled").checked = true;
     document.getElementById("userId").value = userId
+    if ( userId != 0 ) {
+        document.getElementById("userAdmin").disabled = false;
+        document.getElementById("userEnabled").disabled = false;
+    }
     checkSave();
     canDelete = false; 
     $('#deleteButton').removeClass('btn-active');
     $('#deleteButton').addClass('btn-inactive');
 
-}
-
-function countAdmins() {
-    numAdmins = 0;
-    for (user in transferedUsers) {
-        console.log(transferedUsers[user].admin);
-        if (transferedUsers[user].admin) { numAdmins += 1}
-    }
-    console.log(numAdmins);
-    return numAdmins;
 }
 
 function checkSave() {
@@ -663,38 +654,14 @@ function checkSave() {
 
 function checkAdmin() {
     let userAdmin = document.getElementById("userAdmin").checked;
-    console.log("begin ",numAdmins);
     if ( userAdmin ) {
         canDelete = false;
         $('#deleteButton').removeClass('btn-active');
         $('#deleteButton').addClass('btn-inactive');
-        numAdmins +=1;
-        numAdminsBeforeSave +=1;
-        console.log("plus ",numAdmins);
     } else  {
         canDelete = true;
         $('#deleteButton').removeClass('btn-inactive');
         $('#deleteButton').addClass('btn-active');
-        if ( numAdmins < 2 ) { 
-            Homey.alert("There is no other Administrator, action not allowed");
-            document.getElementById("userAdmin").checked = true;
-            console.log("geen ",numAdmins);
-        } else {
-            numAdmins -=1;
-            numAdminsBeforeSave -=1;
-            console.log("min ",numAdmins);
-        }
-    }
-}
-
-function checkEnable() {
-    let userEnabled = document.getElementById("userEnabled").checked;
-    let userAdmin = document.getElementById("userAdmin").checked;
-    if ( !userEnabled ) {
-        if ( numAdmins < 2 && userAdmin) { 
-            Homey.alert("There is no other Administrator, action not allowed");
-            document.getElementById("userEnabled").checked = true;
-        }
     }
 }
 
@@ -718,7 +685,6 @@ function saveUser() {
 
 function cancelUser() {
     if ( !canCancel ) return;
-    // document.getElementById("processing").style.display = "block";
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
     document.getElementById("userId").value = "";
@@ -726,8 +692,6 @@ function cancelUser() {
     document.getElementById("userPIN").value = "";
     document.getElementById("userAdmin").checked = false;
     document.getElementById("userEnabled").checked = false;
-    // if ( numAdminsBeforeSave != 0 ) { numAdmins -=1 }
-    // console.log("cancel ",numAdmins);
 }
 
 function deleteUser() {
@@ -741,31 +705,43 @@ function deleteUser() {
 
 function processUser(modifiedUser,action) {
     Homey.set('nousers', false );
-    Homey.api('POST', '/users/' + action, modifiedUser )
-        .then((result) => {
-            console.log('Heimdall API success reply: ', result);
+
+    Homey.get('SETKEY')
+        .then((setkey) => {
+            let postBody = {
+                "setkey": setkey,
+                "user": modifiedUser
+            }
+            Homey.api('POST', '/users/' + action, postBody )
+                .then((result) => {
+                    console.log('Heimdall API success reply: ', result);
+                })
+                .catch((error) => {
+                    console.error('Heimdall API ERROR reply: ', error);
+                });
+
+            Homey.set('SETKEY', false );
+            canCancel = true;
+            cancelUser();
+            if ( noUser ) {
+                document.getElementById('pin').value = modifiedUser.pincode;
+                noUser = false;
+                $('#cancelButton').removeClass('btn-inactive');
+                $('#cancelButton').addClass('btn-active');
+                document.getElementById("userAdminLbl").style.display = "";
+                document.getElementById("userAdminCbx").style.display = "";
+                document.getElementById("userEnabledLbl").style.display = "";
+                document.getElementById("userEnabledCbx").style.display = "";
+            }
+        
+            setTimeout(enterPIN(), 2000);
         })
         .catch((error) => {
-            console.error('Heimdall API ERROR reply: ', error);
+            console.error('SETKEY Error: ', error);
         });
-
-    canCancel = true;
-    cancelUser();
-    if ( noUser ) {
-        document.getElementById('pin').value = modifiedUser.pincode;
-        noUser = false;
-        $('#cancelButton').removeClass('btn-inactive');
-        $('#cancelButton').addClass('btn-active');
-        document.getElementById("userAdminLbl").style.display = "";
-        document.getElementById("userAdminCbx").style.display = "";
-        document.getElementById("userEnabledLbl").style.display = "";
-        document.getElementById("userEnabledCbx").style.display = "";
-    }
-
-    setTimeout(enterPIN(), 2000);
 }
 
-function editUser(userId, numUsers) {
+function editUser(userId) {
     let user = JSON.parse(document.getElementById("userAll"+userId).value);
 
     document.getElementById("userspane").style.display = "none";
@@ -776,15 +752,23 @@ function editUser(userId, numUsers) {
     document.getElementById("userPIN").value = user.pincode;
     document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
+    if ( !isAdmin ) {
+        document.getElementById("userAdmin").disabled = true;
+        document.getElementById("userEnabled").disabled = true;
+    } else {
+        document.getElementById("userAdmin").disabled = false;
+        document.getElementById("userEnabled").disabled = false;
+    }
     checkSave();
-    if ( userId == 0 || numUsers == 1 ) {
+
+    if ( userId == 0 ) {
         canDelete = false; 
         $('#deleteButton').removeClass('btn-active');
         $('#deleteButton').addClass('btn-inactive');
-        document.getElementById("userAdminLbl").style.display = "none";
-        document.getElementById("userAdminCbx").style.display = "none";
-        document.getElementById("userEnabledLbl").style.display = "none";
-        document.getElementById("userEnabledCbx").style.display = "none";
+        document.getElementById("userAdmin").checked = true;
+        document.getElementById("userAdmin").disabled = true;
+        document.getElementById("userEnabled").checked = true;
+        document.getElementById("userEnabled").disabled = true;
     } else {
         canDelete = true; 
         $('#deleteButton').removeClass('btn-inactive');

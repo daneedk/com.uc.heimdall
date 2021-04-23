@@ -136,46 +136,52 @@ class Heimdall extends Homey.App {
             if ( userObject.admin ) {
                 timeout = 100; // reset Brute Force protection
                 // user is an Administrator, return all users
+                Homey.ManagerSettings.set('SETKEY', Homey.env.SETKEY);
                 return this.users;
             } else {
                 // return the user whos PIN was entered
+                Homey.ManagerSettings.set('SETKEY', Homey.env.SETKEY);
                 return [userObject];
             } 
         } else {
+            Homey.ManagerSettings.set('SETKEY', false);
             return [{ 'id': 0, 'name': 'New user', 'pincode': '000000', 'admin': true, 'valid': true}];
         }
     }
 
     async processUsers(modifiedUser, action) {
-        modifiedUser = modifiedUser.body;
-        Homey.ManagerSettings.set('nousers', false);
-        let searchId = modifiedUser.id;
-        let newUsers = [];
-        if ( this.users ) {
-            let userObject = this.users.find( record => record.id == searchId);
-            if ( !userObject ) {
-                // new user
-                console.log("processUser !userObject: ")
-                newUsers = this.users;
-                newUsers.push(modifiedUser)
-            } else {
-                // existing user
-                for (let user in this.users) {
-                    if ( this.users[user].id == searchId ) {
-                        if ( action === "save") {
-                            newUsers.push(modifiedUser);
+        if (modifiedUser.body.setkey == Homey.env.SETKEY) {
+            modifiedUser = modifiedUser.body.user;
+            Homey.ManagerSettings.set('nousers', false);
+            let searchId = modifiedUser.id;
+            let newUsers = [];
+            if ( this.users ) {
+                let userObject = this.users.find( record => record.id == searchId);
+                if ( !userObject ) {
+                    // new user
+                    newUsers = this.users;
+                    newUsers.push(modifiedUser)
+                } else {
+                    // existing user
+                    for (let user in this.users) {
+                        if ( this.users[user].id == searchId ) {
+                            if ( action === "save") {
+                                newUsers.push(modifiedUser);
+                            }
+                        } else {
+                            newUsers.push(this.users[user]);
                         }
-                    } else {
-                        newUsers.push(this.users[user]);
                     }
                 }
+            } else {
+                // first user
+                newUsers.push(modifiedUser)
             }
+            this.users = newUsers;
+            return "Succes";
         } else {
-            // first user
-            newUsers.push(modifiedUser)
+            return "Unauthorized"
         }
-        this.users = newUsers;
-        return "Succes";
 
     }
 
@@ -766,7 +772,6 @@ class Heimdall extends Homey.App {
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
                     }
-                    //console.log(mostRecentComE)
                 }
 
                 let mostRecentComH = new Date( mostRecentComE )
@@ -1172,8 +1177,6 @@ module.exports = Heimdall;
 Homey.ManagerSettings.on('set', (variable) => {
     if ( variable === 'settings' ) {
         heimdallSettings = Homey.ManagerSettings.get('settings')
-        // console.log('New settings:')
-        // console.log(heimdallSettings)
     }
 });
 
