@@ -481,11 +481,9 @@ function showSubTab(tab){
 }
 
 function prepareUsersTab() {
-    Homey.get('nousers', function(err, nouser) {
-        if ( err ) {
-            return Homey.alert('prepareUsersTab: ' + err); 
-        } else {
-            if ( nouser ) {
+    Homey.get('nousers')
+        .then((result) => {
+            if ( result ) {
                 document.getElementById("pinentry").style.display = "none";
                 document.getElementById("userAdmin").checked = true;
                 document.getElementById("userAdmin").disabled = true;
@@ -499,8 +497,11 @@ function prepareUsersTab() {
                 addUser(0);
                 transferedUsers = [];
             };
-        }
-    });
+        })
+        .catch((error) => {
+            return Homey.alert('prepareUsersTab(): ' + errror); 
+        });
+
 }
 
 async function getLanguage() {
@@ -563,14 +564,7 @@ function enterPIN() {
     document.getElementById("invalidpin").style.display = "none";
     document.getElementById("validating").style.display = "block";
     let searchPin = document.getElementById('pin').value;
-console.log("Pin ",searchPin);
-    /*
-    Homey.api('POST', '/users/' + action, postBody )
-    .then((result) => {
-        console.log('Heimdall API success reply: ', result);
-    })
-    */
-/*
+
     Homey.api('GET', '/users/' + searchPin)
         .then((result) => {
             transferedUsers = Object.keys(result).map(function (key) {
@@ -592,44 +586,14 @@ console.log("Pin ",searchPin);
             document.getElementById("pinentry").style.display = "none";
             document.getElementById("userspane").style.display = "block";
             document.getElementById("validating").style.display = "none";
-            displayUsers(transferedUsers);            
+            displayUsers(transferedUsers);       
         })
         .catch((error) => {
             document.getElementById("validating").style.display = "none";
             document.getElementById("invalidpin").style.display = "block";
             return Homey.alert('enterPIN: ' + error); 
         });
-*/
-    
-    Homey.api('GET', '/users/' + searchPin, null, (err, result) => {
-        if (err) {
-            document.getElementById("validating").style.display = "none";
-            document.getElementById("invalidpin").style.display = "block";
-            return Homey.alert('enterPIN: ' + err); 
-        };
-        transferedUsers = Object.keys(result).map(function (key) {
-            return result[key];
-        });
-
-        console.log(transferedUsers);
-
-        let numUsers = transferedUsers.length
-        if (numUsers = 1 ) {
-            isAdmin = transferedUsers[0].admin;
-            if ( isAdmin == null ) {
-                document.getElementById("validating").style.display = "none";
-                document.getElementById("invalidpin").style.display = "block";
-                document.getElementById("pinentry").style.display = "";
-                document.getElementById("userspane").style.display = "none";
-                return;
-            }
-        }
-        document.getElementById("pinentry").style.display = "none";
-        document.getElementById("userspane").style.display = "block";
-        document.getElementById("validating").style.display = "none";
-        displayUsers(transferedUsers);
-    });
-    
+ 
 }
 
 function displayUsers(users) {
