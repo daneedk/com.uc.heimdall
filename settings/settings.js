@@ -717,8 +717,6 @@ function processUser(modifiedUser, action) {
     canCancel = true;
     cancelUser();
 
-console.log(postBody);
-
     if ( noUser ) {
         document.getElementById('pin').value = modifiedUser.pincode;
         noUser = false;

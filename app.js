@@ -148,38 +148,38 @@ class Heimdall extends Homey.App {
     }
 
     async processUsers(modifiedUser, action) {
-            let pin = modifiedUser.body.pin;
-            modifiedUser = modifiedUser.body.user;
-            Homey.ManagerSettings.set('nousers', false);
-            let searchId = modifiedUser.id;
-            let newUsers = [];
-            if ( this.users ) {
-                let userObject = this.users.find( record => record.id == searchId);
-                if ( !userObject ) {
-                    // new user
-                    let userObject = this.getUserInfo(pin, this.users);
-                    if ( userObject.admin ) {
-                        newUsers = this.users;
-                        newUsers.push(modifiedUser)
-                    }
-                } else {
-                    // existing user
-                    for (let user in this.users) {
-                        if ( this.users[user].id == searchId ) {
-                            if ( action === "save") {
-                                newUsers.push(modifiedUser);
-                            }
-                        } else {
-                            newUsers.push(this.users[user]);
-                        }
-                    }
+        let pin = modifiedUser.body.pin;
+        modifiedUser = modifiedUser.body.user;
+        Homey.ManagerSettings.set('nousers', false);
+        let searchId = modifiedUser.id;
+        let newUsers = [];
+        if ( this.users ) {
+            let userObject = this.users.find( record => record.id == searchId);
+            if ( !userObject ) {
+                // new user
+                let userObject = this.getUserInfo(pin, this.users);
+                if ( userObject.admin ) {
+                    newUsers = this.users;
+                    newUsers.push(modifiedUser)
                 }
             } else {
-                // first user
-                newUsers.push(modifiedUser)
+                // existing user
+                for (let user in this.users) {
+                    if ( this.users[user].id == searchId ) {
+                        if ( action === "save") {
+                            newUsers.push(modifiedUser);
+                        }
+                    } else {
+                        newUsers.push(this.users[user]);
+                    }
+                }
             }
-            this.users = newUsers;
-            return "Succes";
+        } else {
+            // first user
+            newUsers.push(modifiedUser)
+        }
+        this.users = newUsers;
+        return "Succes";
     }
 
     async processKeypadCommands(post,type) {
