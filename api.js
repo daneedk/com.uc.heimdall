@@ -7,9 +7,8 @@ module.exports = [
         method: 'GET',
         path: '/devices',
         fn: function(args, callback) {
-            Homey.app.getDevices().then(res => {
-                callback(null, res);
-            })
+            Homey.app.getDevices()
+                .then(res => {callback(null, res);})
                 .catch(error => callback(error, null));
         }  
     },
@@ -18,9 +17,8 @@ module.exports = [
         method: 'GET',
         path: '/zones',
         fn: function(args, callback) {
-            Homey.app.getZones().then(res => {
-                callback(null, res);
-            })
+            Homey.app.getZones()
+                .then(res => {callback(null, res);})
                 .catch(error => callback(error, null));
         }  
     },
@@ -30,27 +28,26 @@ module.exports = [
         path: '/state/:type',
         fn: function(args, callback) {
             if (args.params.type === 'surveillance') {
-              callback(null, Homey.ManagerSettings.get('surveillanceStatus'));
+                callback(null, Homey.ManagerSettings.get('surveillanceStatus'));
             } else if (args.params.type === 'alarm' ) {
-              callback(null, Homey.ManagerSettings.get('alarmStatus'));
+                callback(null, Homey.ManagerSettings.get('alarmStatus'));
             } else {
-              callback("not a valid status request", null);
+                callback("not a valid status request", null);
             }
         }
     },
     {
-        description: 'Retrieve users',
+        description: 'Retrieve users after entering a valid PIN',
         method: 'GET',
         path: '/users/:pin',
         fn: function(args, callback) {
-            Homey.app.getUsers(args.params.pin).then(res => {
-                callback(null, res);
-            })
+            Homey.app.getUsers(args.params.pin)
+                .then(res => callback(null, res) )
                 .catch(error => callback(error, null));
         }  
     },
     {
-        description: 'Return users',
+        description: 'Return user',
         method: 'post',
         path: '/users/:action',
         fn: function(args, callback) {

@@ -136,11 +136,9 @@ class Heimdall extends Homey.App {
             if ( userObject.admin ) {
                 timeout = 100; // reset Brute Force protection
                 // user is an Administrator, return all users
-                Homey.ManagerSettings.set('SETKEY', Homey.env.SETKEY);
                 return this.users;
             } else {
                 // return the user whos PIN was entered
-                Homey.ManagerSettings.set('SETKEY', Homey.env.SETKEY);
                 return [userObject];
             } 
         } else {
@@ -150,7 +148,7 @@ class Heimdall extends Homey.App {
     }
 
     async processUsers(modifiedUser, action) {
-        if (modifiedUser.body.setkey == Homey.env.SETKEY) {
+            let pin = modifiedUser.body.pin;
             modifiedUser = modifiedUser.body.user;
             Homey.ManagerSettings.set('nousers', false);
             let searchId = modifiedUser.id;
@@ -159,8 +157,11 @@ class Heimdall extends Homey.App {
                 let userObject = this.users.find( record => record.id == searchId);
                 if ( !userObject ) {
                     // new user
-                    newUsers = this.users;
-                    newUsers.push(modifiedUser)
+                    let userObject = this.getUserInfo(pin, this.users);
+                    if ( userObject.admin ) {
+                        newUsers = this.users;
+                        newUsers.push(modifiedUser)
+                    }
                 } else {
                     // existing user
                     for (let user in this.users) {
@@ -179,10 +180,6 @@ class Heimdall extends Homey.App {
             }
             this.users = newUsers;
             return "Succes";
-        } else {
-            return "Unauthorized"
-        }
-
     }
 
     async processKeypadCommands(post,type) {

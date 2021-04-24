@@ -12,7 +12,6 @@ var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
 var language = "en";
-// var numUsers = 0;
 var newUser = 0;
 var noUser = false;
 var transferedUsers = {};
@@ -446,10 +445,8 @@ function showTab(tab){
     }
     $('.tab').addClass('tab-inactive')
     $('.tab').removeClass('tab-active')
-
     $('#tabb' + tab).addClass('tab-active')
     $('#tabb' + tab).removeClass('tab-inactive')
-
     $('.panel').hide()
     $('#tab' + tab).show()
     dashboardVisible = ( tab == 1 ) ? true : false
@@ -471,10 +468,8 @@ function showTab(tab){
 function showSubTab(tab){
     $('.subTab').addClass('tab-inactive')
     $('.subTab').removeClass('tab-active')
-
     $('#subTabb' + tab).addClass('tab-active')
     $('#subTabb' + tab).removeClass('tab-inactive')
-
     $('.subPanel').hide()
     $('#subTab' + tab).show()
     statusVisible = ( tab == 1 ) ? true : false
@@ -501,7 +496,6 @@ function prepareUsersTab() {
         .catch((error) => {
             return Homey.alert('prepareUsersTab(): ' + errror); 
         });
-
 }
 
 async function getLanguage() {
@@ -571,10 +565,11 @@ function enterPIN() {
                 return result[key];
             });
             console.log(transferedUsers);
-   
             let numUsers = transferedUsers.length
+            
             if (numUsers = 1 ) {
                 isAdmin = transferedUsers[0].admin;
+
                 if ( isAdmin == null ) {
                     document.getElementById("validating").style.display = "none";
                     document.getElementById("invalidpin").style.display = "block";
@@ -593,16 +588,15 @@ function enterPIN() {
             document.getElementById("invalidpin").style.display = "block";
             return Homey.alert('enterPIN: ' + error); 
         });
- 
 }
 
 function displayUsers(users) {
     let items=""
     isAdmin = false;
-    // numUsers = users.length
     newUser = 0;
     for (user in users) {
         let fullUser = JSON.stringify(users[user]);
+
         if ( users[user].id > newUser ) {newUser = users[user].id;}
         if ( users[user].admin ) { userType = Homey.__("tab4.users.usersgroup.administrator"); isAdmin=true; } else { userType = Homey.__("tab4.users.usersgroup.user") };
         if ( !users[user].valid ) { userType = Homey.__("tab4.users.usersgroup.disabled") };
@@ -612,11 +606,11 @@ function displayUsers(users) {
         let item4 = '</div><div class="settings-item-last">';
         let item5 = '<span onclick="editUser(' + users[user].id + ')"> > </span>';
         let item6 = '</div></div>';
-
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item1 + item2 + item3 + item4 + item5 + item6 + itemLast;
     }
     newUser += 1;
+
     if ( isAdmin ) {
         let item = '<div class="settings-item"><div class="users-user-add"><span onclick="addUser(' + newUser + ')">+ Add user</span></div><div class="settings-item-last"><span></span></div></div><div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item;
@@ -629,7 +623,8 @@ function addUser(userId) {
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";
     document.getElementById("userEnabled").checked = true;
-    document.getElementById("userId").value = userId
+    document.getElementById("userId").value = userId;
+
     if ( userId != 0 ) {
         document.getElementById("userAdmin").disabled = false;
         document.getElementById("userEnabled").disabled = false;
@@ -638,12 +633,12 @@ function addUser(userId) {
     canDelete = false; 
     $('#deleteButton').removeClass('btn-active');
     $('#deleteButton').addClass('btn-inactive');
-
 }
 
 function checkSave() {
     let userName = document.getElementById("userName").value;
     let userPIN = document.getElementById("userPIN").value;
+
     if ( userName.length > 1 && userPIN.length > 3) {
         canSave = true;
         $('#saveButton').removeClass('btn-inactive');
@@ -657,6 +652,7 @@ function checkSave() {
 
 function checkAdmin() {
     let userAdmin = document.getElementById("userAdmin").checked;
+
     if ( userAdmin ) {
         canDelete = false;
         $('#deleteButton').removeClass('btn-active');
@@ -671,18 +667,17 @@ function checkAdmin() {
 function saveUser() {
     if ( !canSave ) return;
     document.getElementById("validating").style.display = "block";
-
     let userAdmin = true;
     let userEnabled = true;
     let userId = document.getElementById("userId").value*1;
     let userName = document.getElementById("userName").value;
     let userPIN = document.getElementById("userPIN").value;
+
     if ( userId != 0 ) { 
         userAdmin = document.getElementById("userAdmin").checked;
         userEnabled = document.getElementById("userEnabled").checked;
     }
     let user = {id: userId, name: userName, pincode: userPIN, admin: userAdmin, valid: userEnabled};
-
     processUser(user,"save");
 }
 
@@ -700,54 +695,46 @@ function cancelUser() {
 
 function deleteUser() {
     if ( !canDelete ) return;
-
     let userId = document.getElementById("userId").value;
-    let user = {id: userId, name: false, pincode: false, admin: false, valid: false}
-    
+    let user = {id: userId, name: false, pincode: false, admin: false, valid: false};
     processUser(user,"delete");
 }
 
-function processUser(modifiedUser,action) {
+function processUser(modifiedUser, action) {
     Homey.set('nousers', false );
 
-    Homey.get('SETKEY')
-        .then((setkey) => {
-            let postBody = {
-                "setkey": setkey,
-                "user": modifiedUser
-            }
-            Homey.api('POST', '/users/' + action, postBody )
-                .then((result) => {
-                    console.log('Heimdall API success reply: ', result);
-                })
-                .catch((error) => {
-                    console.error('Heimdall API ERROR reply: ', error);
-                });
-
-            Homey.set('SETKEY', false );
-            canCancel = true;
-            cancelUser();
-            if ( noUser ) {
-                document.getElementById('pin').value = modifiedUser.pincode;
-                noUser = false;
-                $('#cancelButton').removeClass('btn-inactive');
-                $('#cancelButton').addClass('btn-active');
-                document.getElementById("userAdminLbl").style.display = "";
-                document.getElementById("userAdminCbx").style.display = "";
-                document.getElementById("userEnabledLbl").style.display = "";
-                document.getElementById("userEnabledCbx").style.display = "";
-            }
-        
-            setTimeout(enterPIN(), 2000);
+    let postBody = {
+        "pin": document.getElementById('pin').value,
+        "user": modifiedUser
+    }
+    Homey.api('POST', '/users/' + action, postBody )
+        .then((result) => {
+            console.log('Heimdall API success reply: ', result);
         })
         .catch((error) => {
-            console.error('SETKEY Error: ', error);
+            console.error('Heimdall API ERROR reply: ', error);
         });
+    canCancel = true;
+    cancelUser();
+
+console.log(postBody);
+
+    if ( noUser ) {
+        document.getElementById('pin').value = modifiedUser.pincode;
+        noUser = false;
+        $('#cancelButton').removeClass('btn-inactive');
+        $('#cancelButton').addClass('btn-active');
+        document.getElementById("userAdminLbl").style.display = "";
+        document.getElementById("userAdminCbx").style.display = "";
+        document.getElementById("userEnabledLbl").style.display = "";
+        document.getElementById("userEnabledCbx").style.display = "";
+    }
+    setTimeout(enterPIN(), 2000);
+
 }
 
 function editUser(userId) {
     let user = JSON.parse(document.getElementById("userAll"+userId).value);
-
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";
     document.getElementById("userId").value = userId;
@@ -755,6 +742,7 @@ function editUser(userId) {
     document.getElementById("userPIN").value = user.pincode;
     document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
+
     if ( !isAdmin ) {
         document.getElementById("userAdmin").disabled = true;
         document.getElementById("userEnabled").disabled = true;
