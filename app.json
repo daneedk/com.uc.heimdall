@@ -1368,7 +1368,7 @@
           "sv": "Addera loggning till en [[device]]",
           "da": "Tilføj logning for [[device]]",
           "es": "Añadir registro al [[device]]"
-        },        
+        },
         "args": [
           {
             "name": "device",

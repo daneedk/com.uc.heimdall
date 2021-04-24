@@ -193,6 +193,7 @@ class Heimdall extends Homey.App {
                     logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " +userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
                     if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
+                        //sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
                         this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
                         return "Found user, changed Surveillance Mode to " + post.body.action
                     } else if ( post.body.action == "enter" ) {
@@ -208,13 +209,15 @@ class Heimdall extends Homey.App {
                     }
                     
                 } else {
-                    logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
-                    this.writeLog(logLine);
-
-                    this.log("Invalid code entered: " + userObject["pincode"])
                     if ( post.body.value.length > 0 ) {
+                        logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                        this.log("Invalid code entered: " + userObject["pincode"])
                         return "Invalid code entered. Logline written, no further action"
                     } else {
+                        logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                        this.log("No code entered ")
                         return "No code entered. Logline written, no further action"
                     }
                 }
