@@ -129,14 +129,14 @@
     "es": "Sin cambios funcionales, vuelva a enviar para habilitar los idiomas de App Store"
   },
   "2.0.43": {
-    "en": "Added API endpoint to receive information from a Ring Keypad",
-    "nl": "Added API endpoint to receive information from a Ring Keypad",
-    "de": "Added API endpoint to receive information from a Ring Keypad",
-    "fr": "Added API endpoint to receive information from a Ring Keypad",
-    "it": "Added API endpoint to receive information from a Ring Keypad",
-    "no": "Added API endpoint to receive information from a Ring Keypad",
-    "sv": "Added API endpoint to receive information from a Ring Keypad",
-    "da": "Added API endpoint to receive information from a Ring Keypad",
-    "es": "Added API endpoint to receive information from a Ring Keypad"
+    "en": "Added User Management",
+    "nl": "Gebruikersbeheer toegevoegd",
+    "de": "Benutzerverwaltung hinzugefügt",
+    "fr": "Ajout de la gestion des utilisateurs",
+    "it": "Aggiunta la gestione degli utenti",
+    "no": "Lagt til brukeradministrasjon",
+    "sv": "Lagt till användarhantering",
+    "da": "Tilføjet brugeradministration",
+    "es": "Gestión de usuarios añadida"
   }
 }
