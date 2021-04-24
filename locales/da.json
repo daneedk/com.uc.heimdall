@@ -109,20 +109,21 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users",
-                "enterpin": "Please enter PIN",
+                "users": "Brugere",
+                "enterpin": "Indtast venligst PIN",
                 "enter": "Ok",
-                "validating": "Validating",
-                "invalidpin": "Invalid PIN entered",
-                "save": "Save",
-                "cancel": "Cancel",
+                "validating": "Validering",
+                "invalidpin": "Ugyldig PIN-kode indtastet",
+                "save": "Gem",
+                "cancel": "Annuller",
                 "delete": "Delete",
-                "username": "Username",
+                "username": "Brugernavn",
                 "administrator": "Administrator",
-                "user": "User",
+                "user": "Bruger",
                 "pin": "PIN",
                 "enabled": "Enabled",
-                "disabled": "Disabled"
+                "disabled": "Disabled",
+                "editdescription": "Opret din første bruger. Denne bruger vil altid være administrator og kan ikke deaktiveres eller slettes"
             }
         }
     },

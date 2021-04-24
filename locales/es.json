@@ -109,20 +109,21 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users",
-                "enterpin": "Please enter PIN",
+                "users": "Usuarios",
+                "enterpin": "Introduzca el PIN",
                 "enter": "Ok",
-                "validating": "Validating",
-                "invalidpin": "Invalid PIN entered",
-                "save": "Save",
-                "cancel": "Cancel",
-                "delete": "Delete",
-                "username": "Username",
-                "administrator": "Administrator",
-                "user": "User",
+                "validating": "Validando",
+                "invalidpin": "PIN ingresado no válido",
+                "save": "Guardar",
+                "cancel": "Cancelar",
+                "delete": "Eliminar",
+                "username": "Nombre de usuario",
+                "administratdor": "Administrador",
+                "usur": "Usuario",
                 "pin": "PIN",
-                "enabled": "Enabled",
-                "disabled": "Disabled"
+                "enabled": "Habilitado",
+                "disabled": "Disabled",
+                "editdescription": "Cree su primer usuario. Este usuario siempre será el administrador y no se puede inhabilitar ni eliminar"
             }
         }
     },

@@ -109,20 +109,21 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users",
-                "enterpin": "Please enter PIN",
+                "users": "Benutzer",
+                "enterpin": "Bitte PIN eingeben",
                 "enter": "Ok",
-                "validating": "Validating",
-                "invalidpin": "Invalid PIN entered",
-                "save": "Save",
-                "cancel": "Cancel",
-                "delete": "Delete",
-                "username": "Username",
+                "validating": "validieren",
+                "invalidpin": "Ungültige PIN eingegeben",
+                "save": "Speichern",
+                "cancel": "Abbrechen",
+                "delete": "Löschen",
+                "username": "Benutzername",
                 "administrator": "Administrator",
-                "user": "User",
+                "user": "Benutzer",
                 "pin": "PIN",
                 "enabled": "Enabled",
-                "disabled": "Disabled"
+                "disabled": "Deaktiviert",
+                "editdescription": "Bitte erstellen Sie Ihren ersten Benutzer. Dieser Benutzer ist immer Administrator und kann nicht deaktiviert oder gelöscht werden."
             }
         }
     },

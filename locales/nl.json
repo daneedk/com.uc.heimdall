@@ -110,20 +110,20 @@
         "users": {
             "usersgroup": {
                 "users": "Gebruikers",
-                "enterpin": "Voer je Pincode in",
+                "enterpin": "Voer de pincode in",
                 "enter": "Ok",
-                "validating": "Controleren",
-                "invalidpin": "Ongeldige Pincode ingevoerd",
+                "validating": "Validating",
+                "invalidpin": "Ongeldige pincode ingevoerd",
                 "save": "Opslaan",
                 "cancel": "Annuleren",
                 "delete": "Verwijderen",
                 "username": "Gebruikersnaam",
-                "administrator": "Beheerder",
+                "administrator": "Administrator",
                 "user": "Gebruiker",
                 "pin": "Pincode",
                 "enabled": "Ingeschakeld",
-                "disabled": "Uitgeschakeld"
-            }
+                "Disabled": "Uitgeschakeld",
+                "editdescription": "Maak uw eerste gebruiker aan. Deze gebruiker zal altijd Administrator zijn en kan niet worden uitgeschakeld of verwijderd"            }
         }
     },
     "tab5": {
