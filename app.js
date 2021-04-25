@@ -186,15 +186,24 @@ class Heimdall extends Homey.App {
         if ( checkAPIKEY(post.body.APIKEY) ) {
             let nu = getDateTime();
             let logLine = "";
+            let silentCode = null;
 
             if ( type == "action") {
-                let userObject = this.getUserInfo(post.body.value, this.users);
+                let pinCode = post.body.value;
+                let userObject = this.getUserInfo(pinCode, this.users);
+                if ( !userObject["valid"] ) {
+                    let shortPinCode = pinCode.substr(0, pinCode.length - 1);
+                    userObject = this.getUserInfo(shortPinCode, this.users);
+                    if ( userObject["valid"] ) {
+                        silentCode = pinCode.substr(pinCode.length - 1, 1);
+                    }
+                }
                 if ( userObject["valid"]) {
                     logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " +userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
                     if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
-                        //sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
-                        this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
+                        sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
+                        // this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
                         return "Found user, changed Surveillance Mode to " + post.body.action
                     } else if ( post.body.action == "enter" ) {
                         // TODO
