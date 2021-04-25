@@ -109,20 +109,20 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Brugere",
+                "users": "Brugeradministration",
                 "enterpin": "Indtast venligst PIN",
                 "enter": "Ok",
                 "validating": "Validering",
                 "invalidpin": "Ugyldig PIN-kode indtastet",
                 "save": "Gem",
                 "cancel": "Annuller",
-                "delete": "Delete",
+                "delete": "Slet",
                 "username": "Brugernavn",
                 "administrator": "Administrator",
                 "user": "Bruger",
                 "pin": "PIN",
-                "enabled": "Enabled",
-                "disabled": "Disabled",
+                "enabled": "Aktiveret",
+                "disabled": "Deaktiveret",
                 "editdescription": "Opret din første bruger. Denne bruger vil altid være administrator og kan ikke deaktiveres eller slettes"
             }
         }

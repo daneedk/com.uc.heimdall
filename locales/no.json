@@ -109,20 +109,20 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Brukere",
+                "users": "Brukeradministrasjon",
                 "enterpin": "Vennligst skriv inn PIN",
                 "enter": "Ok",
                 "validating": "Validering",
                 "invalidpin": "Ugyldig PIN-kode angitt",
-                "save": "Save",
-                "cancel": "Cancel",
-                "delete": "Delete",
+                "save": "Lagre",
+                "cancel": "Avbryt",
+                "delete": "Slett",
                 "username": "Brukernavn",
                 "administrator": "Administrator",
-                "user": "User",
-                "pin": "PIN",
-                "enabled": "Enabled",
-                "disabled": "Disabled",
+                "user": "Bruker",
+                "pin": "PIN-kode",
+                "enabled": "Aktivert",
+                "disabled": "Funksjonshemmet",
                 "editdescription": "Opprett din første bruker. Denne brukeren vil alltid være administrator og kan ikke deaktiveres eller slettes"
             }
         }

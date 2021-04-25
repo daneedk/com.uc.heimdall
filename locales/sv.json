@@ -109,20 +109,20 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Användare",
+                "users": "Användarhantering",
                 "enterpin": "Ange PIN-kod",
                 "enter": "Ok",
                 "validating": "Validating",
                 "invalidpin": "Ogiltig PIN-kod angiven",
-                "save": "Save",
+                "save": "Spara",
                 "cancel": "Avbryt",
                 "delete": "Radera",
                 "username": "Användarnamn",
-                "administrator": "Administrator",
-                "user": "User",
-                "pin": "PIN",
-                "enabled": "Enabled",
-                "disabled": "Disabled",
+                "administrator": "Administratör",
+                "user": "Användare",
+                "pin": "Pinkod",
+                "enabled": "Aktiverad",
+                "disabled": "Inaktiverad",
                 "editdescription": "Skapa din första användare. Den här användaren är alltid administratör och kan inte inaktiveras eller raderas"
             }
         }

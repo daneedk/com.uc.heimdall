@@ -109,7 +109,7 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Gebruikers",
+                "users": "Gebruikersbeheer",
                 "enterpin": "Voer de pincode in",
                 "enter": "Ok",
                 "validating": "Validating",

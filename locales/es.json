@@ -109,7 +109,7 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Usuarios",
+                "users": "Gestión de usuarios",
                 "enterpin": "Introduzca el PIN",
                 "enter": "Ok",
                 "validating": "Validando",
@@ -122,7 +122,7 @@
                 "usur": "Usuario",
                 "pin": "PIN",
                 "enabled": "Habilitado",
-                "disabled": "Disabled",
+                "disabled": "Discapacitado",
                 "editdescription": "Cree su primer usuario. Este usuario siempre será el administrador y no se puede inhabilitar ni eliminar"
             }
         }

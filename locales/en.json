@@ -109,7 +109,7 @@
         "title": "Users",
         "users": {
             "usersgroup": {
-                "users": "Users",
+                "users": "Usermanagement",
                 "enterpin": "Please enter PIN",
                 "enter": "Ok",
                 "validating": "Validating",
