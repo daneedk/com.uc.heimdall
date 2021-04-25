@@ -199,9 +199,11 @@ class Heimdall extends Homey.App {
                     }
                 }
                 if ( userObject["valid"]) {
-                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " +userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
                     if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
+                        logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command  " + post.body.actionReadable + " to Surveillance Mode Switch";
+                        this.writeLog(logLine);
                         sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
                         // this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
                         return "Found user, changed Surveillance Mode to " + post.body.action
