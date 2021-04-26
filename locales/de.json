@@ -194,13 +194,13 @@
         "noalarmtriggeralarmstate": ", Kein Alarmauslöser während aktiven Alarmstatus.",
         "noreport": " wurde nicht gemeldet in ",
         "lastreport": " Stunden. Letzte Meldung: ",
-        "validcode": " entered a valid code and pressed ",
-        "on": " on ",
-        "sendcommand": "Send command ",
-        "tosurveillancemode": " to Surveillance Mode Switch",
-        "invalidcode": "an invalid code was entered before pressing ",
-        "key": "key ",
-        "pressed": " was pressed on "
+        "validcode": " gab einen gültigen Code ein und drückte ",
+        "on": " auf ",
+        "sendcommand": "Kommando ",
+        "tosurveillancemode": " an Surveillance Mode Switch gesendet",
+        "invalidcode": "Ein ungültiger Code wurde eingegeben vor dem Drücken auf ",
+        "key": "Taste ",
+        "pressed": " wurde gedrückt auf "
     },
     "notification": {
         "smodeset1": "**Überwachungsmodus** auf ",

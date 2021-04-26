@@ -194,13 +194,13 @@
         "noalarmtriggeralarmstate": ", inget alarm löser ut pga gällande alarmstatus.",
         "noreport": " har inte rapporterat på ",
         "lastreport": " timmar. Senaste rapporten: ",
-        "validcode": " entered a valid code and pressed ",
-        "on": " on ",
-        "sendcommand": "Send command ",
-        "tosurveillancemode": " to Surveillance Mode Switch",
-        "invalidcode": "an invalid code was entered before pressing ",
-        "key": "key ",
-        "pressed": " was pressed on "
+        "validcode": " angav en giltig kod och tryckte ",
+        "on": " på ",
+        "sendcommand": "Kommando ",
+        "tosurveillancemode": " skickas till Surveillance Mode Switch",
+        "invalidcode": "en ogiltig kod anges innan du trycker på ",
+        "key": "Knapp ",
+        "pressed": " trycktes på "
     },
     "notification": {
         "smodeset1": "**Övervakningsläge** inställt på ",

@@ -194,13 +194,13 @@
         "noalarmtriggeralarmstate": ", ingen alarm utløses grunnet aktiv alarmstatus.",
         "noreport": " har ikke rapportert på ",
         "lastreport": " timer. Siste rapporting: ",
-        "validcode": " entered a valid code and pressed ",
-        "on": " on ",
-        "sendcommand": "Send command ",
-        "tosurveillancemode": " to Surveillance Mode Switch",
-        "invalidcode": "an invalid code was entered before pressing ",
-        "key": "key ",
-        "pressed": " was pressed on "
+        "validcode": " tastet inn en gyldig kode og trykket ",
+        "on": " på ",
+        "sendcommand": "Kommando ",
+        "tosurveillancemode": "  sendt til overvåkingsmodusbryter",
+        "invalidcode": "en ugyldig kode ble angitt før du trykket på ",
+        "key": "Tast ",
+        "pressed": " ble trykket på "
     },
     "notification": {
         "smodeset1": "**Overvåkningsmodus** satt til ",

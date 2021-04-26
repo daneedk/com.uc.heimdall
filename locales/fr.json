@@ -194,13 +194,13 @@
         "noalarmtriggeralarmstate": ", pas de déclenchement de l'alarme en raison d'une alarme déjà active.",
         "noreport": " n'a pas signalé dans ",
         "lastreport": " heures. Dernier rapport: ",
-        "validcode": " entered a valid code and pressed ",
-        "on": " on ",
-        "sendcommand": "Send command ",
-        "tosurveillancemode": " to Surveillance Mode Switch",
-        "invalidcode": "an invalid code was entered before pressing ",
-        "key": "key ",
-        "pressed": " was pressed on "
+        "validcode": " entré un code valide et appuyé ",
+        "on": " sur ",
+        "sendcommand": "Commande ",
+        "tosurveillancemode": " envoyée au commutateur de mode de surveillance",
+        "invalidcode": "un code invalide a été entré avant d'appuyer sur ",
+        "key": "La touche ",
+        "pressed": " a été enfoncée "
     },
     "notification": {
         "smodeset1": "**Mode surveillance** réglé sur ",
