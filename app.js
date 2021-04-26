@@ -142,7 +142,6 @@ class Heimdall extends Homey.App {
                 return [userObject];
             } 
         } else {
-            Homey.ManagerSettings.set('SETKEY', false);
             return [{ 'id': 0, 'name': 'New user', 'pincode': '000000', 'admin': true, 'valid': true}];
         }
     }
@@ -179,6 +178,9 @@ class Heimdall extends Homey.App {
             newUsers.push(modifiedUser)
         }
         this.users = newUsers;
+        Homey.ManagerSettings.set('users', this.users)
+            .catch((error) => { return error });
+            
         return "Succes";
     }
 
@@ -246,7 +248,9 @@ class Heimdall extends Homey.App {
         let nu = getDateTime();
         this.api = await this.getApi();
 
-        //this.users = Homey.ManagerSettings.get('users');
+        this.users = Homey.ManagerSettings.get('users');
+        // Uncomment next line to print users to the log when pincode is lost.
+        // this.log(this.users);
         if (  this.users === undefined ) {
             Homey.ManagerSettings.set('nousers', true);
         }
@@ -440,18 +444,13 @@ class Heimdall extends Homey.App {
         let sourceDevicePartial = isMonitoredPartial(device)
         let sourceDeviceLog = isLogged(device)
 
-        console.log('-----------------------------------------------')
-        this.log('stateChange:                ' + device.name)
-        this.log('sourceDeviceFull:           ' + sourceDeviceFull)
-        this.log('sourceDevicePartial:        ' + sourceDevicePartial)
-        this.log('sourceDeviceLog:            ' + sourceDeviceLog)
+        this.log('stateChange:----------------' + device.name)
         // is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
-            this.log('Full||Partial||Log:         Yes')
             let sensorStateReadable;
             surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-            sensorStateReadable = readableState(sensorState, sensorType)
-            this.log('sensorStateReadable:        ' + sensorStateReadable)
+            sensorStateReadable = readableState(sensorState, sensorType);
+            this.log('sensorStateReadable:        ' + sensorStateReadable);
 
             // Select the desired color
             if ( surveillance == "disarmed" ) {
@@ -468,9 +467,9 @@ class Heimdall extends Homey.App {
             }
             // Set logLine for the statechange
             logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
-            this.log('sensorState:                '+ sensorState)
             // Is sensorState true?
             if ( sensorState ) {
+                this.log('Surveillance Mode:          ' + surveillance);                
                 if (sensorType='contact' && isDelayed(device) && armCounterRunning) {
                     // a Doorsensor with a delay is opened while the arming countdown is running
                     this.log('lastDoor:               Opened')
@@ -482,6 +481,9 @@ class Heimdall extends Homey.App {
                 if ( (!alarm && !alarmCounterRunning) || (!alarm && alarmCounterRunning && heimdallSettings.alarmWhileDelayed ) ) {
                 // if ( !alarm && !alarmCounterRunning ) {
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
+                        this.log('sourceDeviceFull:           ' + sourceDeviceFull);
+                        this.log('sourceDevicePartial:        ' + sourceDevicePartial);
+                        this.log('sourceDeviceLog:            ' + sourceDeviceLog);
                         this.log('Alarm is triggered:         Yes')
                         // let zone = await this.getZone(device.zone)
                         let delayOverruled = ".";
@@ -571,15 +573,15 @@ class Heimdall extends Homey.App {
             }
 
             let shouldLog = true;
-            this.log('logArmedOnly:               ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
-            this.log('logTrueOnly:                ' + heimdallSettings.logTrueOnly + ', Sensorstate: ' + sensorState)
+            // this.log('logArmedOnly:               ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
+            // this.log('logTrueOnly:                ' + heimdallSettings.logTrueOnly + ', Sensorstate: ' + sensorState)
             if ( heimdallSettings.logArmedOnly && surveillance === 'disarmed' && !sourceDeviceLog)  {
                 shouldLog = false;
-                this.log('LogArmedOnly is true and Surveillance is off, so no log line')
+                // this.log('LogArmedOnly is true and Surveillance is off, so no log line')
             }
             if ( heimdallSettings.logTrueOnly && !sensorState && !sourceDeviceLog ) {
                 shouldLog = false;
-                this.log('logTrueOnly is true and sensorstate is false, so no log line')
+                // this.log('logTrueOnly is true and sensorstate is false, so no log line')
             }
             if ( shouldLog ) {
                 this.writeLog(logLine)        

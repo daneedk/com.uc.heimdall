@@ -339,8 +339,8 @@ function onHomeyReady(homeyReady){
             displayDevice: function(device) {
                 showDevice = false
                 for ( let id in device.capabilities ) {
-                    //if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
-                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[id] ) ) {
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
+                    // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[id] ) ) {
                         showDevice = true
                     }
                 }    
@@ -411,6 +411,13 @@ function onHomeyReady(homeyReady){
                     }
                     if ( capability === "alarm_vibration" ) {
                         if ( device.capabilitiesObj.alarm_vibration.value ) {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
+                        } else {
+                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
+                        }
+                    }
+                    if ( capability === "alarm_tamper" ) {
+                        if ( device.capabilitiesObj.alarm_tamper.value ) {
                             result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
                         } else {
                             result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
