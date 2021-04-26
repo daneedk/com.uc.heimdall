@@ -193,7 +193,14 @@
         "noalarmtriggercountdown": ", nessun trigger di allarme a causa del ritarto di esecuzione del countdown.",
         "noalarmtriggeralarmstate": ", nessun trigger di allarme dovuto allo stato di allarme attivo.",
         "noreport": " non ha segnalato in ",
-        "lastreport": " ore. Ultimo rapporto: "
+        "lastreport": " ore. Ultimo rapporto: ",
+        "validcode": " entered a valid code and pressed ",
+        "on": " on ",
+        "sendcommand": "Send command ",
+        "tosurveillancemode": " to Surveillance Mode Switch",
+        "invalidcode": "an invalid code was entered before pressing ",
+        "key": "key ",
+        "pressed": " was pressed on "
     },
     "notification": {
         "smodeset1": "**Modalità di Sorveglianza**  impostata su ",

@@ -193,7 +193,14 @@
         "noalarmtriggercountdown": ", inget alarm löser ut pga pågånde nedräkning av fördröjning.",
         "noalarmtriggeralarmstate": ", inget alarm löser ut pga gällande alarmstatus.",
         "noreport": " har inte rapporterat på ",
-        "lastreport": " timmar. Senaste rapporten: "
+        "lastreport": " timmar. Senaste rapporten: ",
+        "validcode": " entered a valid code and pressed ",
+        "on": " on ",
+        "sendcommand": "Send command ",
+        "tosurveillancemode": " to Surveillance Mode Switch",
+        "invalidcode": "an invalid code was entered before pressing ",
+        "key": "key ",
+        "pressed": " was pressed on "
     },
     "notification": {
         "smodeset1": "**Övervakningsläge** inställt på ",

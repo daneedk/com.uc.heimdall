@@ -193,7 +193,14 @@
         "noalarmtriggercountdown": ", sin activación de alarma debido a estar activa una cuenta atrás retardada.",
         "noalarmtriggeralarmstate": ", sin activación de alarma debido al estado de alarma activo.",
         "noreport": " no ha informado en ",
-        "lastreport": " horas. Último reporte: "
+        "lastreport": " horas. Último reporte: ",
+        "validcode": " entered a valid code and pressed ",
+        "on": " on ",
+        "sendcommand": "Send command ",
+        "tosurveillancemode": " to Surveillance Mode Switch",
+        "invalidcode": "an invalid code was entered before pressing ",
+        "key": "key ",
+        "pressed": " was pressed on "
     },
     "notification": {
         "smodeset1": "** Modo de vigilancia ** establecido en ",
