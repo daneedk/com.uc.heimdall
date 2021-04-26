@@ -201,10 +201,12 @@ class Heimdall extends Homey.App {
                     }
                 }
                 if ( userObject["valid"]) {
-                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + Homey.__("history.validcode") + post.body.actionReadable + Homey.__("history.on") + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
                     if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
-                        logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command  " + post.body.actionReadable + " to Surveillance Mode Switch";
+                        // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command " + post.body.actionReadable + " to Surveillance Mode Switch";
+                        logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || " + Homey.__("history.sendcommand") + post.body.actionReadable + Homey.__("history.tosurveillancemode");
                         this.writeLog(logLine);
                         sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
                         // this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
@@ -223,12 +225,14 @@ class Heimdall extends Homey.App {
                     
                 } else {
                     if ( post.body.value.length > 0 ) {
-                        logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                        // logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                        logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + Homey.__("history.invalidcode") + post.body.actionReadable + Homey.__("history.on") + post.body.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                         this.log("Invalid code entered: " + userObject["pincode"])
                         return "Invalid code entered. Logline written, no further action"
                     } else {
-                        logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
+                        //logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
+                        logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + Homey.__("history.key") + post.body.actionReadable + Homey.__("history.pressed") + post.body.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                         this.log("No code entered ")
                         return "No code entered. Logline written, no further action"
