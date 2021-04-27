@@ -328,9 +328,19 @@ a:active {
 
 .icon-capability {
     margin-top: 13px;
+    vertical-align: -webkit-baseline-middle;
     width:auto;
     height:auto;
-    max-width:40px;
+    max-width:38px;
+    max-height:40px;
+}
+
+.icon-capability-tamper {
+    margin-top: 13px;
+    vertical-align: -webkit-baseline-middle;
+    width:auto;
+    height:auto;
+    max-width:30px;
     max-height:40px;
 }
 

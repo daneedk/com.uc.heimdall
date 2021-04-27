@@ -418,9 +418,9 @@ function onHomeyReady(homeyReady){
                     }
                     if ( capability === "alarm_tamper" ) {
                         if ( device.capabilitiesObj.alarm_tamper.value ) {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper active\"/>"    
                         } else {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability\"/>"
+                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper\"/>"
                         }
                     }
                 }
