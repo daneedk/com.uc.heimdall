@@ -6,7 +6,7 @@ const delay = time => new Promise(res=>setTimeout(res,time));
 
 // Flow triggers
 let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
-// let triggerSurveillanceChanged = this.homey.flow.getDeviceTriggerCard('SurveillanceChanged');
+// SDKv3: let triggerSurveillanceChanged = this.homey.flow.getDeviceTriggerCard('SurveillanceChanged');
 
 let triggerSensorActiveAtArming = new Homey.FlowCardTrigger('sensorActiveAtArming');
 let triggerSensorActive = new Homey.FlowCardTrigger('sensorActiveAtSensorCheck');
@@ -47,7 +47,7 @@ const actionRemoveDeviceFromPartial = new Homey.FlowCardAction('RemoveDeviceFrom
 const actionAddDeviceToFull = new Homey.FlowCardAction('AddDeviceToFull');
 const actionRemoveDeviceFromFull = new Homey.FlowCardAction('RemoveDeviceFromFull');
 
-/* // SDKv3 
+/* // SDKv3: 
 this.actionInputNotification = this.homey.flow.getActionCard('SendNotification');
 this.actionInputNotification
   .registerRunListener( async(args, state ) => {
