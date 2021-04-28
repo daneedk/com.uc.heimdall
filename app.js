@@ -256,6 +256,8 @@ class Heimdall extends Homey.App {
         this.users = Homey.ManagerSettings.get('users');
         // Uncomment next line to print users to the log when pincode is lost.
         // this.log(this.users);
+        // Uncomment next line, run the app once and comment the line again to start fresh.
+        // Homey.ManagerSettings.unset('users');
         if (  this.users === undefined || this.users === null || this.users.length === 0 ) {
             Homey.ManagerSettings.set('nousers', true);
         }
