@@ -178,8 +178,9 @@ class Heimdall extends Homey.App {
             newUsers.push(modifiedUser)
         }
         this.users = newUsers;
-        Homey.ManagerSettings.set('users', this.users)
-            .catch((error) => { return error });
+        Homey.ManagerSettings.set('users', this.users, function( err ){
+            if ( err ) return err
+        })
             
         return "Succes";
     }
@@ -255,7 +256,7 @@ class Heimdall extends Homey.App {
         this.users = Homey.ManagerSettings.get('users');
         // Uncomment next line to print users to the log when pincode is lost.
         // this.log(this.users);
-        if (  this.users === undefined ) {
+        if (  this.users === undefined || this.users === null || this.users.length === 0 ) {
             Homey.ManagerSettings.set('nousers', true);
         }
 
