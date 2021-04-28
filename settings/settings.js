@@ -930,7 +930,14 @@ async function showStatus() {
                     $('#'+device.id).removeClass('active')
                 }
             }
-            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( capability) ) {
+            if ( capability === "alarm_tamper" ) {
+                if ( device.capabilitiesObj.alarm_tamper.value ) {
+                    $('#'+device.id).addClass('active')
+                } else {
+                    $('#'+device.id).removeClass('active')
+                }
+            }
+            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
                 let mostRecentComE = 0
                 let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
                 if ( lu > mostRecentComE  ) {
