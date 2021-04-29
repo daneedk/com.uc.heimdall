@@ -997,13 +997,13 @@ class Heimdall extends Homey.App {
     deactivateAlarm(value, source) {
         if ( alarm === true || source == "Flowcard") {
             let nu = getDateTime();
-            alarm = false
-            this.log("Alarm status:               deactivated")
+            alarm = false;
+            this.log("Alarm status:               deactivated");
             surveillance = Homey.ManagerSettings.get('surveillanceStatus');
             Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
                 if ( err ) return Homey.alert( err );
             });
-            this.speak("alarmChange", Homey.__("speech.alarmdeactivated"))
+            this.speak("alarmChange", Homey.__("speech.alarmdeactivated"));
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false)
@@ -1013,17 +1013,18 @@ class Heimdall extends Homey.App {
                 sModeDevice.setCapabilityValue('alarm_heimdall', false)
                 sModeDevice.setCapabilityValue('alarm_generic', false)
             }
-            var tokens = { 'Source': source }
+            var tokens = { 'Source': source };
             triggerAlarmDeactivated.trigger(tokens)
                 .catch(this.error)
                 .then() 
 
-            let logLine = "ao "+ nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmdeactivated") + source
-            this.writeLog(logLine)
+            let logLine = "ao "+ nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmdeactivated") + source;
+            this.writeLog(logLine);
             if ( heimdallSettings.notificationAlarmChange ) {
-                let message = Homey.__("history.alarmdeactivated") + '**' + source + '**'
-                this.writeNotification(message)
+                let message = Homey.__("history.alarmdeactivated") + '**' + source + '**';
+                this.writeNotification(message);
             }
+            this.logRealtime("Alarm Status", alarm);
         }
     }
 
