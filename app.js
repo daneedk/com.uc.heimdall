@@ -130,14 +130,15 @@ class Heimdall extends Homey.App {
 
     async getUsers(pin) {
         await delay(timeout);
-        timeout = timeout * 1.5; // Brute Force protection
+        timeout = timeout * 1.5;
         if ( this.users != undefined ) {
             let userObject = this.getUserInfo(pin, this.users);
             if ( userObject.admin ) {
-                timeout = 100; // reset Brute Force protection
+                timeout = 100;
                 // user is an Administrator, return all users
                 return this.users;
             } else {
+                timeout = 100;
                 // return the user whos PIN was entered
                 return [userObject];
             } 
@@ -258,7 +259,7 @@ class Heimdall extends Homey.App {
         // this.log(this.users);
         // Uncomment next line, run the app once and comment the line again to start fresh.
         // Homey.ManagerSettings.unset('users');
-        if (  this.users === undefined || this.users === null || this.users.length === 0 ) {
+        if ( this.users === undefined || this.users === null || this.users.length === 0 ) {
             Homey.ManagerSettings.set('nousers', true);
         }
 
