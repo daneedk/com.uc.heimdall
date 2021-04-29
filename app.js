@@ -911,7 +911,7 @@ class Heimdall extends Homey.App {
             nu = getDateTime()
         }
         let logLine = ""
-        alarm=true
+        alarm = true
         this.log("Alarm status:               activated")
         surveillance = Homey.ManagerSettings.get('surveillanceStatus')
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
@@ -952,7 +952,7 @@ class Heimdall extends Homey.App {
         else {
             // Surveillance mode is not active
             logLine = "ao " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmnotactivated")
-            alarm=false;
+            alarm = false;
             Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
                 if ( err ) return Homey.alert( err );
             });
@@ -1024,6 +1024,7 @@ class Heimdall extends Homey.App {
                 let message = Homey.__("history.alarmdeactivated") + '**' + source + '**';
                 this.writeNotification(message);
             }
+            // Generate Homey wide event for setting the Alarm Status
             this.logRealtime("Alarm Status", alarm);
         }
     }
