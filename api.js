@@ -10,7 +10,7 @@ module.exports = [
             Homey.app.getDevices()
                 .then(res => {callback(null, res);})
                 .catch(error => callback(error, null));
-        }  
+        }
     },
     {
         description: 'Retrieve all zones with their information',
@@ -20,7 +20,7 @@ module.exports = [
             Homey.app.getZones()
                 .then(res => {callback(null, res);})
                 .catch(error => callback(error, null));
-        }  
+        }
     },
     {
         description: 'Request Alarm state and Surveillance Mode',
@@ -44,7 +44,7 @@ module.exports = [
             Homey.app.getUsers(args.params.pin)
                 .then(res => callback(null, res) )
                 .catch(error => callback(error, null));
-        }  
+        }
     },
     {
         description: 'Return user',
@@ -54,7 +54,7 @@ module.exports = [
             Homey.app.processUsers(args, args.params.action)
                 .then(res => callback(null, res) )
                 .catch(error => callback(error, null));
-        }  
+        }
     },
     {
         description: 'Receive information from external keypad',
@@ -64,6 +64,6 @@ module.exports = [
             Homey.app.processKeypadCommands(args, args.params.type)
                 .then(res => callback(null, res) )
                 .catch(error => callback(error, null));
-        }  
+        }
     }
 ]

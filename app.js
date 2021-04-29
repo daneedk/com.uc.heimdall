@@ -186,13 +186,13 @@ class Heimdall extends Homey.App {
         return "Succes";
     }
 
-    async processKeypadCommands(post,type) {
+    async processKeypadCommands(post, type) {
         if ( checkAPIKEY(post.body.APIKEY) ) {
             let nu = getDateTime();
             let logLine = "";
             let silentCode = null;
 
-            if ( type == "action") {
+            if ( type == "action" ) {
                 let pinCode = post.body.value;
                 let userObject = this.getUserInfo(pinCode, this.users);
                 if ( !userObject["valid"] ) {
@@ -202,7 +202,7 @@ class Heimdall extends Homey.App {
                         silentCode = pinCode.substr(pinCode.length - 1, 1);
                     }
                 }
-                if ( userObject["valid"]) {
+                if ( userObject["valid"] ) {
                     // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
                     logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + Homey.__("history.validcode") + post.body.actionReadable + Homey.__("history.on") + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
@@ -240,7 +240,7 @@ class Heimdall extends Homey.App {
                         return "No code entered. Logline written, no further action"
                     }
                 }
-            } else if ( type == "battery") {
+            } else if ( type == "battery" ) {
 
             }
             
@@ -478,7 +478,7 @@ class Heimdall extends Homey.App {
             // Is sensorState true?
             if ( sensorState ) {
                 this.log('Surveillance Mode:          ' + surveillance);                
-                if (sensorType='contact' && isDelayed(device) && armCounterRunning) {
+                if ( sensorType='contact' && isDelayed(device) && armCounterRunning ) {
                     // a Doorsensor with a delay is opened while the arming countdown is running
                     this.log('lastDoor:               Opened')
                     lastDoor = true;
@@ -583,7 +583,7 @@ class Heimdall extends Homey.App {
             let shouldLog = true;
             // this.log('logArmedOnly:               ' + heimdallSettings.logArmedOnly + ', Surveillance Mode: ' + surveillance)
             // this.log('logTrueOnly:                ' + heimdallSettings.logTrueOnly + ', Sensorstate: ' + sensorState)
-            if ( heimdallSettings.logArmedOnly && surveillance === 'disarmed' && !sourceDeviceLog)  {
+            if ( heimdallSettings.logArmedOnly && surveillance === 'disarmed' && !sourceDeviceLog )  {
                 shouldLog = false;
                 // this.log('LogArmedOnly is true and Surveillance is off, so no log line')
             }
@@ -676,7 +676,7 @@ class Heimdall extends Homey.App {
         lastDoor = false;
         changeTta = false;
 
-        if ( armCounterRunning || value === 'disarmed') {
+        if ( armCounterRunning || value === 'disarmed' ) {
             Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
                 if ( err ) return Homey.alert( err );
             });
@@ -746,7 +746,7 @@ class Heimdall extends Homey.App {
             sensorType = 'contact'
             this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
         };
-        if ( value == 'armed') {
+        if ( value == 'armed' ) {
             if ( isMonitoredFull(device) ) {
                 if ( sensorState ) {
                     let delayText = ""
@@ -930,7 +930,7 @@ class Heimdall extends Homey.App {
                 .catch(this.error)
                 .then()
 
-            if ( heimdallSettings.notificationAlarmChange  ) {
+            if ( heimdallSettings.notificationAlarmChange ) {
                 let message = '**'+device.name+'** in '+ device.zoneName + Homey.__("history.triggerdalarm")
                 this.writeNotification(message)
             }
@@ -941,11 +941,11 @@ class Heimdall extends Homey.App {
                 if ( err ) return Homey.alert( err );
             });
             // Check if Alarm Off Button exists and turn on 
-            if ( aModeDevice != undefined) {
+            if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', true)
                 aModeDevice.setCapabilityValue('alarm_generic', true)
             }
-            if ( sModeDevice != undefined) {
+            if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', true)
                 sModeDevice.setCapabilityValue('alarm_generic', true)
             } 
@@ -980,7 +980,7 @@ class Heimdall extends Homey.App {
         this.logRealtime( "Sensor State at Arming","Active" );
 
         // tell user
-        if ( sensorType == 'motion' && heimdallSettings.spokenMotionAtArming) {
+        if ( sensorType == 'motion' && heimdallSettings.spokenMotionAtArming ) {
             this.speak("sensorActive", warningText)
         } else if ( sensorType == 'contact' && heimdallSettings.spokenDoorOpenAtArming ) {
             this.speak("sensorActive", warningText)
@@ -996,7 +996,7 @@ class Heimdall extends Homey.App {
     }
 
     deactivateAlarm(value, source) {
-        if ( alarm === true || source == "Flowcard") {
+        if ( alarm === true || source == "Flowcard" ) {
             let nu = getDateTime();
             alarm = false;
             this.log("Alarm status:               deactivated");
@@ -1006,11 +1006,11 @@ class Heimdall extends Homey.App {
             });
             this.speak("alarmChange", Homey.__("speech.alarmdeactivated"));
             // Check if Alarm Off Button exists and turn off
-            if ( aModeDevice != undefined) {
+            if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false)
                 aModeDevice.setCapabilityValue('alarm_generic', false)
             }
-            if ( sModeDevice != undefined) {
+            if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', false)
                 sModeDevice.setCapabilityValue('alarm_generic', false)
             }
@@ -1033,7 +1033,7 @@ class Heimdall extends Homey.App {
     // Write information to history and cleanup 20% when history above 2000 lines
     async writeLog(logLine) {
         let savedHistory = Homey.ManagerSettings.get('myLog');
-        if (savedHistory != undefined) { 
+        if ( savedHistory != undefined ) { 
             // cleanup history
             let lineCount = savedHistory.split(/\r\n|\r|\n/).length;
             if ( lineCount > 2000 ) {
@@ -1055,35 +1055,35 @@ class Heimdall extends Homey.App {
     }
 
     async speak(type, text) {
-        if (type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
+        if ( type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
          }
-        if (type == "alarmCountdown" && heimdallSettings.spokenAlarmCountdown ) {
+        if ( type == "alarmCountdown" && heimdallSettings.spokenAlarmCountdown ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
-        if (type == "armCountdown" && heimdallSettings.spokenArmCountdown ) {
+        if ( type == "armCountdown" && heimdallSettings.spokenArmCountdown ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
-        if (type == "alarmChange" && heimdallSettings.spokenAlarmChange ) {
+        if ( type == "alarmChange" && heimdallSettings.spokenAlarmChange ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
-        if (type == "motionTrue" && heimdallSettings.spokenMotionTrue ) {
+        if ( type == "motionTrue" && heimdallSettings.spokenMotionTrue ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
-        if (type == "doorOpen" && heimdallSettings.spokenDoorOpen ) {
+        if ( type == "doorOpen" && heimdallSettings.spokenDoorOpen ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
-        if (type == "tamper" && heimdallSettings.spokenTamperTrue ) {
+        if ( type == "tamper" && heimdallSettings.spokenTamperTrue ) {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }    
-        if (type == "sensorActive") {
+        if ( type == "sensorActive") {
             // this.log('Say:                        ' + text)
             Homey.ManagerSpeechOutput.say(text.toString())
         }
@@ -1092,7 +1092,7 @@ class Heimdall extends Homey.App {
     ttArmedCountdown(delay, color, value, logLine) {
         this.log('ttArmedCountdown:           ' + delay)
         if ( armCounterRunning ) {
-            if (changeTta && delay > 9 ) {
+            if ( changeTta && delay > 9 ) {
                 delay = 10;
                 changeTta = false
                 var prevLogLine = logLine      
@@ -1105,7 +1105,7 @@ class Heimdall extends Homey.App {
                 .catch(this.error)
                 .then()
 
-            if (delay > 9 ) {
+            if ( delay > 9 ) {
                 if (delay/5 == parseInt(delay/5)) {
                     this.speak("armCountdown", delay)
                 }
@@ -1118,7 +1118,7 @@ class Heimdall extends Homey.App {
                     Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
                 }, 1000);
             }
-            else if ( delay == 0) {
+            else if ( delay == 0 ) {
                 if ( heimdallSettings.checkBeforeCountdown ) {
                     this.setSurveillanceValue(color, value, logLine, false)
                 } else {
@@ -1149,8 +1149,8 @@ class Heimdall extends Homey.App {
                 .catch(this.error)
                 .then()
                 
-            if (delay > 9 ) {
-                if (delay/5 == parseInt(delay/5)) {
+            if ( delay > 9 ) {
+                if ( delay/5 == parseInt(delay/5) ) {
                     this.speak("alarmCountdown", delay)
                 }
             } 
@@ -1162,7 +1162,7 @@ class Heimdall extends Homey.App {
                     Homey.app.ttAlarmCountdown(delay-1,device,sensorStateReadable)
                 }, 1000);
             } 
-            else if ( delay == 0) {
+            else if ( delay == 0 ) {
                 alarmCounterRunning = false
                 this.log('alarmCounterRunning:        false due to reaching 0')
                 this.activateAlarm(device, sensorStateReadable, "", "Heimdall")
@@ -1474,7 +1474,7 @@ function isLogged(device) {
     let i;
     if ( devicesLogged !== null ) {
         for (i = 0; i < devicesLogged.length; i++) {
-            if (devicesLogged[i] && devicesLogged[i].id == device.id) {
+            if ( devicesLogged[i] && devicesLogged[i].id == device.id ) {
                 return true;
             }
         }
@@ -1501,7 +1501,7 @@ function removeLoggingFrom(device) {
         if ( devicesLogged !== null ) {
             let i;
             for (i = 0; i < devicesLogged.length; i++) {
-                if (devicesLogged[i] && devicesLogged[i].id == device.id) {
+                if ( devicesLogged[i] && devicesLogged[i].id == device.id ) {
                     devicesLogged.splice(i, 1);
                 }
             }
@@ -1516,7 +1516,7 @@ function isMonitoredFull(device) {
     let i;
     if ( devicesMonitoredFull !== null ) {
         for (i = 0; i < devicesMonitoredFull.length; i++) {
-            if (devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id) {
+            if ( devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id ) {
                 return true;
             }
         }
@@ -1540,10 +1540,10 @@ function addMonitorFullTo(device) {
 function removeMonitorFullFrom(device) {
     if ( isMonitoredFull(device) ) {
         let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
-        if ( devicesMonitoredFull !== null) {
+        if ( devicesMonitoredFull !== null ) {
             let i;
             for (i = 0; i < devicesMonitoredFull.length; i++) {
-                if (devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id) {
+                if ( devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id ) {
                     devicesMonitoredFull.splice(i, 1);
                 }
             }
@@ -1561,7 +1561,7 @@ function isMonitoredPartial(device) {
     let i;
     if ( devicesMonitoredPartial !== null ) {
         for (i = 0; i < devicesMonitoredPartial.length; i++) {
-            if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id) {
+            if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
                 return true;
             }
         }
@@ -1588,7 +1588,7 @@ function removeMonitorPartialFrom(device) {
         if ( devicesMonitoredPartial !== null) {
             let i;
             for (i = 0; i < devicesMonitoredPartial.length; i++) {
-                if (devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id) {
+                if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
                     devicesMonitoredPartial.splice(i, 1);
                 }
             }
@@ -1607,7 +1607,7 @@ function isDelayed(device) {
     let i;
     if ( devicesDelayed !== null) {
         for (i = 0; i < devicesDelayed.length; i++) {
-            if (devicesDelayed[i] && devicesDelayed[i].id == device.id) {
+            if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
                 return true;
             }
         }
@@ -1634,10 +1634,10 @@ async function addDelayTo(device) {
 function removeDelayFrom(device) {
     if ( isDelayed(device) ) {
         let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-        if ( devicesDelayed !== null) {
+        if ( devicesDelayed !== null ) {
             let i;
             for (i = 0; i < devicesDelayed.length; i++) {
-                if (devicesDelayed[i] && devicesDelayed[i].id == device.id) {
+                if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
                     devicesDelayed.splice(i, 1);
                 }
             }
@@ -1657,7 +1657,7 @@ function checkAPIKEY(APIKEY) {
 }
 
 function readableState(sensorState, type) {
-    if (type == 'motion') {
+    if ( type == 'motion' ) {
         if ( sensorState ) {
             return Homey.__("states.motion")
             //return 'Motion detected'
@@ -1665,7 +1665,7 @@ function readableState(sensorState, type) {
             return Homey.__("states.nomotion")
             //return 'No motion detected'
         }
-    } else if (type == 'contact') {
+    } else if ( type == 'contact' ) {
         if ( sensorState ) {
             return Homey.__("states.open")
             //return 'Open'
@@ -1673,7 +1673,7 @@ function readableState(sensorState, type) {
             return Homey.__("states.closed")
             //return 'Closed'
         }
-    } else if (type == 'vibration') {
+    } else if ( type == 'vibration' ) {
         if ( sensorState ) {
             return Homey.__("states.vibration")
             //return 'Vibration detected'
@@ -1681,7 +1681,7 @@ function readableState(sensorState, type) {
             return Homey.__("states.novibration")
             //return 'No Vibration detected'
         }
-    } else if (type == 'tamper') {
+    } else if ( type == 'tamper' ) {
         if ( sensorState ) {
             return Homey.__("states.tamper")
             //return 'Tamper detected'
@@ -1696,13 +1696,13 @@ function readableState(sensorState, type) {
 }
 
 function readableMode(mode) {
-    if (mode == 'armed') {
+    if ( mode == 'armed' ) {
         return Homey.__("modes.armed")
     }
-    else if (mode == 'partially_armed') {
+    else if ( mode == 'partially_armed' ) {
         return Homey.__("modes.partiallyarmed")
     } 
-    else if (mode == 'disarmed') {
+    else if ( mode == 'disarmed' ) {
         return Homey.__("modes.disarmed")
     }
     else {
