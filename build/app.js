@@ -1049,7 +1049,10 @@ class Heimdall extends Homey.App {
     // Deactivates the Alarm State
     // Write to log, trigger triggerAlarmDeactivated, Write to Timeline (Depending on setting) and tell user
     // Generate Homey wide event
-    // - Called from 
+    // - Called from setSurveillanceMode(value, source) when the Surveillance Mode is set to Disarmed
+    // - Called from Flow Card Deactivate Alarm
+    // - Called from onCapabilityBoolean( value, opts, callback ) in Surveillance Mode Device
+    // - Called from onCapabilityBoolean( value, opts, callback ) in Alarm Off Switch
     deactivateAlarm(value, source) {
         if ( alarm === true || source == "Flowcard" ) {
             let nu = getDateTime();
