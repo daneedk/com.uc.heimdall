@@ -40,8 +40,8 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.1.00
-* Added User Management
+## Version 2.1.1
+* Added hints to flowcards
 
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
