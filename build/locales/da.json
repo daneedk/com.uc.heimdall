@@ -1,0 +1,209 @@
+{
+    "settings": {
+        "benefit": "Lad Homey overvåge dit hjem."
+    },
+    "devices": {
+        "surveillancemode": {
+            "name": "Overvågnings Tilstand Knap"
+        },
+        "alarmoff": {
+            "name": "Alarm FRA Knap"
+        },
+        "flowcard": "Flowcard"
+    },
+    "tab1": {
+        "title": "Dashboard",
+        "status": {
+            "title": "Status",
+            "smode": "Overvågnings Tilstand",
+            "smodeFull": "Fuld Overvågnings Tilstand",
+            "smodePartial": "Delvis Overvågnings Tilstand",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "Historie",
+            "autoRefresh": "Auto Opdater",
+            "manualRefresh": "Opdater",
+            "useColors": "brug farver",
+            "btnClearHistory": "Slet Historie",
+            "btnDownload": "Download",
+            "date": "Dato",
+            "time": "Klokken",
+            "smode": "Overvågnings Tilstand",
+            "source": "Kilde",
+            "action": "Aktion"
+        }
+    },
+    "tab2": {
+        "title": "Enheder",
+        "subtab1": {
+            "title": "Tilstand",
+            "lastseen": "Sidste set:",
+            "na": "ikke tilgængelig"
+        },
+        "subtab2": {
+            "title": "Indstillinger"
+        },
+        "devices": {
+            "devices": "Enheder",
+            "zone": "Zone",
+            "device": "Enhed",
+            "monitor": "Overvåg",
+            "dTrigger": "Forsinket udløsning",
+            "justLog": "Kun gem historie",
+            "delay": "Forsinket",
+            "log": "Historie",
+            "full": "Fuld",
+            "partial": "Delvis"
+        }
+    },
+    "tab3": {
+        "title": "Indstillinger",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Forsinkelser",
+                "logging": "Historie",
+                "check": "Før tilkoblings tjek",
+                "speech": "Lad Homey fortælle dig når",
+                "notifications": "Skriv til historien når"
+            },
+            "title": "Indstillinger",
+            "arDelay": "Tilkoblings forsinkelse",
+            "alDelay": "Alarm forsinkelse",
+            "seconds": "Sekunder",
+            "save": "Gem",
+            "secondsFail": "Værdien er ikke rigtig, venligst skriv en forsinkelse mellem 0 og 300 sekunder",
+            "saveSucces": "Indstillingerne er gemt.",
+            "logarmedonly": "Kun når Overvågnings Tilstanden er aktiv",
+            "logtrueonly": "Ikke for Deaktivering af enheder",
+            "usetampering": "Brug manipulations detektering",
+            "delayarmingfull": "Brug når du slår alarmen til",
+            "delayarmingpartial": "Brug når du slår den delvise alarm til",
+            "alarmwhiledelayed" : "Tillad alarm når forsinkelse er slået til",
+            "alarmwhiledelayeddescription": "udløsning af en enhed når Alarm forsinkelse er slået til, vil udløse alarm.",
+            "checkMotionAtArming": "Tjek bevægelses enhed/enheder",
+            "checkContactAtArming": "Tjek dør/vindue enhed/enheder",
+            "checkbeforecountdown": "Tjek før forsinket Alarm til"
+        },
+        "speech": {
+            "spokenalarmcountdown": "en nedtælling til aktivering af alarm er aktiv",
+            "spokenarmcountdown": "en nedtælling Alarm Til er aktiv",
+            "smodechange": "Overvågnings Tilstand er skiftet",
+            "alarmchange": "en alarm er aktiveret eller deaktiveret",
+            "motiontrue": "bevægelse er foregået under aktivering af Overvågnings Tilstand Til",
+            "tampertrue": "manipulation er aktiveret når Alarm er til",
+            "dooropen": "en dør/vindue enhed er åben under aktivering af Overvågnings Tilstand Til",
+            "motionatarming": "en bevægelses sensor er aktiv ved tilkobling",
+            "dooropenatarming": "en dør/vindues sensor er aktiv ved tilkobling"
+        },
+        "notification": {
+            "smodechange": "overvågnings tilstand er aktiveret",
+            "alarmchange": "Alarm er aktiveret eller deaktiveret",
+            "nocommunicationmotion": "En bevægelses sensor har ikke meldt tilbage",
+            "nocommunicationcontact": "En kontakt sensor har ikke meldt tilbage",
+            "nocommunicationdescription": "Når Overvågnings tilstand er valgt, tjekker Overvågnings tilstand om enheder har meldt tilbage de sidste 24 timer.",
+            "alarmwhiledelayeddescription": "Udløsning af en sensor når Alarm nedtælling er igang, vil udløse Alarm med det samme."
+        }
+    },
+    "tab4": {
+        "title": "Users",
+        "users": {
+            "usersgroup": {
+                "users": "Brugeradministration",
+                "enterpin": "Indtast venligst PIN",
+                "enter": "Ok",
+                "validating": "Validering",
+                "invalidpin": "Ugyldig PIN-kode indtastet",
+                "save": "Gem",
+                "cancel": "Annuller",
+                "delete": "Slet",
+                "username": "Brugernavn",
+                "administrator": "Administrator",
+                "user": "Bruger",
+                "pin": "PIN",
+                "enabled": "Aktiveret",
+                "disabled": "Deaktiveret",
+                "editdescription": "Opret din første bruger. Denne bruger vil altid være administrator og kan ikke deaktiveres eller slettes"
+            }
+        }
+    },
+    "tab5": {
+        "title": "(I)",
+        "instructions": {
+            "title": "Instruktioner"
+        }
+    },
+    "modes": {
+        "disarmed": "Alarm Fra",
+        "armed": "Alarm Til",
+        "partiallyarmed": "Alarm delvis Til"
+    },
+    "enumerate": {
+        "source": "Startup Check",
+        "warning": " ikke klar ved Heimdall start"
+    },
+    "devicecheck": {
+        "source": "Enheds tjek",
+        "warning": " ikke længere klar",
+        "ready": " er klar",
+        "readyagain": " er klar igen"
+    },
+    "states": {
+        "open": "Åben",
+        "closed": "Lukket",
+        "motion": "Bevægelse opdaget",
+        "nomotion": "Ingen bevægelse opdaget",
+        "vibration": "Vibration opdaget",
+        "novibration": "Ingen vibration opdaget",
+        "tamper": "Manipulation opdaget",
+        "notamper": "Ingen manipulation opdaget"
+    },
+    "speech": {
+        "startalarmcountdown": "Alarm slår fra om ",
+        "startarmcountdown": "Overvågnings tilstand vil blive sat til ",
+        "in": " om ",
+        "seconds": " sekunder",
+        "smodeset": "Overvågnings tilstand er sat til ",
+        "alarmactivated": "Alarm er aktiveret",
+        "alarmdeactivated": "Alarm er deaktiveret"
+    },
+    "atarming": {
+        "on": " til ",
+        "is": " er ",
+        "delayText": ". Denne enhed har forsinket udløsning.",
+        "warningMotion": "Advarsel, sensor aktiv. ",
+        "warningContact": "Advarsel. sensor "
+    },
+    "history": {
+        "smodedisarmed": "Overvågnings Tilstand er deaktiveret.",
+        "smodearmed": "Overvågnings Tilstand er aktiveret.",
+        "smodepartiallyarmed": "Overvågnings tilstand er delvist aktiveret.",
+        "smodedelayarmed": "Overvågnings Tilstand vil blive aktiveret om ",
+        "smodedelaypartiallyarmed": "Overvågnings Tilstand vil blive delvist aktiveret om ",
+        "seconds": " sekunders.",
+        "smodedelaychanged": "Aktiverings nedtælling er sat til 10 sekunder, grundet sidste dør sekvens",
+        "alarmdeactivated": "Alarm er deaktiveret af ",
+        "alarmactivated": "Alarm er aktiveret. ",
+        "alarmactivatedflowcard": "Alarm er aktiveret af et flowcard. ",
+        "smodechangedisabled": "Ændring af Overvågnings tilstand er ikke muligt p.g.a. deaktivering.",
+        "triggerdalarm": " udløst Alarm",
+        "delayoverruled": ", forsinket Alarm udløsning er ikke muligt.",
+        "alarmdelayed": "Forsinket Alarm udløsning er forsinket: ",
+        "alarmnotactivated": "Alarm er ikke aktiveret p.g.a. deaktivering.",
+        "noalarmtriggercountdown": ", ingen alarm udløsning p.g.a. forsinket nedtælling.",
+        "noalarmtriggeralarmstate": ", ingen alarm udløsning p.g.a. aktiv Alarm tilstand.",
+        "noreport": " har ikke meldt ind ",
+        "lastreport": " timer. Sidste indmelding: ",
+        "validcode": " indtastede en gyldig kode og trykkede på ",
+        "on": " på ",
+        "sendcommand": "Kommando ",
+        "tosurveillancemode": " sendt til Surveillance Mode Switch",
+        "invalidcode": "en ugyldig kode blev indtastet, før der trykkes på ",
+        "key": "tast ",
+        "pressed": " blev trykket på "
+    },
+    "notification": {
+        "smodeset1": "**Overvågnings Tilstand** sat til ",
+        "smodeset2": ""
+    }
+}

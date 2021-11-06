@@ -1220,7 +1220,7 @@
           "es": "Enviar información a Heimdall"
         },
         "hint": {
-          "en": "The text that is sent to Heimdall will be written to Heimdalls history log."
+          "en": "The text that is sent to Heimdall will be written to Heimdalls log."
         },
         "titleFormatted": {
           "en": "Send [[log]] to Heimdall",

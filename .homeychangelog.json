@@ -138,5 +138,16 @@
     "sv": "Lagt till användarhantering",
     "da": "Tilføjet brugeradministration",
     "es": "Gestión de usuarios añadida"
+  },
+  "2.1.1": {
+    "en": "Added Hints to flowcards",
+    "nl": "Hints aan flow kaarten toegevoegd",
+    "de": "Hinweise zu Flowcards hinzugefügt",
+    "fr": "Ajout d'indices aux cartes de flow",
+    "it": "Aggiunti suggerimenti alle schede di flow",
+    "no": "Lagt til hint til flowkort",
+    "sv": "Lade till tips till flowkort",
+    "da": "Tilføjet tip til flowcards",
+    "es": "Sugerencias agregadas a las tarjetas de flow"
   }
 }
