@@ -1170,7 +1170,7 @@ class Heimdall extends Homey.App {
                 .then()
 
             // Generate Homey wide event advertising the delay left
-            this.logRealtime("Arming Delay", delay);
+            this.logRealtime("Arming Delay left", delay);
 
             if ( delay > 9 ) {
                 if (delay/5 == parseInt(delay/5)) {

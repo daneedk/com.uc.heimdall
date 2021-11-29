@@ -160,5 +160,16 @@
     "sv": "Utökad funktionalitet för tangentbord från tredje part",
     "da": "Udvidet funktionalitet til 3. parts tastaturer",
     "es": "Funcionalidad ampliada para teclados de terceros"
+  },
+  "2.1.3": {
+    "en": "Extended functionality for 3rd party Keypanels",
+    "nl": "Uitgebreide functionaliteit voor toetsenborden van derden",
+    "de": "Erweiterte Funktionalität für Keypanels von Drittanbietern",
+    "fr": "Fonctionnalité étendue pour les claviers tiers",
+    "it": "Funzionalità estese per tastiere di terze parti",
+    "no": "Utvidet funksjonalitet for tredjeparts tastaturer",
+    "sv": "Utökad funktionalitet för tangentbord från tredje part",
+    "da": "Udvidet funktionalitet til 3. parts tastaturer",
+    "es": "Funcionalidad ampliada para teclados de terceros"
   }
 }
