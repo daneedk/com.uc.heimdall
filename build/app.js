@@ -1169,6 +1169,9 @@ class Heimdall extends Homey.App {
                 .catch(this.error)
                 .then()
 
+            // Generate Homey wide event for starting the Arming Delay
+            this.logRealtime("Arming Delay", delay);
+
             if ( delay > 9 ) {
                 if (delay/5 == parseInt(delay/5)) {
                     this.speak("armCountdown", delay)
