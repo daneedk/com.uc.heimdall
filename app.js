@@ -548,7 +548,7 @@ class Heimdall extends Homey.App {
                             let tta = heimdallSettings.alarmDelay - 1;
                             this.ttAlarmCountdown(tta, device,sensorStateReadable);
                             // Generate Homey wide event for starting the Alarm Delay
-                            this.logRealtime("Alarm Delay", tta + 1);
+                            this.systemEvent("Alarm Delay", tta + 1);
                         } 
                         else {
                             this.log('Trigger is delayed:         No')
@@ -582,12 +582,12 @@ class Heimdall extends Homey.App {
             } 
             else {
             // sensorState is false    
-                if ( sensorType='contact' && isDelayed(device) && armCounterRunning && lastDoor ) {
+                if ( sensorType == 'contact' && isDelayed(device) && armCounterRunning && lastDoor ) {
                     // a Doorsensor with a delay is opened and closed while the arming countdown is running
                     this.log('lastDoor:                   Closed, countdown will be lowered')
                     changeTta = true;
                     // Generate Homey wide event for Last Door Function
-                    this.logRealtime( "Last Door function","Activated" );
+                    this.systemEvent( "Last Door function","Activated" );
                 }
             }
 
@@ -661,7 +661,7 @@ class Heimdall extends Homey.App {
                     .then()
                 
                 // Generate Homey wide event for starting the Arming Delay
-                this.logRealtime("Arming Delay", tta);
+                this.systemEvent("Arming Delay", tta);
 
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
@@ -701,7 +701,7 @@ class Heimdall extends Homey.App {
                 if ( err ) return Homey.alert( err );
             });
             // Generate Homey wide event for setting the Surveillance Mode
-            this.logRealtime("Surveillance Mode", value)
+            this.systemEvent("Surveillance Mode", value)
             this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
             this.log('setSurveillanceValue:       '+ value)
             if ( heimdallSettings.notificationSmodeChange ) {
@@ -870,7 +870,7 @@ class Heimdall extends Homey.App {
             .then()
 
         // Generate Homey wide event for an active sensor at arming
-        this.logRealtime( "Sensor State at Arming","Active" );
+        this.systemEvent( "Sensor State at Arming","Active" );
 
         // Tell user
         if ( sensorType == 'motion' && heimdallSettings.spokenMotionAtArming ) {
@@ -1043,7 +1043,7 @@ class Heimdall extends Homey.App {
         // write information to log
         this.writeLog(logLine)
         // Generate Homey wide event for setting the Alarm Status
-        this.logRealtime("Alarm Status", alarm)
+        this.systemEvent("Alarm Status", alarm)
     }
 
     // Deactivates the Alarm State
@@ -1084,7 +1084,7 @@ class Heimdall extends Homey.App {
                 this.writeNotification(message);
             }
             // Generate Homey wide event for setting the Alarm Status
-            this.logRealtime("Alarm Status", alarm);
+            this.systemEvent("Alarm Status", alarm);
         }
     }
 
@@ -1170,7 +1170,7 @@ class Heimdall extends Homey.App {
                 .then()
 
             // Generate Homey wide event advertising the delay left
-            this.logRealtime("Arming Delay left", delay);
+            this.systemEvent("Arming Delay left", delay);
 
             if ( delay > 9 ) {
                 if (delay/5 == parseInt(delay/5)) {
@@ -1217,7 +1217,7 @@ class Heimdall extends Homey.App {
                 .then()
                 
             // Generate Homey wide event advertising the delay left
-            this.logRealtime("Alarm Delay left", delay);
+            this.systemEvent("Alarm Delay left", delay);
             
             if ( delay > 9 ) {
                 if ( delay/5 == parseInt(delay/5) ) {
@@ -1248,7 +1248,8 @@ class Heimdall extends Homey.App {
 
     // Generate Homey wide event
     // - Called from multiple functions
-    logRealtime(event, details)
+
+    systemEvent(event, details)
     {
         Homey.ManagerApi.realtime(event, details)
     }
