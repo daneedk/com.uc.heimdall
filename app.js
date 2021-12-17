@@ -488,8 +488,8 @@ class Heimdall extends Homey.App {
             logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
             // Is sensorState true?
             if ( sensorState ) {
-                this.log('Surveillance Mode:          ' + surveillance);                
-                if ( sensorType='contact' && isDelayed(device) && armCounterRunning ) {
+                this.log('Surveillance Mode:          ' + surveillance);         
+                if ( sensorType == 'contact' && isDelayed(device) && armCounterRunning ) {
                     // a Doorsensor with a delay is opened while the arming countdown is running
                     this.log('lastDoor:               Opened')
                     lastDoor = true;
