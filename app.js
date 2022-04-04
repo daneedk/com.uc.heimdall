@@ -581,7 +581,7 @@ class Heimdall extends Homey.App {
                 }
             } 
             else {
-            // sensorState is false    
+            // sensorState is false
                 if ( sensorType == 'contact' && isDelayed(device) && armCounterRunning && lastDoor ) {
                     // a Doorsensor with a delay is opened and closed while the arming countdown is running
                     this.log('lastDoor:                   Closed, countdown will be lowered')

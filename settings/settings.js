@@ -939,13 +939,21 @@ async function showStatus() {
             }
             if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
                 let mostRecentComE = 0
-                let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
-                if ( lu > mostRecentComE  ) {
-                    mostRecentComE = lu
+                let lastUpdateDate = ""
+                for ( let rCapability in device.capabilitiesObj ) {
+                    let lu = Date.parse(device.capabilitiesObj[rCapability].lastUpdated)
+
+                    if ( lu > mostRecentComE  ) {
+                        mostRecentComE = lu
+                    }
                 }
-                let mostRecentComH = new Date( mostRecentComE )
+                if ( mostRecentComE == 0 ) {
+                    lastUpdateDate = "not available"
+                } else { 
+                    lastUpdateDate = new Date( mostRecentComE ).toLocaleString()
+                }
                 let lastSeen = "ls-" + device.id
-                document.getElementById(lastSeen).innerHTML = mostRecentComH.toLocaleString()
+                document.getElementById(lastSeen).innerHTML = lastUpdateDate
             }
         }
     }

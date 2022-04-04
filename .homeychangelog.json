@@ -193,5 +193,16 @@
     "sv": "Utökad funktionalitet för tangentbord från tredje part",
     "da": "Udvidet funktionalitet til 3. parts tastaturer",
     "es": "Funcionalidad ampliada para teclados de terceros"
+  },
+  "2.1.6": {
+    "en": "Fixed Last seen in devicesettings",
+    "nl": "Laatst gezien in apparaainstellingen gecorrigeerd",
+    "de": "Zuletzt gesehen in Geräteeinstellungen behoben",
+    "fr": "Correction de la dernière vue dans les paramètres de l'appareil",
+    "it": "Risolto Ultimo visto nelle impostazioni del dispositivo",
+    "no": "Rettet Sist sett i enhetsinnstillinger",
+    "sv": "Fixat Senast sett i enhetsinställningar",
+    "da": "Rettet Sidst set i enhedsindstillinger",
+    "es": "Fijo Visto por última vez en la configuración del dispositivo"
   }
 }
