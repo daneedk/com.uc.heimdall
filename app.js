@@ -1113,7 +1113,7 @@ class Heimdall extends Homey.App {
     // - Called from actionInputNotification Flow Card
     async writeNotification(message) {
         var notification = new Homey.Notification({ excerpt: message });
-        notification.register();
+        notification.register().catch(() => {});
     }
 
     // Let's Homey speak when spoken text is enabled.

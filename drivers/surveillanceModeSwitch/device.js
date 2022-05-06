@@ -15,6 +15,7 @@ class Heimdall extends Homey.Device {
         this.registerCapabilityListener('homealarm_state', this.onCapabilityHomealarmState.bind(this))
         this.registerCapabilityListener('button', this.onCapabilityBoolean.bind(this))
         this.setCapabilityValue('alarm_heimdall', false)
+        if (this.hasCapability('alarm_generic') === false) {this.addCapability('alarm_generic')}
         this.setCapabilityValue('alarm_generic', false)
     }
 
