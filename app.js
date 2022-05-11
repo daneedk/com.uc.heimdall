@@ -373,22 +373,24 @@ class Heimdall extends Homey.App {
             aModeDevice = device;
             this.log('Found Alarm Button named:   ' + device.name)
         }
-        if ( 'alarm_motion' in device.capabilitiesObj ) {
-            this.log('Found motion sensor:        ' + device.name)
-            this.attachEventListener(device,'motion')
-        }
-        if ( 'alarm_contact' in device.capabilitiesObj ) {
-            this.log('Found contact sensor:       ' + device.name)
-            this.attachEventListener(device,'contact')
-        }
-        if ( 'alarm_vibration' in device.capabilitiesObj ) {
-            this.log('Found vibration sensor:     ' + device.name)
-            this.attachEventListener(device,'vibration')
-        }
-        if ( 'alarm_tamper' in device.capabilitiesObj ) {
-            this.log('Found tamper sensor:        ' + device.name)
-            this.attachEventListener(device,'tamper')
-        }
+        try {
+            if ( 'alarm_motion' in device.capabilitiesObj ) {
+                this.log('Found motion sensor:        ' + device.name)
+                this.attachEventListener(device,'motion')
+            }
+            if ( 'alarm_contact' in device.capabilitiesObj ) {
+                this.log('Found contact sensor:       ' + device.name)
+                this.attachEventListener(device,'contact')
+            }
+            if ( 'alarm_vibration' in device.capabilitiesObj ) {
+                this.log('Found vibration sensor:     ' + device.name)
+                this.attachEventListener(device,'vibration')
+            }
+            if ( 'alarm_tamper' in device.capabilitiesObj ) {
+                this.log('Found tamper sensor:        ' + device.name)
+                this.attachEventListener(device,'tamper')
+            }
+        } catch (error) {this.log(error)}
     }
 
     // Attach en Event Listener to the device, on an event call stateChange(device,state,sensorType)

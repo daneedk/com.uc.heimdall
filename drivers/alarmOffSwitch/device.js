@@ -5,7 +5,7 @@ const Homey = require('homey');
 class Heimdall extends Homey.Device {
 
     // this method is called when the Device is inited
-    onInit() {
+    async onInit() {
         // this.log('device init');
         // this.log('name:', this.getName());
         // this.log('class:', this.getClass());
@@ -14,7 +14,7 @@ class Heimdall extends Homey.Device {
         // register a capability listener
         this.registerCapabilityListener('button', this.onCapabilityBoolean.bind(this))
         this.setCapabilityValue('alarm_heimdall', false)
-        if (this.hasCapability('alarm_generic') === false) {this.addCapability('alarm_generic')}
+        if (this.hasCapability('alarm_generic') === false) {await this.addCapability('alarm_generic')}
         this.setCapabilityValue('alarm_generic', false)
     }
 
