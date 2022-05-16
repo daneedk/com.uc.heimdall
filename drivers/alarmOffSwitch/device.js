@@ -26,6 +26,8 @@ class Heimdall extends Homey.Device {
     // this method is called when the Device is deleted
     onDeleted() {
         // this.log('device deleted');
+        let id = this.getData().id;
+        Homey.app.removeDevice(id);
     }
 
     // this method is called when the Device has requested a state change (turned on or off)

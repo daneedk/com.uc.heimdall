@@ -147,7 +147,7 @@ class Heimdall extends Homey.App {
 
         this.log('Reading settings:           done')
 
-        this.enumerateDevices();
+        this.enumerateDevices().catch(this.error);
     }
 
     // Get API control function
@@ -270,7 +270,9 @@ class Heimdall extends Homey.App {
                         // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command " + post.body.actionReadable + " to Surveillance Mode Switch";
                         logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || " + Homey.__("history.sendcommand") + post.body.actionReadable + Homey.__("history.tosurveillancemode");
                         this.writeLog(logLine);
-                        sModeDevice.setCapabilityValue('homealarm_state', post.body.action);
+                        if ( sModeDevice != undefined ) {
+                            sModeDevice.setCapabilityValue('homealarm_state', post.body.action).catch(() => {});
+                        }
                         // this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
                         return "Found user, changed Surveillance Mode to " + post.body.action
                     } else if ( post.body.action == "enter" ) {
@@ -325,7 +327,7 @@ class Heimdall extends Homey.App {
         });
 
         api.devices.on('device.delete', async(id) => {
-            // await this.log('Device deleted!: ')
+           // this.log('Device deleted:            ',id)
         });
 
         let allDevices = await this.getDevices();
@@ -391,6 +393,21 @@ class Heimdall extends Homey.App {
                 this.attachEventListener(device,'tamper')
             }
         } catch (error) {this.log(error)}
+    }
+
+    // Remove device function
+    // - Called from device.js
+    removeDevice(deviceId) {
+        // Remove Surveillance Mode Switch
+        if ( deviceId === 'sMode' ) {
+            sModeDevice = undefined;
+            this.log('Surveillance Mode Switch removed!')
+        }
+        // Remove Alarm Off Button
+        if ( deviceId === 'aMode' ) { 
+            aModeDevice = undefined;
+            this.log('Alarm Button removed!')
+        }
     }
 
     // Attach en Event Listener to the device, on an event call stateChange(device,state,sensorType)
@@ -1026,12 +1043,12 @@ class Heimdall extends Homey.App {
             });
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined ) {
-                aModeDevice.setCapabilityValue('alarm_heimdall', true)
-                aModeDevice.setCapabilityValue('alarm_generic', true)
+                aModeDevice.setCapabilityValue('alarm_heimdall', true).catch(() => {})
+                aModeDevice.setCapabilityValue('alarm_generic', true).catch(() => {})
             }
             if ( sModeDevice != undefined ) {
-                sModeDevice.setCapabilityValue('alarm_heimdall', true)
-                sModeDevice.setCapabilityValue('alarm_generic', true)
+                sModeDevice.setCapabilityValue('alarm_heimdall', true).catch(() => {})
+                sModeDevice.setCapabilityValue('alarm_generic', true).catch(() => {})
             } 
         }
         else {
@@ -1067,12 +1084,12 @@ class Heimdall extends Homey.App {
             this.speak("alarmChange", Homey.__("speech.alarmdeactivated"));
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined ) {
-                aModeDevice.setCapabilityValue('alarm_heimdall', false)
-                aModeDevice.setCapabilityValue('alarm_generic', false)
+                aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(() => {})
+                aModeDevice.setCapabilityValue('alarm_generic', false).catch(() => {})
             }
             if ( sModeDevice != undefined ) {
-                sModeDevice.setCapabilityValue('alarm_heimdall', false)
-                sModeDevice.setCapabilityValue('alarm_generic', false)
+                sModeDevice.setCapabilityValue('alarm_heimdall', false).catch(() => {})
+                sModeDevice.setCapabilityValue('alarm_generic', false).catch(() => {})
             }
             var tokens = { 'Source': source };
             triggerAlarmDeactivated.trigger(tokens)

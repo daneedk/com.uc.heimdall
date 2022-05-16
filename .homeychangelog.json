@@ -1,31 +1,4 @@
 {
-  "2.0.24": {
-    "en": "* Added Swedish language"
-  },
-  "2.0.25": {
-    "en": "• Added Swedish language • Localised notification on Surveillance Mode change • Fixed some French translations"
-  },
-  "2.0.26": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.27": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.28": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.29": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.30": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.31": {
-    "en": "* Version bump due to app store changes"
-  },
-  "2.0.32": {
-    "en": "* Version bump due to app store changes"
-  },
   "2.0.33": {
     "en": "• Added Swedish language • Localised notification on Surveillance Mode change • Fixed some French translations",
     "nl": "• Zweedse taal toegevoegd • Gelokaliseerde melding bij wijziging van toezichtmodus • Enkele Franse vertalingen verbeterd",
@@ -217,6 +190,17 @@
     "es": "Correcciones menores para el firmware de Homey 7.4.1"
   },
   "2.1.8": {
+    "en": "Minor fixes for Homey firmware 7.4.1",
+    "nl": "Kleine aanpassing voor Homey firmware 7.4.1",
+    "de": "Kleinere Korrekturen für Homey-Firmware 7.4.1",
+    "fr": "Corrections mineures pour le micrologiciel Homey 7.4.1",
+    "it": "Correzioni minori per il firmware Homey 7.4.1",
+    "no": "Mindre reparasjoner for Homey-firmware 7.4.1",
+    "sv": "Mindre korrigeringar för Homey firmware 7.4.1",
+    "da": "Mindre rettelser til Homey-firmware 7.4.1",
+    "es": "Correcciones menores para el firmware de Homey 7.4.1"
+  },
+  "2.1.9": {
     "en": "Minor fixes for Homey firmware 7.4.1",
     "nl": "Kleine aanpassing voor Homey firmware 7.4.1",
     "de": "Kleinere Korrekturen für Homey-Firmware 7.4.1",
