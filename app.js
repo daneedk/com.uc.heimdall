@@ -153,7 +153,7 @@ class Heimdall extends Homey.App {
     // Get API control function
     getApi() {
         if (!this.api) {
-            this.api = HomeyAPI.forCurrentHomey();
+            this.api = HomeyAPI.forCurrentHomey().catch(() => {});
         }
         return this.api;
     }
@@ -375,24 +375,24 @@ class Heimdall extends Homey.App {
             aModeDevice = device;
             this.log('Found Alarm Button named:   ' + device.name)
         }
-        try {
-            if ( 'alarm_motion' in device.capabilitiesObj ) {
-                this.log('Found motion sensor:        ' + device.name)
-                this.attachEventListener(device,'motion')
-            }
-            if ( 'alarm_contact' in device.capabilitiesObj ) {
-                this.log('Found contact sensor:       ' + device.name)
-                this.attachEventListener(device,'contact')
-            }
-            if ( 'alarm_vibration' in device.capabilitiesObj ) {
-                this.log('Found vibration sensor:     ' + device.name)
-                this.attachEventListener(device,'vibration')
-            }
-            if ( 'alarm_tamper' in device.capabilitiesObj ) {
-                this.log('Found tamper sensor:        ' + device.name)
-                this.attachEventListener(device,'tamper')
-            }
-        } catch (error) {this.log(error)}
+        if ( !device.capabilitiesObj ) return
+        
+        if ( 'alarm_motion' in device.capabilitiesObj ) {
+            this.log('Found motion sensor:        ' + device.name)
+            this.attachEventListener(device,'motion')
+        }
+        if ( 'alarm_contact' in device.capabilitiesObj ) {
+            this.log('Found contact sensor:       ' + device.name)
+            this.attachEventListener(device,'contact')
+        }
+        if ( 'alarm_vibration' in device.capabilitiesObj ) {
+            this.log('Found vibration sensor:     ' + device.name)
+            this.attachEventListener(device,'vibration')
+        }
+        if ( 'alarm_tamper' in device.capabilitiesObj ) {
+            this.log('Found tamper sensor:        ' + device.name)
+            this.attachEventListener(device,'tamper')
+        }
     }
 
     // Remove device function
@@ -757,7 +757,8 @@ class Heimdall extends Homey.App {
     // Write result to the log and trigger triggerNoInfoReceived when needed.
     // - Called from checkDevicesLastCom(value)
     async checkDeviceLastCom(device, value) {
-        if ( !device.ready ) return
+        //if ( !device.ready ) return
+        if ( !device.ready || !device.capabilitiesObj) return
         if ( isMonitoredFull(device) || isMonitoredPartial(device) ) {
             let nu = getDateTime();
             let nuEpoch = Date.now();
@@ -823,7 +824,8 @@ class Heimdall extends Homey.App {
     // Write result to the log and call alertSensorActiveAtArming when needed
     // - Called from checkDevicesState(value, nu)
     async checkDeviceState(device, value, nu) {
-        if ( !device.ready ) return
+        // if ( !device.ready ) return
+        if ( !device.ready || !device.capabilitiesObj) return
         let sensorState
         let sensorStateReadable
         let sensorType
