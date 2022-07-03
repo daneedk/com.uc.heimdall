@@ -819,13 +819,13 @@ class Heimdall extends Homey.App {
             this.checkDeviceState(allDevices[device], value, nu)
         };
     }
-
+    
     // Check the state per device when included in the chosen Surveillance Mode 
     // Write result to the log and call alertSensorActiveAtArming when needed
     // - Called from checkDevicesState(value, nu)
     async checkDeviceState(device, value, nu) {
         // if ( !device.ready ) return
-        if ( !device.ready || !device.capabilitiesObj) return
+        if ( !device.ready || !device.capabilitiesObj) return // tempfix due to api bug
         let sensorState
         let sensorStateReadable
         let sensorType
@@ -1579,6 +1579,7 @@ function isLogged(device) {
 function addLoggingTo(device) {
     if ( !isLogged(device) ) {
         let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+        if ( devicesLogged == null ) { devicesLogged = [] }
         devicesLogged.push(device)
         Homey.ManagerSettings.set('loggedDevices',devicesLogged)
         removeMonitorFullFrom(device)
@@ -1621,6 +1622,7 @@ function isMonitoredFull(device) {
 async function addMonitorFullTo(device) {
     if ( !isMonitoredFull(device) ) {
         let devicesMonitoredFull = await Homey.ManagerSettings.get('monitoredFullDevices')
+        if ( devicesMonitoredFull == null ) { devicesMonitoredFull = [] }
         devicesMonitoredFull.push(device)
         Homey.ManagerSettings.set('monitoredFullDevices',devicesMonitoredFull)
         if ( isLogged(device) ) {
@@ -1666,6 +1668,7 @@ function isMonitoredPartial(device) {
 async function addMonitorPartialTo(device) {
     if ( !isMonitoredPartial(device) ) {
         let devicesMonitoredPartial = await Homey.ManagerSettings.get('monitoredPartialDevices')
+        if ( devicesMonitoredPartial == null ) { devicesMonitoredPartial = [] }
         devicesMonitoredPartial.push(device)
         Homey.ManagerSettings.set('monitoredPartialDevices',devicesMonitoredPartial)
         if ( isLogged(device) ) {
@@ -1712,6 +1715,7 @@ function isDelayed(device) {
 async function addDelayTo(device) {
     if ( !isDelayed(device) ) {
         let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
+        if ( devicesDelayed == null ) { devicesDelayed = [] }
         devicesDelayed.push(device)
         Homey.ManagerSettings.set('delayedDevices',devicesDelayed)
         if ( !isMonitoredFull(device) && !isMonitoredPartial(device) ) {
