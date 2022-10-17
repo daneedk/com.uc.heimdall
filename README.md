@@ -40,8 +40,8 @@ An extensive changelog is available [here](https://community.athom.com/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.1.5
-* Extended functionality for 3rd party Keypanels
+## Version 2.3.0
+* SDK3 support and conversion from athom-api to homey-api
 
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff

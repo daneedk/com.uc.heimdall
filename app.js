@@ -61,7 +61,6 @@ class Heimdall extends Homey.App {
         this.log('Local Time:                ', localDate)
         this.log('Preparing flow cards:       start');
 
-// /////new SDKv3:
         // Flow triggers 
         this.homey.flow.getTriggerCard('SurveillanceChanged');
         this.homey.flow.getTriggerCard('sensorActiveAtArming');
@@ -305,11 +304,6 @@ class Heimdall extends Homey.App {
 
         this.log('Preparing flow cards:       done');
 
-// /////  
-
-        let nu =this.getDateTime();
-        this.api = await this.getApi();
-
         this.log('Reading settings:           start')
 
         //SDKv2
@@ -329,9 +323,9 @@ class Heimdall extends Homey.App {
         }
 
         //surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        let nu =this.getDateTime();
         surveillance = this.homey.settings.get('surveillanceStatus');
         this.log(' Surveillance Mode:         ' + surveillance);
-
         let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
         this.writeLog(logLine)
         if ( surveillance == null ) {
@@ -378,30 +372,31 @@ class Heimdall extends Homey.App {
             
         this.log('Reading settings:           done')
 
+        this.homeyApi = await this.getApi();
+
         this.enumerateDevices().catch(this.error);
     }
 
     // Get API control function
     getApi() {
-        if (!this.api) {
+        if (!this.homeyApi) {
             //this.api = HomeyAPIApp.forCurrentHomey().catch((error) => {
             //    console.log("Error accessing HomeyAPI: ", error);
             //});
-            this.api = new HomeyAPIApp({ homey: this.homey });
-
+            this.homeyApi = new HomeyAPIApp({ homey: this.homey })
         }
-        return this.api;
+        return this.homeyApi;
     }
 
     // Get all devices function for API
     async getDevices() {
-        const api = await this.getApi();
-        return await api.devices.getDevices();
+        const homeyApi = await this.getApi();
+        return await this.homeyApi.devices.getDevices();
     }
 
     async getZones() {
         const api = await this.getApi();
-        return await this.api.zones.getZones();
+        return await this.homeyApi.zones.getZones();
     }
 
     async getZone(zoneId) {
@@ -416,156 +411,13 @@ class Heimdall extends Homey.App {
         return result;
     }
 
-    async getUsers(pin) {
-        await delay(timeout);
-        timeout = timeout * 1.5;
-        if ( this.users != undefined ) {
-            let userObject = this.getUserInfo(pin, this.users);
-            if ( userObject.admin ) {
-                timeout = 100;
-                // user is an Administrator, return all users
-                return this.users;
-            } else {
-                timeout = 100;
-                // return the user whos PIN was entered
-                return [userObject];
-            } 
-        } else {
-            return [{ 'id': 0, 'name': 'New user', 'pincode': '000000', 'admin': true, 'valid': true}];
-        }
-    }
-
-    async processUsers(modifiedUser, action) {
-        //SDKv2
-        //let pin = modifiedUser.body.pin;
-        //SDKv3
-        let pin = modifiedUser.pin;
-        //SDKv2
-        //modifiedUser = modifiedUser.body.user;
-        //SDKv3
-        modifiedUser = modifiedUser.user;  
-        this.homey.settings.set('nousers', false);
-        let searchId = modifiedUser.id;
-        let newUsers = [];
-        if ( this.users ) {
-            let userObject = this.users.find( record => record.id == searchId);
-            if ( !userObject ) {
-                // new user
-                let userObject = this.getUserInfo(pin, this.users);
-                if ( userObject.admin ) {
-                    newUsers = this.users;
-                    newUsers.push(modifiedUser)
-                }
-            } else {
-                // existing user
-                for (let user in this.users) {
-                    if ( this.users[user].id == searchId ) {
-                        if ( action === "save") {
-                            newUsers.push(modifiedUser);
-                        }
-                    } else {
-                        newUsers.push(this.users[user]);
-                    }
-                }
-            }
-        } else {
-            // first user
-            newUsers.push(modifiedUser)
-        }
-        this.users = newUsers;
-        /*
-        this.homey.settings.set('users', this.users, function( err ){
-            if ( err ) return err
-        })
-        */
-        this.homey.settings.set('users', this.users);
-            
-        return "Succes";
-    }
-
-    async processKeypadCommands(post, type) {
-console.log(type)
-console.log(post)
-        if ( checkAPIKEY(post.body.APIKEY) ) {
-            let nu =this.getDateTime();
-            let logLine = "";
-            let silentCode = null;
-
-            if ( type == "action" ) {
-                let pinCode = post.body.value;
-                let userObject = this.getUserInfo(pinCode, this.users);
-                if ( !userObject["valid"] ) {
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-                    let shortPinCode = pinCode.substr(0, pinCode.length - 1);
-                    userObject = this.getUserInfo(shortPinCode, this.users);
-                    if ( userObject["valid"] ) {
-                        silentCode = pinCode.substr(pinCode.length - 1, 1);
-                    }
-                }
-                if ( userObject["valid"] ) {
-                    // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
-                    logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.body.actionReadable + this.homey.__("history.on") + post.body.diagnostics.sourceDevice;
-                    this.writeLog(logLine);
-                    if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
-                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command " + post.body.actionReadable + " to Surveillance Mode Switch";
-                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.body.actionReadable + this.homey.__("history.tosurveillancemode");
-                        this.writeLog(logLine);
-                        if ( sModeDevice != undefined ) {
-                            sModeDevice.setCapabilityValue('homealarm_state', post.body.action).catch(() => {});
-                        }
-                        // this.setSurveillanceMode(post.body.action, post.body.diagnostics.sourceDevice);
-                        return "Found user, changed Surveillance Mode to " + post.body.action
-                    } else if ( post.body.action == "enter" ) {
-                        // TODO
-
-                        return "Found user, action is Enter"
-                    } else if ( post.body.action == "cancel") {
-                        // TODO
-
-                        return "Found user, action is Cancel"
-                    } else {
-                        return "Found user, action " + post.body.action + " is unknown"
-                    }
-                    
-                } else {
-                    if ( post.body.value.length > 0 ) {
-                        // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
-                        logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + this.homey.__("history.invalidcode") + post.body.actionReadable + this.homey.__("history.on") + post.body.diagnostics.sourceDevice;
-                        this.writeLog(logLine);
-                        this.log("Invalid code entered: " + userObject["pincode"])
-                        return "Invalid code entered. Logline written, no further action"
-                    } else {
-                        //logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
-                        logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + this.homey.__("history.key") + post.body.actionReadable + this.homey.__("history.pressed") + post.body.diagnostics.sourceDevice;
-                        this.writeLog(logLine);
-                        this.log("No code entered ")
-                        return "No code entered. Logline written, no further action"
-                    }
-                }
-            } else if ( type == "battery" ) {
-
-            }
-            
-        } else {
-            return "Heimdall: APIKEY error"
-        }
-    }
-
     // Get all devices and add them
     async enumerateDevices() {
         this.log('Enumerating devices:        start')
 
-        // Get the homey object
-        const api = await this.getApi();
-        
-//onderstaand lijkt niet te werken in SDK3/homey-api
-        api.devices.on('device.create', async(id) => {
+        await this.homeyApi.devices.connect();
+
+        this.homeyApi.devices.on('device.create', async(id) => {
             this.log('New device found!')
             var device = await this.waitForDevice(id,0)
             if ( device ) {
@@ -573,7 +425,7 @@ console.log(post)
             }
         });
 
-        api.devices.on('device.delete', async(id) => {
+        this.homeyApi.devices.on('device.delete', async(id) => {
             this.log('Device deleted:            ',id)
         });
 
@@ -591,7 +443,7 @@ console.log(post)
 
     // Yolo function courtesy of Robert Klep ;)
     async waitForDevice(id, addCounter) {
-        const device = await this.api.devices.getDevice({ id: id.id });
+        const device = await this.homeyApi.devices.getDevice({ id: id.id });
         if (device.ready) {
           return device;
         }
@@ -694,6 +546,145 @@ console.log(post)
             monLogged = ", Logged"
         }
         // this.log('Attached Eventlistener to:  ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
+    }
+
+    async getUsers(pin) {
+        await delay(timeout);
+        timeout = timeout * 1.5;
+        if ( this.users != undefined ) {
+            let userObject = this.getUserInfo(pin, this.users);
+            if ( userObject.admin ) {
+                timeout = 100;
+                // user is an Administrator, return all users
+                return this.users;
+            } else {
+                timeout = 100;
+                // return the user whos PIN was entered
+                return [userObject];
+            } 
+        } else {
+            return [{ 'id': 0, 'name': 'New user', 'pincode': '000000', 'admin': true, 'valid': true}];
+        }
+    }
+
+    async processUsers(modifiedUser, action) {
+        //SDKv2
+        //let pin = modifiedUser.body.pin;
+        //SDKv3
+        let pin = modifiedUser.pin;
+        //SDKv2
+        //modifiedUser = modifiedUser.body.user;
+        //SDKv3
+        modifiedUser = modifiedUser.user;  
+        this.homey.settings.set('nousers', false);
+        let searchId = modifiedUser.id;
+        let newUsers = [];
+        if ( this.users ) {
+            let userObject = this.users.find( record => record.id == searchId);
+            if ( !userObject ) {
+                // new user
+                let userObject = this.getUserInfo(pin, this.users);
+                if ( userObject.admin ) {
+                    newUsers = this.users;
+                    newUsers.push(modifiedUser)
+                }
+            } else {
+                // existing user
+                for (let user in this.users) {
+                    if ( this.users[user].id == searchId ) {
+                        if ( action === "save") {
+                            newUsers.push(modifiedUser);
+                        }
+                    } else {
+                        newUsers.push(this.users[user]);
+                    }
+                }
+            }
+        } else {
+            // first user
+            newUsers.push(modifiedUser)
+        }
+        this.users = newUsers;
+        /*
+        this.homey.settings.set('users', this.users, function( err ){
+            if ( err ) return err
+        })
+        */
+        this.homey.settings.set('users', this.users);
+            
+        return "Succes";
+    }
+
+    async processKeypadCommands(post, type) {
+        if ( this.checkAPIKEY(post.APIKEY) ) {
+            let nu =this.getDateTime();
+            let logLine = "";
+            let silentCode = null;
+
+            if ( type == "action" ) {
+                let pinCode = post.value;
+                let userObject = this.getUserInfo(pinCode, this.users);
+                if ( !userObject["valid"] ) {
+// ***********************************************************************************
+// ***********************************************************************************
+// ***********************************************************************************
+// ***********************************************************************************
+// ***********************************************************************************
+// ***********************************************************************************
+// ***********************************************************************************
+                    let shortPinCode = pinCode.substr(0, pinCode.length - 1);
+                    userObject = this.getUserInfo(shortPinCode, this.users);
+                    if ( userObject["valid"] ) {
+                        silentCode = pinCode.substr(pinCode.length - 1, 1);
+                    }
+                }
+                if ( userObject["valid"] ) {
+                    // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                    logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                    this.writeLog(logLine);
+                    if ( post.action == "armed" || post.action == "disarmed" || post.action == "partially_armed" ) {
+                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || Send command " + post.actionReadable + " to Surveillance Mode Switch";
+                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.actionReadable + this.homey.__("history.tosurveillancemode");
+                        this.writeLog(logLine);
+                        if ( sModeDevice != undefined ) {
+                            sModeDevice.setCapabilityValue('homealarm_state', post.action).catch(() => {});
+                        }
+                        // this.setSurveillanceMode(post.action, post.diagnostics.sourceDevice);
+                        return "Found user, changed Surveillance Mode to " + post.action
+                    } else if ( post.action == "enter" ) {
+                        // TODO
+
+                        return "Found user, action is Enter"
+                    } else if ( post.action == "cancel") {
+                        // TODO
+
+                        return "Found user, action is Cancel"
+                    } else {
+                        return "Found user, action " + post.action + " is unknown"
+                    }
+                    
+                } else {
+                    if ( post.value.length > 0 ) {
+                        // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.invalidcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                        this.log("Invalid code entered: " + userObject["pincode"])
+                        return "Invalid code entered. Logline written, no further action"
+                    } else {
+                        //logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || Key " + post.actionReadable + " was pressed on " + post.diagnostics.sourceDevice;
+                        logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.key") + post.actionReadable + this.homey.__("history.pressed") + post.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                        this.log("No code entered ")
+                        return "No code entered. Logline written, no further action"
+                    }
+                }
+            } else if ( type == "battery" ) {
+
+            }
+            
+        } else {
+            return "Heimdall: APIKEY error"
+        }
     }
 
     // This returns the devices that can be used as sensor
@@ -1306,15 +1297,12 @@ console.log(post)
             this.homey.settings.set('alarmStatus', alarm)
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined ) {
-// Werkt niet
-                console.log(aModeDevice)
-                //aModeDevice.setCapabilityValue('alarm_heimdall', true)//.catch(() => {})
+                aModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
                 aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
-// Werkt niet
-                sModeDevice.setCapabilityValue('alarm_heimdall', true)//.catch(() => {})
-                sModeDevice.setCapabilityValue('alarm_generic', true)//.catch(() => {})
+                sModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
+                sModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
         }
         else {
@@ -1356,12 +1344,12 @@ console.log(post)
             this.speak("alarmChange", this.homey.__("speech.alarmdeactivated"));
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined ) {
-                aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(() => {})
-                aModeDevice.setCapabilityValue('alarm_generic', false).catch(() => {})
+                aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
+                aModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
-                sModeDevice.setCapabilityValue('alarm_heimdall', false).catch(() => {})
-                sModeDevice.setCapabilityValue('alarm_generic', false).catch(() => {})
+                sModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
+                sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             var tokens = { 'Source': source };
             //triggerAlarmDeactivated.trigger(tokens)
@@ -1835,15 +1823,16 @@ console.log(post)
         return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
     }
 
+    // Checks if the provided APIKEY is valid
+    // - Called from processKeypadCommands(post, type)
+    checkAPIKEY(APIKEY) {
+        if ( APIKEY == Homey.env.APIKEY1 || APIKEY == Homey.env.APIKEY2 || APIKEY == Homey.env.APIKEY3 || APIKEY == Homey.env.APIKEY4 || APIKEY == Homey.env.APIKEY5 ) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 }
 module.exports = Heimdall;
 
-// Checks if the provided APIKEY is valid
-// - Called from processKeypadCommands(post, type)
-function checkAPIKEY(APIKEY) {
-    if ( APIKEY == this.homey.env.APIKEY1 || APIKEY == this.homey.env.APIKEY2 || APIKEY == this.homey.env.APIKEY3 || APIKEY == this.homey.env.APIKEY4 || APIKEY == this.homey.env.APIKEY5 ) {
-        return true
-    } else {
-        return false
-    }
-}
