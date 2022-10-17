@@ -1806,7 +1806,7 @@ class Heimdall extends Homey.App {
         // SDKv3
         let timezone = this.homey.clock.getTimezone()
         //let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
-        let date = new Date(new Date().toLocaleString(this.homey.i18n.getLanguage(), {timeZone: timezone}));
+        let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         
         let hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
