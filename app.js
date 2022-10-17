@@ -1,60 +1,13 @@
 'use strict';
 
 const Homey = require('homey');
-const { HomeyAPI  } = require('athom-api')
+//const { HomeyAPI  } = require('athom-api')
+const { HomeyAPIApp } = require('homey-api');
+
+// SDK3 met webapi: https://github.com/frodeheg/no.sparegris
+// https://athombv.github.io/node-homey-api/
+
 const delay = time => new Promise(res=>setTimeout(res,time));
-
-// Flow triggers
-let triggerSurveillanceChanged = new Homey.FlowCardTrigger('SurveillanceChanged');
-// SDKv3: let triggerSurveillanceChanged = this.homey.flow.getDeviceTriggerCard('SurveillanceChanged');
-
-let triggerSensorActiveAtArming = new Homey.FlowCardTrigger('sensorActiveAtArming');
-let triggerSensorActive = new Homey.FlowCardTrigger('sensorActiveAtSensorCheck');
-let triggerAlarmActivated = new Homey.FlowCardTrigger('AlarmActivated');
-let triggerAlarmDeactivated = new Homey.FlowCardTrigger('AlarmDeactivated');
-let triggerAlarmDelayActivated = new Homey.FlowCardTrigger('AlarmDelayActivated');
-let triggerArmDelayActivated = new Homey.FlowCardTrigger('ArmDelayActivated');
-let triggerTimeTillAlarmChanged = new Homey.FlowCardTrigger('TimeTillAlarm');
-let triggerTimeTillArmedChanged = new Homey.FlowCardTrigger('TimeTillArmed');
-let triggerLogLineWritten = new Homey.FlowCardTrigger('LogLineWritten');
-let triggerSensorTrippedInAlarmstate = new Homey.FlowCardTrigger('SensorTrippedInAlarmstate');
-let triggerNoInfoReceived = new Homey.FlowCardTrigger('noInfoReceived');
-
-// Flow conditions
-const conditionSurveillanceIs = new Homey.FlowCardCondition('SurveillanceIs');
-const conditionArmingCountdown = new Homey.FlowCardCondition('ArmingCountdown');
-const conditionAlarmCountdown = new Homey.FlowCardCondition('AlarmCountdown');
-const conditionAlarmActive = new Homey.FlowCardCondition('AlarmActive');
-const conditionIsDelayedDevice = new Homey.FlowCardCondition('IsDelayedDevice');
-const conditionIsLoggedDevice = new Homey.FlowCardCondition('IsLoggedDevice');
-const conditionIsFullDevice = new Homey.FlowCardCondition('IsFullDevice');
-const conditionIsPartialDevice = new Homey.FlowCardCondition('IsPartialDevice');
-
-// Flow actions
-const actionInputHistory = new Homey.FlowCardAction('SendInfo');
-const actionClearHistory = new Homey.FlowCardAction('ClearHistory');
-const actionActivateAlarm = new Homey.FlowCardAction('ActivateAlarm');
-const actionDeactivateAlarm = new Homey.FlowCardAction('DeactivateAlarm');
-const actionCheckLastCommunication = new Homey.FlowCardAction('CheckLastCommunication');
-const actionAllDevicesStateCheck = new Homey.FlowCardAction('DevicesStateCheck');
-const actionInputNotification = new Homey.FlowCardAction('SendNotification');
-const actionAddDelayToDevice = new Homey.FlowCardAction('AddDelayToDevice');
-const actionRemoveDelayFromDevice = new Homey.FlowCardAction('RemoveDelayFromDevice');
-const actionAddLoggingToDevice = new Homey.FlowCardAction('AddLoggingToDevice');
-const actionRemoveLoggingFromDevice = new Homey.FlowCardAction('RemoveLoggingFromDevice');
-const actionAddDeviceToPartial = new Homey.FlowCardAction('AddDeviceToPartial');
-const actionRemoveDeviceFromPartial = new Homey.FlowCardAction('RemoveDeviceFromPartial');
-const actionAddDeviceToFull = new Homey.FlowCardAction('AddDeviceToFull');
-const actionRemoveDeviceFromFull = new Homey.FlowCardAction('RemoveDeviceFromFull');
-
-/* // SDKv3: 
-this.actionInputNotification = this.homey.flow.getActionCard('SendNotification');
-this.actionInputNotification
-  .registerRunListener( async(args, state ) => {
-      this.writeNotification(args.message)
-      return Promise.resolve( true );
-  })
-*/
 
 var surveillance;
 var alarm = false;
@@ -100,29 +53,293 @@ class Heimdall extends Homey.App {
 
     async onInit() {
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
-        let nu = getDateTime();
+        this.log('Platform: ', Homey.platform);
+        this.log('Version: ',Homey.platformVersion);
+        let timezone = this.homey.clock.getTimezone()
+        let localDate = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
+        this.log('Timezone:                  ', timezone)
+        this.log('Local Time:                ', localDate)
+        this.log('Preparing flow cards:       start');
+
+// /////new SDKv3:
+        // Flow triggers 
+        this.homey.flow.getTriggerCard('SurveillanceChanged');
+        this.homey.flow.getTriggerCard('sensorActiveAtArming');
+        this.homey.flow.getTriggerCard('sensorActiveAtSensorCheck');
+        this.homey.flow.getTriggerCard('AlarmActivated');
+        this.homey.flow.getTriggerCard('AlarmDeactivated');
+        this.homey.flow.getTriggerCard('AlarmDelayActivated');
+        this.homey.flow.getTriggerCard('ArmDelayActivated');
+        this.homey.flow.getTriggerCard('TimeTillAlarm');
+        this.homey.flow.getTriggerCard('TimeTillArmed');
+        this.homey.flow.getTriggerCard('LogLineWritten');
+        this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate');
+        this.homey.flow.getTriggerCard('noInfoReceived');
+
+        // Flow conditions
+        const conditionSurveillanceIs = this.homey.flow.getConditionCard('SurveillanceIs');
+        const conditionArmingCountdown = this.homey.flow.getConditionCard('ArmingCountdown');   
+        const conditionAlarmCountdown = this.homey.flow.getConditionCard('AlarmCountdown');     // Testen
+        const conditionAlarmActive = this.homey.flow.getConditionCard('AlarmActive');           
+        const conditionIsDelayedDevice = this.homey.flow.getConditionCard('IsDelayedDevice');
+        const conditionIsLoggedDevice = this.homey.flow.getConditionCard('IsLoggedDevice');
+        const conditionIsFullDevice = this.homey.flow.getConditionCard('IsFullDevice');
+        const conditionIsPartialDevice = this.homey.flow.getConditionCard('IsPartialDevice');
+        
+        // Flow actions
+        const actionInputHistory = this.homey.flow.getActionCard('SendInfo');                           
+        const actionClearHistory = this.homey.flow.getActionCard('ClearHistory');                       
+        const actionActivateAlarm = this.homey.flow.getActionCard('ActivateAlarm');                     // Testen
+        const actionDeactivateAlarm = this.homey.flow.getActionCard('DeactivateAlarm');                 
+        const actionCheckLastCommunication = this.homey.flow.getActionCard('CheckLastCommunication');   // Testen
+        const actionAllDevicesStateCheck = this.homey.flow.getActionCard('DevicesStateCheck');          // Testen
+        const actionInputNotification = this.homey.flow.getActionCard('SendNotification');              
+        const actionAddDelayToDevice = this.homey.flow.getActionCard('AddDelayToDevice');               // Testen
+        const actionRemoveDelayFromDevice = this.homey.flow.getActionCard('RemoveDelayFromDevice');     // Testen
+        const actionAddLoggingToDevice = this.homey.flow.getActionCard('AddLoggingToDevice');           // Testen
+        const actionRemoveLoggingFromDevice = this.homey.flow.getActionCard('RemoveLoggingFromDevice'); // Testen
+        const actionAddDeviceToPartial = this.homey.flow.getActionCard('AddDeviceToPartial');           // Testen
+        const actionRemoveDeviceFromPartial = this.homey.flow.getActionCard('RemoveDeviceFromPartial'); // Testen
+        const actionAddDeviceToFull = this.homey.flow.getActionCard('AddDeviceToFull');                 // Testen
+        const actionRemoveDeviceFromFull = this.homey.flow.getActionCard('RemoveDeviceFromFull');       // Testen
+                
+        // Flow Condition functions
+        conditionSurveillanceIs
+            .registerRunListener(( args, state ) => {
+                let result = args.surveillance == this.homey.settings.get('surveillanceStatus') ? true : false
+                return Promise.resolve( result );
+        });
+        
+        conditionArmingCountdown
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( armCounterRunning );
+        });
+        
+        conditionAlarmCountdown
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( alarmCounterRunning );
+        });
+        
+        conditionAlarmActive
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( alarm );
+        });
+
+        conditionIsDelayedDevice
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( this.isDelayed(args.device) );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve( this.homey.app.getUsableDevices() )
+        });
+
+        conditionIsLoggedDevice
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( this.isLogged(args.device) );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve( this.homey.app.getUsableDevices() )
+        });
+
+        conditionIsFullDevice
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( this.isMonitoredFull(args.device) );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve( this.homey.app.getUsableDevices() )
+        });
+
+        conditionIsPartialDevice
+            .registerRunListener(( args, state ) => {
+                return Promise.resolve( this.isMonitoredPartial(args.device) );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve( this.homey.app.getUsableDevices() )
+        });
+
+        // Flow Action functions
+        actionInputHistory
+            .registerRunListener(( args, state ) => {
+                let nu =this.getDateTime();
+                surveillance = this.homey.settings.get('surveillanceStatus');
+                let logLine = "lh " + nu + this.readableMode(surveillance) + " || Flowcard || " + args.log;
+                this.homey.app.writeLog(logLine)
+                return Promise.resolve( true );
+        })
+
+        actionClearHistory
+            .registerRunListener(( args, state ) => {
+                this.homey.settings.set('myLog', '' );
+                return Promise.resolve( true );
+            })
+
+        actionActivateAlarm
+            .registerRunListener(( args, state ) => {
+                this.homey.app.activateAlarm("",  "", "", "Flowcard")
+                return Promise.resolve( true );
+            })
+
+        actionDeactivateAlarm
+            .registerRunListener(( args, state ) => {
+                this.homey.app.deactivateAlarm(true, "Flowcard")
+                return Promise.resolve( true );
+            })
+
+        actionCheckLastCommunication
+            .registerRunListener(( args, state ) => {
+                this.homey.app.checkDevicesLastCom(this.homey.settings.get('surveillanceStatus'))
+                return Promise.resolve( true );
+            })
+
+        actionAllDevicesStateCheck
+            .registerRunListener(( args, state ) => {
+                this.homey.app.checkAllDevicesState()
+                return Promise.resolve( true );
+            })
+
+        actionInputNotification
+            .registerRunListener(( args, state ) => {
+                this.homey.app.writeNotification(args.message)
+                return Promise.resolve( true );
+            })
+
+        actionAddDelayToDevice
+            .registerRunListener(( args, state ) => {
+                addDelayTo(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionRemoveDelayFromDevice
+            .registerRunListener(( args, state ) => {
+                removeDelayFrom(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionAddLoggingToDevice
+            .registerRunListener(( args, state ) => {
+                addLoggingTo(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionRemoveLoggingFromDevice
+            .registerRunListener(( args, state ) => {
+                removeLoggingFrom(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionAddDeviceToPartial
+            .registerRunListener(( args, state ) => {
+                addMonitorPartialTo(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionRemoveDeviceFromPartial
+            .registerRunListener(( args, state ) => {
+                removeMonitorPartialFrom(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionAddDeviceToFull
+            .registerRunListener(( args, state ) => {
+                addMonitorFullTo(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        actionRemoveDeviceFromFull
+            .registerRunListener(( args, state ) => {
+                removeMonitorFullFrom(args.device)
+                return Promise.resolve( true );
+            })
+            .getArgument('device')
+            .registerAutocompleteListener((query, args) => {
+                return Promise.resolve(
+                    this.homey.app.getUsableDevices()
+                )
+            })
+
+        this.log('Preparing flow cards:       done');
+
+// /////  
+
+        let nu =this.getDateTime();
         this.api = await this.getApi();
 
-        this.users = Homey.ManagerSettings.get('users');
+        this.log('Reading settings:           start')
+
+        //SDKv2
+        // this.users = Homey.ManagerSettings.get('users');
+        //SDKv3
+        this.users = this.homey.settings.get('users');
+        
         // Uncomment next line to print users to the log when pincode is lost.
         // this.log(this.users);
         // Uncomment next line, run the app once and comment the line again to start fresh.
-        // Homey.ManagerSettings.unset('users');
+        // this.homey.settings.unset('users');
         if ( this.users === undefined || this.users === null || this.users.length === 0 ) {
-            Homey.ManagerSettings.set('nousers', true);
+            //SDKv2
+            // Homey.ManagerSettings.set('nousers', true);
+            //SDKv3
+            this.homey.settings.set('nousers', true)
         }
 
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus'); 
-        this.log('Surveillance Mode:          ' + surveillance);
-        let logLine = "ao " + nu + readableMode(surveillance) + " || Heimdall || Heimdall start"
+        //surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        surveillance = this.homey.settings.get('surveillanceStatus');
+        this.log(' Surveillance Mode:         ' + surveillance);
+
+        let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
         this.writeLog(logLine)
         if ( surveillance == null ) {
             surveillance = 'disarmed'
         };
 
-        this.log('Reading settings:           start')
-        
-        heimdallSettings = Homey.ManagerSettings.get('settings');
+        //heimdallSettings = Homey.ManagerSettings.get('settings');
+        heimdallSettings = this.homey.settings.get('settings');
 		if ( heimdallSettings == (null || undefined) ) {
 			heimdallSettings = defaultSettings
         };
@@ -140,11 +357,25 @@ class Heimdall extends Homey.App {
             heimdallSettings.alarmWhileDelayed = false
         };
 
-        let language = Homey.ManagerI18n.getLanguage()
-        Homey.ManagerSettings.set('language', language, function( err ){
-            if ( err ) return Homey.alert( err );
+        //let language = Homey.ManagerI18n.getLanguage();
+        let language = this.homey.i18n.getLanguage();
+        this.log(' Language:                  ' + language);
+        //SDKv2
+        // Homey.ManagerSettings.set('language', language, function( err ){
+        //SDKv3
+        /*
+        this.homey.settings.set('language', language, function( err ){
+           if ( err ) return this.homey.alert( err );
         });
+        */
+        this.homey.settings.set('language', language);
 
+        this.homey.settings.on('set', (variable) => {
+            if ( variable === 'settings' ) {
+                heimdallSettings = this.homey.settings.get('settings')
+            }
+        });
+            
         this.log('Reading settings:           done')
 
         this.enumerateDevices().catch(this.error);
@@ -153,7 +384,11 @@ class Heimdall extends Homey.App {
     // Get API control function
     getApi() {
         if (!this.api) {
-            this.api = HomeyAPI.forCurrentHomey().catch(() => {});
+            //this.api = HomeyAPIApp.forCurrentHomey().catch((error) => {
+            //    console.log("Error accessing HomeyAPI: ", error);
+            //});
+            this.api = new HomeyAPIApp({ homey: this.homey });
+
         }
         return this.api;
     }
@@ -201,9 +436,15 @@ class Heimdall extends Homey.App {
     }
 
     async processUsers(modifiedUser, action) {
-        let pin = modifiedUser.body.pin;
-        modifiedUser = modifiedUser.body.user;
-        Homey.ManagerSettings.set('nousers', false);
+        //SDKv2
+        //let pin = modifiedUser.body.pin;
+        //SDKv3
+        let pin = modifiedUser.pin;
+        //SDKv2
+        //modifiedUser = modifiedUser.body.user;
+        //SDKv3
+        modifiedUser = modifiedUser.user;  
+        this.homey.settings.set('nousers', false);
         let searchId = modifiedUser.id;
         let newUsers = [];
         if ( this.users ) {
@@ -232,16 +473,21 @@ class Heimdall extends Homey.App {
             newUsers.push(modifiedUser)
         }
         this.users = newUsers;
-        Homey.ManagerSettings.set('users', this.users, function( err ){
+        /*
+        this.homey.settings.set('users', this.users, function( err ){
             if ( err ) return err
         })
+        */
+        this.homey.settings.set('users', this.users);
             
         return "Succes";
     }
 
     async processKeypadCommands(post, type) {
+console.log(type)
+console.log(post)
         if ( checkAPIKEY(post.body.APIKEY) ) {
-            let nu = getDateTime();
+            let nu =this.getDateTime();
             let logLine = "";
             let silentCode = null;
 
@@ -263,12 +509,12 @@ class Heimdall extends Homey.App {
                     }
                 }
                 if ( userObject["valid"] ) {
-                    // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
-                    logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + Homey.__("history.validcode") + post.body.actionReadable + Homey.__("history.on") + post.body.diagnostics.sourceDevice;
+                    // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                    logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.body.actionReadable + this.homey.__("history.on") + post.body.diagnostics.sourceDevice;
                     this.writeLog(logLine);
                     if ( post.body.action == "armed" || post.body.action == "disarmed" || post.body.action == "partially_armed" ) {
-                        // logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command " + post.body.actionReadable + " to Surveillance Mode Switch";
-                        logLine = "   " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || " + Homey.__("history.sendcommand") + post.body.actionReadable + Homey.__("history.tosurveillancemode");
+                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || Send command " + post.body.actionReadable + " to Surveillance Mode Switch";
+                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.body.actionReadable + this.homey.__("history.tosurveillancemode");
                         this.writeLog(logLine);
                         if ( sModeDevice != undefined ) {
                             sModeDevice.setCapabilityValue('homealarm_state', post.body.action).catch(() => {});
@@ -289,14 +535,14 @@ class Heimdall extends Homey.App {
                     
                 } else {
                     if ( post.body.value.length > 0 ) {
-                        // logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
-                        logLine = "ad " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + Homey.__("history.invalidcode") + post.body.actionReadable + Homey.__("history.on") + post.body.diagnostics.sourceDevice;
+                        // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.body.actionReadable + " on " + post.body.diagnostics.sourceDevice;
+                        logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + this.homey.__("history.invalidcode") + post.body.actionReadable + this.homey.__("history.on") + post.body.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                         this.log("Invalid code entered: " + userObject["pincode"])
                         return "Invalid code entered. Logline written, no further action"
                     } else {
-                        //logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
-                        logLine = "sd " + nu + readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + Homey.__("history.key") + post.body.actionReadable + Homey.__("history.pressed") + post.body.diagnostics.sourceDevice;
+                        //logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || Key " + post.body.actionReadable + " was pressed on " + post.body.diagnostics.sourceDevice;
+                        logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.body.diagnostics.sourceApp + " || " + this.homey.__("history.key") + post.body.actionReadable + this.homey.__("history.pressed") + post.body.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                         this.log("No code entered ")
                         return "No code entered. Logline written, no further action"
@@ -317,7 +563,8 @@ class Heimdall extends Homey.App {
 
         // Get the homey object
         const api = await this.getApi();
-
+        
+//onderstaand lijkt niet te werken in SDK3/homey-api
         api.devices.on('device.create', async(id) => {
             this.log('New device found!')
             var device = await this.waitForDevice(id,0)
@@ -327,7 +574,7 @@ class Heimdall extends Homey.App {
         });
 
         api.devices.on('device.delete', async(id) => {
-           // this.log('Device deleted:            ',id)
+            this.log('Device deleted:            ',id)
         });
 
         let allDevices = await this.getDevices();
@@ -355,9 +602,9 @@ class Heimdall extends Homey.App {
         } else {
             this.log("Found Device, not ready:    " + device.name)
             devicesNotReadyAtStart.push(device.name)
-            let nu = getDateTime();
-            // let logLine = "al " + nu + readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
-            let logLine = "al " + nu + readableMode(surveillance) + " || " + Homey.__("enumerate.source") + " || " + device.name + Homey.__("enumerate.warning")
+            let nu =this.getDateTime();
+            // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
+            let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("enumerate.source") + " || " + device.name + this.homey.__("enumerate.warning")
             this.writeLog(logLine)
             return false
         }
@@ -437,13 +684,13 @@ class Heimdall extends Homey.App {
         }
     
         let monFull = "", monPartial = "", monLogged = ""
-        if ( isMonitoredFull(device) ) {
+        if ( this.isMonitoredFull(device) ) {
             monFull = ", Fully Monitored"
         } 
-        if ( isMonitoredPartial(device) ) {
+        if ( this.isMonitoredPartial(device) ) {
             monPartial = ", Partially Monitored"
         }
-        if ( isLogged(device) ) {
+        if ( this.isLogged(device) ) {
             monLogged = ", Logged"
         }
         // this.log('Attached Eventlistener to:  ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
@@ -475,19 +722,19 @@ class Heimdall extends Homey.App {
             this.log("StateChange detected for tampering but shouldn't act on it")
             return
         }
-        let nu = getDateTime();
+        let nu =this.getDateTime();
         let color = "   ";
         let logLine = "";
-        let sourceDeviceFull = isMonitoredFull(device)
-        let sourceDevicePartial = isMonitoredPartial(device)
-        let sourceDeviceLog = isLogged(device)
+        let sourceDeviceFull = this.isMonitoredFull(device)
+        let sourceDevicePartial = this.isMonitoredPartial(device)
+        let sourceDeviceLog = this.isLogged(device)
 
         this.log('stateChange:----------------' + device.name)
         // is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
             let sensorStateReadable;
-            surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-            sensorStateReadable = readableState(sensorState, sensorType);
+            surveillance = this.homey.settings.get('surveillanceStatus');
+            sensorStateReadable = this.readableState(sensorState, sensorType);
             this.log('sensorStateReadable:        ' + sensorStateReadable);
 
             // Select the desired color
@@ -504,11 +751,11 @@ class Heimdall extends Homey.App {
                 color = "l- "
             }
             // Set logLine for the statechange
-            logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
+            logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
             // Is sensorState true?
             if ( sensorState ) {
                 this.log('Surveillance Mode:          ' + surveillance);         
-                if ( sensorType == 'contact' && isDelayed(device) && armCounterRunning ) {
+                if ( sensorType == 'contact' && this.isDelayed(device) && armCounterRunning ) {
                     // a Doorsensor with a delay is opened while the arming countdown is running
                     this.log('lastDoor:               Opened')
                     lastDoor = true;
@@ -525,13 +772,13 @@ class Heimdall extends Homey.App {
                         this.log('Alarm is triggered:         Yes')
                         // let zone = await this.getZone(device.zone)
                         let delayOverruled = ".";
-                        if ( alarmCounterRunning && !isDelayed(device) ) {
+                        if ( alarmCounterRunning && !this.isDelayed(device) ) {
                             this.log('Alarm counter active:       Yes');
                             alarmCounterRunning = false;
-                            delayOverruled = Homey.__("history.delayoverruled");
+                            delayOverruled = this.homey.__("history.delayoverruled");
                         } 
 
-                        logLine = "al " + nu + readableMode(surveillance) + " || Heimdall || " + device.name + " in " + device.zoneName + Homey.__("history.triggerdalarm") + delayOverruled
+                        logLine = "al " + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.triggerdalarm") + delayOverruled
 
                         if ( sensorType == 'motion' ) {
                             this.speak("motionTrue", device.name + " detected motion") 
@@ -542,7 +789,7 @@ class Heimdall extends Homey.App {
                         if ( sensorType == 'tamper') {
                             this.speak("tamper", device.name + " detected tampering")
                         }         
-                        if ( isDelayed(device) ) {
+                        if ( this.isDelayed(device) ) {
                             if ( alarmCounterRunning ) {
                                 this.log("Device is delayed and there is already an Alarm Counter active.")
                                 return
@@ -550,18 +797,19 @@ class Heimdall extends Homey.App {
                             // The device has a delayed trigger
                             alarmCounterRunning = true;
                             this.log('alarmCounterRunning:        true')
-                            logLine = "ad "+ nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.alarmdelayed") + heimdallSettings.alarmDelay + Homey.__("history.seconds") + '\n' + logLine
+                            logLine = "ad "+ nu + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.alarmdelayed") + heimdallSettings.alarmDelay + this.homey.__("history.seconds") + '\n' + logLine
                             let delay = heimdallSettings.alarmDelay * 1000;
                             // Trigger delay flow card
                             var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': device.zoneName , 'Duration': heimdallSettings.alarmDelay * 1 };
-                            triggerAlarmDelayActivated.trigger(tokens)
+                            //triggerAlarmDelayActivated.trigger(tokens)
+                            this.homey.flow.getTriggerCard('AlarmDelayActivated').trigger(tokens)
                                 .catch(this.error)
                                 .then()
 
                             this.log('alarmCounterRunning:        true')
                             this.log('alarm is delayed:           Yes, ' + heimdallSettings.alarmDelay + ' seconden')
                             //speak("The alarm will go off in " + heimdallSettings.alarmDelay + " seconds.")
-                            this.speak("alarmCountdown", Homey.__("speech.startalarmcountdown") + heimdallSettings.alarmDelay + Homey.__("speech.seconds"))
+                            this.speak("alarmCountdown", this.homey.__("speech.startalarmcountdown") + heimdallSettings.alarmDelay + this.homey.__("speech.seconds"))
                             this.log('ttAlarmCountdown start:     ' + heimdallSettings.alarmDelay)
                             // Trigger Time Till Alarm flow card
                             let tta = heimdallSettings.alarmDelay - 1;
@@ -583,17 +831,18 @@ class Heimdall extends Homey.App {
                     // Delayed trigger is active
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('alarmCounterRunning:        True so sensorstate true is cancelled')
-                        logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + Homey.__("history.noalarmtriggercountdown");
+                        logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggercountdown");
                     }
                 } 
                 else if ( alarm ) {
                     // Alarm state is active
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('Alarmstate Active:          The Alarm State is active so just log the sensorstate')
-                        logLine = color + nu + readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + Homey.__("history.noalarmtriggeralarmstate");
+                        logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggeralarmstate");
                         // let zone = await this.getZone(device.zone)
                         var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                        triggerSensorTrippedInAlarmstate.trigger(tokens)
+                        //triggerSensorTrippedInAlarmstate.trigger(tokens)
+                        this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate').trigger(tokens)
                             .catch(this.error)
                             .then()
                     }
@@ -601,7 +850,7 @@ class Heimdall extends Homey.App {
             } 
             else {
             // sensorState is false
-                if ( sensorType == 'contact' && isDelayed(device) && armCounterRunning && lastDoor ) {
+                if ( sensorType == 'contact' && this.isDelayed(device) && armCounterRunning && lastDoor ) {
                     // a Doorsensor with a delay is opened and closed while the arming countdown is running
                     this.log('lastDoor:                   Closed, countdown will be lowered')
                     changeTta = true;
@@ -628,7 +877,8 @@ class Heimdall extends Homey.App {
                 // trigger the flowcard when a device with logging changes state
                 // let zone = await this.getZone(device.zone)
                 var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                triggerLogLineWritten.trigger(tokens)
+                //triggerLogLineWritten.trigger(tokens)
+                this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
                     .catch(this.error)
                     .then()
             }
@@ -640,14 +890,14 @@ class Heimdall extends Homey.App {
     //   will call setSurveillanceValue after evaluating conditions.
     setSurveillanceMode(value, source) {
         this.log('setSurveillanceMode:        ' + value);
-        let nu = getDateTime();
-        let logLine = "";
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        let nu =this.getDateTime();
+        let logLine = "";    
+        surveillance = this.homey.settings.get('surveillanceStatus');
         if ( value === 'disarmed' ) {
             // Surveillance Mode is set to Disarmed
-            logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodedisarmed")
+            logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodedisarmed")
             this.setSurveillanceValue("sd ",value, logLine, false)
-            Homey.app.deactivateAlarm(false, Homey.__("devices.surveillancemode.name"))
+            this.homey.app.deactivateAlarm(false, this.homey.__("devices.surveillancemode.name"))
             if ( armCounterRunning ) {
                 // code to cancel an arm command during delayArming
                 this.log('Need to stop arming!')
@@ -656,9 +906,9 @@ class Heimdall extends Homey.App {
         } else {
             // Surveillance Mode is set to Armed or Partially Armed
             if ( value === 'armed' ) {
-                logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodearmed")
+                logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodearmed")
             } else { 
-                logLine = readableMode(value) + " || " + source + " || " + Homey.__("history.smodepartiallyarmed")
+                logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodepartiallyarmed")
             }
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 // (Partially) Arming is delayed
@@ -669,13 +919,14 @@ class Heimdall extends Homey.App {
                 }
                 let delay = heimdallSettings.armingDelay * 1000;
                 this.log('setSurveillanceValue in:    ' + heimdallSettings.armingDelay + ' seconds.')
-                this.speak("armCountdown", Homey.__("speech.startarmcountdown") + readableMode(value) + Homey.__("speech.in") + heimdallSettings.armingDelay + Homey.__("speech.seconds"))
+                this.speak("armCountdown", this.homey.__("speech.startarmcountdown") + this.readableMode(value) + this.homey.__("speech.in") + heimdallSettings.armingDelay + this.homey.__("speech.seconds"))
                 armCounterRunning = true;
                 let tta = heimdallSettings.armingDelay;
                 this.ttArmedCountdown(tta,"sa ", value, logLine);
 
                 var tokens= { 'Duration': heimdallSettings.armingDelay * 1 };
-                triggerArmDelayActivated.trigger(tokens)
+                //triggerArmDelayActivated.trigger(tokens)
+                this.homey.flow.getTriggerCard('ArmDelayActivated').trigger(tokens)
                     .catch(this.error)
                     .then()
                 
@@ -683,14 +934,14 @@ class Heimdall extends Homey.App {
                 this.systemEvent("Arming Delay", tta);
 
                 if ( value == 'armed' ) {
-                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
+                    logLine = "st " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + this.homey.__("history.seconds")
                 } else { 
-                    logLine = "st " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.armingDelay + Homey.__("history.seconds")
+                    logLine = "st " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.smodedelaypartiallyarmed") + heimdallSettings.armingDelay + this.homey.__("history.seconds")
                 }
                 this.writeLog(logLine)
                 // Check the states of the sensors 
                 if ( heimdallSettings.checkBeforeCountdown ) {
-                    Homey.app.checkDevicesState(value, nu)
+                    this.homey.app.checkDevicesState(value, nu)
                 }
             } else {
                 // (Partially) Arming is not delayed
@@ -699,7 +950,7 @@ class Heimdall extends Homey.App {
                 this.setSurveillanceValue("sa ",value, logLine, true)
             }
             if ( value === 'armed' || value === 'partially_armed' ) {
-                Homey.app.checkDevicesLastCom(value)
+                this.homey.app.checkDevicesLastCom(value)
             }
         }
     }
@@ -709,35 +960,39 @@ class Heimdall extends Homey.App {
     // - Called from setSurveillanceMode(value, source) when Arming is not delayed.
     // - Called from ttArmedCountdown(delay, color, value, logLine) when Arming is delayed.
     setSurveillanceValue(color,value, logLine, deviceCheck) {
-        let nu = getDateTime();
+        let nu =this.getDateTime();
         logLine = color + nu + logLine;
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        surveillance = this.homey.settings.get('surveillanceStatus');
         lastDoor = false;
         changeTta = false;
 
         if ( armCounterRunning || value === 'disarmed' ) {
-            Homey.ManagerSettings.set('surveillanceStatus', value, function( err ){
-                if ( err ) return Homey.alert( err );
+            /*
+            this.homey.settings.set('surveillanceStatus', value, function( err ){
+               if ( err ) return this.homey.alert( err );
             });
+            */
+            this.homey.settings.set('surveillanceStatus', value);
             // Generate Homey wide event for setting the Surveillance Mode
             this.systemEvent("Surveillance Mode", value)
-            this.speak("sModeChange", Homey.__("speech.smodeset") + readableMode(value))
+            this.speak("sModeChange", this.homey.__("speech.smodeset") + this.readableMode(value))
             this.log('setSurveillanceValue:       '+ value)
             if ( heimdallSettings.notificationSmodeChange ) {
-                let message = Homey.__("notification.smodeset1") + readableMode(value) + Homey.__("notification.smodeset2")
+                let message = this.homey.__("notification.smodeset1") + this.readableMode(value) + this.homey.__("notification.smodeset2")
                 this.writeNotification(message)
             }
-            var tokens = { 'mode': readableMode(value) };
-            triggerSurveillanceChanged.trigger(tokens)
+            
+            var tokens = { 'mode': this.readableMode(value) };
+            this.homey.flow.getTriggerCard('SurveillanceChanged').trigger(tokens)
                 .catch(this.error)
                 .then()
-
+            
             // Check the states of the sensors 
             if ( deviceCheck ) {
-                Homey.app.checkDevicesState(value, nu)
+                this.homey.app.checkDevicesState(value, nu)
             }
         } else {
-            logLine = "sd " + nu + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodechangedisabled")
+            logLine = "sd " + nu + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.smodechangedisabled")
         }
         this.writeLog(logLine)   
         armCounterRunning = false;
@@ -759,8 +1014,8 @@ class Heimdall extends Homey.App {
     async checkDeviceLastCom(device, value) {
         //if ( !device.ready ) return
         if ( !device.ready || !device.capabilitiesObj) return
-        if ( isMonitoredFull(device) || isMonitoredPartial(device) ) {
-            let nu = getDateTime();
+        if ( this.isMonitoredFull(device) || this.isMonitoredPartial(device) ) {
+            let nu =this.getDateTime();
             let nuEpoch = Date.now();
 
             if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj ) {
@@ -784,20 +1039,21 @@ class Heimdall extends Homey.App {
 
                     let tempColor = 'mp-'
                     // let zone = await this.getZone(device.zone)
-                    let tempLogLine = tempColor + nu + readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
+                    let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                     this.writeLog(tempLogLine)
                     this.log("checkDeviceLastCom:         " + device.name + " - did not communicate in last 24 hours")
                     if ( heimdallSettings.notificationNoCommunicationMotion && 'alarm_motion' in device.capabilitiesObj ) {
-                        let message = '**' + device.name + '** in ' + device.zoneName + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
+                        let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
                     if ( heimdallSettings.notificationNoCommunicationContact && 'alarm_contact' in device.capabilitiesObj ) {
-                        let message = '**' + device.name + '** in ' + device.zoneName + Homey.__("history.noreport") + heimdallSettings.noCommunicationTime + Homey.__("history.lastreport") + lastUpdateTime
+                        let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
 
                     var tokens = {'Zone': device.zoneName, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
-                    triggerNoInfoReceived.trigger(tokens)
+                    //triggerNoInfoReceived.trigger(tokens)
+                    this.homey.flow.getTriggerCard('noInfoReceived').trigger(tokens)
                         .catch(this.error)
                         .then()
                 } else {
@@ -832,42 +1088,42 @@ class Heimdall extends Homey.App {
 
         if ( 'alarm_motion' in device.capabilitiesObj && heimdallSettings.checkMotionAtArming ) {
             sensorState = device.capabilitiesObj.alarm_motion.value
-            sensorStateReadable = readableState(sensorState, 'motion')
+            sensorStateReadable =this.readableState(sensorState, 'motion')
             sensorType = 'motion'
             this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
         }
         if ( 'alarm_contact' in device.capabilitiesObj && heimdallSettings.checkContactAtArming ) {
             sensorState = device.capabilitiesObj.alarm_contact.value
-            sensorStateReadable = readableState(sensorState, 'contact')
+            sensorStateReadable =this.readableState(sensorState, 'contact')
             sensorType = 'contact'
             this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
         };
         if ( value == 'armed' ) {
-            if ( isMonitoredFull(device) ) {
+            if ( this.isMonitoredFull(device) ) {
                 if ( sensorState ) {
                     let delayText = ""
-                    if ( isDelayed(device) ) {
-                        delayText = Homey.__("atarming.delayText")
+                    if ( this.isDelayed(device) ) {
+                        delayText = this.homey.__("atarming.delayText")
                     }
                     if ( sensorType == 'motion' ) {
-                        this.alertSensorActiveAtArming(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
+                        this.alertSensorActiveAtArming(value, nu, sensorType, this.homey.__("atarming.warningMotion") + sensorStateReadable + this.homey.__("atarming.on") + device.name + delayText)
                     } else if ( sensorType == 'contact') {
-                        this.alertSensorActiveAtArming(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
+                        this.alertSensorActiveAtArming(value, nu, sensorType, this.homey.__("atarming.warningContact") + device.name + this.homey.__("atarming.is") + sensorStateReadable + delayText) 
                     }
                 }
             }
         }
         else if ( value == 'partially_armed' ) {
-            if ( isMonitoredPartial(device) ) {
+            if ( this.isMonitoredPartial(device) ) {
                 if ( sensorState ) {
                     let delayText = ""
-                    if ( isDelayed(device) ) {
-                        delayText = Homey.__("atarming.delayText")
+                    if ( this.isDelayed(device) ) {
+                        delayText = this.homey.__("atarming.delayText")
                     }   
                     if ( sensorType == 'motion' ) {
-                        this.alertSensorActiveAtArming(value, nu, sensorType, Homey.__("atarming.warningMotion") + sensorStateReadable + Homey.__("atarming.on") + device.name + delayText)
+                        this.alertSensorActiveAtArming(value, nu, sensorType, this.homey.__("atarming.warningMotion") + sensorStateReadable + this.homey.__("atarming.on") + device.name + delayText)
                     } else if ( sensorType == 'contact' ) {
-                        this.alertSensorActiveAtArming(value, nu, sensorType, Homey.__("atarming.warningContact") + device.name + Homey.__("atarming.is") + sensorStateReadable + delayText) 
+                        this.alertSensorActiveAtArming(value, nu, sensorType, this.homey.__("atarming.warningContact") + device.name + this.homey.__("atarming.is") + sensorStateReadable + delayText) 
                     }
                 }
             }
@@ -881,12 +1137,12 @@ class Heimdall extends Homey.App {
     alertSensorActiveAtArming( value, nu, sensorType, warningText ) {
         // write log
         let color = 'm' + value.substring(0,1) + '-'
-        let logLine = color + nu + readableMode(value) + " || Heimdall || " + warningText
+        let logLine = color + nu + this.readableMode(value) + " || Heimdall || " + warningText
         this.writeLog(logLine)
         // activate triggercard
         var tokens = { 'warning': warningText };
-    
-        triggerSensorActiveAtArming.trigger(tokens)
+        //triggerSensorActiveAtArming.trigger(tokens)
+        this.homey.flow.getTriggerCard('sensorActiveAtArming').trigger(tokens)
             .catch(this.error)
             .then()
 
@@ -920,13 +1176,13 @@ class Heimdall extends Homey.App {
         let sensorType
         if ( 'alarm_motion' in device.capabilitiesObj ) {
             sensorState = device.capabilitiesObj.alarm_motion.value
-            sensorStateReadable = readableState(sensorState, 'motion')
+            sensorStateReadable =this.readableState(sensorState, 'motion')
             sensorType = 'Motion'
             this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
         }
         if ( 'alarm_contact' in device.capabilitiesObj ) {
             sensorState = device.capabilitiesObj.alarm_contact.value
-            sensorStateReadable = readableState(sensorState, 'contact')
+            sensorStateReadable =this.readableState(sensorState, 'contact')
             sensorType = 'Contact'
             this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
         };
@@ -940,7 +1196,8 @@ class Heimdall extends Homey.App {
     // - Called from checkAllDeviceState(device)
     async alertSensorActive( device, sensorType, sensorstateReadable ) {
         var tokens = { 'Zone': device.zoneName, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
-        triggerSensorActive.trigger(tokens)
+        //triggerSensorActive.trigger(tokens)
+        this.homey.flow.getTriggerCard('sensorActiveAtSensorCheck').trigger(tokens)
             .catch(this.error)
             .then()
     }
@@ -963,8 +1220,8 @@ class Heimdall extends Homey.App {
             devicesNotReady.push(device.name)
             // And log this
             this.log("Device no longer ready:     " + device.name)
-            let nu = getDateTime();
-            let logLine = "al " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.warning")
+            let nu =this.getDateTime();
+            let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.warning")
             this.writeLog(logLine)
             return true
         } else {
@@ -980,8 +1237,8 @@ class Heimdall extends Homey.App {
                     devicesNotReadyAtStart = devicesNotReadyAtStart.splice(deviceNotReady,1)
                     // And log it
                     this.log("Device now ready:           " + device.name)
-                    let nu = getDateTime();
-                    let logLine = "ao " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.ready")
+                    let nu =this.getDateTime();
+                    let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.ready")
                     this.writeLog(logLine)
                     return false
                 }
@@ -992,8 +1249,8 @@ class Heimdall extends Homey.App {
                     // The device has been ready, was unready and is ready again
                     // Log this
                     this.log("Device became ready again:  " + device.name)
-                    let nu = getDateTime();
-                    let logLine = "ao " + nu + readableMode(surveillance) + " || " + Homey.__("devicecheck.source") + " || " + device.name + Homey.__("devicecheck.readyagain")
+                    let nu =this.getDateTime();
+                    let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.readyagain")
                     this.writeLog(logLine)
                     // Remove the device from deviceNotReady list
                     let x = devicesNotReady.splice( deviceReady, 1 )
@@ -1012,54 +1269,64 @@ class Heimdall extends Homey.App {
     // - Called from ttAlarmCountdown(delay,device,sensorStateReadable) when delayd
     async activateAlarm(device,sensorState,nu,source) {
         if ( nu == "" ) { 
-            nu = getDateTime()
+            nu =this.getDateTime()
         }
         let logLine = ""
         alarm = true
         this.log("Alarm status:               activated")
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus')
+        surveillance = this.homey.settings.get('surveillanceStatus')
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
             // Surveillance mode is active
             // let zone = await this.getZone(device.zone)
             if ( source == "Heimdall") {
                 // let zone = await this.getZone(device.zone)
                 var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zoneName };
-                logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivated") + device.name + ": " + sensorState;
+                logLine = "al " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmactivated") + device.name + ": " + sensorState;
             } else {
                 var tokens= {'Reason': 'Flowcard' , 'Zone': "" };
-                logLine = "al " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmactivatedflowcard");
+                logLine = "al " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmactivatedflowcard");
             }
-            triggerAlarmActivated.trigger(tokens)
+            //triggerAlarmActivated.trigger(tokens)
+            this.homey.flow.getTriggerCard('AlarmActivated').trigger(tokens)
                 .catch(this.error)
                 .then()
 
             if ( heimdallSettings.notificationAlarmChange ) {
-                let message = '**'+device.name+'** in '+ device.zoneName + Homey.__("history.triggerdalarm")
+                let message = '**'+device.name+'** in '+ device.zoneName + this.homey.__("history.triggerdalarm")
                 this.writeNotification(message)
             }
 
-            this.speak("alarmChange", Homey.__("speech.alarmactivated"))
+            this.speak("alarmChange", this.homey.__("speech.alarmactivated"))
             // save alarm status
-            Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
-                if ( err ) return Homey.alert( err );
+            /*
+            this.homey.settings.set('alarmStatus', alarm, function( err ){
+               if ( err ) return this.homey.alert( err );
             });
+            */
+            this.homey.settings.set('alarmStatus', alarm)
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined ) {
-                aModeDevice.setCapabilityValue('alarm_heimdall', true).catch(() => {})
-                aModeDevice.setCapabilityValue('alarm_generic', true).catch(() => {})
+// Werkt niet
+                console.log(aModeDevice)
+                //aModeDevice.setCapabilityValue('alarm_heimdall', true)//.catch(() => {})
+                aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
-                sModeDevice.setCapabilityValue('alarm_heimdall', true).catch(() => {})
-                sModeDevice.setCapabilityValue('alarm_generic', true).catch(() => {})
-            } 
+// Werkt niet
+                sModeDevice.setCapabilityValue('alarm_heimdall', true)//.catch(() => {})
+                sModeDevice.setCapabilityValue('alarm_generic', true)//.catch(() => {})
+            }
         }
         else {
             // Surveillance mode is not active
-            logLine = "ao " + nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmnotactivated")
+            logLine = "ao " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmnotactivated")
             alarm = false;
-            Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
-                if ( err ) return Homey.alert( err );
+            /*
+            this.homey.settings.set('alarmStatus', alarm, function( err ){
+                if ( err ) return this.homey.alert( err );
             });
+            */
+            this.homey.settings.set('alarmStatus', alarm)
         }  
         // write information to log
         this.writeLog(logLine)
@@ -1076,14 +1343,17 @@ class Heimdall extends Homey.App {
     // - Called from onCapabilityBoolean( value, opts, callback ) in Alarm Off Switch
     deactivateAlarm(value, source) {
         if ( alarm === true || source == "Flowcard" ) {
-            let nu = getDateTime();
+            let nu =this.getDateTime();
             alarm = false;
             this.log("Alarm status:               deactivated");
-            surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-            Homey.ManagerSettings.set('alarmStatus', alarm, function( err ){
-                if ( err ) return Homey.alert( err );
+            surveillance = this.homey.settings.get('surveillanceStatus');
+            /*
+            this.homey.settings.set('alarmStatus', alarm, function( err ){
+               if ( err ) return this.homey.alert( err );
             });
-            this.speak("alarmChange", Homey.__("speech.alarmdeactivated"));
+            */
+            this.homey.settings.set('alarmStatus', alarm);
+            this.speak("alarmChange", this.homey.__("speech.alarmdeactivated"));
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(() => {})
@@ -1094,14 +1364,15 @@ class Heimdall extends Homey.App {
                 sModeDevice.setCapabilityValue('alarm_generic', false).catch(() => {})
             }
             var tokens = { 'Source': source };
-            triggerAlarmDeactivated.trigger(tokens)
+            //triggerAlarmDeactivated.trigger(tokens)
+            this.homey.flow.getTriggerCard('AlarmDeactivated').trigger(tokens)
                 .catch(this.error)
                 .then() 
 
-            let logLine = "ao "+ nu + readableMode(surveillance) + " || " + source + " || " + Homey.__("history.alarmdeactivated") + source;
+            let logLine = "ao "+ nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmdeactivated") + source;
             this.writeLog(logLine);
             if ( heimdallSettings.notificationAlarmChange ) {
-                let message = Homey.__("history.alarmdeactivated") + '**' + source + '**';
+                let message = this.homey.__("history.alarmdeactivated") + '**' + source + '**';
                 this.writeNotification(message);
             }
             // Generate Homey wide event for setting the Alarm Status
@@ -1112,7 +1383,7 @@ class Heimdall extends Homey.App {
     // Write information to history and cleanup 20% when history above 2000 lines
     // - Called from multiple functions
     async writeLog(logLine) {
-        let savedHistory = Homey.ManagerSettings.get('myLog');
+        let savedHistory = this.homey.settings.get('myLog');
         if ( savedHistory != undefined ) { 
             // cleanup history
             let lineCount = savedHistory.split(/\r\n|\r|\n/).length;
@@ -1125,7 +1396,7 @@ class Heimdall extends Homey.App {
             // end cleanup
             logLine = logLine+"\n"+savedHistory;
         }
-        Homey.ManagerSettings.set('myLog', logLine );
+        this.homey.settings.set('myLog', logLine );
         logLine = "";
     }
 
@@ -1133,44 +1404,47 @@ class Heimdall extends Homey.App {
     // - Called from multiple functions
     // - Called from actionInputNotification Flow Card
     async writeNotification(message) {
-        var notification = new Homey.Notification({ excerpt: message });
-        notification.register().catch(() => {});
+        //SDKv2
+        //var notification = new this.homey.Notification({ excerpt: message });
+        //notification.register().catch(() => {});
+        //SDKv3
+        this.homey.notifications.createNotification({ excerpt: message })
     }
 
     // Let's Homey speak when spoken text is enabled.
     // - Called from multiple functions
     async speak(type, text) {
         if ( type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
          }
         if ( type == "alarmCountdown" && heimdallSettings.spokenAlarmCountdown ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
         if ( type == "armCountdown" && heimdallSettings.spokenArmCountdown ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
         if ( type == "alarmChange" && heimdallSettings.spokenAlarmChange ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
         if ( type == "motionTrue" && heimdallSettings.spokenMotionTrue ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
         if ( type == "doorOpen" && heimdallSettings.spokenDoorOpen ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
         if ( type == "tamper" && heimdallSettings.spokenTamperTrue ) {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }    
         if ( type == "sensorActive") {
-            // this.log('Say:                        ' + text)
-            Homey.ManagerSpeechOutput.say(text.toString())
+            this.log('Say:                        ' + text)
+            this.homey.ManagerSpeechOutput.say(text.toString())
         }
     }
 
@@ -1181,13 +1455,14 @@ class Heimdall extends Homey.App {
                 delay = 10;
                 changeTta = false
                 var prevLogLine = logLine      
-                logLine = "st " + getDateTime() + readableMode(surveillance) + " || Heimdall || " + Homey.__("history.smodedelaychanged")
+                logLine = "st " +this.getDateTime() + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.smodedelaychanged")
                 this.writeLog(logLine)
                 logLine = prevLogLine
             }
             var tokens = { 'ArmedTimer': delay * 1};
-            triggerTimeTillArmedChanged.trigger(tokens)
-                .catch(this.error)
+            //triggerTimeTillArmedChanged.trigger(tokens)
+            this.homey.flow.getTriggerCard('TimeTillArmed').trigger(tokens)
+                .catch(this.error) 
                 .then()
 
             // Generate Homey wide event advertising the delay left
@@ -1202,8 +1477,11 @@ class Heimdall extends Homey.App {
                 this.speak("armCountdown", delay)
             }
             if ( delay > 0 ) {
-                setTimeout(function(){
-                    Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
+                this.homey.setTimeout(() => {
+                    //SDKv2
+                    //Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
+                    //SDKv3
+                    this.ttArmedCountdown(delay-1, color, value, logLine)
                 }, 1000);
             }
             else if ( delay == 0 ) {
@@ -1230,10 +1508,11 @@ class Heimdall extends Homey.App {
             return
         }
         this.log('ttAlarmCountdown:       ' + delay)
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
+        surveillance = this.homey.settings.get('surveillanceStatus');
         if ( surveillance != 'disarmed' ) {
             var tokens = { 'AlarmTimer': delay * 1};
-            triggerTimeTillAlarmChanged.trigger(tokens)
+            //triggerTimeTillAlarmChanged.trigger(tokens)
+            this.homey.flow.getTriggerCard('TimeTillAlarm').trigger(tokens)
                 .catch(this.error)
                 .then()
                 
@@ -1249,8 +1528,8 @@ class Heimdall extends Homey.App {
                 this.speak("alarmCountdown", delay)
             }
             if ( delay > 0 ) {
-                setTimeout(function(){
-                    Homey.app.ttAlarmCountdown(delay-1,device,sensorStateReadable)
+                this.homey.setTimeout(() => {
+                    this.ttAlarmCountdown(delay-1,device,sensorStateReadable)
                 }, 1000);
             } 
             else if ( delay == 0 ) {
@@ -1272,7 +1551,10 @@ class Heimdall extends Homey.App {
 
     systemEvent(event, details)
     {
-        Homey.ManagerApi.realtime(event, details)
+        //SDKv2
+        //this.homey.ManagerApi.realtime(event, details)
+        //SDKv3
+        this.homey.api.realtime(event, details)
     }
 
     getUserInfo(codeString, userList) {
@@ -1287,547 +1569,281 @@ class Heimdall extends Homey.App {
             return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
         }
     }
-}
-module.exports = Heimdall;
 
-Homey.ManagerSettings.on('set', (variable) => {
-    if ( variable === 'settings' ) {
-        heimdallSettings = Homey.ManagerSettings.get('settings')
-    }
-});
-
-// Flow card functions //////////////////////////////////////////////////////
-// Flow triggers functions
-triggerSurveillanceChanged
-    .register()
-
-triggerSensorActiveAtArming
-    .register()
-
-triggerSensorActive
-    .register()
-
-triggerAlarmActivated
-    .register()
-
-triggerAlarmDeactivated
-    .register()
-
-triggerAlarmDelayActivated
-    .register()
-
-triggerArmDelayActivated
-    .register()
-
-triggerTimeTillAlarmChanged
-    .register()
-
-triggerTimeTillArmedChanged
-    .register() 
-    
-triggerLogLineWritten
-    .register()
-
-triggerSensorTrippedInAlarmstate
-    .register()
-
-triggerNoInfoReceived
-    .register()
-
-//Flow condition functions
-conditionSurveillanceIs
-    .register()
-    .registerRunListener(( args, state ) => {
-        let result = args.surveillance == Homey.ManagerSettings.get('surveillanceStatus') ? true : false
-        return Promise.resolve( result );
-    })
-
-conditionArmingCountdown
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( armCounterRunning );
-    })
-
-conditionAlarmCountdown
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( alarmCounterRunning );
-    })
-
-conditionAlarmActive
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( alarm );
-    })
-
-conditionIsDelayedDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( isDelayed(args.device) );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve( Homey.app.getUsableDevices() )
-    });
-
-conditionIsLoggedDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( isLogged(args.device) );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve( Homey.app.getUsableDevices() )
-});
-
-conditionIsFullDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( isMonitoredFull(args.device) );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve( Homey.app.getUsableDevices() )
-});
-
-conditionIsPartialDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        return Promise.resolve( isMonitoredPartial(args.device) );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve( Homey.app.getUsableDevices() )
-});
-
-//Flow actions functions
-actionInputHistory
-    .register()
-    .registerRunListener(( args, state ) => {
-        let nu = getDateTime();
-        surveillance = Homey.ManagerSettings.get('surveillanceStatus');
-        let logLine = "lh " + nu + readableMode(surveillance) + " || Flowcard || " + args.log;
-        Homey.app.writeLog(logLine)
-        return Promise.resolve( true );
-    })
-
-actionClearHistory
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.ManagerSettings.set('myLog', '' );
-        return Promise.resolve( true );
-    })
-
-actionActivateAlarm
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.app.activateAlarm("",  "", "", "Flowcard")
-        return Promise.resolve( true );
-    })
-
-actionDeactivateAlarm
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.app.deactivateAlarm(true, "Flowcard")
-        return Promise.resolve( true );
-    })
-
-actionCheckLastCommunication
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.app.checkDevicesLastCom(Homey.ManagerSettings.get('surveillanceStatus'))
-        return Promise.resolve( true );
-    })
-
-actionAllDevicesStateCheck
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.app.checkAllDevicesState()
-        return Promise.resolve( true );
-    })
-
-actionInputNotification
-    .register()
-    .registerRunListener(( args, state ) => {
-        Homey.app.writeNotification(args.message)
-        return Promise.resolve( true );
-    })
-
-actionAddDelayToDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        addDelayTo(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionRemoveDelayFromDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        removeDelayFrom(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionAddLoggingToDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        addLoggingTo(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionRemoveLoggingFromDevice
-    .register()
-    .registerRunListener(( args, state ) => {
-        removeLoggingFrom(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionAddDeviceToPartial
-    .register()
-    .registerRunListener(( args, state ) => {
-        addMonitorPartialTo(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionRemoveDeviceFromPartial
-    .register()
-    .registerRunListener(( args, state ) => {
-        removeMonitorPartialFrom(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionAddDeviceToFull
-    .register()
-    .registerRunListener(( args, state ) => {
-        addMonitorFullTo(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-actionRemoveDeviceFromFull
-    .register()
-    .registerRunListener(( args, state ) => {
-        removeMonitorFullFrom(args.device)
-        return Promise.resolve( true );
-    })
-    .getArgument('device')
-    .registerAutocompleteListener((query, args) => {
-        return Promise.resolve(
-            Homey.app.getUsableDevices()
-        )
-    })
-
-// End Flow card functions //////////////////////////////////////////////////
-
-// Sensor settings functions ////////////////////////////////////////////////
-
-// Should this device be logged
-function isLogged(device) {
-    let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
-    let i;
-    if ( devicesLogged !== null ) {
-        for (i = 0; i < devicesLogged.length; i++) {
-            if ( devicesLogged[i] && devicesLogged[i].id == device.id ) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// add Logging to Device
-function addLoggingTo(device) {
-    if ( !isLogged(device) ) {
-        let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
-        if ( devicesLogged == null ) { devicesLogged = [] }
-        devicesLogged.push(device)
-        Homey.ManagerSettings.set('loggedDevices',devicesLogged)
-        removeMonitorFullFrom(device)
-        removeMonitorPartialFrom(device)
-        removeDelayFrom(device)
-    }
-}
-
-// Remove Logging from Device
-function removeLoggingFrom(device) {
-    if ( isLogged(device) ) {
-        let devicesLogged = Homey.ManagerSettings.get('loggedDevices')
+    // Should this device be logged
+    isLogged(device) {
+        let devicesLogged = this.homey.settings.get('loggedDevices')
+        let i;
         if ( devicesLogged !== null ) {
-            let i;
             for (i = 0; i < devicesLogged.length; i++) {
                 if ( devicesLogged[i] && devicesLogged[i].id == device.id ) {
-                    devicesLogged.splice(i, 1);
+                    return true;
                 }
             }
-            Homey.ManagerSettings.set('loggedDevices',devicesLogged)
+        }
+        return false;
+    }
+
+    // add Logging to Device
+    addLoggingTo(device) {
+        if ( !this.isLogged(device) ) {
+            let devicesLogged = this.homey.settings.get('loggedDevices')
+            if ( devicesLogged == null ) { devicesLogged = [] }
+            devicesLogged.push(device)
+            this.homey.settings.set('loggedDevices',devicesLogged)
+            removeMonitorFullFrom(device)
+            removeMonitorPartialFrom(device)
+            removeDelayFrom(device)
         }
     }
-}
 
-// Should this device be monitored
-function isMonitoredFull(device) {
-    let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
-    let i;
-    if ( devicesMonitoredFull !== null ) {
-        for (i = 0; i < devicesMonitoredFull.length; i++) {
-            if ( devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id ) {
-                return true;
+    // Remove Logging from Device
+    removeLoggingFrom(device) {
+        if ( this.isLogged(device) ) {
+            let devicesLogged = this.homey.settings.get('loggedDevices')
+            if ( devicesLogged !== null ) {
+                let i;
+                for (i = 0; i < devicesLogged.length; i++) {
+                    if ( devicesLogged[i] && devicesLogged[i].id == device.id ) {
+                        devicesLogged.splice(i, 1);
+                    }
+                }
+                this.homey.settings.set('loggedDevices',devicesLogged)
             }
         }
     }
-    return false;
-}
 
-// add Monitor Full to Device
-async function addMonitorFullTo(device) {
-    if ( !isMonitoredFull(device) ) {
-        let devicesMonitoredFull = await Homey.ManagerSettings.get('monitoredFullDevices')
-        if ( devicesMonitoredFull == null ) { devicesMonitoredFull = [] }
-        devicesMonitoredFull.push(device)
-        Homey.ManagerSettings.set('monitoredFullDevices',devicesMonitoredFull)
-        if ( isLogged(device) ) {
-            removeLoggingFrom(device)
-        }
-    }
-}
-
-// remove Monitor Full from Device
-function removeMonitorFullFrom(device) {
-    if ( isMonitoredFull(device) ) {
-        let devicesMonitoredFull = Homey.ManagerSettings.get('monitoredFullDevices')
+    // Should this device be monitored
+    isMonitoredFull(device) {
+        let devicesMonitoredFull = this.homey.settings.get('monitoredFullDevices')
+        let i;
         if ( devicesMonitoredFull !== null ) {
-            let i;
             for (i = 0; i < devicesMonitoredFull.length; i++) {
                 if ( devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id ) {
-                    devicesMonitoredFull.splice(i, 1);
+                    return true;
                 }
             }
-            Homey.ManagerSettings.set('monitoredFullDevices',devicesMonitoredFull)
         }
-        if ( !isMonitoredPartial(device) ) {
-            removeDelayFrom(device)
-        }
-    } 
-}
-
-// Should this device be monitored
-function isMonitoredPartial(device) {
-    let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
-    let i;
-    if ( devicesMonitoredPartial !== null ) {
-        for (i = 0; i < devicesMonitoredPartial.length; i++) {
-            if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
-                return true;
-            }
-        }
+        return false;
     }
-    return false;
-}
 
-// add Monitor Partial to Device
-async function addMonitorPartialTo(device) {
-    if ( !isMonitoredPartial(device) ) {
-        let devicesMonitoredPartial = await Homey.ManagerSettings.get('monitoredPartialDevices')
-        if ( devicesMonitoredPartial == null ) { devicesMonitoredPartial = [] }
-        devicesMonitoredPartial.push(device)
-        Homey.ManagerSettings.set('monitoredPartialDevices',devicesMonitoredPartial)
-        if ( isLogged(device) ) {
-            removeLoggingFrom(device)
-        }
-    }
-}
-
-// remove Monitor Partial from Device
-function removeMonitorPartialFrom(device) {
-    if ( isMonitoredPartial(device) ) {
-        let devicesMonitoredPartial = Homey.ManagerSettings.get('monitoredPartialDevices')
-        if ( devicesMonitoredPartial !== null) {
-            let i;
-            for (i = 0; i < devicesMonitoredPartial.length; i++) {
-                if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
-                    devicesMonitoredPartial.splice(i, 1);
-                }
-            }
-            Homey.ManagerSettings.set('monitoredPartialDevices',devicesMonitoredPartial)
-        }
-        if ( !isMonitoredFull(device) ) {
-            removeDelayFrom(device)
-        }
-
-    } 
-}
-
-// Should this trigger be delayed
-function isDelayed(device) {
-    let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-    let i;
-    if ( devicesDelayed !== null) {
-        for (i = 0; i < devicesDelayed.length; i++) {
-            if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// add Delay to Device
-async function addDelayTo(device) {
-    if ( !isDelayed(device) ) {
-        let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-        if ( devicesDelayed == null ) { devicesDelayed = [] }
-        devicesDelayed.push(device)
-        Homey.ManagerSettings.set('delayedDevices',devicesDelayed)
-        if ( !isMonitoredFull(device) && !isMonitoredPartial(device) ) {
-            await addMonitorFullTo(device)
-            if ( isLogged(device) ) {
+    // add Monitor Full to Device
+    async addMonitorFullTo(device) {
+        if ( !this.isMonitoredFull(device) ) {
+            let devicesMonitoredFull = await this.homey.settings.get('monitoredFullDevices')
+            if ( devicesMonitoredFull == null ) { devicesMonitoredFull = [] }
+            devicesMonitoredFull.push(device)
+            this.homey.settings.set('monitoredFullDevices',devicesMonitoredFull)
+            if ( this.isLogged(device) ) {
                 removeLoggingFrom(device)
             }
         }
-    } 
-}
+    }
 
-// remove Delay from device
-function removeDelayFrom(device) {
-    if ( isDelayed(device) ) {
-        let devicesDelayed = Homey.ManagerSettings.get('delayedDevices')
-        if ( devicesDelayed !== null ) {
-            let i;
-            for (i = 0; i < devicesDelayed.length; i++) {
-                if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
-                    devicesDelayed.splice(i, 1);
+    // remove Monitor Full from Device
+    removeMonitorFullFrom(device) {
+        if ( this.isMonitoredFull(device) ) {
+            let devicesMonitoredFull = this.homey.settings.get('monitoredFullDevices')
+            if ( devicesMonitoredFull !== null ) {
+                let i;
+                for (i = 0; i < devicesMonitoredFull.length; i++) {
+                    if ( devicesMonitoredFull[i] && devicesMonitoredFull[i].id == device.id ) {
+                        devicesMonitoredFull.splice(i, 1);
+                    }
+                }
+                this.homey.settings.set('monitoredFullDevices',devicesMonitoredFull)
+            }
+            if ( !this.isMonitoredPartial(device) ) {
+                removeDelayFrom(device)
+            }
+        } 
+    }
+
+    // Should this device be monitored
+    isMonitoredPartial(device) {
+        let devicesMonitoredPartial = this.homey.settings.get('monitoredPartialDevices')
+        let i;
+        if ( devicesMonitoredPartial !== null ) {
+            for (i = 0; i < devicesMonitoredPartial.length; i++) {
+                if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
+                    return true;
                 }
             }
-            Homey.ManagerSettings.set('delayedDevices',devicesDelayed)
+        }
+        return false;
+    }
+
+    // add Monitor Partial to Device
+    async addMonitorPartialTo(device) {
+        if ( !this.isMonitoredPartial(device) ) {
+            let devicesMonitoredPartial = await this.homey.settings.get('monitoredPartialDevices')
+            if ( devicesMonitoredPartial == null ) { devicesMonitoredPartial = [] }
+            devicesMonitoredPartial.push(device)
+            this.homey.settings.set('monitoredPartialDevices',devicesMonitoredPartial)
+            if ( this.isLogged(device) ) {
+                removeLoggingFrom(device)
+            }
         }
     }
-}
 
-// End Sensor settings functions ////////////////////////////////////////////
+    // remove Monitor Partial from Device
+    removeMonitorPartialFrom(device) {
+        if ( this.isMonitoredPartial(device) ) {
+            let devicesMonitoredPartial = this.homey.settings.get('monitoredPartialDevices')
+            if ( devicesMonitoredPartial !== null) {
+                let i;
+                for (i = 0; i < devicesMonitoredPartial.length; i++) {
+                    if ( devicesMonitoredPartial[i] && devicesMonitoredPartial[i].id == device.id ) {
+                        devicesMonitoredPartial.splice(i, 1);
+                    }
+                }
+                this.homey.settings.set('monitoredPartialDevices',devicesMonitoredPartial)
+            }
+            if ( !this.isMonitoredFull(device) ) {
+                removeDelayFrom(device)
+            }
+
+        } 
+    }
+
+    // Should this trigger be delayed
+    isDelayed(device) {
+        let devicesDelayed = this.homey.settings.get('delayedDevices')
+        let i;
+        if ( devicesDelayed !== null) {
+            for (i = 0; i < devicesDelayed.length; i++) {
+                if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // add Delay to Device
+    async addDelayTo(device) {
+        if ( !this.isDelayed(device) ) {
+            let devicesDelayed = this.homey.settings.get('delayedDevices')
+            if ( devicesDelayed == null ) { devicesDelayed = [] }
+            devicesDelayed.push(device)
+            this.homey.settings.set('delayedDevices',devicesDelayed)
+            if ( !this.isMonitoredFull(device) && !this.isMonitoredPartial(device) ) {
+                await addMonitorFullTo(device)
+                if ( this.isLogged(device) ) {
+                    removeLoggingFrom(device)
+                }
+            }
+        } 
+    }
+
+    // remove Delay from device
+    removeDelayFrom(device) {
+        if ( this.isDelayed(device) ) {
+            let devicesDelayed = this.homey.settings.get('delayedDevices')
+            if ( devicesDelayed !== null ) {
+                let i;
+                for (i = 0; i < devicesDelayed.length; i++) {
+                    if ( devicesDelayed[i] && devicesDelayed[i].id == device.id ) {
+                        devicesDelayed.splice(i, 1);
+                    }
+                }
+                this.homey.settings.set('delayedDevices',devicesDelayed)
+            }
+        }
+    }
+
+    // Returns a Surveillance Mode in readable format in the users language
+    // - Called from multiple functions
+    readableMode(mode) {
+        if ( mode == 'armed' ) {
+            return this.homey.__("modes.armed")
+        }
+        else if ( mode == 'partially_armed' ) {
+            return this.homey.__("modes.partiallyarmed")
+        } 
+        else if ( mode == 'disarmed' ) {
+            return this.homey.__("modes.disarmed")
+        }
+        else {
+            return 'unknown'
+        }
+    }
+
+    // Returns a devicestate in readable format in the users language
+    // - Called from multiple functions
+    readableState(sensorState, type) {
+        if ( type == 'motion' ) {
+            if ( sensorState ) {
+                return this.homey.__("states.motion")
+                //return 'Motion detected'
+            } else {
+                return this.homey.__("states.nomotion")
+                //return 'No motion detected'
+            }
+        } else if ( type == 'contact' ) {
+            if ( sensorState ) {
+                return this.homey.__("states.open")
+                //return 'Open'
+            } else {
+                return this.homey.__("states.closed")
+                //return 'Closed'
+            }
+        } else if ( type == 'vibration' ) {
+            if ( sensorState ) {
+                return this.homey.__("states.vibration")
+                //return 'Vibration detected'
+            } else {
+                return this.homey.__("states.novibration")
+                //return 'No Vibration detected'
+            }
+        } else if ( type == 'tamper' ) {
+            if ( sensorState ) {
+                return this.homey.__("states.tamper")
+                //return 'Tamper detected'
+            } else {
+                return this.homey.__("states.notamper")
+                //return 'No tamper detected'
+            }
+        }
+        else {
+            return 'unknown'
+        }
+    }
+
+    // Returns a date timestring including milliseconds to be used in loglines
+    // - Called from multiple functions
+    getDateTime() {
+        // SDKv2
+        // let date = new Date();
+        // SDKv3
+        let timezone = this.homey.clock.getTimezone()
+        //let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
+        let date = new Date(new Date().toLocaleString(this.homey.i18n.getLanguage(), {timeZone: timezone}));
+        
+        let hour = date.getHours();
+        hour = (hour < 10 ? "0" : "") + hour;
+        let min  = date.getMinutes();
+        min = (min < 10 ? "0" : "") + min;
+        let sec  = date.getSeconds();
+        sec = (sec < 10 ? "0" : "") + sec;
+        let msec = ("00" + date.getMilliseconds()).slice(-3)
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        month = (month < 10 ? "0" : "") + month;
+        let day  = date.getDate();
+        day = (day < 10 ? "0" : "") + day;
+        return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
+    }
+
+}
+module.exports = Heimdall;
 
 // Checks if the provided APIKEY is valid
 // - Called from processKeypadCommands(post, type)
 function checkAPIKEY(APIKEY) {
-    if ( APIKEY == Homey.env.APIKEY1 || APIKEY == Homey.env.APIKEY2 || APIKEY == Homey.env.APIKEY3 || APIKEY == Homey.env.APIKEY4 || APIKEY == Homey.env.APIKEY5 ) {
+    if ( APIKEY == this.homey.env.APIKEY1 || APIKEY == this.homey.env.APIKEY2 || APIKEY == this.homey.env.APIKEY3 || APIKEY == this.homey.env.APIKEY4 || APIKEY == this.homey.env.APIKEY5 ) {
         return true
     } else {
         return false
     }
-}
-
-// Returns a devicestate in readable format in the users language
-// - Called from multiple functions
-function readableState(sensorState, type) {
-    if ( type == 'motion' ) {
-        if ( sensorState ) {
-            return Homey.__("states.motion")
-            //return 'Motion detected'
-        } else {
-            return Homey.__("states.nomotion")
-            //return 'No motion detected'
-        }
-    } else if ( type == 'contact' ) {
-        if ( sensorState ) {
-            return Homey.__("states.open")
-            //return 'Open'
-        } else {
-            return Homey.__("states.closed")
-            //return 'Closed'
-        }
-    } else if ( type == 'vibration' ) {
-        if ( sensorState ) {
-            return Homey.__("states.vibration")
-            //return 'Vibration detected'
-        } else {
-            return Homey.__("states.novibration")
-            //return 'No Vibration detected'
-        }
-    } else if ( type == 'tamper' ) {
-        if ( sensorState ) {
-            return Homey.__("states.tamper")
-            //return 'Tamper detected'
-        } else {
-            return Homey.__("states.notamper")
-            //return 'No tamper detected'
-        }
-    }
-    else {
-        return 'unknown'
-    }
-}
-
-// Returns a Surveillance Mode in readable format in the users language
-// - Called from multiple functions
-function readableMode(mode) {
-    if ( mode == 'armed' ) {
-        return Homey.__("modes.armed")
-    }
-    else if ( mode == 'partially_armed' ) {
-        return Homey.__("modes.partiallyarmed")
-    } 
-    else if ( mode == 'disarmed' ) {
-        return Homey.__("modes.disarmed")
-    }
-    else {
-        return 'unknown'
-    }
-}
-
-// Returns a date timestring including milliseconds to be used in loglines
-// - Called from multiple functions
-function getDateTime() {
-    let date = new Date();
-    let hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-    let min  = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
-    let sec  = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
-    let msec = ("00" + date.getMilliseconds()).slice(-3)
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-    let day  = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-    return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
 }
