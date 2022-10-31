@@ -4,9 +4,6 @@ const Homey = require('homey');
 //const { HomeyAPI  } = require('athom-api')
 const { HomeyAPIApp } = require('homey-api');
 
-// SDK3 met webapi: https://github.com/frodeheg/no.sparegris
-// https://athombv.github.io/node-homey-api/
-
 const delay = time => new Promise(res=>setTimeout(res,time));
 
 var surveillance;
