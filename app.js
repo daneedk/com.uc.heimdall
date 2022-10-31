@@ -1401,35 +1401,35 @@ class Heimdall extends Homey.App {
     async speak(type, text) {
         if ( type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
          }
         if ( type == "alarmCountdown" && heimdallSettings.spokenAlarmCountdown ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
         if ( type == "armCountdown" && heimdallSettings.spokenArmCountdown ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
         if ( type == "alarmChange" && heimdallSettings.spokenAlarmChange ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
         if ( type == "motionTrue" && heimdallSettings.spokenMotionTrue ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
         if ( type == "doorOpen" && heimdallSettings.spokenDoorOpen ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
         if ( type == "tamper" && heimdallSettings.spokenTamperTrue ) {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }    
         if ( type == "sensorActive") {
             this.log('Say:                        ' + text)
-            this.homey.ManagerSpeechOutput.say(text.toString())
+            this.homey.speechOutput.say(text.toString())
         }
     }
 
