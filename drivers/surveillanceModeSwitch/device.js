@@ -68,7 +68,7 @@ class Heimdall extends Homey.Device {
         });
         */
         //SDKv3
-        this.homey.app.setSurveillanceMode(newState, Homey.__("devices.flowcard"))
+        this.homey.app.setSurveillanceMode(newState, this.homey.__("devices.flowcard"))
     }
 
     // this method is called when the Device has requested a state change (turned on or off)

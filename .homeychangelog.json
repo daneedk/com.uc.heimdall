@@ -254,6 +254,17 @@
     "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
     "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
     "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.2": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
   }
 
 }
