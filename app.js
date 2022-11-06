@@ -1394,6 +1394,8 @@ class Heimdall extends Homey.App {
         //notification.register().catch(() => {});
         //SDKv3
         this.homey.notifications.createNotification({ excerpt: message })
+            .then(() => {})
+            .catch(() => {})
     }
 
     // Let's Homey speak when spoken text is enabled.
