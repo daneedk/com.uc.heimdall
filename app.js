@@ -990,10 +990,15 @@ class Heimdall extends Homey.App {
     // - Called from setSurveillanceMode(value, source) when setting the Surveillance Mode to (Partially) Armed
     // - Called from actionCheckLastCommunication flow action card
     async checkDevicesLastCom(value) {
-        let allDevices = await this.getDevices()
-        for (let device in allDevices) {
-            this.checkDeviceLastCom(allDevices[device], value)
-        };
+        try {
+            let allDevices = await this.getDevices()
+            
+            for (let device in allDevices) {
+                this.checkDeviceLastCom(allDevices[device], value)
+            };
+        } catch(err) {
+            this.log("checkDevicesLastCom:        ", err)
+        }
     }
 
     // Check the last communication per device 
@@ -1058,10 +1063,14 @@ class Heimdall extends Homey.App {
     //   the Surveillance Mode to (Partially) Armed or Delayed to (Partially) Armed and 
     //   heimdallSettings.checkBeforeCountdown is false
     async checkDevicesState(value, nu) {
-        let allDevices = await this.getDevices()
-        for (let device in allDevices) {
-            this.checkDeviceState(allDevices[device], value, nu)
-        };
+        try {
+            let allDevices = await this.getDevices()
+            for (let device in allDevices) {
+                this.checkDeviceState(allDevices[device], value, nu)
+            };
+        } catch(err) {
+            this.log("checkDevicesLastCom:        ", err)
+        }
     }
     
     // Check the state per device when included in the chosen Surveillance Mode 
