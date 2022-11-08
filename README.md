@@ -32,7 +32,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Need Help, Have questions or remarks?
 
-Please post your questions/remarks on the [Athom community forum](https://community.homey.app/t/134)
+Please post your questions/remarks on the [Homey community forum](https://community.homey.app/t/134)
 
 An extensive changelog is available [here](https://community.homey.app/t/134/3)
  
