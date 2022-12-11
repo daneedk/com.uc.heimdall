@@ -40,7 +40,7 @@ An extensive changelog is available [here](https://community.homey.app/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.3.0
+## Version 2.3.x
 * SDK3 support and conversion from athom-api to homey-api
 
 

@@ -6,16 +6,13 @@ class Heimdall extends Homey.Driver {
 
     onInit() {
 
-        //SDKv2
-        //new Homey.FlowCardAction('SetSurveillance')
-        //SDKv3
+        // SDK2 new Homey.FlowCardAction('SetSurveillance')
         const SetSurveillance = this.homey.flow.getActionCard('SetSurveillance')
         SetSurveillance
             .registerRunListener(( args, state ) => {
                 let device = args.device;
                 let newState = args.surveillance;
                 // this.log('Actioncard: ' + device.getName() + ' :: ' + newState ) 
-        
                 device.setNewState(newState);
 
                 return Promise.resolve( true );
@@ -36,7 +33,6 @@ class Heimdall extends Homey.Driver {
     }
     */
 
-    //SDKv3
     async onPairListDevices() {
         return (
             [

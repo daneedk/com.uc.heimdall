@@ -1,7 +1,14 @@
 'use strict';
+//   remark
+// // remark
+// * remark
+// ? remark
+// ! remark
+// todo remark
+// SDK2 remark
 
 const Homey = require('homey');
-//const { HomeyAPI  } = require('athom-api')
+// SDK2 const { HomeyAPI  } = require('athom-api')
 const { HomeyAPIApp } = require('homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
@@ -75,7 +82,7 @@ class Heimdall extends Homey.App {
         // Flow conditions
         const conditionSurveillanceIs = this.homey.flow.getConditionCard('SurveillanceIs');
         const conditionArmingCountdown = this.homey.flow.getConditionCard('ArmingCountdown');   
-        const conditionAlarmCountdown = this.homey.flow.getConditionCard('AlarmCountdown');     // Testen
+        const conditionAlarmCountdown = this.homey.flow.getConditionCard('AlarmCountdown');     
         const conditionAlarmActive = this.homey.flow.getConditionCard('AlarmActive');           
         const conditionIsDelayedDevice = this.homey.flow.getConditionCard('IsDelayedDevice');
         const conditionIsLoggedDevice = this.homey.flow.getConditionCard('IsLoggedDevice');
@@ -85,19 +92,19 @@ class Heimdall extends Homey.App {
         // Flow actions
         const actionInputHistory = this.homey.flow.getActionCard('SendInfo');                           
         const actionClearHistory = this.homey.flow.getActionCard('ClearHistory');                       
-        const actionActivateAlarm = this.homey.flow.getActionCard('ActivateAlarm');                     // Testen
+        const actionActivateAlarm = this.homey.flow.getActionCard('ActivateAlarm');                     
         const actionDeactivateAlarm = this.homey.flow.getActionCard('DeactivateAlarm');                 
-        const actionCheckLastCommunication = this.homey.flow.getActionCard('CheckLastCommunication');   // Testen
-        const actionAllDevicesStateCheck = this.homey.flow.getActionCard('DevicesStateCheck');          // Testen
+        const actionCheckLastCommunication = this.homey.flow.getActionCard('CheckLastCommunication');   
+        const actionAllDevicesStateCheck = this.homey.flow.getActionCard('DevicesStateCheck');          
         const actionInputNotification = this.homey.flow.getActionCard('SendNotification');              
-        const actionAddDelayToDevice = this.homey.flow.getActionCard('AddDelayToDevice');               // Testen
-        const actionRemoveDelayFromDevice = this.homey.flow.getActionCard('RemoveDelayFromDevice');     // Testen
-        const actionAddLoggingToDevice = this.homey.flow.getActionCard('AddLoggingToDevice');           // Testen
-        const actionRemoveLoggingFromDevice = this.homey.flow.getActionCard('RemoveLoggingFromDevice'); // Testen
-        const actionAddDeviceToPartial = this.homey.flow.getActionCard('AddDeviceToPartial');           // Testen
-        const actionRemoveDeviceFromPartial = this.homey.flow.getActionCard('RemoveDeviceFromPartial'); // Testen
-        const actionAddDeviceToFull = this.homey.flow.getActionCard('AddDeviceToFull');                 // Testen
-        const actionRemoveDeviceFromFull = this.homey.flow.getActionCard('RemoveDeviceFromFull');       // Testen
+        const actionAddDelayToDevice = this.homey.flow.getActionCard('AddDelayToDevice');               
+        const actionRemoveDelayFromDevice = this.homey.flow.getActionCard('RemoveDelayFromDevice');     
+        const actionAddLoggingToDevice = this.homey.flow.getActionCard('AddLoggingToDevice');           
+        const actionRemoveLoggingFromDevice = this.homey.flow.getActionCard('RemoveLoggingFromDevice'); 
+        const actionAddDeviceToPartial = this.homey.flow.getActionCard('AddDeviceToPartial');           
+        const actionRemoveDeviceFromPartial = this.homey.flow.getActionCard('RemoveDeviceFromPartial'); 
+        const actionAddDeviceToFull = this.homey.flow.getActionCard('AddDeviceToFull');                 
+        const actionRemoveDeviceFromFull = this.homey.flow.getActionCard('RemoveDeviceFromFull');       
                 
         // Flow Condition functions
         conditionSurveillanceIs
@@ -303,9 +310,8 @@ class Heimdall extends Homey.App {
 
         this.log('Reading settings:           start')
 
-        //SDKv2
-        // this.users = Homey.ManagerSettings.get('users');
-        //SDKv3
+        
+        // SDK2 this.users = Homey.ManagerSettings.get('users');
         this.users = this.homey.settings.get('users');
         
         // Uncomment next line to print users to the log when pincode is lost.
@@ -313,13 +319,10 @@ class Heimdall extends Homey.App {
         // Uncomment next line, run the app once and comment the line again to start fresh.
         // this.homey.settings.unset('users');
         if ( this.users === undefined || this.users === null || this.users.length === 0 ) {
-            //SDKv2
-            // Homey.ManagerSettings.set('nousers', true);
-            //SDKv3
+            // SDK2 Homey.ManagerSettings.set('nousers', true);
             this.homey.settings.set('nousers', true)
         }
 
-        //surveillance = Homey.ManagerSettings.get('surveillanceStatus');
         let nu =this.getDateTime();
         surveillance = this.homey.settings.get('surveillanceStatus');
         this.log(' Surveillance Mode:         ' + surveillance);
@@ -329,7 +332,6 @@ class Heimdall extends Homey.App {
             surveillance = 'disarmed'
         };
 
-        //heimdallSettings = Homey.ManagerSettings.get('settings');
         heimdallSettings = this.homey.settings.get('settings');
 		if ( heimdallSettings == (null || undefined) ) {
 			heimdallSettings = defaultSettings
@@ -348,12 +350,9 @@ class Heimdall extends Homey.App {
             heimdallSettings.alarmWhileDelayed = false
         };
 
-        //let language = Homey.ManagerI18n.getLanguage();
         let language = this.homey.i18n.getLanguage();
         this.log(' Language:                  ' + language);
-        //SDKv2
-        // Homey.ManagerSettings.set('language', language, function( err ){
-        //SDKv3
+        // SDK2 Homey.ManagerSettings.set('language', language, function( err ){
         /*
         this.homey.settings.set('language', language, function( err ){
            if ( err ) return this.homey.alert( err );
@@ -565,13 +564,9 @@ class Heimdall extends Homey.App {
     }
 
     async processUsers(modifiedUser, action) {
-        //SDKv2
-        //let pin = modifiedUser.body.pin;
-        //SDKv3
+        // SDK2 let pin = modifiedUser.body.pin;
         let pin = modifiedUser.pin;
-        //SDKv2
-        //modifiedUser = modifiedUser.body.user;
-        //SDKv3
+        // SDK2 modifiedUser = modifiedUser.body.user;
         modifiedUser = modifiedUser.user;  
         this.homey.settings.set('nousers', false);
         let searchId = modifiedUser.id;
@@ -622,17 +617,12 @@ class Heimdall extends Homey.App {
                 let pinCode = post.value;
                 let userObject = this.getUserInfo(pinCode, this.users);
                 if ( !userObject["valid"] ) {
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
-// ***********************************************************************************
                     let shortPinCode = pinCode.substr(0, pinCode.length - 1);
                     userObject = this.getUserInfo(shortPinCode, this.users);
                     if ( userObject["valid"] ) {
                         silentCode = pinCode.substr(pinCode.length - 1, 1);
+                        // todo: write code to handle silentCode
+                        
                     }
                 }
                 if ( userObject["valid"] ) {
@@ -649,11 +639,11 @@ class Heimdall extends Homey.App {
                         // this.setSurveillanceMode(post.action, post.diagnostics.sourceDevice);
                         return "Found user, changed Surveillance Mode to " + post.action
                     } else if ( post.action == "enter" ) {
-                        // TODO
+                        // todo: write code to do something when the enter key is received
 
                         return "Found user, action is Enter"
                     } else if ( post.action == "cancel") {
-                        // TODO
+                        // todo: write code to do something when the cancel key is received
 
                         return "Found user, action is Cancel"
                     } else {
@@ -1398,10 +1388,8 @@ class Heimdall extends Homey.App {
     // - Called from multiple functions
     // - Called from actionInputNotification Flow Card
     async writeNotification(message) {
-        //SDKv2
-        //var notification = new this.homey.Notification({ excerpt: message });
-        //notification.register().catch(() => {});
-        //SDKv3
+        //SDK2 var notification = new this.homey.Notification({ excerpt: message });
+        //SDK2 notification.register().catch(() => {});
         this.homey.notifications.createNotification({ excerpt: message })
             .then(() => {})
             .catch(() => {})
@@ -1474,9 +1462,7 @@ class Heimdall extends Homey.App {
             }
             if ( delay > 0 ) {
                 this.homey.setTimeout(() => {
-                    //SDKv2
-                    //Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
-                    //SDKv3
+                    // SDK2 Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
                     this.ttArmedCountdown(delay-1, color, value, logLine)
                 }, 1000);
             }
@@ -1547,9 +1533,7 @@ class Heimdall extends Homey.App {
 
     systemEvent(event, details)
     {
-        //SDKv2
-        //this.homey.ManagerApi.realtime(event, details)
-        //SDKv3
+        // SDK2 this.homey.ManagerApi.realtime(event, details)
         this.homey.api.realtime(event, details)
     }
 
@@ -1809,11 +1793,9 @@ class Heimdall extends Homey.App {
     // Returns a date timestring including milliseconds to be used in loglines
     // - Called from multiple functions
     getDateTime() {
-        // SDKv2
-        // let date = new Date();
-        // SDKv3
+        // SDK2 let date = new Date();
+
         let timezone = this.homey.clock.getTimezone()
-        //let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         
         let hour = date.getHours();
