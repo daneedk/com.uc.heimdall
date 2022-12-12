@@ -212,7 +212,7 @@ class Heimdall extends Homey.App {
 
         actionAddDelayToDevice
             .registerRunListener(( args, state ) => {
-                addDelayTo(args.device)
+                this.addDelayTo(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -224,7 +224,7 @@ class Heimdall extends Homey.App {
 
         actionRemoveDelayFromDevice
             .registerRunListener(( args, state ) => {
-                removeDelayFrom(args.device)
+                this.removeDelayFrom(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -236,7 +236,7 @@ class Heimdall extends Homey.App {
 
         actionAddLoggingToDevice
             .registerRunListener(( args, state ) => {
-                addLoggingTo(args.device)
+                this.addLoggingTo(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -248,7 +248,7 @@ class Heimdall extends Homey.App {
 
         actionRemoveLoggingFromDevice
             .registerRunListener(( args, state ) => {
-                removeLoggingFrom(args.device)
+                this.removeLoggingFrom(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -260,7 +260,7 @@ class Heimdall extends Homey.App {
 
         actionAddDeviceToPartial
             .registerRunListener(( args, state ) => {
-                addMonitorPartialTo(args.device)
+                this.addMonitorPartialTo(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -272,7 +272,7 @@ class Heimdall extends Homey.App {
 
         actionRemoveDeviceFromPartial
             .registerRunListener(( args, state ) => {
-                removeMonitorPartialFrom(args.device)
+                this.removeMonitorPartialFrom(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -284,7 +284,7 @@ class Heimdall extends Homey.App {
 
         actionAddDeviceToFull
             .registerRunListener(( args, state ) => {
-                addMonitorFullTo(args.device)
+                this.addMonitorFullTo(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -296,7 +296,7 @@ class Heimdall extends Homey.App {
 
         actionRemoveDeviceFromFull
             .registerRunListener(( args, state ) => {
-                removeMonitorFullFrom(args.device)
+                this.removeMonitorFullFrom(args.device)
                 return Promise.resolve( true );
             })
             .getArgument('device')
@@ -1571,9 +1571,9 @@ class Heimdall extends Homey.App {
             if ( devicesLogged == null ) { devicesLogged = [] }
             devicesLogged.push(device)
             this.homey.settings.set('loggedDevices',devicesLogged)
-            removeMonitorFullFrom(device)
-            removeMonitorPartialFrom(device)
-            removeDelayFrom(device)
+            this.removeMonitorFullFrom(device)
+            this.removeMonitorPartialFrom(device)
+            this.removeDelayFrom(device)
         }
     }
 
@@ -1634,7 +1634,7 @@ class Heimdall extends Homey.App {
                 this.homey.settings.set('monitoredFullDevices',devicesMonitoredFull)
             }
             if ( !this.isMonitoredPartial(device) ) {
-                removeDelayFrom(device)
+                this.removeDelayFrom(device)
             }
         } 
     }
@@ -1680,7 +1680,7 @@ class Heimdall extends Homey.App {
                 this.homey.settings.set('monitoredPartialDevices',devicesMonitoredPartial)
             }
             if ( !this.isMonitoredFull(device) ) {
-                removeDelayFrom(device)
+                this.removeDelayFrom(device)
             }
 
         } 
