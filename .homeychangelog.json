@@ -309,5 +309,16 @@
     "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
     "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
     "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.7": {
+    "en": "Minor change in error handling",
+    "da": "Mindre ændring i fejlhåndtering",
+    "de": "Kleine Änderung in der Fehlerbehandlung",
+    "fr": "Changement mineur dans la gestion des erreurs",
+    "it": "Piccola modifica nella gestione degli errori",
+    "nl": "Kleine wijziging in foutafhandeling",
+    "no": "Mindre endring i feilhåndtering",    
+    "es": "Cambio menor en el manejo de errores",
+    "sv": "Mindre förändring i felhanteringen"
   }
 }

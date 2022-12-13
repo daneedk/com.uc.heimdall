@@ -57,8 +57,8 @@ class Heimdall extends Homey.App {
 
     async onInit() {
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
-        this.log('Platform: ', Homey.platform);
-        this.log('Version: ',Homey.platformVersion);
+        this.log('Platform:                  ', this.homey.platform);
+        this.log('Version:                   ', this.homey.platformVersion);
         let timezone = this.homey.clock.getTimezone()
         let localDate = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         this.log('Timezone:                  ', timezone)
@@ -1615,7 +1615,7 @@ class Heimdall extends Homey.App {
             devicesMonitoredFull.push(device)
             this.homey.settings.set('monitoredFullDevices',devicesMonitoredFull)
             if ( this.isLogged(device) ) {
-                removeLoggingFrom(device)
+                this.removeLoggingFrom(device)
             }
         }
     }
@@ -1661,7 +1661,7 @@ class Heimdall extends Homey.App {
             devicesMonitoredPartial.push(device)
             this.homey.settings.set('monitoredPartialDevices',devicesMonitoredPartial)
             if ( this.isLogged(device) ) {
-                removeLoggingFrom(device)
+                this.removeLoggingFrom(device)
             }
         }
     }
@@ -1708,9 +1708,9 @@ class Heimdall extends Homey.App {
             devicesDelayed.push(device)
             this.homey.settings.set('delayedDevices',devicesDelayed)
             if ( !this.isMonitoredFull(device) && !this.isMonitoredPartial(device) ) {
-                await addMonitorFullTo(device)
+                await this.addMonitorFullTo(device)
                 if ( this.isLogged(device) ) {
-                    removeLoggingFrom(device)
+                    this.removeLoggingFrom(device)
                 }
             }
         } 
