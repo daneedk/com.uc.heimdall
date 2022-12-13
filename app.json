@@ -1,13 +1,11 @@
 {
   "id": "com.uc.heimdall",
-  "sdk": 2,
-  "permissions": [
-    "homey:manager:api",
-    "homey:manager:speech-output"
-  ],
-  "name": {
-    "en": "Heimdall"
-  },
+  "version": "2.3.7",
+  "compatibility": ">=8.0.0",
+  "platforms": ["local"],
+  "sdk": 3,
+  "brandColor": "#4BD762",
+  "name": { "en": "Heimdall"  },
   "description": {
     "en": "Turn your Homey into a surveillance system",
     "nl": "Verander uw Homey in een bewakingssysteem",
@@ -19,17 +17,15 @@
     "da": "Forvandl din Homey til et overvågningssystem",
     "es": "Convierte tu Homey en un sistema de vigilancia"
   },
-  "category": [
-    "security",
-    "tools"
-  ],
+  "category": "security",
   "images": {
     "large": "assets/images/large.png",
     "small": "assets/images/small.png"
   },
-  "version": "2.1.11",
-  "compatibility": ">=2.0.5",
-  "brandColor": "#4BD762",
+  "permissions": [
+    "homey:manager:api",
+    "homey:manager:speech-output"
+  ],  
   "author": {
     "name": "Danee de Kruyff",
     "email": "daneedekruyff@outlook.com"
@@ -1950,5 +1946,32 @@
         }
       ]
     }
-  ]
+  ],
+  "api": {
+    "getDevices": {
+      "method": "GET",
+      "path":"/devices"
+    },
+    "getZones": {
+      "method": "GET",
+      "path":"/zones"
+    },
+    "getStatus": {
+      "description": "",
+      "method": "GET",
+      "path":"/state/:type"
+    },
+    "getUsers": {
+      "method": "GET",
+      "path":"/users/:pin"
+    },
+    "processUsers": {
+      "method": "POST",
+      "path":"/users/:action"
+    },
+    "processKeypadCommands": {
+      "method": "POST",
+      "path":"/keypad/:type"
+    }
+  }
 }

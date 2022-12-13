@@ -203,6 +203,6 @@
     },
     "notification": {
         "smodeset1": "**Toezicht Mode** is ",
-        "smodeset2": ""
+        "smodeset2": "."
     }
 }

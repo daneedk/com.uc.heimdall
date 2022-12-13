@@ -1,5 +1,6 @@
 //let Homey;
 var loading = true;
+var useSpeech = true;
 var showDevice = false;
 let _myLog;
 let surveillance;
@@ -47,6 +48,7 @@ var defaultSettings = {
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
+console.log(Homey.platformVersion);
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
         if ( err ) {
@@ -71,15 +73,17 @@ function onHomeyReady(homeyReady){
         document.getElementById('checkMotionAtArming').checked = heimdallSettings.checkMotionAtArming;
         document.getElementById('checkContactAtArming').checked = heimdallSettings.checkContactAtArming;
         document.getElementById('checkBeforeCountdown').checked = heimdallSettings.checkBeforeCountdown;
-        document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
-        document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
-        document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
-        document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
-        document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
-        document.getElementById('spokenTamperTrue').checked = heimdallSettings.spokenTamperTrue;
-        document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
-        document.getElementById('spokenMotionAtArming').checked = heimdallSettings.spokenMotionAtArming;
-        document.getElementById('spokenDoorOpenAtArming').checked = heimdallSettings.spokenDoorOpenAtArming;
+        if (useSpeech) {
+            document.getElementById('spokenSmodeChange').checked = heimdallSettings.spokenSmodeChange;
+            document.getElementById('spokenAlarmCountdown').checked = heimdallSettings.spokenAlarmCountdown;
+            document.getElementById('spokenArmCountdown').checked = heimdallSettings.spokenArmCountdown;
+            document.getElementById('spokenAlarmChange').checked = heimdallSettings.spokenAlarmChange;
+            document.getElementById('spokenMotionTrue').checked = heimdallSettings.spokenMotionTrue;
+            document.getElementById('spokenTamperTrue').checked = heimdallSettings.spokenTamperTrue;
+            document.getElementById('spokenDoorOpen').checked = heimdallSettings.spokenDoorOpen;
+            document.getElementById('spokenMotionAtArming').checked = heimdallSettings.spokenMotionAtArming;
+            document.getElementById('spokenDoorOpenAtArming').checked = heimdallSettings.spokenDoorOpenAtArming;
+        }
         document.getElementById('notificationSmodeChange').checked = heimdallSettings.notificationSmodeChange
         document.getElementById('notificationAlarmChange').checked = heimdallSettings.notificationAlarmChange
         document.getElementById('notificationNoCommunicationMotion').checked = heimdallSettings.notificationNoCommunicationMotion
@@ -791,27 +795,41 @@ function saveSettings() {
     heimdallSettings.checkMotionAtArming = document.getElementById('checkMotionAtArming').checked;
     heimdallSettings.checkContactAtArming = document.getElementById('checkContactAtArming').checked;
     heimdallSettings.checkBeforeCountdown = document.getElementById('checkBeforeCountdown').checked;
-    heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
-    heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
-    heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
-    heimdallSettings.spokenAlarmChange = document.getElementById('spokenAlarmChange').checked;
-    heimdallSettings.spokenMotionTrue = document.getElementById('spokenMotionTrue').checked;
-    heimdallSettings.spokenTamperTrue = document.getElementById('spokenTamperTrue').checked;
-    heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
-    heimdallSettings.spokenMotionAtArming = document.getElementById('spokenMotionAtArming').checked;
-    heimdallSettings.spokenDoorOpenAtArming = document.getElementById('spokenDoorOpenAtArming').checked;
+    if (useSpeech) {
+        heimdallSettings.spokenSmodeChange = document.getElementById('spokenSmodeChange').checked;
+        heimdallSettings.spokenAlarmCountdown = document.getElementById('spokenAlarmCountdown').checked;
+        heimdallSettings.spokenArmCountdown = document.getElementById('spokenArmCountdown').checked;
+        heimdallSettings.spokenAlarmChange = document.getElementById('spokenAlarmChange').checked;
+        heimdallSettings.spokenMotionTrue = document.getElementById('spokenMotionTrue').checked;
+        heimdallSettings.spokenTamperTrue = document.getElementById('spokenTamperTrue').checked;
+        heimdallSettings.spokenDoorOpen = document.getElementById('spokenDoorOpen').checked;
+        heimdallSettings.spokenMotionAtArming = document.getElementById('spokenMotionAtArming').checked;
+        heimdallSettings.spokenDoorOpenAtArming = document.getElementById('spokenDoorOpenAtArming').checked;
+    } else {
+        heimdallSettings.spokenSmodeChange = false;
+        heimdallSettings.spokenAlarmCountdown = false;
+        heimdallSettings.spokenArmCountdown = false;
+        heimdallSettings.spokenAlarmChange = false;
+        heimdallSettings.spokenMotionTrue = false;
+        heimdallSettings.spokenTamperTrue = false;
+        heimdallSettings.spokenDoorOpen = false;
+        heimdallSettings.spokenMotionAtArming = false;
+        heimdallSettings.spokenDoorOpenAtArming = false;
+    }
     heimdallSettings.notificationSmodeChange = document.getElementById('notificationSmodeChange').checked;
     heimdallSettings.notificationAlarmChange = document.getElementById('notificationAlarmChange').checked;
     heimdallSettings.notificationNoCommunicationMotion = document.getElementById('notificationNoCommunicationMotion').checked;
     heimdallSettings.notificationNoCommunicationContact = document.getElementById('notificationNoCommunicationContact').checked; 
     heimdallSettings.noCommunicationTime = 24;
-    if ( heimdallSettings.spokenMotionAtArming ) {
-        document.getElementById('checkMotionAtArming').checked = true
-        heimdallSettings.checkMotionAtArming = true
-    }
-    if ( heimdallSettings.spokenDoorOpenAtArming ) {
-        document.getElementById('checkContactAtArming').checked = true
-        heimdallSettings.checkContactAtArming = true
+    if (useSpeech) {
+        if ( heimdallSettings.spokenMotionAtArming ) {
+            document.getElementById('checkMotionAtArming').checked = true
+            heimdallSettings.checkMotionAtArming = true
+        }
+        if ( heimdallSettings.spokenDoorOpenAtArming ) {
+            document.getElementById('checkContactAtArming').checked = true
+            heimdallSettings.checkContactAtArming = true
+        }
     }
     if ( !heimdallSettings.checkMotionAtArming && !heimdallSettings.checkContactAtArming ) {
         document.getElementById('checkBeforeCountdown').checked = false;

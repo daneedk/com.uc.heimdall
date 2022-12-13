@@ -32,16 +32,16 @@ All detected motion and open/closed doors and windows on selected sensors will b
 
 ## Need Help, Have questions or remarks?
 
-Please post your questions/remarks on the [Athom community forum](https://community.athom.com/t/134)
+Please post your questions/remarks on the [Homey community forum](https://community.homey.app/t/134)
 
-An extensive changelog is available [here](https://community.athom.com/t/134/3)
+An extensive changelog is available [here](https://community.homey.app/t/134/3)
  
 ## Donate
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.1.5
-* Extended functionality for 3rd party Keypanels
+## Version 2.3.x
+* SDK3 support and conversion from athom-api to homey-api
 
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff

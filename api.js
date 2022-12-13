@@ -1,69 +1,45 @@
-'use strict';
-const Homey = require('homey')
+// 'use strict';
+// const Homey = require('homey')
 
-module.exports = [
-    {
-        description: 'Retrieve all devices with their information',
-        method: 'GET',
-        path: '/devices',
-        fn: function(args, callback) {
-            Homey.app.getDevices()
-                .then(res => {callback(null, res);})
-                .catch(error => callback(error, null));
-        }
-    },
-    {
-        description: 'Retrieve all zones with their information',
-        method: 'GET',
-        path: '/zones',
-        fn: function(args, callback) {
-            Homey.app.getZones()
-                .then(res => {callback(null, res);})
-                .catch(error => callback(error, null));
-        }
-    },
-    {
-        description: 'Request Alarm state and Surveillance Mode',
-        method: 'GET',
-        path: '/state/:type',
-        fn: function(args, callback) {
-            if (args.params.type === 'surveillance') {
-                callback(null, Homey.ManagerSettings.get('surveillanceStatus'));
-            } else if (args.params.type === 'alarm' ) {
-                callback(null, Homey.ManagerSettings.get('alarmStatus'));
+module.exports =  {    
+        async getDevices({ homey, query }){
+            const result = await homey.app.getDevices();
+            
+            return result;
+        },
+    
+        async getZones({ homey, query }) {
+            const result = await homey.app.getZones();
+
+            return result;
+        },
+    
+        async getStatus({ homey, params, query }) {
+            if (params.type === 'surveillance') {
+                const result = this.homey.settings.get('surveillanceStatus');
+                
+                return result;
+            } else if (params.type === 'alarm' ) {
+                const result = this.homey.settings.get('alarmStatus');
+
+                return result
             } else {
-                callback("not a valid status request", null);
+                return "not a valid status request";
             }
+        },
+        
+        async getUsers({ homey, params, query }) {
+            const result = await homey.app.getUsers(params.pin)
+
+            return result
+        },
+    
+        async processUsers({ homey, params, body }) {
+            return homey.app.processUsers(body, params.action);
+        },
+    
+        async processKeypadCommands({ homey, params, body }) {
+            return homey.app.processKeypadCommands(body, params.type)
         }
-    },
-    {
-        description: 'Retrieve users after entering a valid PIN',
-        method: 'GET',
-        path: '/users/:pin',
-        fn: function(args, callback) {
-            Homey.app.getUsers(args.params.pin)
-                .then(res => callback(null, res) )
-                .catch(error => callback(error, null));
-        }
-    },
-    {
-        description: 'Return user',
-        method: 'post',
-        path: '/users/:action',
-        fn: function(args, callback) {
-            Homey.app.processUsers(args, args.params.action)
-                .then(res => callback(null, res) )
-                .catch(error => callback(error, null));
-        }
-    },
-    {
-        description: 'Receive information from external keypad',
-        method: 'post',
-        path: '/keypad/:type',
-        fn: function(args, callback) {
-            Homey.app.processKeypadCommands(args, args.params.type)
-                .then(res => callback(null, res) )
-                .catch(error => callback(error, null));
-        }
+
     }
-]

@@ -232,5 +232,93 @@
     "sv": "Mindre korrigeringar för Homey firmware 7.4.1",
     "da": "Mindre rettelser til Homey-firmware 7.4.1",
     "es": "Correcciones menores para el firmware de Homey 7.4.1"
+  },
+  "2.3.0": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.1": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.2": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.3": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.4": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.5": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.6": {
+    "en": "SDK3 support and conversion from athom-api to homey-api",
+    "da": "SDK3-understøttelse og konvertering fra athom-api til homey-api",
+    "de": "SDK3-Unterstützung und Konvertierung von athom-api zu homey-api",
+    "fr": "Prise en charge du SDK3 et conversion d'athom-api en homey-api",
+    "it": "Supporto SDK3 e conversione da athom-api a homey-api",
+    "nl": "SDK3-ondersteuning en conversie van athom-api naar homey-api",
+    "no": "SDK3-støtte og konvertering fra athom-api til homey-api",
+    "es": "Compatibilidad con SDK3 y conversión de athom-api a homey-api",
+    "sv": "SDK3-stöd och konvertering från athom-api till homey-api"
+  },
+  "2.3.7": {
+    "en": "Minor change in error handling",
+    "da": "Mindre ændring i fejlhåndtering",
+    "de": "Kleine Änderung in der Fehlerbehandlung",
+    "fr": "Changement mineur dans la gestion des erreurs",
+    "it": "Piccola modifica nella gestione degli errori",
+    "nl": "Kleine wijziging in foutafhandeling",
+    "no": "Mindre endring i feilhåndtering",    
+    "es": "Cambio menor en el manejo de errores",
+    "sv": "Mindre förändring i felhanteringen"
   }
 }

@@ -204,6 +204,6 @@
     },
     "notification": {
         "smodeset1": "**Surveillance Mode** set to ",
-        "smodeset2": ""
+        "smodeset2": "."
     }
 }
