@@ -1,37 +1,24 @@
-// 'use strict';
-// const Homey = require('homey')
-
 module.exports =  {    
-        async getDevices({ homey, query }){
-            const result = await homey.app.getDevices();
-            
-            return result;
+        async getDevices({ homey }){
+            return homey.app.getDevices();
         },
     
         async getZones({ homey, query }) {
-            const result = await homey.app.getZones();
-
-            return result;
+            return homey.app.getZones();
         },
     
         async getStatus({ homey, params, query }) {
             if (params.type === 'surveillance') {
-                const result = this.homey.settings.get('surveillanceStatus');
-                
-                return result;
+                return this.homey.settings.get('surveillanceStatus');
             } else if (params.type === 'alarm' ) {
-                const result = this.homey.settings.get('alarmStatus');
-
-                return result
+                return this.homey.settings.get('alarmStatus');
             } else {
                 return "not a valid status request";
             }
         },
         
         async getUsers({ homey, params, query }) {
-            const result = await homey.app.getUsers(params.pin)
-
-            return result
+            return homey.app.getUsers(params.pin)
         },
     
         async processUsers({ homey, params, body }) {

@@ -1,14 +1,6 @@
 'use strict';
-//   remark
-// // remark
-// * remark
-// ? remark
-// ! remark
-// todo remark
-// SDK2 remark
 
 const Homey = require('homey');
-// SDK2 const { HomeyAPI  } = require('athom-api')
 const { HomeyAPIApp } = require('homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
@@ -53,7 +45,7 @@ var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 var timeout = 100;
 
-class Heimdall extends Homey.App {
+module.exports = class Heimdall extends Homey.App {
 
     async onInit() {
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
@@ -310,8 +302,6 @@ class Heimdall extends Homey.App {
 
         this.log('Reading settings:           start')
 
-        
-        // SDK2 this.users = Homey.ManagerSettings.get('users');
         this.users = this.homey.settings.get('users');
         
         // Uncomment next line to print users to the log when pincode is lost.
@@ -319,7 +309,6 @@ class Heimdall extends Homey.App {
         // Uncomment next line, run the app once and comment the line again to start fresh.
         // this.homey.settings.unset('users');
         if ( this.users === undefined || this.users === null || this.users.length === 0 ) {
-            // SDK2 Homey.ManagerSettings.set('nousers', true);
             this.homey.settings.set('nousers', true)
         }
 
@@ -352,12 +341,6 @@ class Heimdall extends Homey.App {
 
         let language = this.homey.i18n.getLanguage();
         this.log(' Language:                  ' + language);
-        // SDK2 Homey.ManagerSettings.set('language', language, function( err ){
-        /*
-        this.homey.settings.set('language', language, function( err ){
-           if ( err ) return this.homey.alert( err );
-        });
-        */
         this.homey.settings.set('language', language);
 
         this.homey.settings.on('set', (variable) => {
@@ -368,30 +351,26 @@ class Heimdall extends Homey.App {
             
         this.log('Reading settings:           done')
 
-        this.homeyApi = await this.getApi();
-
+        // initialize Homey Web API
+        await this.initializeWebApi();
+        
         this.enumerateDevices().catch(this.error);
     }
 
-    // Get API control function
-    getApi() {
-        if (!this.homeyApi) {
-            //this.api = HomeyAPIApp.forCurrentHomey().catch((error) => {
-            //    console.log("Error accessing HomeyAPI: ", error);
-            //});
-            this.homeyApi = new HomeyAPIApp({ homey: this.homey })
-        }
-        return this.homeyApi;
+    async initializeWebApi() {
+        this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+
+        await this.homeyApi.devices.connect();
     }
 
     // Get all devices function for API
     async getDevices() {
-        const homeyApi = await this.getApi();
+        await this.initializeWebApi();
         return await this.homeyApi.devices.getDevices();
     }
 
     async getZones() {
-        const api = await this.getApi();
+        await this.initializeWebApi();
         return await this.homeyApi.zones.getZones();
     }
 
@@ -410,8 +389,6 @@ class Heimdall extends Homey.App {
     // Get all devices and add them
     async enumerateDevices() {
         this.log('Enumerating devices:        start')
-
-        await this.homeyApi.devices.connect();
 
         this.homeyApi.devices.on('device.create', async(id) => {
             this.log('New device found!')
@@ -564,9 +541,7 @@ class Heimdall extends Homey.App {
     }
 
     async processUsers(modifiedUser, action) {
-        // SDK2 let pin = modifiedUser.body.pin;
         let pin = modifiedUser.pin;
-        // SDK2 modifiedUser = modifiedUser.body.user;
         modifiedUser = modifiedUser.user;  
         this.homey.settings.set('nousers', false);
         let searchId = modifiedUser.id;
@@ -649,7 +624,6 @@ class Heimdall extends Homey.App {
                     } else {
                         return "Found user, action " + post.action + " is unknown"
                     }
-                    
                 } else {
                     if ( post.value.length > 0 ) {
                         // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
@@ -707,7 +681,7 @@ class Heimdall extends Homey.App {
         let sourceDevicePartial = this.isMonitoredPartial(device)
         let sourceDeviceLog = this.isLogged(device)
 
-        this.log('stateChange:----------------' + device.name)
+        this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')')
         // is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
             let sensorStateReadable;
@@ -1462,7 +1436,6 @@ class Heimdall extends Homey.App {
             }
             if ( delay > 0 ) {
                 this.homey.setTimeout(() => {
-                    // SDK2 Homey.app.ttArmedCountdown(delay-1, color, value, logLine)
                     this.ttArmedCountdown(delay-1, color, value, logLine)
                 }, 1000);
             }
@@ -1533,7 +1506,6 @@ class Heimdall extends Homey.App {
 
     systemEvent(event, details)
     {
-        // SDK2 this.homey.ManagerApi.realtime(event, details)
         this.homey.api.realtime(event, details)
     }
 
@@ -1793,8 +1765,6 @@ class Heimdall extends Homey.App {
     // Returns a date timestring including milliseconds to be used in loglines
     // - Called from multiple functions
     getDateTime() {
-        // SDK2 let date = new Date();
-
         let timezone = this.homey.clock.getTimezone()
         let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         
@@ -1824,5 +1794,5 @@ class Heimdall extends Homey.App {
     }
 
 }
-module.exports = Heimdall;
+
 

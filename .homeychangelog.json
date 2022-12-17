@@ -320,5 +320,16 @@
     "no": "Mindre endring i feilhåndtering",    
     "es": "Cambio menor en el manejo de errores",
     "sv": "Mindre förändring i felhanteringen"
+  },
+  "2.3.8": {
+    "en": "Fixed incorrect devicestatus in app settings",
+    "da": "Rettet forkert enhedsstatus i appindstillinger",
+    "de": "Falscher Gerätestatus in den App-Einstellungen behoben",
+    "fr": "Correction de l'état incorrect de l'appareil dans les paramètres de l'application",
+    "it": "Risolto il problema con lo stato errato del dispositivo nelle impostazioni dell'app",
+    "nl": "Onjuiste apparaatstatus in app-instellingen opgelost",
+    "no": "Rettet feil enhetsstatus i appinnstillinger",    
+    "es": "Se corrigió el estado incorrecto del dispositivo en la configuración de la aplicación",
+    "sv": "Fixade felaktig enhetsstatus i appinställningar"
   }
 }

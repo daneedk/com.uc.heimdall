@@ -150,11 +150,10 @@ console.log(Homey.platformVersion);
             getDevices() {
                 Homey.api('GET', '/devices', null, (err, result) => {
                     if (err)
-                        return Homey.alert('getDevices' + err);
+                        return Homey.alert('getDevices() ' + err);
                     var array = Object.keys(result).map(function (key) {
                         return result[key];
                     });
-                    console.log(array)
                     this.devices = array
                 });
             },
@@ -524,16 +523,40 @@ async function getLanguage() {
     });
 }
 
-function getAllDevices() {
+
+function apiRequest(method, endpoint, data = null) {
+    return new Promise((resolve, reject) => {
+      Homey.api(method, endpoint, data, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
+async function getAllDevices() {
+    const result = await apiRequest('GET', '/devices');
+    const array = Object.keys(result).map(function (key) {
+        return result[key];
+    });
+    allDevices = array;
+    return allDevices;
+    /*
     Homey.api('GET', '/devices', null, (err, result) => {
         if (err)
-            return Homey.alert('getDevices' + err);
+            return Homey.alert('getAllDevices() ' + err);
         var array = Object.keys(result).map(function (key) {
             return result[key];
         });
-        allDevices = array
+        allDevices = array;
+        return allDevices;
     });
+    */
 }
+
+
 
 function filterArray(device) {
     try {
@@ -923,7 +946,7 @@ function showHistory(run) {
 }
 
 async function showStatus() {
-    await getAllDevices();
+    allDevices = await getAllDevices();
     for ( let id in allDevices ) {
         let device = allDevices[id]
         for ( let capability in device.capabilitiesObj ) {
@@ -935,6 +958,7 @@ async function showStatus() {
                 }
             }
             if ( capability === "alarm_motion" ) {
+                console.log(device.capabilitiesObj.alarm_motion.value);
                 if ( device.capabilitiesObj.alarm_motion.value ) {
                     $('#'+device.id).addClass('active')
                 } else {
