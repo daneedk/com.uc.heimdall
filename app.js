@@ -43,6 +43,7 @@ var lastDoor = false;
 var changeTta = false;
 var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
+var devicesAdded = [];
 var timeout = 100;
 
 module.exports = class Heimdall extends Homey.App {
@@ -50,7 +51,8 @@ module.exports = class Heimdall extends Homey.App {
     async onInit() {
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
         this.log('Platform:                  ', this.homey.platform);
-        this.log('Version:                   ', this.homey.platformVersion);
+        this.log('PlatformVersion:           ', this.homey.platformVersion);
+        // this.log('SoftwareVersion:           ', this.homey.softwareVersion);
         let timezone = this.homey.clock.getTimezone()
         let localDate = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         this.log('Timezone:                  ', timezone)
@@ -164,7 +166,7 @@ module.exports = class Heimdall extends Homey.App {
                 let logLine = "lh " + nu + this.readableMode(surveillance) + " || Flowcard || " + args.log;
                 this.homey.app.writeLog(logLine)
                 return Promise.resolve( true );
-        })
+            })
 
         actionClearHistory
             .registerRunListener(( args, state ) => {
@@ -353,9 +355,32 @@ module.exports = class Heimdall extends Homey.App {
 
         // initialize Homey Web API
         await this.initializeWebApi();
+
+        // attach device events
+        await this.attachDeviceEvents();
         
         this.enumerateDevices().catch(this.error);
     }
+
+    // * als https://github.com/athombv/homey-web-api-issues/issues/20 intentional is:
+    // * hoe ik trouwens om ga met "niet ready" devices is om er op dat moment niks mee te doen
+    // * zodra een device "ready" is komt er een device.update event binnen waar ik naar luister, 
+    // * en dan check ik nogmaals of het device bruikbaar is; zo ja, dan gaat ie door de rest van de code, 
+    // * zo nee dan volgt er (uiteindelijk) wel weer een nieuw event zodra het device wel ready is
+    // * en ik check op zowel device.ready als op het bestaan van device.capabilitiesObj
+    // * precies vanwege jouw issue: soms was device.ready true maar had ie (nog) geen capabilitiesObj
+    /*
+    async initializeWebApi() {
+        this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+
+        await this.homeyApi.devices.connect();
+        this.devices = await this.homeyApi.devices.getDevices();
+      }
+      
+    async getDevices() {
+        return this.devices;
+    }
+    */
 
     async initializeWebApi() {
         this.homeyApi = new HomeyAPIApp({ homey: this.homey });
@@ -363,33 +388,7 @@ module.exports = class Heimdall extends Homey.App {
         await this.homeyApi.devices.connect();
     }
 
-    // Get all devices function for API
-    async getDevices() {
-        await this.initializeWebApi();
-        return await this.homeyApi.devices.getDevices();
-    }
-
-    async getZones() {
-        await this.initializeWebApi();
-        return await this.homeyApi.zones.getZones();
-    }
-
-    async getZone(zoneId) {
-        var result = "unknown";
-        let allZones = await this.getZones();
-        
-        for (let zone in allZones) {
-            if ( allZones[zone].id == zoneId ) {
-                result = allZones[zone].name;
-            }
-        };
-        return result;
-    }
-
-    // Get all devices and add them
-    async enumerateDevices() {
-        this.log('Enumerating devices:        start')
-
+    async attachDeviceEvents() {
         this.homeyApi.devices.on('device.create', async(id) => {
             this.log('New device found!')
             var device = await this.waitForDevice(id,0)
@@ -398,15 +397,42 @@ module.exports = class Heimdall extends Homey.App {
             }
         });
 
-        this.homeyApi.devices.on('device.delete', async(id) => {
-            this.log('Device deleted:            ',id)
+        this.homeyApi.devices.on('device.delete', async(device) => {
+            this.log('Device deleted:            ',device);
         });
+
+        this.homeyApi.devices.on('device.update', async(device) => {
+            if ( device.ready && device.capabilitiesObj ) {
+                //this.log('Device updated:            ',device.name, device.ready);
+                this.addDevice(device);
+            } else {
+                //this.log('Device updated:            ',device.name, device.ready);
+
+            }
+        });
+    }
+
+    // Get all devices, called from api.js and several functions
+    async getDevices() {
+        await this.initializeWebApi();
+        return await this.homeyApi.devices.getDevices();
+    }
+
+    // Get all zones, called from api.js
+    async getZones() {
+        await this.initializeWebApi();
+        return await this.homeyApi.zones.getZones();
+    }
+
+    // Get all devices and add them
+    async enumerateDevices() {
+        this.log('Enumerating devices:        start')
 
         let allDevices = await this.getDevices();
 
         for (let id in allDevices) {
             var device = await this.waitForDevice(allDevices[id],0)
-            if ( device ) {
+            if ( device ) {              
                 await this.addDevice(device);
             } 
         };
@@ -437,6 +463,14 @@ module.exports = class Heimdall extends Homey.App {
 
     // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
     addDevice(device) {
+        for (let deviceItem in devicesAdded) {
+            if ( device.name == devicesAdded[deviceItem] ) {
+                // The device has been through this function before, exit
+                return;
+            }
+        }
+        devicesAdded.push(device.name)
+
         // Find Surveillance Mode Switch
         if ( device.data.id === 'sMode' ) {
             sModeDevice = device;
@@ -507,7 +541,6 @@ module.exports = class Heimdall extends Homey.App {
                 }.bind(this, device));
                 break;
         }
-    
         let monFull = "", monPartial = "", monLogged = ""
         if ( this.isMonitoredFull(device) ) {
             monFull = ", Fully Monitored"
@@ -681,6 +714,9 @@ module.exports = class Heimdall extends Homey.App {
         let sourceDevicePartial = this.isMonitoredPartial(device)
         let sourceDeviceLog = this.isLogged(device)
 
+        // * als https://github.com/athombv/homey-web-api-issues/issues/20 intentional is:
+        // * device.capabilitiesObj[sensorType] = sensorState;
+        // * verwerken
         this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')')
         // is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
@@ -722,7 +758,6 @@ module.exports = class Heimdall extends Homey.App {
                         this.log('sourceDevicePartial:        ' + sourceDevicePartial);
                         this.log('sourceDeviceLog:            ' + sourceDeviceLog);
                         this.log('Alarm is triggered:         Yes')
-                        // let zone = await this.getZone(device.zone)
                         let delayOverruled = ".";
                         if ( alarmCounterRunning && !this.isDelayed(device) ) {
                             this.log('Alarm counter active:       Yes');
@@ -791,7 +826,6 @@ module.exports = class Heimdall extends Homey.App {
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('Alarmstate Active:          The Alarm State is active so just log the sensorstate')
                         logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggeralarmstate");
-                        // let zone = await this.getZone(device.zone)
                         var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
                         //triggerSensorTrippedInAlarmstate.trigger(tokens)
                         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate').trigger(tokens)
@@ -827,7 +861,6 @@ module.exports = class Heimdall extends Homey.App {
             }
             if ( sourceDeviceLog ) {
                 // trigger the flowcard when a device with logging changes state
-                // let zone = await this.getZone(device.zone)
                 var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
                 //triggerLogLineWritten.trigger(tokens)
                 this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
@@ -995,7 +1028,6 @@ module.exports = class Heimdall extends Homey.App {
                     let lastUpdateTime = d.toLocaleString();
 
                     let tempColor = 'mp-'
-                    // let zone = await this.getZone(device.zone)
                     let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                     this.writeLog(tempLogLine)
                     this.log("checkDeviceLastCom:         " + device.name + " - did not communicate in last 24 hours")
@@ -1029,6 +1061,9 @@ module.exports = class Heimdall extends Homey.App {
     async checkDevicesState(value, nu) {
         try {
             let allDevices = await this.getDevices()
+        // console.log("-------------------------------------------------")
+        // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
+        // console.log("=================================================")
             for (let device in allDevices) {
                 this.checkDeviceState(allDevices[device], value, nu)
             };
@@ -1238,9 +1273,7 @@ module.exports = class Heimdall extends Homey.App {
         surveillance = this.homey.settings.get('surveillanceStatus')
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
             // Surveillance mode is active
-            // let zone = await this.getZone(device.zone)
             if ( source == "Heimdall") {
-                // let zone = await this.getZone(device.zone)
                 var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zoneName };
                 logLine = "al " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmactivated") + device.name + ": " + sensorState;
             } else {

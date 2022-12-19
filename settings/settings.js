@@ -48,7 +48,6 @@ var defaultSettings = {
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
-console.log(Homey.platformVersion);
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
         if ( err ) {
@@ -133,18 +132,6 @@ console.log(Homey.platformVersion);
                     if (result) {
                         this.devicesLogged = result;
                     }
-                });
-            },
-            getZones() {
-                Homey.api('GET', '/zones', null, (err, result) => {
-                    if (err)
-                        return Homey.alert('getZones' + err);
-                    var array = Object.keys(result).map(function (key) {
-                        return result[key];
-                    });
-                    this.zones = array
-                    console.log(this.zones)
-                    return this.zones
                 });
             },
             getDevices() {
@@ -329,21 +316,10 @@ console.log(Homey.platformVersion);
                     return false
                 }
             },
-            getZone: function(zoneId) {
-                var result = "unknown";
-                var zones = this.zones;
-                for (let zone in this.zones) {
-                    if ( this.zones[zone].id == zoneId ) {
-                        result = this.zones[zone].name;
-                    }
-                };
-                return result;
-            },
             displayDevice: function(device) {
                 showDevice = false
                 for ( let id in device.capabilities ) {
                     if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
-                    // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[id] ) ) {
                         showDevice = true
                     }
                 }    
@@ -431,7 +407,6 @@ console.log(Homey.platformVersion);
             }
         },
         async mounted() {
-            await this.getZones();
             await this.getDevices();
             await this.getDeviceSettings();
         },
@@ -542,17 +517,10 @@ async function getAllDevices() {
         return result[key];
     });
     allDevices = array;
-    return allDevices;
     /*
-    Homey.api('GET', '/devices', null, (err, result) => {
-        if (err)
-            return Homey.alert('getAllDevices() ' + err);
-        var array = Object.keys(result).map(function (key) {
-            return result[key];
-        });
-        allDevices = array;
-        return allDevices;
-    });
+    console.log("-------------------------------------------------")
+    console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
+    console.log("=================================================")
     */
 }
 
@@ -946,7 +914,7 @@ function showHistory(run) {
 }
 
 async function showStatus() {
-    allDevices = await getAllDevices();
+    await getAllDevices();
     for ( let id in allDevices ) {
         let device = allDevices[id]
         for ( let capability in device.capabilitiesObj ) {
@@ -958,7 +926,6 @@ async function showStatus() {
                 }
             }
             if ( capability === "alarm_motion" ) {
-                console.log(device.capabilitiesObj.alarm_motion.value);
                 if ( device.capabilitiesObj.alarm_motion.value ) {
                     $('#'+device.id).addClass('active')
                 } else {
