@@ -57,8 +57,30 @@ module.exports = class Heimdall extends Homey.App {
         let localDate = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
         this.log('Timezone:                  ', timezone)
         this.log('Local Time:                ', localDate)
+        
         this.log('Preparing flow cards:       start');
+        await this.initializeFlowCards();
+        this.log('Preparing flow cards:       done');
 
+        this.log('Reading settings:           start')
+        await this.initializeSettings();
+        this.log('Reading settings:           done')
+
+        this.log('Connecting webapi:          start')
+        await this.initializeWebApi();
+        this.log('Connecting webapi:          done')
+
+        this.log('Attach events to devices:   start')
+        await this.attachDeviceEvents();
+        this.log('Attach events to devices:   done')
+
+        this.log('Enumerating devices:        start')
+        this.enumerateDevices().catch(this.error);
+
+    }
+
+
+    async initializeFlowCards() {
         // Flow triggers 
         this.homey.flow.getTriggerCard('SurveillanceChanged');
         this.homey.flow.getTriggerCard('sensorActiveAtArming');
@@ -105,22 +127,22 @@ module.exports = class Heimdall extends Homey.App {
             .registerRunListener(( args, state ) => {
                 let result = args.surveillance == this.homey.settings.get('surveillanceStatus') ? true : false
                 return Promise.resolve( result );
-        });
+            });
         
         conditionArmingCountdown
             .registerRunListener(( args, state ) => {
                 return Promise.resolve( armCounterRunning );
-        });
+            });
         
         conditionAlarmCountdown
             .registerRunListener(( args, state ) => {
                 return Promise.resolve( alarmCounterRunning );
-        });
+            });
         
         conditionAlarmActive
             .registerRunListener(( args, state ) => {
                 return Promise.resolve( alarm );
-        });
+            });
 
         conditionIsDelayedDevice
             .registerRunListener(( args, state ) => {
@@ -129,7 +151,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve( this.homey.app.getUsableDevices() )
-        });
+            });
 
         conditionIsLoggedDevice
             .registerRunListener(( args, state ) => {
@@ -138,7 +160,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve( this.homey.app.getUsableDevices() )
-        });
+            });
 
         conditionIsFullDevice
             .registerRunListener(( args, state ) => {
@@ -147,7 +169,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve( this.homey.app.getUsableDevices() )
-        });
+            });
 
         conditionIsPartialDevice
             .registerRunListener(( args, state ) => {
@@ -156,7 +178,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve( this.homey.app.getUsableDevices() )
-        });
+            });
 
         // Flow Action functions
         actionInputHistory
@@ -299,11 +321,9 @@ module.exports = class Heimdall extends Homey.App {
                     this.homey.app.getUsableDevices()
                 )
             })
+    }
 
-        this.log('Preparing flow cards:       done');
-
-        this.log('Reading settings:           start')
-
+    async initializeSettings() {
         this.users = this.homey.settings.get('users');
         
         // Uncomment next line to print users to the log when pincode is lost.
@@ -350,16 +370,6 @@ module.exports = class Heimdall extends Homey.App {
                 heimdallSettings = this.homey.settings.get('settings')
             }
         });
-            
-        this.log('Reading settings:           done')
-
-        // initialize Homey Web API
-        await this.initializeWebApi();
-
-        // attach device events
-        await this.attachDeviceEvents();
-        
-        this.enumerateDevices().catch(this.error);
     }
 
     // * als https://github.com/athombv/homey-web-api-issues/issues/20 intentional is:
@@ -412,21 +422,8 @@ module.exports = class Heimdall extends Homey.App {
         });
     }
 
-    // Get all devices, called from api.js and several functions
-    async getDevices() {
-        await this.initializeWebApi();
-        return await this.homeyApi.devices.getDevices();
-    }
-
-    // Get all zones, called from api.js
-    async getZones() {
-        await this.initializeWebApi();
-        return await this.homeyApi.zones.getZones();
-    }
-
     // Get all devices and add them
     async enumerateDevices() {
-        this.log('Enumerating devices:        start')
 
         let allDevices = await this.getDevices();
 
@@ -451,7 +448,7 @@ module.exports = class Heimdall extends Homey.App {
         if ( addCounter < 12 ) {
             return this.waitForDevice(id,addCounter);
         } else {
-            this.log("Found Device, not ready:    " + device.name)
+            this.log(" Found Device, not ready:   " + device.name)
             devicesNotReadyAtStart.push(device.name)
             let nu =this.getDateTime();
             // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
@@ -474,29 +471,29 @@ module.exports = class Heimdall extends Homey.App {
         // Find Surveillance Mode Switch
         if ( device.data.id === 'sMode' ) {
             sModeDevice = device;
-            this.log('Found Mode Switch named:    ' + device.name)
+            this.log(' Found Mode Switch named:   ' + device.name)
         }
         // Find Alarm Off Button
         if ( device.data.id === 'aMode' ) { 
             aModeDevice = device;
-            this.log('Found Alarm Button named:   ' + device.name)
+            this.log(' Found Alarm Button named:  ' + device.name)
         }
         if ( !device.capabilitiesObj ) return
         
         if ( 'alarm_motion' in device.capabilitiesObj ) {
-            this.log('Found motion sensor:        ' + device.name)
+            this.log(' Found motion sensor:       ' + device.name)
             this.attachEventListener(device,'motion')
         }
         if ( 'alarm_contact' in device.capabilitiesObj ) {
-            this.log('Found contact sensor:       ' + device.name)
+            this.log(' Found contact sensor:      ' + device.name)
             this.attachEventListener(device,'contact')
         }
         if ( 'alarm_vibration' in device.capabilitiesObj ) {
-            this.log('Found vibration sensor:     ' + device.name)
+            this.log(' Found vibration sensor:    ' + device.name)
             this.attachEventListener(device,'vibration')
         }
         if ( 'alarm_tamper' in device.capabilitiesObj ) {
-            this.log('Found tamper sensor:        ' + device.name)
+            this.log(' Found tamper sensor:       ' + device.name)
             this.attachEventListener(device,'tamper')
         }
     }
@@ -552,6 +549,18 @@ module.exports = class Heimdall extends Homey.App {
             monLogged = ", Logged"
         }
         // this.log('Attached Eventlistener to:  ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
+    }
+
+    // Get all devices, called from api.js and several functions
+    async getDevices() {
+        await this.initializeWebApi();
+        return await this.homeyApi.devices.getDevices();
+    }
+
+    // Get all zones, called from api.js
+    async getZones() {
+        await this.initializeWebApi();
+        return await this.homeyApi.zones.getZones();
     }
 
     async getUsers(pin) {

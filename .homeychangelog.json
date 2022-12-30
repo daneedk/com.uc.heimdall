@@ -331,5 +331,16 @@
     "no": "Rettet feil enhetsstatus i appinnstillinger",    
     "es": "Se corrigió el estado incorrecto del dispositivo en la configuración de la aplicación",
     "sv": "Fixade felaktig enhetsstatus i appinställningar"
-  }
+  },
+  "2.3.9": {
+    "en": "Updated Homey API to 1.10.5",
+    "da": "Opdateret Homey API til 1.10.5",
+    "de": "Homey API auf 1.10.5 aktualisiert",
+    "fr": "API Homey mise à jour vers 1.10.5",
+    "it": "API Homey aggiornata alla 1.10.5",
+    "nl": "Homey API bijgewerkt naar 1.10.5",
+    "no": "Oppdaterte Homey API til 1.10.5",
+    "es": "API Homey actualizada a 1.10.5",
+    "sv": "Uppdaterad Homey API till 1.10.5"
+  }  
 }
