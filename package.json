@@ -3,9 +3,6 @@
     "version": "2.3.9",
     "description": "This app turns homey into a simple surveillance system",
     "main": "app.js",
-    "dependencies": {
-        "homey-api": "^1.10.5"
-    },
     "author": "Danee de Kruyff <daneedekruyff@outlook.com>",
     "license": "MIT"
 }
