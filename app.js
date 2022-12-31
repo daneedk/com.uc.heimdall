@@ -430,7 +430,7 @@ module.exports = class Heimdall extends Homey.App {
         for (let id in allDevices) {
             var device = await this.waitForDevice(allDevices[id],0)
             if ( device ) {              
-                await this.addDevice(device);
+                this.addDevice(device);
             } 
         };
         this.log('Enumerating devices:        done')
