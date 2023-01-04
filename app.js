@@ -1,7 +1,8 @@
 'use strict';
 
 const Homey = require('homey');
-const { HomeyAPIApp } = require('homey-api');
+//const { HomeyAPIApp } = require('homey-api');
+const { HomeyAPIApp } = require('./homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
 
@@ -75,10 +76,10 @@ module.exports = class Heimdall extends Homey.App {
         this.log('Attach events to devices:   done')
 
         this.log('Enumerating devices:        start')
-        this.enumerateDevices().catch(this.error);
-
+        await this.enumerateDevices().catch(this.error);
+        this.log('Enumerating devices:        done')
+        this.log('Heimdall ready for action   ----------------------')
     }
-
 
     async initializeFlowCards() {
         // Flow triggers 
@@ -150,7 +151,7 @@ module.exports = class Heimdall extends Homey.App {
             })
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
-                return Promise.resolve( this.homey.app.getUsableDevices() )
+                return Promise.resolve( this.getUsableDevices() )
             });
 
         conditionIsLoggedDevice
@@ -159,7 +160,7 @@ module.exports = class Heimdall extends Homey.App {
             })
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
-                return Promise.resolve( this.homey.app.getUsableDevices() )
+                return Promise.resolve( this.getUsableDevices() )
             });
 
         conditionIsFullDevice
@@ -168,7 +169,7 @@ module.exports = class Heimdall extends Homey.App {
             })
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
-                return Promise.resolve( this.homey.app.getUsableDevices() )
+                return Promise.resolve( this.getUsableDevices() )
             });
 
         conditionIsPartialDevice
@@ -177,7 +178,7 @@ module.exports = class Heimdall extends Homey.App {
             })
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
-                return Promise.resolve( this.homey.app.getUsableDevices() )
+                return Promise.resolve( this.getUsableDevices() )
             });
 
         // Flow Action functions
@@ -234,7 +235,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -246,7 +247,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -258,7 +259,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -270,7 +271,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -282,7 +283,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -294,7 +295,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -306,7 +307,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
 
@@ -318,7 +319,7 @@ module.exports = class Heimdall extends Homey.App {
             .getArgument('device')
             .registerAutocompleteListener((query, args) => {
                 return Promise.resolve(
-                    this.homey.app.getUsableDevices()
+                    this.getUsableDevices()
                 )
             })
     }
@@ -372,26 +373,6 @@ module.exports = class Heimdall extends Homey.App {
         });
     }
 
-    // * als https://github.com/athombv/homey-web-api-issues/issues/20 intentional is:
-    // * hoe ik trouwens om ga met "niet ready" devices is om er op dat moment niks mee te doen
-    // * zodra een device "ready" is komt er een device.update event binnen waar ik naar luister, 
-    // * en dan check ik nogmaals of het device bruikbaar is; zo ja, dan gaat ie door de rest van de code, 
-    // * zo nee dan volgt er (uiteindelijk) wel weer een nieuw event zodra het device wel ready is
-    // * en ik check op zowel device.ready als op het bestaan van device.capabilitiesObj
-    // * precies vanwege jouw issue: soms was device.ready true maar had ie (nog) geen capabilitiesObj
-    /*
-    async initializeWebApi() {
-        this.homeyApi = new HomeyAPIApp({ homey: this.homey });
-
-        await this.homeyApi.devices.connect();
-        this.devices = await this.homeyApi.devices.getDevices();
-      }
-      
-    async getDevices() {
-        return this.devices;
-    }
-    */
-
     async initializeWebApi() {
         this.homeyApi = new HomeyAPIApp({ homey: this.homey });
 
@@ -399,11 +380,11 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     async attachDeviceEvents() {
-        this.homeyApi.devices.on('device.create', async(id) => {
+        this.homeyApi.devices.on('device.create', async(device) => {
             this.log('New device found!')
-            var device = await this.waitForDevice(id,0)
-            if ( device ) {
-                await this.addDevice(device);
+            //var device = await this.waitForDevice(id,0)
+            if ( device.ready && device.capabilitiesObj ) {
+                this.addDevice(device);
             }
         });
 
@@ -413,10 +394,17 @@ module.exports = class Heimdall extends Homey.App {
 
         this.homeyApi.devices.on('device.update', async(device) => {
             if ( device.ready && device.capabilitiesObj ) {
-                //this.log('Device updated:            ',device.name, device.ready);
-                this.addDevice(device);
+                if ( device.data.id === 'sMode' || device.data.id === 'aMode' ) {
+                    this.addDevice(device);
+                }
+                for ( let cap in device.capabilities ) {
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[cap] ) ) {
+                        this.log('Device updated:            ',device.name, device.ready);
+                        this.addDevice(device);
+                    }
+                }
             } else {
-                //this.log('Device updated:            ',device.name, device.ready);
+                this.log('Device not ready:          ',device.name, device.ready);
 
             }
         });
@@ -428,13 +416,12 @@ module.exports = class Heimdall extends Homey.App {
         let allDevices = await this.getDevices();
 
         for (let id in allDevices) {
-            var device = await this.waitForDevice(allDevices[id],0)
-            if ( device ) {              
+            //var device = await this.waitForDevice(allDevices[id],0)
+            var device = allDevices[id];
+            if ( device.ready && device.capabilitiesObj ) {
                 this.addDevice(device);
             } 
         };
-        this.log('Enumerating devices:        done')
-        this.log('Heimdall ready for action   ----------------------')
     }
 
     // Yolo function courtesy of Robert Klep ;)
@@ -461,12 +448,13 @@ module.exports = class Heimdall extends Homey.App {
     // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
     addDevice(device) {
         for (let deviceItem in devicesAdded) {
-            if ( device.name == devicesAdded[deviceItem] ) {
+            if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
+                this.log('Was already added:         ',device.name);
                 return;
             }
         }
-        devicesAdded.push(device.name)
+        devicesAdded.push(device.id)
 
         // Find Surveillance Mode Switch
         if ( device.data.id === 'sMode' ) {
@@ -548,18 +536,18 @@ module.exports = class Heimdall extends Homey.App {
         if ( this.isLogged(device) ) {
             monLogged = ", Logged"
         }
-        // this.log('Attached Eventlistener to:  ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
+        //this.log(' Attached Eventlistener to: ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
     }
 
     // Get all devices, called from api.js and several functions
     async getDevices() {
-        await this.initializeWebApi();
+        // await this.initializeWebApi();
         return await this.homeyApi.devices.getDevices();
     }
 
     // Get all zones, called from api.js
     async getZones() {
-        await this.initializeWebApi();
+        // await this.initializeWebApi();
         return await this.homeyApi.zones.getZones();
     }
 
@@ -716,16 +704,19 @@ module.exports = class Heimdall extends Homey.App {
             this.log("StateChange detected for tampering but shouldn't act on it")
             return
         }
-        let nu =this.getDateTime();
+        let nu = this.getDateTime();
         let color = "   ";
         let logLine = "";
         let sourceDeviceFull = this.isMonitoredFull(device)
         let sourceDevicePartial = this.isMonitoredPartial(device)
         let sourceDeviceLog = this.isLogged(device)
-
-        // * als https://github.com/athombv/homey-web-api-issues/issues/20 intentional is:
-        // * device.capabilitiesObj[sensorType] = sensorState;
-        // * verwerken
+        // * Temporary code for:
+        // * https://github.com/athombv/homey-web-api-issues/issues/20
+        // * device.capabilitiesObj["alarm_" + sensorType].value = sensorState;
+            let dateZ = new Date();
+            device.capabilitiesObj["alarm_" + sensorType].value = sensorState;
+            device.capabilitiesObj["alarm_" + sensorType].lastUpdated = dateZ;
+        // * end
         this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')')
         // is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
@@ -911,7 +902,7 @@ module.exports = class Heimdall extends Homey.App {
                     this.log('Armingdelay already active: Not starting a new one')
                     return
                 }
-                let delay = heimdallSettings.armingDelay * 1000;
+                // let delay = heimdallSettings.armingDelay * 1000;
                 this.log('setSurveillanceValue in:    ' + heimdallSettings.armingDelay + ' seconds.')
                 this.speak("armCountdown", this.homey.__("speech.startarmcountdown") + this.readableMode(value) + this.homey.__("speech.in") + heimdallSettings.armingDelay + this.homey.__("speech.seconds"))
                 armCounterRunning = true;
@@ -1011,7 +1002,6 @@ module.exports = class Heimdall extends Homey.App {
     // Write result to the log and trigger triggerNoInfoReceived when needed.
     // - Called from checkDevicesLastCom(value)
     async checkDeviceLastCom(device, value) {
-        //if ( !device.ready ) return
         if ( !device.ready || !device.capabilitiesObj) return
         if ( this.isMonitoredFull(device) || this.isMonitoredPartial(device) ) {
             let nu =this.getDateTime();
@@ -1165,10 +1155,17 @@ module.exports = class Heimdall extends Homey.App {
     // Cycle through all devices to check the Device State from a flow
     // - Called from actionAllDevicesStateCheck flow action card
     async checkAllDevicesState() {
-        let allDevices = await this.getDevices()
-        for (let device in allDevices) {
-            this.checkAllDeviceState(allDevices[device])
-        };
+        try {
+            let allDevices = await this.getDevices()
+        // console.log("-------------------------------------------------")
+        // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
+        // console.log("=================================================")
+            for (let device in allDevices) {
+                this.checkAllDeviceState(allDevices[device])
+            };
+        } catch(err) {
+            this.log("checkAllDevicesState:       ", err)
+        }
     }
 
     // Check the state per device
@@ -1236,7 +1233,7 @@ module.exports = class Heimdall extends Homey.App {
                 if ( device.name == devicesNotReadyAtStart[deviceNotReady] ) {
                     // The device has not been ready yet
                     // So add the device
-                    await this.addDevice(device);
+                    this.addDevice(device);
                     // Remove device from devicesNotReadyAtStart list
                     let x = devicesNotReadyAtStart.splice(deviceNotReady,1)
                     devicesNotReadyAtStart = devicesNotReadyAtStart.splice(deviceNotReady,1)
@@ -1404,8 +1401,6 @@ module.exports = class Heimdall extends Homey.App {
     // - Called from multiple functions
     // - Called from actionInputNotification Flow Card
     async writeNotification(message) {
-        //SDK2 var notification = new this.homey.Notification({ excerpt: message });
-        //SDK2 notification.register().catch(() => {});
         this.homey.notifications.createNotification({ excerpt: message })
             .then(() => {})
             .catch(() => {})
