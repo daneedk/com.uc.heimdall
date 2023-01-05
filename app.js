@@ -714,8 +714,12 @@ module.exports = class Heimdall extends Homey.App {
         // * https://github.com/athombv/homey-web-api-issues/issues/20
         // * device.capabilitiesObj["alarm_" + sensorType].value = sensorState;
             let dateZ = new Date();
-            device.capabilitiesObj["alarm_" + sensorType].value = sensorState;
-            device.capabilitiesObj["alarm_" + sensorType].lastUpdated = dateZ;
+            try {
+                device.capabilitiesObj["alarm_" + sensorType].value = sensorState;
+                device.capabilitiesObj["alarm_" + sensorType].lastUpdated = dateZ;
+            } catch(err) {
+                this.log("stateChange:               ", err);
+            }
         // * end
         this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')')
         // is the device monitored?
