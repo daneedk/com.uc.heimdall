@@ -1,6 +1,6 @@
 {
     "name": "com.uc.heimdall",
-    "version": "2.3.10",
+    "version": "2.3.11",
     "description": "This app turns homey into a simple surveillance system",
     "main": "app.js",
     "author": "Danee de Kruyff <daneedekruyff@outlook.com>",
