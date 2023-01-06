@@ -59,23 +59,23 @@ module.exports = class Heimdall extends Homey.App {
         this.log('Timezone:                  ', timezone)
         this.log('Local Time:                ', localDate)
         
-        this.log('Preparing flow cards:       start');
+        //this.log('Preparing flow cards:       start');
         await this.initializeFlowCards();
         this.log('Preparing flow cards:       done');
 
-        this.log('Reading settings:           start')
+        //this.log('Reading settings:           start')
         await this.initializeSettings();
         this.log('Reading settings:           done')
 
-        this.log('Connecting webapi:          start')
+        //this.log('Connecting webapi:          start')
         await this.initializeWebApi();
         this.log('Connecting webapi:          done')
 
-        this.log('Attach events to devices:   start')
+        //this.log('Attach events to devices:   start')
         await this.attachDeviceEvents();
         this.log('Attach events to devices:   done')
 
-        this.log('Enumerating devices:        start')
+        //this.log('Enumerating devices:        start')
         await this.enumerateDevices().catch(this.error);
         this.log('Enumerating devices:        done')
         this.log('Heimdall ready for action   ----------------------')
@@ -381,7 +381,7 @@ module.exports = class Heimdall extends Homey.App {
 
     async attachDeviceEvents() {
         this.homeyApi.devices.on('device.create', async(device) => {
-            this.log('New device found!')
+            this.log('Device added:             ',device.name, 'state:', device.ready);
             //var device = await this.waitForDevice(id,0)
             if ( device.ready && device.capabilitiesObj ) {
                 this.addDevice(device);
@@ -394,17 +394,14 @@ module.exports = class Heimdall extends Homey.App {
 
         this.homeyApi.devices.on('device.update', async(device) => {
             if ( device.ready && device.capabilitiesObj ) {
-                if ( device.data.id === 'sMode' || device.data.id === 'aMode' ) {
-                    this.addDevice(device);
-                }
                 for ( let cap in device.capabilities ) {
-                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[cap] ) ) {
-                        this.log('Device updated:            ',device.name, device.ready);
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
+                        this.log('Device updated:            ',device.name, 'state:', device.ready);
                         this.addDevice(device);
                     }
                 }
             } else {
-                this.log('Device not ready:          ',device.name, device.ready);
+                this.log('Device not ready:          ',device.name, 'state:', device.ready);
 
             }
         });
@@ -756,7 +753,6 @@ module.exports = class Heimdall extends Homey.App {
                 // or
                 // is there no Alarm state active, but a delayed trigger is true and heimdallSettings.alarmWhileDelayed is true
                 if ( (!alarm && !alarmCounterRunning) || (!alarm && alarmCounterRunning && heimdallSettings.alarmWhileDelayed ) ) {
-                // if ( !alarm && !alarmCounterRunning ) {
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('sourceDeviceFull:           ' + sourceDeviceFull);
                         this.log('sourceDevicePartial:        ' + sourceDevicePartial);
@@ -792,7 +788,6 @@ module.exports = class Heimdall extends Homey.App {
                             let delay = heimdallSettings.alarmDelay * 1000;
                             // Trigger delay flow card
                             var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': device.zoneName , 'Duration': heimdallSettings.alarmDelay * 1 };
-                            //triggerAlarmDelayActivated.trigger(tokens)
                             this.homey.flow.getTriggerCard('AlarmDelayActivated').trigger(tokens)
                                 .catch(this.error)
                                 .then()
@@ -831,7 +826,6 @@ module.exports = class Heimdall extends Homey.App {
                         this.log('Alarmstate Active:          The Alarm State is active so just log the sensorstate')
                         logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggeralarmstate");
                         var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                        //triggerSensorTrippedInAlarmstate.trigger(tokens)
                         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate').trigger(tokens)
                             .catch(this.error)
                             .then()
@@ -866,7 +860,6 @@ module.exports = class Heimdall extends Homey.App {
             if ( sourceDeviceLog ) {
                 // trigger the flowcard when a device with logging changes state
                 var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                //triggerLogLineWritten.trigger(tokens)
                 this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
                     .catch(this.error)
                     .then()
@@ -906,7 +899,6 @@ module.exports = class Heimdall extends Homey.App {
                     this.log('Armingdelay already active: Not starting a new one')
                     return
                 }
-                // let delay = heimdallSettings.armingDelay * 1000;
                 this.log('setSurveillanceValue in:    ' + heimdallSettings.armingDelay + ' seconds.')
                 this.speak("armCountdown", this.homey.__("speech.startarmcountdown") + this.readableMode(value) + this.homey.__("speech.in") + heimdallSettings.armingDelay + this.homey.__("speech.seconds"))
                 armCounterRunning = true;
@@ -914,7 +906,6 @@ module.exports = class Heimdall extends Homey.App {
                 this.ttArmedCountdown(tta,"sa ", value, logLine);
 
                 var tokens= { 'Duration': heimdallSettings.armingDelay * 1 };
-                //triggerArmDelayActivated.trigger(tokens)
                 this.homey.flow.getTriggerCard('ArmDelayActivated').trigger(tokens)
                     .catch(this.error)
                     .then()
@@ -1044,7 +1035,6 @@ module.exports = class Heimdall extends Homey.App {
                     }
 
                     var tokens = {'Zone': device.zoneName, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
-                    //triggerNoInfoReceived.trigger(tokens)
                     this.homey.flow.getTriggerCard('noInfoReceived').trigger(tokens)
                         .catch(this.error)
                         .then()
@@ -1079,8 +1069,7 @@ module.exports = class Heimdall extends Homey.App {
     // Write result to the log and call alertSensorActiveAtArming when needed
     // - Called from checkDevicesState(value, nu)
     async checkDeviceState(device, value, nu) {
-        // if ( !device.ready ) return
-        if ( !device.ready || !device.capabilitiesObj) return // tempfix due to api bug
+        if ( !device.ready || !device.capabilitiesObj) return
         let sensorState
         let sensorStateReadable
         let sensorType
@@ -1134,13 +1123,11 @@ module.exports = class Heimdall extends Homey.App {
     // Generate Homey wide event and tell the user
     // - Called from checkDeviceState(device, value, nu)
     alertSensorActiveAtArming( value, nu, sensorType, warningText ) {
-        // write log
         let color = 'm' + value.substring(0,1) + '-'
         let logLine = color + nu + this.readableMode(value) + " || Heimdall || " + warningText
         this.writeLog(logLine)
         // activate triggercard
         var tokens = { 'warning': warningText };
-        //triggerSensorActiveAtArming.trigger(tokens)
         this.homey.flow.getTriggerCard('sensorActiveAtArming').trigger(tokens)
             .catch(this.error)
             .then()
@@ -1202,7 +1189,6 @@ module.exports = class Heimdall extends Homey.App {
     // - Called from checkAllDeviceState(device)
     async alertSensorActive( device, sensorType, sensorstateReadable ) {
         var tokens = { 'Zone': device.zoneName, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
-        //triggerSensorActive.trigger(tokens)
         this.homey.flow.getTriggerCard('sensorActiveAtSensorCheck').trigger(tokens)
             .catch(this.error)
             .then()
@@ -1290,7 +1276,6 @@ module.exports = class Heimdall extends Homey.App {
                 var tokens= {'Reason': 'Flowcard' , 'Zone': "" };
                 logLine = "al " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmactivatedflowcard");
             }
-            //triggerAlarmActivated.trigger(tokens)
             this.homey.flow.getTriggerCard('AlarmActivated').trigger(tokens)
                 .catch(this.error)
                 .then()
@@ -1365,7 +1350,6 @@ module.exports = class Heimdall extends Homey.App {
                 sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             var tokens = { 'Source': source };
-            //triggerAlarmDeactivated.trigger(tokens)
             this.homey.flow.getTriggerCard('AlarmDeactivated').trigger(tokens)
                 .catch(this.error)
                 .then() 
@@ -1459,7 +1443,6 @@ module.exports = class Heimdall extends Homey.App {
                 logLine = prevLogLine
             }
             var tokens = { 'ArmedTimer': delay * 1};
-            //triggerTimeTillArmedChanged.trigger(tokens)
             this.homey.flow.getTriggerCard('TimeTillArmed').trigger(tokens)
                 .catch(this.error) 
                 .then()
@@ -1507,7 +1490,6 @@ module.exports = class Heimdall extends Homey.App {
         surveillance = this.homey.settings.get('surveillanceStatus');
         if ( surveillance != 'disarmed' ) {
             var tokens = { 'AlarmTimer': delay * 1};
-            //triggerTimeTillAlarmChanged.trigger(tokens)
             this.homey.flow.getTriggerCard('TimeTillAlarm').trigger(tokens)
                 .catch(this.error)
                 .then()
