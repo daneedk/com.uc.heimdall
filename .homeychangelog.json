@@ -375,5 +375,16 @@
     "no": "Oppdaterte Homey API til 1.10.5 • Bedre løsning for homey-api bug • kode opprydding",
     "es": "API Homey actualizada a 1.10.5 • Mejor solución para el error homey-api • limpieza de código",
     "sv": "Uppdaterad Homey API till 1.10.5 • Bättre lösning för homey-api bugg • kodrensning"
+  },
+  "2.3.13": {
+    "en": "UBetter workaround for homey-api bug",
+    "da": "Bedre løsning til homey-api fejl",
+    "de": "Bessere Problemumgehung für Homey-API Bug",
+    "fr": "Meilleure solution de contournement pour le bogue homey-api",
+    "it": "Soluzione migliore per il bug homey-api",
+    "nl": "Betere oplossing voor homey-api bug",
+    "no": "Bedre løsning for homey-api bug",
+    "es": "Mejor solución para el error homey-api",
+    "sv": "Bättre lösning för homey-api bugg"
   }
 }
