@@ -1048,9 +1048,9 @@ module.exports = class Heimdall extends Homey.App {
     async checkDevicesState(value, nu) {
         try {
             let allDevices = await this.getDevices()
-        console.log("-------------------------------------------------")
-        console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
-        console.log("=================================================")
+            // console.log("-------------------------------------------------")
+            // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
+            // console.log("=================================================")
             for (let device in allDevices) {
                 this.checkDeviceState(allDevices[device], value, nu)
             };
@@ -1142,9 +1142,9 @@ module.exports = class Heimdall extends Homey.App {
     async checkAllDevicesState() {
         try {
             let allDevices = await this.getDevices()
-        // console.log("-------------------------------------------------")
-        // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
-        // console.log("=================================================")
+            // console.log("-------------------------------------------------")
+            // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
+            // console.log("=================================================")
             for (let device in allDevices) {
                 this.checkAllDeviceState(allDevices[device])
             };
