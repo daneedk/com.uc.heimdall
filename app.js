@@ -366,6 +366,8 @@ module.exports = class Heimdall extends Homey.App {
         this.log(' Language:                  ' + language);
         this.homey.settings.set('language', language);
 
+        this.homey.settings.set('platformVersion', this.homey.platformVersion);
+
         this.homey.settings.on('set', (variable) => {
             if ( variable === 'settings' ) {
                 heimdallSettings = this.homey.settings.get('settings')
@@ -381,7 +383,7 @@ module.exports = class Heimdall extends Homey.App {
 
     async attachDeviceEvents() {
         this.homeyApi.devices.on('device.create', async(device) => {
-            this.log('Device added:             ',device.name, 'state:', device.ready);
+            this.log('device.create:            ',device.name, 'state:', device.ready);
             //var device = await this.waitForDevice(id,0)
             if ( device.ready && device.capabilitiesObj ) {
                 this.addDevice(device);
@@ -389,19 +391,19 @@ module.exports = class Heimdall extends Homey.App {
         });
 
         this.homeyApi.devices.on('device.delete', async(device) => {
-            this.log('Device deleted:            ',device);
+            this.log('device.delete:             ',device);
         });
 
         this.homeyApi.devices.on('device.update', async(device) => {
             if ( device.ready && device.capabilitiesObj ) {
                 for ( let cap in device.capabilities ) {
                     if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
-                        this.log('Device updated:            ',device.name, 'state:', device.ready);
+                        this.log('device.update: Ready now:  ',device.name, 'state:', device.ready);
                         this.addDevice(device);
                     }
                 }
             } else {
-                this.log('Device not ready:          ',device.name, 'state:', device.ready);
+                this.log('device.update: Not ready:  ',device.name, 'state:', device.ready);
 
             }
         });
@@ -413,33 +415,34 @@ module.exports = class Heimdall extends Homey.App {
         let allDevices = await this.getDevices();
 
         for (let id in allDevices) {
-            //var device = await this.waitForDevice(allDevices[id],0)
-            var device = allDevices[id];
+            var device = await this.checkReadyStateAtStart(allDevices[id],0)
+            //var device = allDevices[id];
             if ( device.ready && device.capabilitiesObj ) {
                 this.addDevice(device);
             } 
         };
     }
 
-    // Yolo function courtesy of Robert Klep ;)
-    async waitForDevice(id, addCounter) {
+    // Check if a device is ready 
+    async checkReadyStateAtStart(id, addCounter) {
         const device = await this.homeyApi.devices.getDevice({ id: id.id });
-        if (device.ready) {
-          return device;
+        if ( device.ready && device.capabilitiesObj ) {
+            return device;
         }
-        await delay(1000);
-        addCounter++;
-        if ( addCounter < 12 ) {
-            return this.waitForDevice(id,addCounter);
-        } else {
-            this.log(" Found Device, not ready:   " + device.name)
-            devicesNotReadyAtStart.push(device.name)
-            let nu =this.getDateTime();
-            // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
-            let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("enumerate.source") + " || " + device.name + this.homey.__("enumerate.warning")
-            this.writeLog(logLine)
+        if ( device.data.id == "sMode" || device.data.id == "aMode" ) {
             return false
         }
+        this.log(" Found Device, not ready:   " + device.name)
+        devicesNotReadyAtStart.push(device.id)
+        for ( let cap in device.capabilities ) {
+            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {                    
+                let nu =this.getDateTime();
+                // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
+                let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("enumerate.source") + " || " + device.name + this.homey.__("enumerate.warning")
+                this.writeLog(logLine)        
+            }
+        }
+        return false
     }
 
     // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
@@ -447,7 +450,7 @@ module.exports = class Heimdall extends Homey.App {
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
-                this.log('Was already added:         ',device.name);
+                this.log('addDevice: Already added:  ',device.name);
                 return;
             }
         }
@@ -539,7 +542,8 @@ module.exports = class Heimdall extends Homey.App {
     // Get all devices, called via api.js from settings and several other functions
     async getDevices() {
 
-        return await this.homeyApi.devices.getDevices({ $cache : false });
+        // return await this.homeyApi.devices.getDevices({ $cache : false });
+        return await this.homeyApi.devices.getDevices();
     }
 
     // Get all zones, called via api.js from settings
@@ -1196,54 +1200,68 @@ module.exports = class Heimdall extends Homey.App {
             // The device is not ready
             // Check if the device is in the devicesNotReadyAtStart list
             for (let deviceNotReady in devicesNotReadyAtStart) {
-                if ( device.name == devicesNotReadyAtStart[deviceNotReady] ) {
+                if ( device.id == devicesNotReadyAtStart[deviceNotReady] ) {                   
                     // The device has not been ready yet, no action
                     return true
                 }
             }
             // The device is not in the devicesNotReadyAtStart list so it has been ready
             // Add to the devicesNotReady list
-            devicesNotReady.push(device.name)
+            devicesNotReady.push(device.id)
             // And log this
             this.log("Device no longer ready:     " + device.name)
             let nu =this.getDateTime();
             let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.warning")
-            this.writeLog(logLine)
+            for ( let cap in device.capabilities ) {
+                if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                    this.writeLog(logLine)
+                }
+            }                   
             return true
         } else {
             // The device is ready
             // Check if the device is in the devicesNotReadyAtStart list
+            var tempArray = devicesNotReadyAtStart;
             for (let deviceNotReady in devicesNotReadyAtStart) {
-                if ( device.name == devicesNotReadyAtStart[deviceNotReady] ) {
+                if ( device.id == devicesNotReadyAtStart[deviceNotReady] ) {
                     // The device has not been ready yet
                     // So add the device
                     this.addDevice(device);
                     // Remove device from devicesNotReadyAtStart list
-                    let x = devicesNotReadyAtStart.splice(deviceNotReady,1)
-                    devicesNotReadyAtStart = devicesNotReadyAtStart.splice(deviceNotReady,1)
+                    tempArray.splice(deviceNotReady,1)
                     // And log it
                     this.log("Device now ready:           " + device.name)
                     let nu =this.getDateTime();
                     let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.ready")
-                    this.writeLog(logLine)
+                    for ( let cap in device.capabilities ) {
+                        if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                            this.writeLog(logLine)
+                        }
+                    }
                     return false
                 }
             }
+            devicesNotReadyAtStart = tempArray;
             // Check if the device is in the devicesNotReady list
+            var tempArray = devicesNotReady;
             for (let deviceReady in devicesNotReady) {
-                if ( device.name == devicesNotReady[deviceReady] ) {
+                if ( device.id == devicesNotReady[deviceReady] ) {
                     // The device has been ready, was unready and is ready again
                     // Log this
                     this.log("Device became ready again:  " + device.name)
                     let nu =this.getDateTime();
                     let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.readyagain")
-                    this.writeLog(logLine)
+                    for ( let cap in device.capabilities ) {
+                        if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                            this.writeLog(logLine)
+                        }
+                    }   
                     // Remove the device from deviceNotReady list
-                    let x = devicesNotReady.splice( deviceReady, 1 )
-                    devicesNotReady = devicesNotReady.splice( deviceReady, 1 )
+                    tempArray.splice( deviceReady, 1 )               
                     return false
                 }
             }
+            devicesNotReady = tempArray;
             return false
         }
     }
@@ -1376,6 +1394,7 @@ module.exports = class Heimdall extends Homey.App {
     // Let's Homey speak when spoken text is enabled.
     // - Called from multiple functions
     async speak(type, text) {
+        if ( this.homey.platformVersion != 1 ) return
         if ( type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
             this.log('Say:                        ' + text)
             this.homey.speechOutput.say(text.toString())

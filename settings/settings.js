@@ -12,6 +12,7 @@ var dashboardVisible = true;
 var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
+var platformVersion = 1;
 var language = "en";
 var newUser = 0;
 var noUser = false;
@@ -48,6 +49,21 @@ var defaultSettings = {
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
+    
+    Homey.get('platformVersion', function(err, savedSettings) {
+        if ( err ) {
+            Homey.alert( err );
+        } else {
+            if (savedSettings != (null || undefined)) {
+                console.log('platformVersion:', savedSettings);
+                platformVersion = savedSettings;
+            }
+            if ( platformVersion == 2 ) {
+                useSpeech = false;    
+            }
+        }
+    });
+
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
         if ( err ) {
@@ -517,11 +533,6 @@ async function getAllDevices() {
         return result[key];
     });
     allDevices = array;
-    /*
-    console.log("-------------------------------------------------")
-    console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
-    console.log("=================================================")
-    */
 }
 
 
@@ -770,7 +781,6 @@ function editUser(userId) {
         document.getElementById("userEnabledCbx").style.display = "";
     }
 }
-
 
 function saveSettings() {
     heimdallSettings.autorefresh = document.getElementById('autoRefresh').checked;
