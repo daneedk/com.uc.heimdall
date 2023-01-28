@@ -50,6 +50,9 @@ function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
     
+    // Get platformVersion to determine if Speech options should be shown
+    // Homey Pro -2023: Yes
+    // Homey Pro 2023:  No
     Homey.get('platformVersion', function(err, savedSettings) {
         if ( err ) {
             Homey.alert( err );
@@ -62,6 +65,12 @@ function onHomeyReady(homeyReady){
                 useSpeech = false;    
             }
         }
+    });
+
+    // Listen to the 'Surveillance Mode' events emitted by the systemEvent(event, details) function in app.js
+    Homey.on('Surveillance Mode', function(data)
+    {
+        console.log("Surveillance Mode event received:", data);
     });
 
     heimdallSettings = defaultSettings;

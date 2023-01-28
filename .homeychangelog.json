@@ -386,5 +386,16 @@
     "no": "Oppdaterte Homey API til 1.10.8",
     "es": "API Homey actualizada a 1.10.8",
     "sv": "Uppdaterad Homey API till 1.10.8"
+  },
+  "2.3.14": {
+    "en": "Added more comments to the code",
+    "da": "Tilføjet flere kommentarer til koden",
+    "de": "Mehr Kommentare zum Code hinzugefügt",
+    "fr": "Ajouté plus de commentaires au code",
+    "it": "Aggiunti altri commenti al codice",
+    "nl": "Meer opmerkingen toegevoegd aan de code",
+    "no": "La til flere kommentarer i koden",
+    "es": "Añadidos más comentarios al código",
+    "se": "Lade till fler kommentarer till koden"
   }
 }

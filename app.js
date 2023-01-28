@@ -409,11 +409,11 @@ module.exports = class Heimdall extends Homey.App {
         });
     }
 
-    // Get all devices and add them
+    // Get all devices and run them through the functions to add 
+    // makeCapabilityInstance('capability', ) functions for the desired capabilities.
+    // addDevice() -> attachEventListener()
     async enumerateDevices() {
-
         let allDevices = await this.getDevices();
-
         for (let id in allDevices) {
             var device = await this.checkReadyStateAtStart(allDevices[id],0)
             //var device = allDevices[id];
@@ -423,7 +423,9 @@ module.exports = class Heimdall extends Homey.App {
         };
     }
 
-    // Check if a device is ready 
+    // Check if a device is ready return it when ready. If ready return false, 
+    // log to the log and add the device ID to the devicesNotReadyAtStart array
+    // - Called from enumerateDevices()
     async checkReadyStateAtStart(id, addCounter) {
         const device = await this.homeyApi.devices.getDevice({ id: id.id });
         if ( device.ready && device.capabilitiesObj ) {
@@ -445,7 +447,10 @@ module.exports = class Heimdall extends Homey.App {
         return false
     }
 
-    // Add device function, all device types with motion-, contact-, vibration- and tamper capabilities are added.
+    // Add device function, all device types with motion-, contact-, vibration- and tamper 
+    // capabilities are run through the attachEventListener() function to add
+    // makeCapabilityInstance('capability', ) to the capability of a device.
+    // - Called from enumerateDevices()
     addDevice(device) {
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
@@ -539,20 +544,23 @@ module.exports = class Heimdall extends Homey.App {
         //this.log(' Attached Eventlistener to: ' + device.name + ': ' + sensorType + monFull + monPartial + monLogged)
     }
 
-    // Get all devices, called via api.js from settings and several other functions
+    // Get all devices from the homey-api, 
+    // - Called via api.js from settings and several other functions
     async getDevices() {
 
         // return await this.homeyApi.devices.getDevices({ $cache : false });
         return await this.homeyApi.devices.getDevices();
     }
 
-    // Get all zones, called via api.js from settings
+    // Get all zones from homey-api
+    // - Called via api.js from settings
     async getZones() {
 
         return await this.homeyApi.zones.getZones();
     }
 
-    // Get all users, called via api.js from settings
+    // Get all users, users can be used by external keypads 
+    // - Called via api.js from settings
     async getUsers(pin) {
         await delay(timeout);
         timeout = timeout * 1.5;
@@ -572,7 +580,8 @@ module.exports = class Heimdall extends Homey.App {
         }
     }
 
-    // Save new or changed user, called via api.js from settings
+    // Save new or changed user, 
+    // - Called via api.js from settings
     async processUsers(modifiedUser, action) {
         let pin = modifiedUser.pin;
         modifiedUser = modifiedUser.user;  
@@ -610,7 +619,8 @@ module.exports = class Heimdall extends Homey.App {
         return "Succes";
     }
 
-    // Process infromation received from a keypad, called via api.js from 3rd party apps
+    // Process infromation received from a keypad, 
+    // - Called via api.js from 3rd party apps
     async processKeypadCommands(post, type) {
         if ( this.checkAPIKEY(post.APIKEY) ) {
             let nu =this.getDateTime();
@@ -679,6 +689,7 @@ module.exports = class Heimdall extends Homey.App {
 
     // This returns the devices that can be used as sensor
     // Motion, Contact and Vibration
+    // - Called from several functions
     async getUsableDevices () {
         var usableDevices = []
         let allDevices = await this.getDevices();
@@ -722,14 +733,14 @@ module.exports = class Heimdall extends Homey.App {
         */
         // * end
         this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')')
-        // is the device monitored?
+        // Is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
             let sensorStateReadable;
             surveillance = this.homey.settings.get('surveillanceStatus');
             sensorStateReadable = this.readableState(sensorState, sensorType);
             this.log('sensorStateReadable:        ' + sensorStateReadable);
 
-            // Select the desired color
+            // Select the desired color for the logline
             if ( surveillance == "disarmed" ) {
                 color = "md-"
             } 
@@ -744,8 +755,8 @@ module.exports = class Heimdall extends Homey.App {
             }
             // Set logLine for the statechange
             logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " " + sensorType + ": " + sensorStateReadable;
-            // Is sensorState true?
             if ( sensorState ) {
+                // sensorState is true
                 this.log('Surveillance Mode:          ' + surveillance);         
                 if ( sensorType == 'contact' && this.isDelayed(device) && armCounterRunning ) {
                     // a Doorsensor with a delay is opened while the arming countdown is running
@@ -804,7 +815,7 @@ module.exports = class Heimdall extends Homey.App {
                             let tta = heimdallSettings.alarmDelay - 1;
                             this.ttAlarmCountdown(tta, device,sensorStateReadable);
                             // Generate Homey wide event for starting the Alarm Delay
-                            this.systemEvent("Alarm Delay", tta + 1);
+                            this.systemEvent("Alarm Delay left", tta + 1);
                         } 
                         else {
                             this.log('Trigger is delayed:         No')
@@ -872,7 +883,7 @@ module.exports = class Heimdall extends Homey.App {
 
     // sets Surveillance Mode
     // - Called from setNewState(newState) in Surveillance Mode Device
-    //   will call setSurveillanceValue after evaluating conditions.
+    //   will call setSurveillanceValue() after evaluating conditions.
     setSurveillanceMode(value, source) {
         this.log('setSurveillanceMode:        ' + value);
         let nu =this.getDateTime();
@@ -914,7 +925,7 @@ module.exports = class Heimdall extends Homey.App {
                     .then()
                 
                 // Generate Homey wide event for starting the Arming Delay
-                this.systemEvent("Arming Delay", tta);
+                this.systemEvent("Arming Delay left", tta);
 
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + this.homey.__("history.seconds")
@@ -1052,9 +1063,6 @@ module.exports = class Heimdall extends Homey.App {
     async checkDevicesState(value, nu) {
         try {
             let allDevices = await this.getDevices()
-            // console.log("-------------------------------------------------")
-            // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
-            // console.log("=================================================")
             for (let device in allDevices) {
                 this.checkDeviceState(allDevices[device], value, nu)
             };
@@ -1146,9 +1154,6 @@ module.exports = class Heimdall extends Homey.App {
     async checkAllDevicesState() {
         try {
             let allDevices = await this.getDevices()
-            // console.log("-------------------------------------------------")
-            // console.log(Object.values(allDevices).filter(d => d.name == "Test Motion Sensor")[0].capabilitiesObj.alarm_motion);
-            // console.log("=================================================")
             for (let device in allDevices) {
                 this.checkAllDeviceState(allDevices[device])
             };
@@ -1357,12 +1362,12 @@ module.exports = class Heimdall extends Homey.App {
                 let message = this.homey.__("history.alarmdeactivated") + '**' + source + '**';
                 this.writeNotification(message);
             }
-            // Generate Homey wide event for setting the Alarm Status
+            // Generate Homey wide event when setting the Alarm Status
             this.systemEvent("Alarm Status", alarm);
         }
     }
 
-    // Write information to history and cleanup 20% when history above 2000 lines
+    // Write information to the Heimdall log and cleanup 20% when history above 2000 lines
     // - Called from multiple functions
     async writeLog(logLine) {
         let savedHistory = this.homey.settings.get('myLog');
@@ -1393,6 +1398,7 @@ module.exports = class Heimdall extends Homey.App {
 
     // Let's Homey speak when spoken text is enabled.
     // - Called from multiple functions
+    // - Only for Homey Pro -2023
     async speak(type, text) {
         if ( this.homey.platformVersion != 1 ) return
         if ( type == "sModeChange" && heimdallSettings.spokenSmodeChange ) {
@@ -1429,6 +1435,10 @@ module.exports = class Heimdall extends Homey.App {
         }
     }
 
+    // Countdown function for a delayed Arming
+    // - Started from setSurveillanceMode(value, source)
+    //  and calling itself every second until the timer is 0
+    // - Calling setSurveillanceValue(color, value, logLine, false) when timer is 0
     ttArmedCountdown(delay, color, value, logLine) {
         this.log('ttArmedCountdown:           ' + delay)
         if ( armCounterRunning ) {
@@ -1479,6 +1489,10 @@ module.exports = class Heimdall extends Homey.App {
         }
     }
     
+    // Countdown function for a delayed Alarm
+    // - Started from stateChange(device,sensorState,sensorType)
+    //  and calling itself every second until the timer is 0
+    // - Calling activateAlarm(device, sensorStateReadable, "", "Heimdall") when timer is 0
     ttAlarmCountdown(delay,device,sensorStateReadable) {
         if ( !alarmCounterRunning ) {
             this.log('Alarm counter active:       Yes, break off delayed alarm')
@@ -1523,12 +1537,15 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     // Generate Homey wide event
-    // - Called from multiple functions
+    // - Called from multiple functions and events are sent for:
+    // Alarm Delay left, Alarm Status, Arming Delay left, Last Door function, Sensor State at Arming, Surveillance Mode
     systemEvent(event, details)
     {
         this.homey.api.realtime(event, details)
     }
 
+    // Check if there is a user with the provide PIN and return the userObject if so
+    // - Called from processKeypadCommands(post, type), processUsers(modifiedUser, action) and getUsers(pin)
     getUserInfo(codeString, userList) {
         if ( codeString.length > 3 ) {
             let userObject = userList.find( record => record.pincode === codeString);
