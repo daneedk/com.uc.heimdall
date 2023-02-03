@@ -169,6 +169,27 @@ function onHomeyReady(homeyReady){
                     this.devices = array
                 });
             },
+            getZones() {
+                Homey.api('GET', '/zones', null, (err, result) => {
+                    if (err)
+                        return Homey.alert('getZones' + err);
+                    var array = Object.keys(result).map(function (key) {
+                        return result[key];
+                    });
+                    this.zones = array
+                    return this.zones
+                });
+            },
+            getZoneName: function(zoneId) {
+                var result = "unknown";
+                //var zones = this.zones;
+                for (let zone in this.zones) {
+                    if ( this.zones[zone].id == zoneId ) {
+                        result = this.zones[zone].name;
+                    }
+                };
+                return result;
+            },
             async addMonitorFull(device) {
                 var i;
                 var addDeviceMonitorFull = true;
@@ -432,6 +453,7 @@ function onHomeyReady(homeyReady){
             }
         },
         async mounted() {
+            await this.getZones();
             await this.getDevices();
             await this.getDeviceSettings();
         },
@@ -976,6 +998,12 @@ async function showStatus() {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
                 for ( let rCapability in device.capabilitiesObj ) {
+/*
+if ( device.name == "Recessed Door Sensor" && capability == "alarm_contact") {
+    console.log("LastUpdate read: ", device.capabilitiesObj[capability].lastUpdated);
+    // console.log("lastUpdate parsed:", Date.parse(device.capabilitiesObj[rCapability].lastUpdated));                    
+}
+*/
                     let lu = Date.parse(device.capabilitiesObj[rCapability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {

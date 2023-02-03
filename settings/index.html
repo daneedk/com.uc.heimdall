@@ -82,7 +82,7 @@
                                     <span v-html="getBattClass(device.capabilitiesObj)"></span>
                                 </div>
                                 <div class="rTableCell line">
-                                    {{device.zoneName}}<br />
+                                    {{ getZoneName(device.zone) }}<br />
                                     <b>{{device.name}}</b>
                                     <br />
 
@@ -106,7 +106,7 @@
                                     <span v-html="getBattClass(device.capabilitiesObj)"></span>
                                 </div>
                                 <div style="width: 100%" class="rTableCell line">
-                                    {{device.zoneName}}<br />
+                                    {{ getZoneName(device.zone) }}<br />
                                     <b>{{device.name}}</b>
                                     <br />
                                     <a v-if="!isLogged(device)" @click="addLog(device)" class="btn narrow btn-inactive" data-i18n="tab2.devices.log">-Log-</a>

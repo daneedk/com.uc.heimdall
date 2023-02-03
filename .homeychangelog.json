@@ -408,5 +408,16 @@
     "no": "Siste versjon for Homey Pro før 2023 (foreløpig)",
     "es": "Última versión para Homey Pro antes de 2023 (por ahora)",
     "se": "Senaste versionen för Homey Pro före 2023 (för närvarande)"
+  },
+  "2.10.0": {
+    "en": "• Added new method to retrieve a devices zone due to change in API",
+    "da": "",
+    "de": "",
+    "fr": "",
+    "it": "",
+    "nl": "",
+    "no": "",
+    "es": "",
+    "se": ""
   }
 }
