@@ -391,7 +391,7 @@ function onHomeyReady(homeyReady){
                         mostRecentComE = lu
                     }
                 }
-                if ( mostRecentComE == 0 ) return "not available"
+                if ( mostRecentComE == 0 ) return "<span id='ls-" + device.id + "'>not available</span>"
                 let mostRecentComH = new Date( mostRecentComE )
                 let result = "<span id='ls-" + device.id + "'>" + mostRecentComH.toLocaleString() + "</span>"
                 return result
@@ -588,8 +588,8 @@ function enterPIN() {
             });
             console.log(transferedUsers);
             let numUsers = transferedUsers.length
-            
-            if (numUsers = 1 ) {
+
+            if (numUsers == 1 ) {
                 isAdmin = transferedUsers[0].admin;
 
                 if ( isAdmin == null ) {
@@ -784,10 +784,17 @@ function editUser(userId) {
         canDelete = true; 
         $('#deleteButton').removeClass('btn-inactive');
         $('#deleteButton').addClass('btn-active');
-        document.getElementById("userAdminLbl").style.display = "";
-        document.getElementById("userAdminCbx").style.display = "";
-        document.getElementById("userEnabledLbl").style.display = "";
-        document.getElementById("userEnabledCbx").style.display = "";
+        if ( isAdmin ) {
+            document.getElementById("userAdminLbl").style.display = "";
+            document.getElementById("userAdminCbx").style.display = "";
+            document.getElementById("userEnabledLbl").style.display = "";
+            document.getElementById("userEnabledCbx").style.display = "";
+        } else {
+            document.getElementById("userAdminLbl").style.display = "none";
+            document.getElementById("userAdminCbx").style.display = "none";
+            document.getElementById("userEnabledLbl").style.display = "none";
+            document.getElementById("userEnabledCbx").style.display = "none";
+        }
     }
 }
 

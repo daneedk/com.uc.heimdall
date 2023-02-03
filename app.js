@@ -5,6 +5,7 @@ const Homey = require('homey');
 const { HomeyAPIApp } = require('./homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
+// this.homey.
 
 var surveillance;
 var alarm = false;
@@ -581,7 +582,7 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     // Save new or changed user, 
-    // - Called via api.js from settings
+    // - Called from saveUser() in settings via api.js
     async processUsers(modifiedUser, action) {
         let pin = modifiedUser.pin;
         modifiedUser = modifiedUser.user;  
@@ -620,7 +621,7 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     // Process infromation received from a keypad, 
-    // - Called via api.js from 3rd party apps
+    // - Called by 3rd party apps via api.js
     async processKeypadCommands(post, type) {
         if ( this.checkAPIKEY(post.APIKEY) ) {
             let nu =this.getDateTime();
@@ -882,7 +883,7 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     // sets Surveillance Mode
-    // - Called from setNewState(newState) in Surveillance Mode Device
+    // - Called from setNewState(newState) in Surveillance Mode device.js
     //   will call setSurveillanceValue() after evaluating conditions.
     setSurveillanceMode(value, source) {
         this.log('setSurveillanceMode:        ' + value);
@@ -1163,7 +1164,7 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     // Check the state per device
-    // Write result to the log and call alertSensorActive when needed
+    // Write result to the log and call alertSensorActive(device, sensorType, sensorStateReadable) when needed
     // - Called from checkAllDevicesState()    
     async checkAllDeviceState(device) {
         if ( await this.checkReadyState(device) ) return
@@ -1832,4 +1833,10 @@ module.exports = class Heimdall extends Homey.App {
 
 }
 
-
+// Translate text in ChatGPT
+/*
+In this code en means English, please add Danish, German, French, Italian, Dutch, Norwegian, Spanish and Swedish. Answer in a code block.
+{
+  "en": "Added more comments to the code",
+}
+*/

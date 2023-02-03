@@ -30,7 +30,6 @@ class Heimdall extends Homey.Device {
     onDeleted() {
         // this.log('device deleted');
         let id = this.getData().id;
-        // SDK2 Homey.app.removeDevice(id);
         this.homey.app.removeDevice(id);
     }
 
@@ -39,11 +38,6 @@ class Heimdall extends Homey.Device {
         // Alarm Off Button is clicked
         if ( this.getData().id == "aMode" ){
             this.log('Alarm button clicked:      ' + value);
-            /* // SDK2
-            Homey.app.deactivateAlarm(false, Homey.__("devices.alarmoff.name") ,function(err){
-                if( err ) return Homey.alert( err );
-            });
-            */
             this.homey.app.deactivateAlarm(false, this.homey.__("devices.alarmoff.name"));
         }
         return Promise.resolve( true );

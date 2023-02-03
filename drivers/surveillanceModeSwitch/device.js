@@ -32,7 +32,6 @@ class Heimdall extends Homey.Device {
     onDeleted() {
         // this.log('device deleted');
         let id = this.getData().id;
-        // SDK2 Homey.app.removeDevice(id);
         this.homey.app.removeDevice(id);
     }
 
@@ -41,11 +40,6 @@ class Heimdall extends Homey.Device {
         // Switch Surveillance Mode is clicked
         if ( this.getData().id == "sMode" ){
             this.log('Surveillance Mode Switch clicked: ' + newState);
-            /* //SDK2 
-            Homey.app.setSurveillanceMode(newState, Homey.__("devices.surveillancemode.name") ,function(err){
-                if( err ) return Homey.alert( err );
-            });
-            */
             this.homey.app.setSurveillanceMode(newState, this.homey.__("devices.surveillancemode.name"));
         }
         return Promise.resolve( true );
@@ -57,11 +51,6 @@ class Heimdall extends Homey.Device {
         this.setCapabilityValue('homealarm_state', newState)
           .catch( this.error );
         this.log('Surveillance Mode Flow Card activated: ' + newState);
-        /* // SDK2 
-        Homey.app.setSurveillanceMode(newState, Homey.__("devices.flowcard") ,function(err){
-            if( err ) return Homey.alert( err );
-        });
-        */
         this.homey.app.setSurveillanceMode(newState, this.homey.__("devices.flowcard"))
     }
 
@@ -70,11 +59,6 @@ class Heimdall extends Homey.Device {
         // Surveillance Mode Switch is clicked
         if ( this.getData().id == "sMode" ){
             this.log('Surveillance Mode Button clicked: ' + value);
-            /* // SDK2 
-            Homey.app.deactivateAlarm(false, Homey.__("devices.surveillancemode.name") ,function(err){
-                if( err ) return Homey.alert( err );
-            });
-            */
             this.homey.app.deactivateAlarm(false, this.homey.__("devices.surveillancemode.name"));
         }
         return Promise.resolve( true );

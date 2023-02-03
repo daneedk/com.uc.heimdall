@@ -397,5 +397,16 @@
     "no": "La til flere kommentarer i koden",
     "es": "Añadidos más comentarios al código",
     "se": "Lade till fler kommentarer till koden"
+  },
+  "2.3.15": {
+    "en": "Latest version for Homey Pro pre 2023 (for now)",
+    "da": "Seneste version for Homey Pro inden 2023 (indtil videre)",
+    "de": "Aktuelle Version für Homey Pro vor 2023 (vorläufig)",
+    "fr": "Dernière version pour Homey Pro avant 2023 (pour le moment)",
+    "it": "Ultima versione per Homey Pro pre 2023 (per ora)",
+    "nl": "Laatste versie voor Homey Pro voor 2023 (voorlopig)",
+    "no": "Siste versjon for Homey Pro før 2023 (foreløpig)",
+    "es": "Última versión para Homey Pro antes de 2023 (por ahora)",
+    "se": "Senaste versionen för Homey Pro före 2023 (för närvarande)"
   }
 }
