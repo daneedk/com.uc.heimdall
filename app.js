@@ -5,7 +5,6 @@ const Homey = require('homey');
 const { HomeyAPIApp } = require('./homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
-// this.homey.
 
 var surveillance;
 var alarm = false;
@@ -1822,14 +1821,15 @@ module.exports = class Heimdall extends Homey.App {
     getDateTime() {
         let timezone = this.homey.clock.getTimezone()
         let date = new Date(new Date().toLocaleString("en-US", {timeZone: timezone}));
-        
+        let dateMsecs = new Date();
+
         let hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
         let min  = date.getMinutes();
         min = (min < 10 ? "0" : "") + min;
         let sec  = date.getSeconds();
         sec = (sec < 10 ? "0" : "") + sec;
-        let msec = ("00" + date.getMilliseconds()).slice(-3)
+        let msec = ("00" + dateMsecs.getMilliseconds()).slice(-3)
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
         month = (month < 10 ? "0" : "") + month;

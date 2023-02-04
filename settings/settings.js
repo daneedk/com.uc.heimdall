@@ -923,7 +923,10 @@ function changeUseColor() {
 
 function showHistory(run) {
     Homey.get('myLog', function(err, logging){
-        if( err ) return console.error('showHistory: Could not get history', err);
+        if( err ) {
+            console.error('showHistory: Could not get history', err);
+            return
+        }
         if (_myLog !== logging || run == 1 ){
             console.log("_myLog !== logging || run == 1")
             _myLog = logging
@@ -1037,6 +1040,7 @@ function download(filename, text) {
     }
 }
 
+/*
 function getDateTime() {
     var date = new Date();
 
@@ -1061,3 +1065,4 @@ function getDateTime() {
 
     return day + "-" + month + "-" + year + "  ||  " + hour + ":" + min + ":" + sec + "." + msec + "  ||  ";
 }
+*/
