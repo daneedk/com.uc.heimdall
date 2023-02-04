@@ -420,4 +420,16 @@
     "es": "",
     "se": ""
   }
+  ,
+  "2.10.1": {
+    "en": "• Added new method to retrieve a devices zone due to change in API",
+    "da": "",
+    "de": "",
+    "fr": "",
+    "it": "",
+    "nl": "",
+    "no": "",
+    "es": "",
+    "se": ""
+  }
 }
