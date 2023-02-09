@@ -419,17 +419,16 @@
     "no": "",
     "es": "",
     "se": ""
-  }
-  ,
+  },
   "2.10.1": {
-    "en": "• Added new method to retrieve a devices zone due to change in API",
-    "da": "",
-    "de": "",
-    "fr": "",
-    "it": "",
-    "nl": "",
-    "no": "",
-    "es": "",
-    "se": ""
+      "en": "• Improved look and feel of the settings pages • Removed alarm_generic capability from Alarm Off Switch and Surveillance Mode Switch",
+      "da": "• Forbedret udseende og følelse af indstillingssiderne • Fjernet alarm_generic-evne fra Alarm Off Switch og Surveillance Mode Switch",
+      "de": "• Verbessertes Aussehen und Gefühl der Einstellungsseiten • Alarm_generic-Fähigkeit vom Alarm Off Switch und Surveillance Mode Switch entfernt",
+      "fr": "• Amélioration de l'apparence et de la sensation des pages de paramètres • Suppression de la capacité alarm_generic du commutateur Alarm Off et du commutateur Surveillance Mode",
+      "it": "• Migliorato aspetto e sensazione delle pagine delle impostazioni • Rimossa la capacità di allarme_generico dallo switch Alarm Off e dallo switch Surveillance Mode",
+      "nl": "• Verbeterde 'look and feel' van de instellingspagina's • Alarm_generic-capaciteit verwijderd van Alarm Off Switch en Surveillance Mode Switch",
+      "no": "• Forbedret utseende og følelse av innstillingssidene • Fjernet alarm_generic-evne fra Alarm Off Switch og Surveillance Mode Switch",
+      "es": "• Mejorado aspecto y sensación de las páginas de configuración • Eliminada la capacidad alarm_generic del interruptor Alarm Off y el interruptor Surveillance Mode",
+      "sv": "• Förbättrat utseende och känsla på inställningssidorna • Borttagen alarm_generic-förmåga från Alarm Off Switch och Surveillance Mode Switch"    
   }
 }

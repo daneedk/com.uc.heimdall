@@ -13,6 +13,11 @@
     },
     "tab1": {
         "title": "Tableau de bord", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Paramètres de journal"
+            }
+        },
         "status": {
             "title": "Statuts",
             "smode": "Mode Surveillance",

@@ -13,6 +13,11 @@
     },
     "tab1": {
         "title": "Dashboard",
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Logindstillinger"
+            }
+        },
         "status": {
             "title": "Status",
             "smode": "Overvågnings Tilstand",

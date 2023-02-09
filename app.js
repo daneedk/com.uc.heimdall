@@ -15,7 +15,7 @@ var defaultSettings = {
     "delayArmingFull": false,
     "delayArmingPartial": false,
     "alarmWhileDelayed": false,
-    "logArmedOnly": false,
+    "logArmedOnly": true,
     "logTrueOnly": false,
     "useTampering": false,
     "checkMotionAtArming": false,
@@ -338,11 +338,12 @@ module.exports = class Heimdall extends Homey.App {
         let nu =this.getDateTime();
         surveillance = this.homey.settings.get('surveillanceStatus');
         this.log(' Surveillance Mode:         ' + surveillance);
-        let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
-        this.writeLog(logLine)
         if ( surveillance == null ) {
             surveillance = 'disarmed'
-        };
+            this.homey.settings.set('surveillanceStatus', 'disarmed');
+        };        
+        let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
+        this.writeLog(logLine)
 
         heimdallSettings = this.homey.settings.get('settings');
 		if ( heimdallSettings == (null || undefined) ) {
@@ -874,11 +875,11 @@ module.exports = class Heimdall extends Homey.App {
                 // this.log('logTrueOnly is true and sensorstate is false, so no log line')
             }
             if ( shouldLog ) {
-                this.writeLog(logLine)        
+                this.writeLog(logLine)
             }
             if ( sourceDeviceLog ) {
                 // trigger the flowcard when a device with logging changes state
-                let zone = await this.getZoneName(device.zone)
+                let zone = await this.getZoneName(device.zone);
                 //var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
                 var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
                 this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
@@ -913,6 +914,8 @@ module.exports = class Heimdall extends Homey.App {
             } else { 
                 logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodepartiallyarmed")
             }
+            // Does this need 
+            this.homey.app.checkAllDevicesState();
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 // (Partially) Arming is delayed
                 this.log('Arming is delayed:          Yes, ' + heimdallSettings.armingDelay + ' seconds.')
@@ -1022,7 +1025,15 @@ module.exports = class Heimdall extends Homey.App {
                 let mostRecentComE = 0
 
                 for ( let capability in device.capabilitiesObj ) {
-                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    // new code for > 10.x.x 
+                    let lu = device.capabilitiesObj[capability].lastUpdated;
+
+                    // Temporary fix for bug in homey-api where it sets .lastUpdated to a datestring
+                    // .lastUpdated=this.__lastChanged.toISOString()
+                    // This may also work for < 10.0.0 compatibility
+                    if (typeof lu != "number") {
+                        lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    }
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
@@ -1325,11 +1336,11 @@ module.exports = class Heimdall extends Homey.App {
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
-                aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
+                // aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
-                sModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
+                // sModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
         }
         else {
@@ -1362,11 +1373,11 @@ module.exports = class Heimdall extends Homey.App {
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
-                aModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
+                // aModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
-                sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
+                // sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             var tokens = { 'Source': source };
             this.homey.flow.getTriggerCard('AlarmDeactivated').trigger(tokens)
@@ -1398,9 +1409,12 @@ module.exports = class Heimdall extends Homey.App {
                 savedHistory = savedHistoryArray.join('\n'); 
             }
             // end cleanup
-            logLine = logLine+"\n"+savedHistory;
+            logLine = logLine + "\n" + savedHistory;
+        } else {
+            console.log("savedHistory is undefined!")
         }
         this.homey.settings.set('myLog', logLine );
+//console.log(logLine);
         logLine = "";
     }
 

@@ -406,7 +406,15 @@ function onHomeyReady(homeyReady){
             getLastSeen: function(device) {
                 let mostRecentComE = 0
                 for ( let capability in device.capabilitiesObj ) {
-                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    // new code for > 10.x.x
+                    let lu = device.capabilitiesObj[capability].lastUpdated;
+
+                    // Temporary fix for bug in homey-api where it sets .last-Updated to a datestring
+                    // .last-Updated=this.__lastChanged.toISOString()
+                    // This may also work for < 10.0.0 compatibility
+                    if (typeof lu != "number") {
+                        lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    }
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
@@ -644,11 +652,11 @@ function displayUsers(users) {
         if ( users[user].id > newUser ) {newUser = users[user].id;}
         if ( users[user].admin ) { userType = Homey.__("tab4.users.usersgroup.administrator"); isAdmin=true; } else { userType = Homey.__("tab4.users.usersgroup.user") };
         if ( !users[user].valid ) { userType = Homey.__("tab4.users.usersgroup.disabled") };
-        let item1 = '<div id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
+        let item1 = '<div onclick="editUser(' + users[user].id + ')" id=user' + users[user].id + ' class="settings-item"><div class="settings-item-text">';
         let item2 = '<input hidden id="userAll' + users[user].id + '" value=\'' + fullUser + '\'></input>';
         let item3 = '<span><b>' + users[user].name + '</b><br />' + userType + '</span>';
-        let item4 = '</div><div class="settings-item-last">';
-        let item5 = '<span onclick="editUser(' + users[user].id + ')"> > </span>';
+        let item4 = '</div><div class="settings-item-arrow">';
+        let item5 = '<i class="arrow right"></i>';
         let item6 = '</div></div>';
         let itemLast = '<div class="settings-item"><div class="settings-item-divider"></div><div class="settings-item-divider"></div></div>';
         items = items + item1 + item2 + item3 + item4 + item5 + item6 + itemLast;
@@ -927,6 +935,15 @@ function showHistory(run) {
             console.error('showHistory: Could not get history', err);
             return
         }
+    /*
+    console.log("---------------------------");
+    console.log("---------------------------");
+    console.log(_myLog);
+    console.log("---------------------------");
+    console.log(logging);
+    console.log("---------------------------");
+    console.log("---------------------------");
+    */
         if (_myLog !== logging || run == 1 ){
             console.log("_myLog !== logging || run == 1")
             _myLog = logging
@@ -1001,13 +1018,16 @@ async function showStatus() {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
                 for ( let rCapability in device.capabilitiesObj ) {
-/*
-if ( device.name == "Recessed Door Sensor" && capability == "alarm_contact") {
-    console.log("LastUpdate read: ", device.capabilitiesObj[capability].lastUpdated);
-    // console.log("lastUpdate parsed:", Date.parse(device.capabilitiesObj[rCapability].lastUpdated));                    
-}
-*/
-                    let lu = Date.parse(device.capabilitiesObj[rCapability].lastUpdated)
+                    // new code for > 10.x.x 
+                    let lu = device.capabilitiesObj[capability].lastUpdated;
+
+                    // Temporary fix for bug in homey-api where it sets .last-Updated to a datestring
+                    // .last-Updated=this.__lastChanged.toISOString()
+                    // This may also work for < 10.0.0 compatibility
+                    if (typeof lu != "number") {
+                        lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    }
+                    
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
