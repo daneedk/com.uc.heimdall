@@ -430,5 +430,16 @@
       "no": "• Forbedret utseende og følelse av innstillingssidene • Fjernet alarm_generic-evne fra Alarm Off Switch og Surveillance Mode Switch",
       "es": "• Mejorado aspecto y sensación de las páginas de configuración • Eliminada la capacidad alarm_generic del interruptor Alarm Off y el interruptor Surveillance Mode",
       "sv": "• Förbättrat utseende och känsla på inställningssidorna • Borttagen alarm_generic-förmåga från Alarm Off Switch och Surveillance Mode Switch"    
+  },
+  "2.10.2": {
+    "en": "Updated homey-api for backwards compatibility with older Homeys",
+    "da": "Opdateret homey-api for bagudkompatibilitet med ældre Homeys",
+    "de": "Aktualisierte homey-api für rückwärtskompatibilität mit älteren Homeys",
+    "fr": "Mise à jour de homey-api pour la compatibilité rétrospective avec les anciens Homeys",
+    "it": "Aggiornato homey-api per la compatibilità retroattiva con i vecchi Homeys",
+    "nl": "Bijgewerkte homey-api voor backwards compatibility met oudere Homeys",
+    "no": "Oppdatert homey-api for bakoverkompatibilitet med eldre Homeys",
+    "es": "homey-api actualizada para la compatibilidad con versiones anteriores de Homeys",
+    "sv": "Uppdaterad homey-api för bakåtkompatibilitet med äldre Homeys"
   }
 }

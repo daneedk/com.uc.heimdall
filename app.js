@@ -1027,11 +1027,12 @@ module.exports = class Heimdall extends Homey.App {
                 for ( let capability in device.capabilitiesObj ) {
                     // new code for > 10.x.x 
                     let lu = device.capabilitiesObj[capability].lastUpdated;
-
+console.log("LET OP! lu is gelezen:", lu);
                     // Temporary fix for bug in homey-api where it sets .lastUpdated to a datestring
                     // .lastUpdated=this.__lastChanged.toISOString()
                     // This may also work for < 10.0.0 compatibility
                     if (typeof lu != "number") {
+console.log("WAARSCHUWING CheckDeviceLastCOM lu == geen nummer:", lu);
                         lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
                     }
 
