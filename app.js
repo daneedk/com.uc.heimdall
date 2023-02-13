@@ -374,6 +374,8 @@ module.exports = class Heimdall extends Homey.App {
                 heimdallSettings = this.homey.settings.get('settings')
             }
         });
+
+        //this.homey.on('memwarn', async (data) => await this.onMemwarn(data));
     }
 
     async initializeWebApi() {

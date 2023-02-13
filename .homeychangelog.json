@@ -432,14 +432,14 @@
       "sv": "• Förbättrat utseende och känsla på inställningssidorna • Borttagen alarm_generic-förmåga från Alarm Off Switch och Surveillance Mode Switch"    
   },
   "2.10.2": {
-    "en": "Updated homey-api for backwards compatibility with older Homeys",
-    "da": "Opdateret homey-api for bagudkompatibilitet med ældre Homeys",
-    "de": "Aktualisierte homey-api für rückwärtskompatibilität mit älteren Homeys",
-    "fr": "Mise à jour de homey-api pour la compatibilité rétrospective avec les anciens Homeys",
-    "it": "Aggiornato homey-api per la compatibilità retroattiva con i vecchi Homeys",
-    "nl": "Bijgewerkte homey-api voor backwards compatibility met oudere Homeys",
-    "no": "Oppdatert homey-api for bakoverkompatibilitet med eldre Homeys",
-    "es": "homey-api actualizada para la compatibilidad con versiones anteriores de Homeys",
-    "sv": "Uppdaterad homey-api för bakåtkompatibilitet med äldre Homeys"
+    "en": "• Updated homey-api to 3.0.0-rc.6 • Workaround for Homey Pro before 2023 compatibility",
+    "da": "• Opdateret homey-api til 3.0.0-rc.6 • Midlertidig løsning for Homey Pro før 2023-kompatibilitet",
+    "de": "• Homey-API auf 3.0.0-rc.6 aktualisiert • Workaround für Homey Pro vor 2023-Kompatibilität",
+    "fr": "• Mise à jour de homey-api à 3.0.0-rc.6 • Contournement pour la compatibilité de Homey Pro avant 2023",
+    "it": "• Aggiornato homey-api a 3.0.0-rc.6 • Soluzione temporanea per la compatibilità di Homey Pro prima del 2023",
+    "nl": "• Homey-api bijgewerkt naar 3.0.0-rc.6 • Tijdelijke oplossing voor compatibiliteit met Homey Pro vóór 2023",
+    "no": "• Oppdatert homey-api til 3.0.0-rc.6 • Midlertidig løsning for Homey Pro før 2023-kompatibilitet",
+    "es": "• Actualizado homey-api a 3.0.0-rc.6 • Solución temporal para la compatibilidad de Homey Pro antes de 2023",
+    "sv": "• Uppdaterad homey-api till 3.0.0-rc.6 • Tillfällig lösning för Homey Pro före 2023-kompatibilitet"
   }
 }
