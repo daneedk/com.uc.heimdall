@@ -441,5 +441,16 @@
     "no": "• Oppdatert homey-api til 3.0.0-rc.6 • Midlertidig løsning for Homey Pro før 2023-kompatibilitet",
     "es": "• Actualizado homey-api a 3.0.0-rc.6 • Solución temporal para la compatibilidad de Homey Pro antes de 2023",
     "sv": "• Uppdaterad homey-api till 3.0.0-rc.6 • Tillfällig lösning för Homey Pro före 2023-kompatibilitet"
+  },
+  "2.10.3": {
+    "en": "Small fix for keypads",
+    "da": "Lille rettelse for tastaturer",
+    "de": "Kleiner Fix für Tastaturen",
+    "fr": "Petite correction pour les claviers",
+    "it": "Piccola correzione per i tastierini",
+    "nl": "Kleine fix voor toetsenborden",
+    "no": "Liten fiks for tastaturer",
+    "es": "Pequeña corrección para teclados",
+    "sv": "Liten fix för tangentbord"
   }
 }
