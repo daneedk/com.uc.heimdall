@@ -821,7 +821,7 @@ module.exports = class Heimdall extends Homey.App {
                             let tta = heimdallSettings.alarmDelay - 1;
                             this.ttAlarmCountdown(tta, device,sensorStateReadable);
                             // Generate Homey wide event for starting the Alarm Delay
-                            this.systemEvent("Alarm Delay left", tta + 1);
+                            this.systemEvent("Alarm Delay", tta + 1);
                         } 
                         else {
                             this.log('Trigger is delayed:         No')
@@ -937,7 +937,7 @@ module.exports = class Heimdall extends Homey.App {
                     .then()
                 
                 // Generate Homey wide event for starting the Arming Delay
-                this.systemEvent("Arming Delay left", tta);
+                this.systemEvent("Arming Delay", tta);
 
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + this.homey.__("history.seconds")
