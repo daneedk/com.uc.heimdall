@@ -1,7 +1,7 @@
 {
   "id": "com.uc.heimdall",
   "version": "2.10.4",
-  "compatibility": ">=8.0.0",
+  "compatibility": ">=10.0.0",
   "platforms": ["local"],
   "sdk": 3,
   "brandColor": "#4BD762",
