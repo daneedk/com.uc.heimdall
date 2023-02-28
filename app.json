@@ -1,6 +1,6 @@
 {
   "id": "com.uc.heimdall",
-  "version": "2.10.3",
+  "version": "2.10.4",
   "compatibility": ">=8.0.0",
   "platforms": ["local"],
   "sdk": 3,

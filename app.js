@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 //const { HomeyAPIApp } = require('homey-api');
-const { HomeyAPIApp } = require('./homey-api');
+const { HomeyAPI } = require('./homey-api');
 
 const delay = time => new Promise(res=>setTimeout(res,time));
 
@@ -50,6 +50,20 @@ var timeout = 100;
 module.exports = class Heimdall extends Homey.App {
 
     async onInit() {
+
+        /*
+		if (process.env.DEBUG === '1') {
+            try{ 
+                require('inspector').waitForDebugger();
+            }
+            catch(error){
+                require('inspector').open(9222, '0.0.0.0', false);
+            }
+			process.stdout.write = () => {}
+		}
+        */
+        
+
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
         this.log('Platform:                  ', this.homey.platform);
         this.log('PlatformVersion:           ', this.homey.platformVersion);
@@ -379,7 +393,8 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     async initializeWebApi() {
-        this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+        //this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+        this.homeyApi = await HomeyAPI.createAppAPI({ homey: this.homey });
 
         await this.homeyApi.devices.connect();
     }
@@ -511,7 +526,8 @@ module.exports = class Heimdall extends Homey.App {
 
     // Attach en Event Listener to the device, on an event call stateChange(device,state,sensorType)
     // - Called from addDevice(device)
-    attachEventListener(device,sensorType) {
+    async attachEventListener(updatedDevice,sensorType) {
+        const device =  await this.homeyApi.devices.getDevice({ id: updatedDevice.id });
         switch (sensorType) {
             case "motion":
                 device.makeCapabilityInstance('alarm_motion',function(device, state) {

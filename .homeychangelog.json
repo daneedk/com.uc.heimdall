@@ -452,5 +452,16 @@
     "no": "Liten fiks for tastaturer",
     "es": "Pequeña corrección para teclados",
     "sv": "Liten fix för tangentbord"
+  },
+  "2.10.4": {
+    "en": "• Updated homey-api to 3.0.0-rc.10",
+    "da": "• Opdateret homey-api til 3.0.0-rc.10",
+    "de": "• Homey-API auf 3.0.0-rc.10 aktualisiert",
+    "fr": "• Mise à jour de homey-api à 3.0.0-rc.10",
+    "it": "• Aggiornato homey-api a 3.0.0-rc.10",
+    "nl": "• Homey-api bijgewerkt naar 3.0.0-rc.10",
+    "no": "• Oppdatert homey-api til 3.0.0-rc.10",
+    "es": "• Actualizado homey-api a 3.0.0-rc.10",
+    "sv": "• Uppdaterad homey-api till 3.0.0-rc.10"
   }
 }

@@ -27,7 +27,7 @@ var defaultSettings = {
     "delayArmingFull": false,
     "delayArmingPartial": false,
     "alarmWhileDelayed": false,
-    "logArmedOnly": false,
+    "logArmedOnly": true,
     "logTrueOnly": false,
     "useTampering": false,
     "checkMotionAtArming": false,
