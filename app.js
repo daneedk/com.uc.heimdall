@@ -1043,16 +1043,7 @@ module.exports = class Heimdall extends Homey.App {
                 let mostRecentComE = 0
 
                 for ( let capability in device.capabilitiesObj ) {
-                    // new code for > 10.x.x 
-                    let lu = device.capabilitiesObj[capability].lastUpdated;
-console.log("LET OP! lu is gelezen:", lu);
-                    // Temporary fix for bug in homey-api where it sets .lastUpdated to a datestring
-                    // .lastUpdated=this.__lastChanged.toISOString()
-                    // This may also work for < 10.0.0 compatibility
-                    if (typeof lu != "number") {
-console.log("WAARSCHUWING CheckDeviceLastCOM lu == geen nummer:", lu);
-                        lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
-                    }
+                    lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
@@ -1887,6 +1878,6 @@ console.log("WAARSCHUWING CheckDeviceLastCOM lu == geen nummer:", lu);
 /*
 In this code en means English, please add Danish, German, French, Italian, Dutch, Norwegian, Spanish and Swedish. Answer in a code block.
 {
-  "en": "Added more comments to the code",
+  "en": "Rolled back change for Homey Pro Early 2023",
 }
 */
