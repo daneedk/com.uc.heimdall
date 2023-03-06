@@ -1043,7 +1043,7 @@ module.exports = class Heimdall extends Homey.App {
                 let mostRecentComE = 0
 
                 for ( let capability in device.capabilitiesObj ) {
-                    lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu

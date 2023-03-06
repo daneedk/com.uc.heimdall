@@ -406,7 +406,7 @@ function onHomeyReady(homeyReady){
             getLastSeen: function(device) {
                 let mostRecentComE = 0
                 for ( let capability in device.capabilitiesObj ) {
-                    lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu
@@ -1010,7 +1010,7 @@ async function showStatus() {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
                 for ( let rCapability in device.capabilitiesObj ) {
-                    lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
+                    let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {
                         mostRecentComE = lu

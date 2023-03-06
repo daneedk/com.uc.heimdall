@@ -485,5 +485,16 @@
       "no": "Rullet tilbake endring for Homey Pro Early  2023",
       "es": "Se revirtió el cambio para Homey Pro Early 2023",
       "sv": "Rullade tillbaka ändring för Homey Pro Early 2023"
-      }
+    },
+    "2.10.7": {
+      "en": "Small fix",
+      "da": "Lille rettelse",
+      "de": "Kleiner Fix",
+      "fr": "Petite correction",
+      "it": "Piccola correzione",
+      "nl": "Kleine fix",
+      "no": "Liten fiks",
+      "es": "Pequeña corrección",
+      "sv": "Liten fix"
+    }
 }
