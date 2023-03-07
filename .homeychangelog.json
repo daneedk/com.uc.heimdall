@@ -507,5 +507,16 @@
       "no": "Liten fiks",
       "es": "Pequeña corrección",
       "sv": "Liten fix"
+    },
+    "2.10.9": {
+      "en": "Small fix",
+      "da": "Lille rettelse",
+      "de": "Kleiner Fix",
+      "fr": "Petite correction",
+      "it": "Piccola correzione",
+      "nl": "Kleine fix",
+      "no": "Liten fiks",
+      "es": "Pequeña corrección",
+      "sv": "Liten fix"
     }
 }

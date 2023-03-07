@@ -469,7 +469,11 @@ module.exports = class Heimdall extends Homey.App {
     // capabilities are run through the attachEventListener() function to add
     // makeCapabilityInstance('capability', ) to the capability of a device.
     // - Called from enumerateDevices()
-    addDevice(device) {
+    async addDevice(device) {
+        // newly created devices are not passed as instance anymore Thanks Athom!
+        if (! device.makeCapabilityInstance) {
+            device = await this.#api.devices.getDevice({ id : device.id });
+        }
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
