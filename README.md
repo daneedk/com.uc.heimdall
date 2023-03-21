@@ -9,15 +9,15 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Devices that don't have these capabilities can most likely be integrated by using a Virtual Device.
 
 ## Supported Languages
-* 🇬🇧English
-* 🇳🇱Nederlands
-* 🇩🇪Deutsch
-* 🇫🇷Français
-* 🇮🇹Italiano
-* 🇸🇪Svenska
-* 🇳🇴Norsk
-* 🇪🇸Español
-* 🇩🇰Dansk
+* 🇬🇧 English
+* 🇩🇰 Dansk
+* 🇩🇪 Deutsch
+* 🇪🇸 Español
+* 🇫🇷 Français
+* 🇮🇹 Italiano
+* 🇳🇱 Nederlands
+* 🇳🇴 Norsk
+* 🇸🇪 Svenska
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
