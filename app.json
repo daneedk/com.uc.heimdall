@@ -13,6 +13,7 @@
     "fr": "Transformez votre Homey en système de surveillance",
     "it": "Trasforma il tuo Homey in un sistema di sorveglianza",
     "no": "Gjør din Homey til et overvåkningssystem",
+    "pl": "Przekształć swojego Homey w system monitorowania",
     "sv": "Förvandla din Homey till ett övervakningssystem",
     "da": "Forvandl din Homey til et overvågningssystem",
     "es": "Convierte tu Homey en un sistema de vigilancia"
@@ -138,6 +139,17 @@
       "Logg",
       "Overvåkning"
     ],
+    "pl": [
+      "Dom",
+      "Alarm",
+      "Alarmowy",
+      "Domowyalarm",
+      "System",
+      "Bezpieczeństwo",
+      "Narzędzia",
+      "Log",
+      "Nadzór"
+    ],
     "sv": [
       "Hem",
       "Alarm",
@@ -189,6 +201,7 @@
           "fr": "Le Mode Surveillance a changé.",
           "it": "La Modalità Sorveglianza è cambiata.",
           "no": "Overvåkningsmodus er endret.",
+          "pl": "Zmieniono tryb nadzoru.",
           "sv": "Övervakningsläget har ändrats.",
           "da": "Overvågnings tilstand er ændret.",
           "es": "Modo de vigilancia ha cambiado."
@@ -208,6 +221,7 @@
               "fr": "Mode Surveillance",
               "it": "Modalità Sorveglianza",
               "no": "Overvåkningsmodus",
+              "pl": "Tryb Nadzoru",
               "sv": "Övervakningsläge",
               "da": "Overvågnings tilstand",
               "es": "Modo de vigilancia"
@@ -225,6 +239,7 @@
           "fr": "Capteur actif à l'armement.",
           "it": "Sensore attivo all'inserimento.",
           "no": "Sensor aktiv ved tilkobling.",
+          "pl": "Czujnik aktywny podczas uzbrajania.",
           "sv": "Sensor aktiv vid tillkoppling.",
           "da": "Sensor aktiv ved tilkobling.",
           "es": "Sensor activo en el armado."
@@ -243,6 +258,7 @@
               "fr": "Attention",
               "it": "Attenzione",
               "no": "Advarsel",
+              "pl": "Ostrzeżenie",
               "sv": "Varning",
               "da": "Advarsel",
               "es": "Aviso"
@@ -260,6 +276,7 @@
           "fr": "Capteur actif lors de la vérification de l'état.",
           "it": "Sensore attivo durante il controllo dello stato.",
           "no": "Sensor aktiv ved statuskontroll.",
+          "pl": "Sensor aktywny podczas sprawdzania stanu.",
           "sv": "Sensor aktiv vid statuskontroll.",
           "da": "Sensor aktiv ved status kontrol.",
           "es": "Sensor activo en la comprobación de estado."
@@ -278,6 +295,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "Sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -294,6 +312,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "Enhet",
+              "pl": "Urządzenie",
               "sv": "Enhet",
               "da": "Enhed",
               "es": "Dispositivo"
@@ -310,6 +329,7 @@
               "fr": "Type d'appareil",
               "it": "Tipo di dispositivo",
               "no": "Device type",
+              "pl": "Typ urządzenia",
               "sv": "Enhetstyp",
               "da": "Enheds type",
               "es": "Tipo de dispositivo"
@@ -326,6 +346,7 @@
               "fr": "Etat",
               "it": "Stato",
               "no": "Status",
+              "pl": "Stan",
               "sv": "Status",
               "da": "Status",
               "es": "Estado"

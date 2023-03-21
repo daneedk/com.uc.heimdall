@@ -844,6 +844,47 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="instructionspl" style="display:none">
+                        Aby skonfigurować Heimdall, należy wykonać następujące czynności:<br />
+                        <br />
+                        <ul>
+                            <li><b>Utwórz przełącznik trybu nadzoru</b><br />
+                                Kliknij przycisk <i>dodaj urządzenie</i> w wybranej przez Ciebie strefie na stronie Urządzenia i wybierz urządzenie <i>Tryb</i> z aplikacji Heimdall.<br>
+                                Kliknij przycisk <i>Zainstaluj</i>, aby kontynuować, a następnie kliknij przycisk <i>Dalej</i>.
+                            </li>                            
+                            <li><b>Wybierz urządzenie (-a), które chcesz monitorować</b><br />
+                                Przejdź do zakładki Urządzenia w ustawieniach Heimdall i kliknij przycisk <i>log</i>, jeśli chcesz tylko linię w dzienniku, gdy zmieni się stan urządzenia.
+                                Kliknij przycisk <i>Full</i>, jeśli chcesz, aby urządzenie zostało uwzględnione, gdy tryb Nadzoru jest ustawiony na <i>Armed</i>.
+                                Jeśli chcesz, aby urządzenie zostało uwzględnione, gdy tryb Nadzoru jest ustawiony na <i>Partially Armed</i>, kliknij przycisk <i>Partial</i>.
+                                Można wybrać zarówno <i>Pełny</i>, jak i <i>Częściowy</i> dla jednego urządzenia.
+                                Jeśli chcesz mieć opóźnienie między wyzwalaniem urządzenia a aktywacją alarmu, możesz 
+                                włączyć opóźnienie, klikając przycisk <i>Opóźnienie</i>.<br />
+                                Opóźnienie używane można znaleźć na górze zakładki Ustawienia, wyrażone jest w sekundach i wynosi od 0 do 300 sekund.<br />                                
+                            </li>
+                            <li><b>Utwórz przepływ umożliwiający tryb nadzoru</b><br />
+                                Heimdall będzie nasłuchiwał wybranych czujników i rejestrował zmiany stanu w zależności od wybranych opcji na stronie ustawień. 
+                                Tylko wtedy, gdy Heimdall jest w trybie nadzoru, wyzwalacz na czujniku spowoduje alarm.
+                                Przejdź do strony Przepływów Homey i utwórz przepływ, aby ustawić tryb nadzoru, korzystając z karty <i>Ustaw tryb nadzoru</i> z przełącznika Trybu nadzoru i wybierz pożądany stan w części <i>...then</i>.
+                            </li>                            
+                            <li><b>Utwórz przepływ w celu wyłączenia trybu monitorowania</b><br />
+                                Aby móc wyłączyć tryb monitorowania za pomocą przepływu, musisz go stworzyć i użyć karty <i>Ustaw tryb monitorowania</i> z przełącznika trybu monitorowania, wybierając stan <i>Wyłączony</i> w sekcji <i>...wtedy</i>.
+                            </li>                                
+                            <li><b>Utwórz przepływ, aby działać na alarmie</b><br />
+                                Możesz zdecydować, co chcesz, aby Homey zrobił, gdy alarm zostanie aktywowany. 
+                                Utwórz przepływ i użyj karty <i>Alarm jest aktywowany.</i> w sekcji <i>gdy...</i>, a następnie wybierz pożądane działania w sekcji <i>wtedy...</i>.<br />
+                                Możesz użyć tagu <i>Przyczyna</i> na karcie wyzwalacza, aby poinformować, który urządzenie aktywowało alarm.
+                            </li>
+                            <li><b>Utwórz przepływ, aby wyłączyć alarm</b><br />
+                                Aby dezaktywować alarm, użyj karty <i>Dezaktywuj alarm</i> w przepływie w części <i>...potem</i>.
+                             </li>
+                             <li><b>Dodaj przycisk wyłączania alarmu</b><br />
+                                Aby wyłączyć alarm za pomocą aplikacji Homey na swoim telefonie, musisz dodać urządzenie przycisku <i>Alarm</i> w strefie, którą wybierzesz.
+                            </li>
+                            <li><b>Zapisz inne informacje</b><br />
+                                Jeśli chcesz zapisać więcej informacji, na przykład informacje o obecności, możesz użyć karty <i>Wyślij informacje do Heimdall</i> w przepływie w części <i>...then</i>.
+                            </li>
+                        </ul>
+                    </div>
                     <div id="instructionses" style="display:none">
                         Para configurar Heimdall, debes hacer lo siguiente:<br />
                         <br />

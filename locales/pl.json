@@ -1,0 +1,214 @@
+{
+    "settings": {
+        "benefit": "Pozwól Homey'owi czuwać nad Twoim domem."
+    },
+    "devices": {
+        "surveillancemode": {
+            "name": "Przełącznik trybu nadzoru"
+        },
+        "alarmoff": {
+            "name": "Przycisk wyłączający alarm"
+        },
+        "flowcard": "Karta przepływu"
+    },
+    "tab1": {
+        "title": "Panel", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Ustawienia dziennika"
+            }
+        },
+        "status": {
+            "title": "Status",
+            "smode": "Tryb nadzoru",
+            "smodeFull": "Pełny tryb nadzoru",
+            "smodePartial": "Częściowy tryb nadzoru",
+            "alarm": "Alarm"
+        },
+        "history": {
+            "title": "Historia",
+            "autoRefresh": "Automatyczne odświeżanie",
+            "manualRefresh": "Odśwież",
+            "useColors": "Użyj kolorów",
+            "btnClearHistory": "Wyczyść historię",
+            "btnDownload": "Pobierz",
+            "date": "Data",
+            "time": "Czas",
+            "smode": "Tryb nadzoru",
+            "source": "Źródło",
+            "action": "Akcja"
+        }
+    },
+    "tab2": {
+        "title": "Urządzenia",
+        "subtab1": {
+            "title": "Stan",
+            "lastseen": "Ostatnio widziany:",
+            "na": "niedostępny"
+        },
+        "subtab2": {
+            "title": "Ustawienia"
+        },
+        "devices": {
+            "devices": "Urządzenia",
+            "zone": "Strefa",
+            "device": "Urządzenie",
+            "monitor": "Monitor",
+            "dTrigger": "Opóźniony wyzwalacz",
+            "justLog": "Tylko log",
+            "delay": "Opóźnienie",
+            "log": "Log",
+            "full": "Pełny",
+            "partial": "Częściowy"
+        }
+    },
+    "tab3": {
+        "title": "Ustawienia",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Opóźnienia",
+                "logging": "Logowanie",
+                "check": "Sprawdzenie przed uzbrojeniem",
+                "speech": "Niech Homey powie Ci, kiedy",
+                "notifications": "Zapisz w czasie rzeczywistym, kiedy"
+            },
+            "title": "Ustawienia",
+            "arDelay": "Opóźnienie uzbrajania",
+            "alDelay": "Opóźnienie alarmu",
+            "seconds": "Sekundy",
+            "save": "Zapisz",
+            "secondsFail": "Wartość jest nieprawidłowa, wprowadź opóźnienie z zakresu od 0 do 300 sekund",
+            "saveSucces": "Nowe ustawienia zostały zapisane.",
+            "logarmedonly": "Tylko w trybie Monitorowania",
+            "logtrueonly": "Nie dla dezaktywacji czujników",
+            "usetampering": "Użyj wykrywania manipulacji",
+            "delayarmingfull": "Użyj przy włączaniu trybu Uzbrojenia",
+            "delayarmingpartial": "Użyj przy włączaniu częściowego trybu Uzbrojenia",
+            "alarmwhiledelayed" : "Zezwalaj na Alarm podczas opóźnienia Alarmu",
+            "alarmwhiledelayeddescription": "Wykrycie czujnika podczas trwania opóźnienia Alarmu natychmiast uruchomi stan Alarmu.",
+            "checkMotionAtArming": "Sprawdź czujnik(i) ruchu",
+            "checkContactAtArming": "Sprawdź czujnik(i) otwarcia",
+            "checkbeforecountdown": "Wykonaj sprawdzenie przed opóźnieniem uzbrajania"
+        },
+        "speech": {
+            "spokenalarmcountdown": "trwa odliczanie do Alarmu",
+            "spokenarmcountdown": "trwa odliczanie do Uzbrojenia",
+            "smodechange": "zmieniono tryb Monitorowania",
+            "alarmchange": "Alarm jest włączony lub wyłączony",
+            "motiontrue": "wykryto ruch, gdy był uzbrojony",
+            "tampertrue": "wykryto manipulację, gdy był uzbrojony",
+            "dooropen": "otwarto drzwi lub okno, gdy był uzbrojony",
+            "motionatarming": "aktywny czujnik ruchu podczas uzbrajania",
+            "dooropenatarming": "otwarte drzwi lub okno podczas uzbrajania"
+        },
+        "notification": {
+            "smodechange": "Zmiana trybu monitorowania",
+            "alarmchange": "Alarm został włączony lub wyłączony",
+            "nocommunicationmotion": "Urządzenie ruchu nie przesłało sygnału",
+            "nocommunicationcontact": "Urządzenie kontaktu nie przesłało sygnału",
+            "nocommunicationdescription": "Jeśli wybrano tryb monitorowania, Heimdall sprawdza, czy urządzenia przesłały sygnał w ciągu ostatnich 24 godzin.",
+            "alarmwhiledelayeddescription": "Włączenie czujnika podczas opóźnienia alarmu natychmiastowo aktywuje stan alarmowy."
+        }        
+    },
+    "tab4": {
+        "title": "Użytkownicy",
+        "users": {
+            "usersgroup": {
+                "users": "Zarządzanie użytkownikami",
+                "enterpin": "Proszę wprowadzić PIN",
+                "enter": "OK",
+                "validating": "Sprawdzanie poprawności",
+                "invalidpin": "Wprowadzono nieprawidłowy PIN",
+                "save": "Zapisz",
+                "cancel": "Anuluj",
+                "delete": "Usuń",
+                "username": "Nazwa użytkownika",
+                "administrator": "Administrator",
+                "user": "Użytkownik",
+                "pin": "PIN",
+                "enabled": "Włączone",
+                "disabled": "Wyłączone",
+                "editdescription": "Proszę utworzyć swojego pierwszego użytkownika. Ten użytkownik zawsze będzie Administratorem i nie można go wyłączyć ani usunąć"
+            }
+        }
+    },
+    "tab5": {
+        "title": "(I)",
+        "instructions": {
+            "title": "Instrukcje"
+        }
+    },
+    "modes": {
+        "disarmed": "Wyłączone",
+        "armed": "Włączone",
+        "partiallyarmed": "Częściowo Włączone"
+    },
+    "enumerate": {
+        "source": "Sprawdzanie uruchomienia",
+        "warning": " nie jest gotowy przy starcie Heimdall"
+    },
+    "devicecheck": {
+        "source": "Sprawdzanie urządzenia",
+        "warning": " nie jest już gotowy",
+        "ready": " jest gotowy",
+        "readyagain": " jest ponownie gotowy"
+    },
+    "states": {
+        "open": "Otwarte",
+        "closed": "Zamknięte",
+        "motion": "Wykryto ruch",
+        "nomotion": "Nie wykryto ruchu",
+        "vibration": "Wykryto wibracje",
+        "novibration": "Nie wykryto wibracji",
+        "tamper": "Wykryto manipulacje",
+        "notamper": "Nie wykryto manipulacji"
+    },
+    "speech": {
+        "startalarmcountdown": "Alarm uruchomi się za ",
+        "startarmcountdown": "Tryb nadzoru zostanie ustawiony za ",
+        "in": " za ",
+        "seconds": " sekund",
+        "smodeset": "Tryb nadzoru ustawiony na ",
+        "alarmactivated": "Alarm jest aktywny",
+        "alarmdeactivated": "Alarm jest dezaktywowany"
+    },
+    "atarming": {
+        "on": " na ",
+        "is": " jest ",
+        "delayText": ". To urządzenie ma opóźnienie wyzwalania.",
+        "warningMotion": "Ostrzeżenie, czujnik aktywny. ",
+        "warningContact": "Ostrzeżenie, czujnik "
+    },
+    "history": {
+        "smodedisarmed": "Tryb monitoringu jest wyłączony.",
+        "smodearmed": "Tryb monitoringu jest włączony.",
+        "smodepartiallyarmed": "Tryb monitoringu jest częściowo włączony.",
+        "smodedelayarmed": "Tryb monitoringu zostanie włączony za ",
+        "smodedelaypartiallyarmed": "Tryb monitoringu zostanie częściowo włączony za ",
+        "seconds": " sekund(y).",
+        "smodedelaychanged": "Licznik czasu do włączenia trybu został zmniejszony do 10 sekund z powodu sekwencji ostatniego drzwi.",
+        "alarmdeactivated": "Alarm został wyłączony przez ",
+        "alarmactivated": "Alarm został włączony. ",
+        "alarmactivatedflowcard": "Alarm został włączony z kartą Flow. ",
+        "smodechangedisabled": "Zmiana trybu monitoringu jest wyłączona ze względu na wyłączenie trybu.",
+        "triggerdalarm": " wywołał(a) alarm",
+        "delayoverruled": ", opóźnione wywołanie alarmu zostało anulowane.",
+        "alarmdelayed": "Opóźnione wywołanie alarmu: ", 
+        "alarmnotactivated": "Alarm nie został włączony ze względu na wyłączenie trybu.",
+        "noalarmtriggercountdown": ", nie wywołano alarmu z powodu trwającego odliczania.",
+        "noalarmtriggeralarmstate": ", nie wywołano alarmu z powodu aktywnego stanu alarmu.",
+        "noreport": " nie zgłosił(a) się przez ostatnie ",
+        "lastreport": " godzin(y). Ostatnie zgłoszenie: ",
+        "validcode": " wprowadził(a) poprawny kod i nacisnął(a) ",
+        "on": " na ",
+        "sendcommand": "Komenda ",
+        "tosurveillancemode": " została wysłana do przełącznika trybu monitoringu",
+        "invalidcode": "wprowadzono niepoprawny kod przed naciśnięciem ",
+        "key": "klawisz ",
+        "pressed": " został naciśnięty na "
+    },
+    "notification": {
+        "smodeset1": "**Tryb monitoringu** ustawiony na ",
+        "smodeset2": "."
+    }    
+}
