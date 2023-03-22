@@ -364,6 +364,7 @@
           "fr": "L'alarme est activée.",
           "it": "L'allarme è inserito.",
           "no": "Alarmen er utløst.",
+          "pl": "Alarm jest aktywny.",
           "sv": "Alarmet är utlöst.",
           "da": "Alarm er udløst.",
           "es": "La alarma está activada."
@@ -382,6 +383,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "Sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -398,6 +400,7 @@
               "fr": "Raison",
               "it": "Ragione",
               "no": "Årsak",
+              "pl": "Powód",
               "sv": "Orsak",
               "da": "Årsag",
               "es": "Razón"
@@ -415,6 +418,7 @@
           "fr": "L'alarme est desactivée.",
           "it": "L'allarme è disattivato.",
           "no": "Alarmen er deaktivert.",
+          "pl": "Alarm został dezaktywowany.",
           "sv": "Alarmet är frånkopplat.",
           "da": "Alarm er deaktiveret.",
           "es": "La alarma está desactivada."
@@ -433,6 +437,7 @@
               "fr": "La source",
               "it": "Fonte",
               "no": "Kilde",
+              "pl": "Źródło",
               "sv": "Källa",
               "da": "Kilde",
               "es": "Fuente"
@@ -450,6 +455,7 @@
           "fr": "Le délai d'alarme est activé.",
           "it": "Il ritardo dell'allarme è attivato.",
           "no": "Forsinket alarm er aktivert",
+          "pl": "Opóźnienie alarmu zostało aktywowane.",
           "sv": "Larmfördröjning är aktiverad",
           "da": "Forsinket alarm er aktiveret.",
           "es": "El retardo de la alarma está activado."
@@ -468,6 +474,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "Sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -484,6 +491,7 @@
               "fr": "Raison",
               "it": "Ragione",
               "no": "Årsak",
+              "pl": "Powód",
               "sv": "Orsak",
               "da": "Årsag",
               "es": "Razón"
@@ -500,6 +508,7 @@
               "fr": "Durée",
               "it": "Durata",
               "no": "Varighet",
+              "pl": "Czas trwania",
               "sv": "Varaktighet",
               "da": "Varighed",
               "es": "Duración"
@@ -517,6 +526,7 @@
           "fr": "Le délai d’armement est activé.",
           "it": "Il ritardo di inserimento è attivato.",
           "no": "Tilkoblingsforinkelse er aktivert.",
+          "pl": "Opóźnienie uzbrajania zostało aktywowane.",
           "sv": "Fördröjd tillkoppling är aktiverad.",
           "da": "Tilkoblings forsinkelsen er aktiveret.",
           "es": "El retardo de armado está activado."
@@ -535,6 +545,7 @@
               "fr": "Durée",
               "it": "Durata",
               "no": "Varighet",
+              "pl": "Czas trwania",
               "sv": "Varaktighet",
               "da": "Varighed",
               "es": "Duración"
@@ -552,6 +563,7 @@
           "fr": "Le temps jusqu'à ce que l'alarme a changé",
           "it": "Il tempo prima dell'allarme è cambiato",
           "no": "Tid til alarmen endres",
+          "pl": "Czas do zmiany alarmu",
           "sv": "Tid till dess larmet ändras",
           "da": "Tid til alarmen ændres",
           "es": "El tiempo hasta que la alarma cambió"
@@ -570,6 +582,7 @@
               "fr": "Secondes avant l'alarme",
               "it": "Secondi prima dell'allarme",
               "no": "Sekunder til alarm",
+              "pl": "Sekundy do alarmu",
               "sv": "Sekunder kvar till alarm",
               "da": "Sekunder til alarm",
               "es": "Segundos hasta alarma"
@@ -587,6 +600,7 @@
           "fr": "Le temps jusqu'à armé changé",
           "it": "Il tempo prima dell'inserimento è cambiato",
           "no": "Tid til tilkobling endres",
+          "pl": "Czas do uzbrojenia się zmienił",
           "sv": "Tid till dess tillkoppling ändras",
           "da": "Til til tilkoblingen ændres",
           "es": "El tiempo hasta que cambió el armado"
@@ -605,6 +619,7 @@
               "fr": "Secondes jusqu'à armé",
               "it": "Secondi prima dell'attivazione",
               "no": "Sekunder til tilkobling",
+              "pl": "Sekundy do uzbrojenia",
               "sv": "Sekunder kvar till aktivering",
               "da": "Sekunder til tilkobling",
               "es": "Segundos hasta armado"
@@ -622,6 +637,7 @@
           "fr": "Une logline a été écrite",
           "it": "Nota nella TimeLine è stata scritta",
           "no": "En linje ble skrevet i loggen",
+          "pl": "Napisano logline",
           "sv": "En rad skrevs i loggen",
           "da": "En linie blevet skrevet i loggen",
           "es": "Una línea de registro ha sido escrita"
@@ -640,6 +656,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -656,6 +673,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "Enhet",
+              "pl": "Urządzenie",
               "sv": "Enhet",
               "da": "Enhed",
               "es": "Dispositivo"
@@ -672,6 +690,7 @@
               "fr": "State",
               "it": "Stato",
               "no": "Status",
+              "pl": "Stan",
               "sv": "Status",
               "da": "Status",
               "es": "Estado"
@@ -689,6 +708,7 @@
           "fr": "Sensor tripped in Alarmstate",
           "it": "Sensore attivato in Alarmstate",
           "no": "Sensor utløst i alarmstatus",
+          "pl": "Czujnik w stanie alarmowym został uruchomiony",
           "sv": "Sensor utlöst i larmläge",
           "da": "Sensor udløst alarm status",
           "es": "Sensor disparado en estado de alarma"
@@ -707,6 +727,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -723,6 +744,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "Enhet",
+              "pl": "Urządzenie",
               "sv": "Enhet",
               "da": "Enhed",
               "es": "Dispositivo"
@@ -739,6 +761,7 @@
               "fr": "State",
               "it": "Stato",
               "no": "Status",
+              "pl": "Stan",
               "sv": "Status",
               "da": "Status",
               "es": "Estado"
@@ -756,6 +779,7 @@
           "fr": "Aucune information reçue",
           "it": "Nessuna informazione ricevuta",
           "no": "Ingen informasjon mottatt",
+          "pl": "Brak otrzymanych informacji",
           "sv": "Ingen information mottagen",
           "da": "Ingen information modtaget",
           "es": "No se recibió información."
@@ -774,6 +798,7 @@
               "fr": "Heures aucune information",
               "it": "Ore senza informazioni",
               "no": "Timer uten informasjon",
+              "pl": "Brak informacji o godzinach",
               "sv": "Timmar utan information",
               "da": "Timer uden information",
               "es": "Horas sin información"
@@ -790,6 +815,7 @@
               "fr": "Dernière mise à jour",
               "it": "Ultimo Aggiornamento",
               "no": "Sist oppdatert",
+              "pl": "Ostatnia aktualizacja",
               "sv": "Senaste uppdateringen",
               "da": "Sidst opdateret",
               "es": "Última actualización"
@@ -806,6 +832,7 @@
               "fr": "Zone",
               "it": "Zona",
               "no": "sone",
+              "pl": "Strefa",
               "sv": "Zon",
               "da": "Zone",
               "es": "Zona"
@@ -822,6 +849,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "Enhet",
+              "pl": "Urządzenie",
               "sv": "Enhet",
               "da": "Enhed",
               "es": "Dispositivo"
@@ -841,6 +869,7 @@
           "fr": "Le Mode Surveillance !{{est |n'est pas }}",
           "it": "La Modalità Sorveglianza  !{{è |non è }}",
           "no": "Overvåkningsmodus er !{{ |ikke }}",
+          "pl": "Tryb monitorowania jest !{{ |not }}",
           "sv": "Övervakningsläge är !{{ |inte }}",
           "da": "Overvågnings tilstand er !{{ |ikke }}",
           "es": "El modo de vigilancia es !{{ |no }}"
@@ -852,6 +881,7 @@
           "fr": "Le Mode Surveillance !{{est |n'est pas }} [[surveillance]]",
           "it": "La Modalità Sorveglianza !{{è |non è }} [[surveillance]]",
           "no": "Overvåkningsmodus er !{{ |ikke }} [[surveillance]]",
+          "pl": "Tryb nadzoru jest !{{ |not }} [[nadzór]]",
           "sv": "Övervakningsläge är !{{ |inte }} [[surveillance]]",
           "da": "Overvågnings tilstand er !{{ |ikke }} [[surveillance]]",
           "es": "El modo de vigilancia es !{{ |no }} [[surveillance]]"
@@ -873,6 +903,7 @@
                   "fr": "Activée",
                   "it": "Armato",
                   "no": "Tilkoblet",
+                  "pl": "Uzbrojony",
                   "sv": "Aktiverad",
                   "da": "Tilkoblet",
                   "es": "Armado"
@@ -887,6 +918,7 @@
                   "fr": "Désactivé",
                   "it": "Disarmato",
                   "no": "Frakoblet",
+                  "pl": "Rozbrojony",
                   "sv": "Inaktiverad",
                   "da": "Frakoblet",
                   "es": "Desarmado"
@@ -901,6 +933,7 @@
                   "fr": "Partiellement activé",
                   "it": "Parzialmente Armato",
                   "no": "Delvis tilkoblet",
+                  "pl": "Częściowo uzbrojony",
                   "sv": "Delvis aktiverad",
                   "da": "Delvis tilkoblet",
                   "es": "Parcialmente armado"
@@ -919,6 +952,7 @@
           "fr": "Compte à rebours d'armement !{{ |pas }} actif",
           "it": "Countdown Inserimento !{{attivo |non attivo}}",
           "no": "Nedtelling for tilkobling !{{aktiv |ikke aktiv}}",
+          "pl": "Odliczanie uzbrajania!{{active |not active}}",
           "sv": "Nedräkning för tillkoppling !{{aktiv |inte aktiv}}",
           "da": "Nedtælling for tilkobling !{{aktiv |ikke aktiv}}",
           "es": "Cuenta atrás de armado !{{activa |no activa}}"
@@ -936,6 +970,7 @@
           "fr": "Compte à rebours d'alarme !{{ |pas }} actif",
           "it": "Countdown Allarme !{{attivo |non attivo}}",
           "no": "Nedtelling for alarm !{{aktiv |ikke aktiv}}",
+          "pl": "Odwrotny odliczanie alarmu!{{active |not active}}",
           "sv": "Nedräkning för alarm !{{aktiv |inte aktiv}}",
           "da": "Nedtælling for alarm !{{aktiv |ikke aktiv}}",
           "es": "Cuenta atrás de alarma !{{activa |no activa}}"
@@ -953,6 +988,7 @@
           "fr": "L'état d'alarme !{{est |n'est pas }} actif",
           "it": "Stato Allarme è !{{attivo |non attivo}}",
           "no": "Alarmstatus et !{{utløst |ikke utløst}}",
+          "pl": "Stan alarmu to !{{active |not active}}",
           "sv": "Alarmstatus är !{{aktiv |inte aktiv}}",
           "da": "Alarm status er !{{aktiv |ikke aktiv}}",
           "es": "El estado de alarma es !{{activo |no activo}}"
@@ -970,6 +1006,7 @@
           "fr": "L'appareil !{{est en retard |n'est pas retardé}}",
           "it": "Il dispositivo !{{ |non }} è in ritardo ",
           "no": "Enhet er !{{forsinket |ikke forsinket}}",
+          "pl": "Urządzenie jest !{{delayed |not delayed}}",
           "sv": "Enhet är !{{fördröjd |inte fördröjd}}",
           "da": "Enhed er !{{forsinket |ikke forsinket}}",
           "es": "Es dispositivo está !{{retardado |no retardado}}"
@@ -981,6 +1018,7 @@
           "fr": "[[device]] !{{est en retard |n'est pas retardé}}",
           "it": "[[device]] !{{ |non }} è in ritardo ",
           "no": "[[device]] er !{{forsinket |ikke forsinket}}",
+          "pl": "[[device]] jest !{{delayed |not delayed}}",
           "sv": "[[device]] är !{{fördröjd |inte fördröjd}}",
           "da": "[[device]] er !{{forsinket |ikke forsinket}}",
           "es": "[[device]] está !{{retardado |no retardado}}"
@@ -999,6 +1037,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "device",
               "es": "dispositivo"
@@ -1015,6 +1054,7 @@
           "fr": "L'appareil !{{est |n'est pas}} connecté",
           "it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}",
           "no": "Enhet er !{{logget |ikke logget}}",
+          "pl": "Urządzenie jest !{{logged | not logged}}",
           "sv": "Enhet är !{{loggad |inte loggad}}",
           "da": "Enhed er !{{logget |ikke logget}}",
           "es": "El dispositivo está !{{registrado |no registrado}}"
@@ -1026,6 +1066,7 @@
           "fr": "[[device]] !{{est |n'est pas}} connecté",
           "it": "[[device]] !{{è in fase di registrazione |non viene registrato}}",
           "no": "[[device]] er !{{logget |ikke logget}}",
+          "pl": "[[device]] jest !{{logged |not logged}}",
           "sv": "[[device]] är !{{loggad |inte loggad}}",
           "da": "[[device]] er !{{logget |ikke logget}}",
           "es": "[[device]] está !{{registrado |no registrado}}"
@@ -1038,12 +1079,13 @@
             "name": "device",
             "type": "autocomplete",
             "placeholder": {
-              "en": "device",
+              "en": "Device",
               "nl": "Apparaat",
               "de": "Gerät",
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "Enhed",
               "es": "dispositivo"
@@ -1060,6 +1102,7 @@
           "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
           "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
           "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
+          "pl": "Urządzenie jest !{{part|not part}} trybu Pełnego Nadzoru",
           "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge",
           "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
@@ -1071,6 +1114,7 @@
           "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
           "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
           "no": "[[device]] er !{{del|ikke del}} av Full overvåkning",
+          "pl": "[[device]] jest !{{part|not part}} trybu Pełnego Nadzoru",
           "sv": "[[device]] är !{{del|inte del}} av Fullt Övervakningsläge",
           "da": "[[device]] er !{{del|ikke del}} af Fuld Overvågning tilstand",
           "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia completa"
@@ -1083,12 +1127,13 @@
             "name": "device",
             "type": "autocomplete",
             "placeholder": {
-              "en": "device",
+              "en": "Device",
               "nl": "Apparaat",
               "de": "Gerät",
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "Enhed",
               "es": "dispositivo"
@@ -1105,6 +1150,7 @@
           "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
           "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
           "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
+          "pl": "Urządzenie jest !{{part|not part}} częścią trybu częściowego nadzoru",
           "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
           "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
           "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
@@ -1116,6 +1162,7 @@
           "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
           "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
           "no": "[[device]] er !{{del|ikke del}} av Delvis overvåkning",
+          "pl": "[[device]] jest !{{part|not part}} częścią trybu częściowego nadzoru",
           "sv": "[[device]] är !{{del|inte del}} av partiellt övervakningsläge",
           "da": "[[device]] er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
           "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia parcial"
@@ -1134,6 +1181,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "Enhed",
               "es": "dispositivo"
@@ -1152,6 +1200,7 @@
           "fr": "Définir le Mode de Surveillance",
           "it": "Imposta Modalità di Sorveglianza",
           "no": "Sett overvåkningsmodus",
+          "pl": "Ustaw tryb monitorowania",
           "sv": "Ange övervakningsläge",
           "da": "Sæt Overvågnings Tilstand",
           "es": "Establecer modo de vigilancia"
@@ -1163,6 +1212,7 @@
           "fr": "Définir le Mode de Surveillance [[surveillance]]",
           "it": "Imposta Modalità di Sorveglianza [[surveillance]]",
           "no": "Sett overvåkningsmodus [[surveillance]]",
+          "pl": "Ustaw tryb monitorowania na [[surveillance]]",
           "sv": "Ange övervakningsläge [[surveillance]]",
           "da": "Sæt Overvågnings Tilstand [[surveillance]]",
           "es": "Establecer modo de vigilancia [[surveillance]]"
@@ -1181,6 +1231,7 @@
                   "fr": "Activée",
                   "it": "Armato",
                   "no": "Tilkoblet",
+                  "pl": "Uzbrojony",
                   "sv": "Tillkopplad",
                   "da": "Tilkoblet",
                   "es": "Armado"
@@ -1195,6 +1246,7 @@
                   "fr": "Desactivée",
                   "it": "Disarmato",
                   "no": "Frakoblet",
+                  "pl": "Rozbrojony",
                   "sv": "Frånkopplad",
                   "da": "Frakoblet",
                   "es": "Desarmado"
@@ -1209,6 +1261,7 @@
                   "fr": "Partiellement activé",
                   "it": "Parzialmente Armato",
                   "no": "Delvis tilkoblet",
+                  "pl": "Częściowo uzbrojony",
                   "sv": "Delvis tillkopplad",
                   "da": "Delvis tilkoblet",
                   "es": "Parcialmente armado"
@@ -1232,6 +1285,7 @@
           "fr": "Envoyer des informations à Heimdall",
           "it": "Invia informazioni a Heimdall",
           "no": "Send informasjon til Heimdall",
+          "pl": "Wyślij informacje do Heimdall",
           "sv": "Sänd information till Heimdall",
           "da": "Send information til Heimdall",
           "es": "Enviar información a Heimdall"
@@ -1246,6 +1300,7 @@
           "fr": "Envoyer des [[log]] à Heimdall",
           "it": "Invia [[log]] a Heimdall",
           "no": "Send [[log]] til Heimdall",
+          "pl": "Wyślij [[log]] do Heimdall",
           "sv": "Sänd [[log]] till Heimdall",
           "da": "Send [[log]] til Heimdall",
           "es": "Enviar [[log]] a Heimdall"
@@ -1266,6 +1321,7 @@
           "fr": "Effacer l'historique de Heimdall",
           "it": "Cancella la storia di Heimdall",
           "no": "Slett historikk Heimdall",
+          "pl": "Wyczyść historię Heimdall",
           "sv": "Rensa historik för Heimdall",
           "da": "Nulstil Heimdall historik",
           "es": "Borrar el historial de Heimdall"
@@ -1280,6 +1336,7 @@
           "fr": "Activer l'alarme",
           "it": "Attiva Allarme",
           "no": "Aktiver Alarm",
+          "pl": "Aktywuj alarm",
           "sv": "Aktivera Alarm",
           "da": "Aktiver alarm",
           "es": "Activar Alarma"
@@ -1294,6 +1351,7 @@
           "fr": "Désactiver l'alarme",
           "it": "Disattiva Allarme",
           "no": "Deaktiver Alarm",
+          "pl": "Dezaktywuj alarm",
           "sv": "Deaktivera Alarm",
           "da": "Deaktiver Alarm",
           "es": "Desactivar Alarma"
@@ -1308,6 +1366,7 @@
           "fr": "Vérifier la dernière communication",
           "it": "Verifica l'ultima comunicazione",
           "no": "Sjekk siste kommunikasjon",
+          "pl": "Sprawdź ostatnią komunikację",
           "sv": "Kontrollera den senaste kommunikationen",
           "da": "Kontroller seneste kommunikation",
           "es": "Comprobar última comunicación"
@@ -1325,6 +1384,7 @@
           "fr": "Vérifier l'état de tous les capteurs",
           "it": "Verifica lo stato di tutti i sensori",
           "no": "Sjekk status på alle sensorer",
+          "pl": "Sprawdź status wszystkich czujników",
           "sv": "Kontrollera status på alla sensorer",
           "da": "Kontroler status for alle sensorer",
           "es": "Verificar el estado de todos los sensores"
@@ -1342,6 +1402,7 @@
           "fr": "Envoyer des informations à Timeline",
           "it": "Invia informazioni alla Timeline",
           "no": "Send informasjon til Tidslinjen",
+          "pl": "Wyślij informacje do osi czasu",
           "sv": "Sänd information till Tidslinjen",
           "da": "Send information til Tidslinie",
           "es": "Enviar información a la línea temporal"
@@ -1353,6 +1414,7 @@
           "fr": "Envoyer des [[message]] à Timeline",
           "it": "Invia [[message]] alla Timeline",
           "no": "Send [[message]] til Tidslinjen",
+          "pl": "Wyślij [[message]] na Osi czasu",
           "sv": "Sänd [[message]] till Tidslinjen",
           "da": "Send [[message]] til Tidslinie",
           "es": "Enviar [[message]] a la línea temporal"
@@ -1373,6 +1435,7 @@
           "fr": "Ajouter un délai à l'appareil",
           "it": "Aggiungi ritardo al dispositivo",
           "no": "Legg forsinkelse til enhet",
+          "pl": "Dodaj opóźnienie do urządzenia",
           "sv": "Addera en fördröjning till en enhet",
           "da": "Tilføj forsinkelse til enhed",
           "es": "añadir retardo al dispositivo"
@@ -1384,6 +1447,7 @@
           "fr": "Ajouter un délai à [[device]]",
           "it": "Aggiungi ritardo al [[device]]",
           "no": "Legg forsinkelse til [[device]]",
+          "pl": "Dodaj opóźnienie do [[device]]",
           "sv": "Addera en fördröjning till en [[device]]",
           "da": "Tilføj forsinkelse til [[device]]",
           "es": "añadir retardo al [[device]]"
@@ -1399,6 +1463,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "Enhed",
               "es": "dispositivo"
@@ -1415,6 +1480,7 @@
           "fr": "Supprimer le délai de l'appareil",
           "it": "Rimuovi ritardo dal dispositivo",
           "no": "Fjern forsinkelse fra enhet",
+          "pl": "Usuń opóźnienie z urządzenia",
           "sv": "Ta bort en fördröjning från en enhet",
           "da": "Fjern forsinkelse fra enhed",
           "es": "retirar retardo al dispositivo"
@@ -1426,6 +1492,7 @@
           "fr": "Supprimer le délai de [[device]]",
           "it": "Rimuovi ritardo dal [[device]]",
           "no": "Fjern forsinkelse fra [[device]]",
+          "pl": "Usuń opóźnienie z [[device]]",
           "sv": "Ta bort en fördröjning från en [[device]]",
           "da": "Fjern forsinkelse fra [[device]]",
           "es": "retirar retardo al [[device]]"
@@ -1441,6 +1508,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1457,6 +1525,7 @@
           "fr": "Ajouter un Connexion à l'appareil",
           "it": "Aggiungi Registro Eventi al dispositivo",
           "no": "Legg til logging for enhet",
+          "pl": "Dodaj logowanie do urządzenia",
           "sv": "Addera loggning till en enhet",
           "da": "Tilføj logning for enhed",
           "es": "Añadir registro al dispositivo"
@@ -1468,6 +1537,7 @@
           "fr": "Ajouter un Connexion à [[device]]",
           "it": "Aggiungi Registro Eventi al [[device]]",
           "no": "Legg til logging for [[device]]",
+          "pl": "Dodaj logowanie do [[device]]",
           "sv": "Addera loggning till en [[device]]",
           "da": "Tilføj logning for [[device]]",
           "es": "Añadir registro al [[device]]"
@@ -1483,6 +1553,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1499,6 +1570,7 @@
           "fr": "Supprimer le Connexion de l'appareil",
           "it": "Rimuovi Registro Eventi dal dispositivo",
           "no": "Fjern logging fra enhet",
+          "pl": "Usuń logowanie z urządzenia",
           "sv": "Ta bort loggning från en enhet",
           "da": "Fjern logning fra enhed",
           "es": "retirar registro al dispositivo"
@@ -1510,6 +1582,7 @@
           "fr": "Supprimer le Connexion de [[device]]",
           "it": "Rimuovi Registro Eventi dal [[device]]",
           "no": "Fjern logging fra [[device]]",
+          "pl": "Usuń logowanie z [[device]]",
           "sv": "Ta bort loggning från en [[device]]",
           "da": "Fjern logning fra [[device]]",
           "es": "retirar registro al [[device]]"
@@ -1525,6 +1598,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1541,6 +1615,7 @@
           "fr": "Ajouter un appareil au Mode de Surveillance Partielle",
           "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Parziale",
           "no": "Legg enhet til for Delvis overvåkning",
+          "pl": "Dodaj urządzenie do trybu częściowego nadzoru",
           "sv": "Addera en enhet till partiellt övervakningsläge",
           "da": "Tilføj en enhed til Delvis Overvågnings Tilstand",
           "es": "Agregar dispositivo al modo de vigilancia parcial"
@@ -1552,6 +1627,7 @@
           "fr": "Ajouter [[device]] au Mode de Surveillance Partielle",
           "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Parziale",
           "no": "Legg [[device]] til for Delvis overvåkning",
+          "pl": "Dodaj [[device]] do trybu częściowego nadzoru",
           "sv": "Addera en [[device]] till partiellt övervakningsläge",
           "da": "Tilføj en [[device]] til Delvis Overvågnings Tilstand",
           "es": "Agregar [[device]] al modo de vigilancia parcial"
@@ -1567,6 +1643,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1583,6 +1660,7 @@
           "fr": "Supprimer l'appareil du Mode de Surveillance Partielle",
           "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Parziale",
           "no": "Fjern enhet fra Delvis overvåkning",
+          "pl": "Usuń urządzenie z trybu częściowego nadzoru",
           "sv": "To bort en enhet från partiellt övervakningsläge",
           "da": "Fjern enhed fra Delvis Overvågnings Tilstand",
           "es": "Eliminar dispositivo del modo de vigilancia parcial"
@@ -1594,6 +1672,7 @@
           "fr": "Supprimer [[device]] du Mode de Surveillance Partielle",
           "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Parziale",
           "no": "Fjern [[device]] fra Delvis overvåkning",
+          "pl": "Usuń [[device]] z trybu częściowego nadzoru",
           "sv": "To bort en [[device]] från partiellt övervakningsläge",
           "da": "Fjern [[device]] fra Delvis Overvågnings Tilstand",
           "es": "Eliminar [[device]] del modo de vigilancia parcial"
@@ -1609,6 +1688,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1625,6 +1705,7 @@
           "fr": "Ajouter un appareil en Mode de Surveillance Complète",
           "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Completa",
           "no": "Legg enhet til Full overvåkning",
+          "pl": "Dodaj urządzenie do trybu Pełnej Sygnalizacji",
           "sv": "Addera en enhet till fullt övervakningsläge",
           "da": "Tilføj en enhed til Fuld Overvågnings Tilstand",
           "es": "Agregar dispositivo al modo de vigilancia completa"
@@ -1636,6 +1717,7 @@
           "fr": "Ajouter [[device]] en Mode de Surveillance Complète",
           "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Completa",
           "no": "Legg [[device]] til Full overvåkning",
+          "pl": "Dodaj [[device]] do trybu Pełnej Sygnalizacji",
           "sv": "Addera en [[device]] till fullt övervakningsläge",
           "da": "Tilføj en [[device]] til Fuld Overvågnings Tilstand",
           "es": "Agregar [[device]] al modo de vigilancia completa"
@@ -1651,6 +1733,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1667,6 +1750,7 @@
           "fr": "Supprimer l'appareil du Mode de Surveillance Complète",
           "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Completa",
           "no": "Fjern enhet fra Full overvåkning",
+          "pl": "Usuń urządzenie z trybu pełnej inwigilacji",
           "sv": "Ta bort en enhet från fullt övervakningsläge",
           "da": "Fjern en enhed fra Fuld Overvågnings Tilstand",
           "es": "Eliminar dispositivo del modo de vigilancia completa"
@@ -1678,6 +1762,7 @@
           "fr": "Supprimer [[device]] du Mode de Surveillance Complète",
           "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Completa",
           "no": "Fjern [[device]] fra Full overvåkning",
+          "pl": "Usuń [[device]] z trybu pełnej inwigilacji",
           "sv": "Ta bort en [[device]] från fullt övervakningsläge",
           "da": "Fjern en [[device]] fra Fuld Overvågnings Tilstand",
           "es": "Eliminar [[device]] del modo de vigilancia completa"
@@ -1693,6 +1778,7 @@
               "fr": "Appareil",
               "it": "Dispositivo",
               "no": "enhet",
+              "pl": "Urządzenie",
               "sv": "enhet",
               "da": "enhed",
               "es": "dispositivo"
@@ -1712,6 +1798,7 @@
         "fr": "État d'alarme à la maison",
         "it": "Stato di Allarme Casa",
         "no": "Alarmstatus for hjemmet",
+        "pl": "Stan alarmu domowego",
         "sv": "Alarmstatus för hemmet",
         "da": "Alarm status for hjemmet",
         "es": "Estado de alarma de casa"
@@ -1726,6 +1813,7 @@
             "fr": "Activée",
             "it": "Armato",
             "no": "Tilkoblet",
+            "pl": "Uzbrojony",
             "sv": "Tillkopplad",
             "da": "Tilkoblet",
             "es": "Armada"
@@ -1740,6 +1828,7 @@
             "fr": "Desactivée",
             "it": "Disarmato",
             "no": "Frakoblet",
+            "pl": "Rozbrojony",
             "sv": "Frånkopplad",
             "da": "Frakoblet",
             "es": "Desarmada"
@@ -1754,6 +1843,7 @@
             "fr": "Partiellement activé",
             "it": "Parzialmente Armato",
             "no": "Delvis tilkoblet",
+            "pl": "Częściowo uzbrojony",
             "sv": "Delvis tillkopplad",
             "da": "Delvis Tilkoblet",
             "es": "Parcialmante armada"
@@ -1774,6 +1864,7 @@
         "it": "Stato allarme",
         "nl": "Alarmtoestand",
         "no": "Alarmtilstand",
+        "pl": "Stan alarmu",
         "es": "Estado de alarma",
         "sv": "Larmläge"
       },
@@ -1793,6 +1884,7 @@
         "it": "Stato allarme",
         "nl": "Alarmtoestand",
         "no": "Alarmtilstand",
+        "pl": "Stan alarmu",
         "es": "Estado de alarma",
         "sv": "Larmläge"
       },
@@ -1813,6 +1905,7 @@
         "fr": "Mode",
         "it": "Modalità",
         "no": "Modus",
+        "pl": "Tryb",
         "sv": "Läge",
         "da": "Tilstand",
         "es": "Modo"
@@ -1840,6 +1933,7 @@
             "fr": "Éteindre",
             "it": "Disattivare",
             "no": "Skru av",
+            "pl": "Wyłącz",
             "sv": "Stäng av",
             "da": "Slå fra",
             "es": "Apagar"
@@ -1856,6 +1950,7 @@
             "fr": "ALARM",
             "it": "ALLARME",
             "no": "ALARM",
+            "pl": "ALARM",
             "sv": "ALARM",
             "da": "ALARM",
             "es": "ALARMA"
@@ -1867,6 +1962,7 @@
             "fr": "Tout est calme",
             "it": "Tutto Ok",
             "no": "Alt er ok",
+            "pl": "Wszystko jest ciche",
             "sv": "Allt är lugnt",
             "da": "Alt er OK",
             "es": "Todo esta tranquilo"
@@ -1896,6 +1992,7 @@
         "fr": "Alarm",
         "it": "Allarme",
         "no": "Alarm",
+        "pl": "Alarm",
         "sv": "Alarm",
         "da": "Alarm",
         "es": "Alarma"
@@ -1918,6 +2015,7 @@
             "fr": "Éteindre",
             "it": "Disattivare",
             "no": "Skru av",
+            "pl": "Wyłącz",
             "sv": "Stäng av",
             "da": "Slå fra",
             "es": "Apagar"
@@ -1934,6 +2032,7 @@
             "fr": "ALARM",
             "it": "ALLARME",
             "no": "ALARM",
+            "pl": "ALARM",
             "sv": "ALARM",
             "da": "ALARM",
             "es": "ALARMA"
@@ -1945,6 +2044,7 @@
             "fr": "Tout est calme",
             "it": "Tutto Ok",
             "no": "Alt er ok",
+            "pl": "Wszystko jest ciche",
             "sv": "Allt är lugnt",
             "da": "Alt er OK",
             "es": "Todo esta tranquilo"
