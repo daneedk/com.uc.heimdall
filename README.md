@@ -17,6 +17,7 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * 🇮🇹 Italiano
 * 🇳🇱 Nederlands
 * 🇳🇴 Norsk
+* 🇵🇱 Polski
 * 🇸🇪 Svenska
 
 ## How do I get it to work?
