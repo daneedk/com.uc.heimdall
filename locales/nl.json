@@ -13,6 +13,11 @@
     },
     "tab1": {
         "title": "Dashboard", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Loginstellingen"
+            }
+        },
         "status": {
             "title": "Status",
             "smode": "Toezicht Mode",

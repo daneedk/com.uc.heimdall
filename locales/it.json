@@ -13,6 +13,11 @@
     },
     "tab1": {
         "title": "Dashboard", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Impostazioni di registro"
+            }
+        },
         "status": {
             "title": "Stato",
             "smode": "Modalità Sorveglianza",

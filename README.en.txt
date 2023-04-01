@@ -1,15 +1,15 @@
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
 
 Supported Languages
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Supported Devices
 • Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.
@@ -25,4 +25,4 @@ How do I get it to work?
 • Add an Alarm Off Button
 
 Please visit the Heimdall topic on the Athom Community Forum for more information, click on Visit forum >> under Community in the grey block below.
-(Or copy this link and paste it in your browsers address bar: https://community.athom.com/t/heimdall-let-homey-watch-over-your-home/134)
+(Or copy this link and paste it in your browsers address bar: https://community.athom.com/t/134)

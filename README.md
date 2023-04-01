@@ -9,15 +9,15 @@ All detected motion and open/closed doors and windows on selected sensors will b
 * Devices that don't have these capabilities can most likely be integrated by using a Virtual Device.
 
 ## Supported Languages
-* 🇬🇧English
-* 🇳🇱Nederlands
-* 🇩🇪Deutsch
-* 🇫🇷Français
-* 🇮🇹Italiano
-* 🇸🇪Svenska
-* 🇳🇴Norsk
-* 🇪🇸Español
-* 🇩🇰Dansk
+* 🇬🇧 English
+* 🇩🇰 Dansk
+* 🇩🇪 Deutsch
+* 🇪🇸 Español
+* 🇫🇷 Français
+* 🇮🇹 Italiano
+* 🇳🇱 Nederlands
+* 🇳🇴 Norsk
+* 🇸🇪 Svenska
 
 ## How do I get it to work?
 * Add a Surveillance Mode Switch.
@@ -38,8 +38,8 @@ An extensive changelog is available [here](https://community.homey.app/t/134/3)
 If you like the app, consider buying me a beer!  
 [![Paypal donate][pp-donate-image]][pp-donate-link]
 
-## Version 2.3.x
-* SDK3 support and conversion from athom-api to homey-api
+## Version 2.10.x
+* Preparation for Homey Pro Early 2023
 
 
 [pp-donate-link]: https://www.paypal.me/daneedekruyff
