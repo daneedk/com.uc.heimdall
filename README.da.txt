@@ -2,15 +2,15 @@ Alle detekterede enheder der har bevægelses, åbne/lukkede døre og åbne/lukke
 Alle disse enheders aktivitet vil blive gemt i loggen, når Overvågning Tilstand er aktiv og en enhed bliver aktiveret.
 
 Understøttede sprog
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Understøttede enheder
 • Enhver enhed der har bevægelses funktion, f.eks. Fibaro Bevægelses Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

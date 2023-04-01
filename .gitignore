@@ -1,6 +1,7 @@
 env.json
 /build/
 /_information/
+/.vscode/
 
 # Added by Homey CLI
 /.homeybuild/

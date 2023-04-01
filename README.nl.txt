@@ -1,15 +1,15 @@
 Alle gedetecteerde beweging en open/gesloten deur en ramen op geselecteerde sensoren zal Heimdall zien. Al deze gebeurtenissen worden naar het log geschreven en als er een Toezicht Mode actief is zal het Alarm geactiveerd worden.
 
 Ondersteunde talen
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Ondersteunde apparaten
 • Elk apparaat met bewegingsdetectie, bijv.  Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

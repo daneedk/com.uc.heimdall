@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 //const { HomeyAPIApp } = require('homey-api');
-const { HomeyAPIApp } = require('./homey-api');
+const { HomeyAPI } = require('./homey-api'); // 3.0.0-rc.18 01-04-2023
 
 const delay = time => new Promise(res=>setTimeout(res,time));
 
@@ -15,7 +15,7 @@ var defaultSettings = {
     "delayArmingFull": false,
     "delayArmingPartial": false,
     "alarmWhileDelayed": false,
-    "logArmedOnly": false,
+    "logArmedOnly": true,
     "logTrueOnly": false,
     "useTampering": false,
     "checkMotionAtArming": false,
@@ -60,24 +60,19 @@ module.exports = class Heimdall extends Homey.App {
         this.log('Local Time:                ', localDate)
         
         //this.log('Preparing flow cards:       start');
-        await this.initializeFlowCards();
-        this.log('Preparing flow cards:       done');
+        this.initializeFlowCards();
 
         //this.log('Reading settings:           start')
-        await this.initializeSettings();
-        this.log('Reading settings:           done')
+        this.initializeSettings();
 
         //this.log('Connecting webapi:          start')
         await this.initializeWebApi();
-        this.log('Connecting webapi:          done')
 
         //this.log('Attach events to devices:   start')
-        await this.attachDeviceEvents();
-        this.log('Attach events to devices:   done')
+        this.attachDeviceEvents();
 
         //this.log('Enumerating devices:        start')
-        await this.enumerateDevices().catch(this.error);
-        this.log('Enumerating devices:        done')
+        this.enumerateDevices().catch(this.error);
         this.log('Heimdall ready for action   ----------------------')
     }
 
@@ -322,6 +317,8 @@ module.exports = class Heimdall extends Homey.App {
                     this.getUsableDevices()
                 )
             })
+
+        this.log('Preparing flow cards:       done');
     }
 
     async initializeSettings() {
@@ -338,11 +335,12 @@ module.exports = class Heimdall extends Homey.App {
         let nu =this.getDateTime();
         surveillance = this.homey.settings.get('surveillanceStatus');
         this.log(' Surveillance Mode:         ' + surveillance);
-        let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
-        this.writeLog(logLine)
         if ( surveillance == null ) {
             surveillance = 'disarmed'
-        };
+            this.homey.settings.set('surveillanceStatus', 'disarmed');
+        };        
+        let logLine = "ao " + nu + this.readableMode(surveillance) + " || Heimdall || Heimdall start"
+        this.writeLog(logLine)
 
         heimdallSettings = this.homey.settings.get('settings');
 		if ( heimdallSettings == (null || undefined) ) {
@@ -373,12 +371,18 @@ module.exports = class Heimdall extends Homey.App {
                 heimdallSettings = this.homey.settings.get('settings')
             }
         });
+
+        //this.homey.on('memwarn', async (data) => await this.onMemwarn(data));
+        this.log('Reading settings:           done')
     }
 
     async initializeWebApi() {
-        this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+        //this.homeyApi = new HomeyAPIApp({ homey: this.homey });
+        this.homeyApi = await HomeyAPI.createAppAPI({ homey: this.homey });
 
         await this.homeyApi.devices.connect();
+
+        this.log('Connecting webapi:          done')
     }
 
     async attachDeviceEvents() {
@@ -407,6 +411,8 @@ module.exports = class Heimdall extends Homey.App {
 
             }
         });
+
+        this.log('Attach events to devices:   done')
     }
 
     // Get all devices and run them through the functions to add 
@@ -421,6 +427,8 @@ module.exports = class Heimdall extends Homey.App {
                 this.addDevice(device);
             } 
         };
+
+        this.log('Enumerating devices:        done')
     }
 
     // Check if a device is ready return it when ready. If ready return false, 
@@ -451,7 +459,11 @@ module.exports = class Heimdall extends Homey.App {
     // capabilities are run through the attachEventListener() function to add
     // makeCapabilityInstance('capability', ) to the capability of a device.
     // - Called from enumerateDevices()
-    addDevice(device) {
+    async addDevice(device) {
+        // newly created devices are not passed as instance anymore Thanks Athom!
+        if (! device.makeCapabilityInstance) {
+            device = await this.homeyApi.devices.getDevice({ id : device.id });
+        }
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
@@ -459,35 +471,38 @@ module.exports = class Heimdall extends Homey.App {
                 return;
             }
         }
-        devicesAdded.push(device.id)
+        devicesAdded.push(device.id);
+
+        const zones = await this.homeyApi.zones.getZones();
+        device.zoneName = zones[device.zone].name;
 
         // Find Surveillance Mode Switch
         if ( device.data.id === 'sMode' ) {
             sModeDevice = device;
-            this.log(' Found Mode Switch named:   ' + device.name)
+            this.log(' Found Mode Switch named:   ' + device.name);
         }
         // Find Alarm Off Button
         if ( device.data.id === 'aMode' ) { 
             aModeDevice = device;
-            this.log(' Found Alarm Button named:  ' + device.name)
+            this.log(' Found Alarm Button named:  ' + device.name);
         }
         if ( !device.capabilitiesObj ) return
-        
+
         if ( 'alarm_motion' in device.capabilitiesObj ) {
-            this.log(' Found motion sensor:       ' + device.name)
-            this.attachEventListener(device,'motion')
+            this.log(' Found motion sensor:       ', device.name, 'in', device.zoneName);
+            this.attachEventListener(device,'motion');
         }
         if ( 'alarm_contact' in device.capabilitiesObj ) {
-            this.log(' Found contact sensor:      ' + device.name)
-            this.attachEventListener(device,'contact')
+            this.log(' Found contact sensor:       ' + device.name, 'in', device.zoneName);
+            this.attachEventListener(device,'contact');
         }
         if ( 'alarm_vibration' in device.capabilitiesObj ) {
-            this.log(' Found vibration sensor:    ' + device.name)
-            this.attachEventListener(device,'vibration')
+            this.log(' Found vibration sensor:    ' + device.name, 'in', device.zoneName);
+            this.attachEventListener(device,'vibration');
         }
         if ( 'alarm_tamper' in device.capabilitiesObj ) {
-            this.log(' Found tamper sensor:       ' + device.name)
-            this.attachEventListener(device,'tamper')
+            this.log(' Found tamper sensor:       ' + device.name, 'in', device.zoneName);
+            this.attachEventListener(device,'tamper');
         }
     }
 
@@ -508,7 +523,8 @@ module.exports = class Heimdall extends Homey.App {
 
     // Attach en Event Listener to the device, on an event call stateChange(device,state,sensorType)
     // - Called from addDevice(device)
-    attachEventListener(device,sensorType) {
+    async attachEventListener(updatedDevice,sensorType) {
+        const device =  await this.homeyApi.devices.getDevice({ id: updatedDevice.id });
         switch (sensorType) {
             case "motion":
                 device.makeCapabilityInstance('alarm_motion',function(device, state) {
@@ -547,7 +563,6 @@ module.exports = class Heimdall extends Homey.App {
     // Get all devices from the homey-api, 
     // - Called via api.js from settings and several other functions
     async getDevices() {
-
         // return await this.homeyApi.devices.getDevices({ $cache : false });
         return await this.homeyApi.devices.getDevices();
     }
@@ -555,14 +570,14 @@ module.exports = class Heimdall extends Homey.App {
     // Get all zones from homey-api
     // - Called via api.js from settings
     async getZones() {
-
         return await this.homeyApi.zones.getZones();
     }
 
+    /*
     async getZoneName(zoneId) {
         var result = "unknown";
-        let allZones = await this.getZones();
-        
+        let allZones = zones //await this.getZones();
+
         for (let zone in allZones) {
             if ( allZones[zone].id == zoneId ) {
                 result = allZones[zone].name;
@@ -570,6 +585,7 @@ module.exports = class Heimdall extends Homey.App {
         };
         return result;
     }
+    */
 
     // Get all users, users can be used by external keypads 
     // - Called via api.js from settings
@@ -731,8 +747,8 @@ module.exports = class Heimdall extends Homey.App {
         let sourceDeviceFull = this.isMonitoredFull(device);
         let sourceDevicePartial = this.isMonitoredPartial(device);
         let sourceDeviceLog = this.isLogged(device);
-        let zone = await this.getZoneName(device.zone);
-        this.log('stateChange:----------------' + device.name + ' ('+ zone + ')');
+        //let zone = await this.getZoneName(device.zone);
+        this.log('stateChange:----------------' + device.name + ' ('+ device.zoneName + ')');
         // Is the device monitored?
         if ( sourceDeviceFull || sourceDevicePartial || sourceDeviceLog ) {
             let sensorStateReadable;
@@ -772,7 +788,7 @@ module.exports = class Heimdall extends Homey.App {
                         this.log('sourceDevicePartial:        ' + sourceDevicePartial);
                         this.log('sourceDeviceLog:            ' + sourceDeviceLog);
                         this.log('Alarm is triggered:         Yes')
-                        let zone = await this.getZoneName(device.zone)
+                        //let zone = await this.getZoneName(device.zone)
                         let delayOverruled = ".";
                         if ( alarmCounterRunning && !this.isDelayed(device) ) {
                             this.log('Alarm counter active:       Yes');
@@ -780,8 +796,8 @@ module.exports = class Heimdall extends Homey.App {
                             delayOverruled = this.homey.__("history.delayoverruled");
                         } 
 
-                        //logLine = "al " + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " in " + zoneName + this.homey.__("history.triggerdalarm") + delayOverruled
-                        logLine = "al " + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " in " + zone + this.homey.__("history.triggerdalarm") + delayOverruled
+                        logLine = "al " + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.triggerdalarm") + delayOverruled
+                        //logLine = "al " + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + " in " + zone + this.homey.__("history.triggerdalarm") + delayOverruled
 
                         if ( sensorType == 'motion' ) {
                             this.speak("motionTrue", device.name + " detected motion") 
@@ -803,8 +819,8 @@ module.exports = class Heimdall extends Homey.App {
                             logLine = "ad "+ nu + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.alarmdelayed") + heimdallSettings.alarmDelay + this.homey.__("history.seconds") + '\n' + logLine
                             let delay = heimdallSettings.alarmDelay * 1000;
                             // Trigger delay flow card
-                            // var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': device.zoneName , 'Duration': heimdallSettings.alarmDelay * 1 };
-                            var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': zone , 'Duration': heimdallSettings.alarmDelay * 1 };
+                            var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': device.zoneName , 'Duration': heimdallSettings.alarmDelay * 1 };
+                            //var tokens= { 'Reason': device.name + ': '+ sensorStateReadable , 'Zone': zone , 'Duration': heimdallSettings.alarmDelay * 1 };
                             this.homey.flow.getTriggerCard('AlarmDelayActivated').trigger(tokens)
                                 .catch(this.error)
                                 .then()
@@ -818,7 +834,7 @@ module.exports = class Heimdall extends Homey.App {
                             let tta = heimdallSettings.alarmDelay - 1;
                             this.ttAlarmCountdown(tta, device,sensorStateReadable);
                             // Generate Homey wide event for starting the Alarm Delay
-                            this.systemEvent("Alarm Delay left", tta + 1);
+                            this.systemEvent("Alarm Delay", tta + 1);
                         } 
                         else {
                             this.log('Trigger is delayed:         No')
@@ -842,9 +858,9 @@ module.exports = class Heimdall extends Homey.App {
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('Alarmstate Active:          The Alarm State is active so just log the sensorstate')
                         logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggeralarmstate");
-                        let zone = await this.getZoneName(device.zone)
-                        // var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                        var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
+                        //let zone = await this.getZoneName(device.zone)
+                        var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
+                        //var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
                         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate').trigger(tokens)
                             .catch(this.error)
                             .then()
@@ -874,13 +890,13 @@ module.exports = class Heimdall extends Homey.App {
                 // this.log('logTrueOnly is true and sensorstate is false, so no log line')
             }
             if ( shouldLog ) {
-                this.writeLog(logLine)        
+                this.writeLog(logLine)
             }
             if ( sourceDeviceLog ) {
                 // trigger the flowcard when a device with logging changes state
-                let zone = await this.getZoneName(device.zone)
-                //var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
-                var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
+                //let zone = await this.getZoneName(device.zone);
+                var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
+                //var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
                 this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
                     .catch(this.error)
                     .then()
@@ -913,6 +929,8 @@ module.exports = class Heimdall extends Homey.App {
             } else { 
                 logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodepartiallyarmed")
             }
+            // Does this need 
+            this.homey.app.checkAllDevicesState();
             if ( (value == 'armed' && heimdallSettings.delayArmingFull) || (value == 'partially_armed' && heimdallSettings.delayArmingPartial )  ) {
                 // (Partially) Arming is delayed
                 this.log('Arming is delayed:          Yes, ' + heimdallSettings.armingDelay + ' seconds.')
@@ -932,7 +950,7 @@ module.exports = class Heimdall extends Homey.App {
                     .then()
                 
                 // Generate Homey wide event for starting the Arming Delay
-                this.systemEvent("Arming Delay left", tta);
+                this.systemEvent("Arming Delay", tta);
 
                 if ( value == 'armed' ) {
                     logLine = "st " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.smodedelayarmed") + heimdallSettings.armingDelay + this.homey.__("history.seconds")
@@ -1038,24 +1056,24 @@ module.exports = class Heimdall extends Homey.App {
                     let lastUpdateTime = d.toLocaleString();
 
                     let tempColor = 'mp-'
-                    let zone = await this.getZoneName(device.zone)
-                    //let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
-                    let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                    //let zone = await this.getZoneName(device.zone)
+                    let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                    //let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                     this.writeLog(tempLogLine)
                     this.log("checkDeviceLastCom:         " + device.name + " - did not communicate in last 24 hours")
                     if ( heimdallSettings.notificationNoCommunicationMotion && 'alarm_motion' in device.capabilitiesObj ) {
-                        //let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
-                        let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                        let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                        //let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
                     if ( heimdallSettings.notificationNoCommunicationContact && 'alarm_contact' in device.capabilitiesObj ) {
-                        //let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
-                        let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                        let message = '**' + device.name + '** in ' + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
+                        //let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
 
-                    //var tokens = {'Zone': device.zoneName, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
-                    var tokens = {'Zone': zone, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
+                    var tokens = {'Zone': device.zoneName, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
+                    //var tokens = {'Zone': zone, 'Device': device.name, 'LastUpdate': lastUpdateTime, 'Duration': heimdallSettings.noCommunicationTime};
                     this.homey.flow.getTriggerCard('noInfoReceived').trigger(tokens)
                         .catch(this.error)
                         .then()
@@ -1203,9 +1221,9 @@ module.exports = class Heimdall extends Homey.App {
     // Trigger triggerSensorActive
     // - Called from checkAllDeviceState(device)
     async alertSensorActive( device, sensorType, sensorstateReadable ) {
-        let zone = await this.getZoneName(device.zone)
-        //var tokens = { 'Zone': device.zoneName, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
-        var tokens = { 'Zone': zone, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
+        //let zone = await this.getZoneName(device.zone)
+        var tokens = { 'Zone': device.zoneName, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
+        //var tokens = { 'Zone': zone, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
         this.homey.flow.getTriggerCard('sensorActiveAtSensorCheck').trigger(tokens)
             .catch(this.error)
             .then()
@@ -1300,10 +1318,10 @@ module.exports = class Heimdall extends Homey.App {
         surveillance = this.homey.settings.get('surveillanceStatus')
         if ( surveillance != 'disarmed' || source == "Flowcard" ) {
             // Surveillance mode is active
-            let zone = await this.getZoneName(device.zone)
+            // let zone = await this.getZoneName(device.zone)
             if ( source == "Heimdall") {
-                //var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zoneName };
-                var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': zone };
+                var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': device.zoneName };
+                //var tokens= {'Reason': device.name + ': '+ sensorState , 'Zone': zone };
                 logLine = "al " + nu + this.readableMode(surveillance) + " || " + source + " || " + this.homey.__("history.alarmactivated") + device.name + ": " + sensorState;
             } else {
                 var tokens= {'Reason': 'Flowcard' , 'Zone': "" };
@@ -1314,8 +1332,8 @@ module.exports = class Heimdall extends Homey.App {
                 .then()
 
             if ( heimdallSettings.notificationAlarmChange ) {
-                //let message = '**'+device.name+'** in '+ device.zoneName + this.homey.__("history.triggerdalarm")
-                let message = '**'+device.name+'** in '+ zone + this.homey.__("history.triggerdalarm")
+                let message = '**'+device.name+'** in '+ device.zoneName + this.homey.__("history.triggerdalarm")
+                //let message = '**'+device.name+'** in '+ zone + this.homey.__("history.triggerdalarm")
                 this.writeNotification(message)
             }
 
@@ -1325,11 +1343,11 @@ module.exports = class Heimdall extends Homey.App {
             // Check if Alarm Off Button exists and turn on 
             if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
-                aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
+                // aModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', true).catch(err => this.log('setting alarm_heimdall failed', err));
-                sModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
+                // sModeDevice.setCapabilityValue('alarm_generic', true).catch(err => this.log('setting alarm_generic failed', err));
             }
         }
         else {
@@ -1362,11 +1380,11 @@ module.exports = class Heimdall extends Homey.App {
             // Check if Alarm Off Button exists and turn off
             if ( aModeDevice != undefined ) {
                 aModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
-                aModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
+                // aModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             if ( sModeDevice != undefined ) {
                 sModeDevice.setCapabilityValue('alarm_heimdall', false).catch(err => this.log('setting alarm_heimdall failed', err));
-                sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
+                // sModeDevice.setCapabilityValue('alarm_generic', false).catch(err => this.log('setting alarm_generic failed', err));
             }
             var tokens = { 'Source': source };
             this.homey.flow.getTriggerCard('AlarmDeactivated').trigger(tokens)
@@ -1398,9 +1416,12 @@ module.exports = class Heimdall extends Homey.App {
                 savedHistory = savedHistoryArray.join('\n'); 
             }
             // end cleanup
-            logLine = logLine+"\n"+savedHistory;
+            logLine = logLine + "\n" + savedHistory;
+        } else {
+            console.log("savedHistory is undefined!")
         }
         this.homey.settings.set('myLog', logLine );
+//console.log(logLine);
         logLine = "";
     }
 
@@ -1852,8 +1873,8 @@ module.exports = class Heimdall extends Homey.App {
 
 // Translate text in ChatGPT
 /*
-In this code en means English, please add Danish, German, French, Italian, Dutch, Norwegian, Spanish and Swedish. Answer in a code block.
+In this code en means English, please add Danish, German, French, Italian, Dutch, Norwegian, Spanish and Swedish. Answer in acode block, formatted as json.
 {
-  "en": "Added more comments to the code",
+  "en": "Rolled back change for Homey Pro Early 2023",
 }
 */

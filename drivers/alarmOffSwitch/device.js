@@ -13,12 +13,15 @@ class Heimdall extends Homey.Device {
 
         // register a capability listener
         this.registerCapabilityListener('button', this.onCapabilityBoolean.bind(this))
-        this.registerCapabilityListener('alarm_generic', value => this.setAlarmGeneric(value))
+        //this.registerCapabilityListener('alarm_generic', value => this.setAlarmGeneric(value))
         this.registerCapabilityListener('alarm_heimdall', value => this.setAlarmHeimdall(value))
         
         this.setCapabilityValue('alarm_heimdall', false)
-        if (this.hasCapability('alarm_generic') === false) {await this.addCapability('alarm_generic')}
-        this.setCapabilityValue('alarm_generic', false)
+        if (this.hasCapability('alarm_generic') === true) {
+            console.log("Remove alarm_generic from alarmOffSwitch");
+            await this.removeCapability('alarm_generic')
+        }
+        //this.setCapabilityValue('alarm_generic', false)
     }
 
     // this method is called when the Device is added
@@ -44,7 +47,7 @@ class Heimdall extends Homey.Device {
     }
 
     setAlarmGeneric(value) {
-        this.setCapabilityValue('alarm_generic', value);
+        //this.setCapabilityValue('alarm_generic', value);
     }
 
     setAlarmHeimdall(value) {

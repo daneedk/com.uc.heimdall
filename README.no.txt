@@ -1,15 +1,15 @@
 All detected motion and open/closed doors and windows on selected sensors will be seen by Heimdall. All these events will be logged and when Heimdall is in a Surveillance Mode the alarm will be triggered.
 
 Supported Languages:
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Supported Devices
 • Any device that has motion detection, i.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

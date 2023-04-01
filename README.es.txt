@@ -1,15 +1,15 @@
 Heimdall verá todo el movimiento detectado y apertura/cierre de ventanas/puertas en los sensores seleccionados. Todos estos eventos se registrarán y cuando Heimdall esté en modo de vigilancia, se activará la alarma.
 
 Idiomas soportados
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Dispositivos soportados
 • Cualquier dispositivo que tenga detección de movimiento., p.e. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

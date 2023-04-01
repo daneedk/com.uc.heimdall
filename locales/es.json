@@ -13,6 +13,11 @@
     },
     "tab1": {
         "title": "Tablero", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Configuración de registro"
+            }
+        },
         "status": {
             "title": "Estado",
             "smode": "Modo de vigilancia",

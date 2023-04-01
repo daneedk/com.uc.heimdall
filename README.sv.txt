@@ -1,15 +1,15 @@
 All detekterad rörelse samt öppning/stängning av dörrar och fönster kommer att ses av Heimdall. Alla dessa händelser kommer loggas och när Heidall är i övervakningsläge kommer alarmet att lösa ut.
 
 Supporterade språk
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Supporterade Enheter
 • Alla enheter som har rörelsesensor, t.ex. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor etc.

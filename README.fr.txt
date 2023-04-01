@@ -1,15 +1,15 @@
 Pour les périphériques sélectionnés, Heimdall est informé de tous les mouvements détectés et de l’ouverture/fermeture des portes et fenêtres. Tous ces événements sont journalisés et lorsque Heimdall est en Mode Surveillance, l’alarme est déclenchée.
 
 Langues supportées:
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Périphériques supportés:
 • tout périphérique qui possède une fonction de détection de mouvement, par ex. Fibaro Motion Sensor, Aeotec MultiSensor, Xiaomi Human Body Sensor, etc.;
