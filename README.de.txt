@@ -2,15 +2,15 @@ Heimdall erkennt aufgrund ausgewählter Sensoren alle Bewegungen und geöffnete 
 Alle diese Ereignisse werden protokolliert und wenn sich Heimdall in einem Überwachungsmodus befindet, wird der Alarm ausgelöst.
 
 Unterstützte Sprachen
-🇬🇧English
-🇳🇱Nederlands
-🇩🇪Deutsch
-🇫🇷Français
-🇮🇹Italiano
-🇸🇪Svenska
-🇳🇴Norsk
-🇪🇸Español
-🇩🇰Dansk
+🇬🇧 English
+🇩🇰 Dansk
+🇩🇪 Deutsch
+🇪🇸 Español
+🇫🇷 Français
+🇮🇹 Italiano
+🇳🇱 Nederlands
+🇳🇴 Norsk
+🇸🇪 Svenska
 
 Unterstützte Geräte
 • Alle Geräte mit Bewegungserkennung, z. B. der Fibaro-Bewegungssensor, der Aeotec-MultiSensor, der Xiaomi-Sensor für den menschlichen Körper usw.
