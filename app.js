@@ -46,6 +46,7 @@ var devicesNotReadyAtStart = [];
 var devicesNotReady = [];
 var devicesAdded = [];
 var timeout = 100;
+var zones = {};
 
 module.exports = class Heimdall extends Homey.App {
 
@@ -377,10 +378,11 @@ module.exports = class Heimdall extends Homey.App {
     }
 
     async initializeWebApi() {
-        //this.homeyApi = new HomeyAPIApp({ homey: this.homey });
         this.homeyApi = await HomeyAPI.createAppAPI({ homey: this.homey });
 
         await this.homeyApi.devices.connect();
+
+        zones = await this.homeyApi.zones.getZones();
 
         this.log('Connecting webapi:          done')
     }
@@ -420,6 +422,13 @@ module.exports = class Heimdall extends Homey.App {
     // addDevice() -> attachEventListener()
     async enumerateDevices() {
         let allDevices = await this.getDevices();
+
+        if (Object.keys(zones).length==0) {
+            console.log('No zones found earlier, getting them now for you');
+            zones = await this.homeyApi.zones.getZones();
+            console.log(Object.keys(zones).length);
+        }
+
         for (let id in allDevices) {
             var device = await this.checkReadyStateAtStart(allDevices[id],0)
             //var device = allDevices[id];
@@ -473,8 +482,8 @@ module.exports = class Heimdall extends Homey.App {
         }
         devicesAdded.push(device.id);
 
-        const zones = await this.homeyApi.zones.getZones();
         device.zoneName = zones[device.zone].name;
+
 
         // Find Surveillance Mode Switch
         if ( device.data.id === 'sMode' ) {

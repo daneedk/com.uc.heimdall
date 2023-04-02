@@ -540,5 +540,16 @@
       "no": "• Oppdatert homey-api til 3.0.0-rc.18 • Forbedret henting av sonenavn",
       "es": "• Actualizada la homey-api a la versión 3.0.0-rc.18 • Mejora en la obtención de nombres de zonas",
       "sv": "• Uppdaterat homey-api till version 3.0.0-rc.18 • Förbättrad hämtning av zonnnamn"
+     },
+     "2.10.12": {
+      "en": "• Updated homey-api to 3.0.0-rc.18 • Improved retrieving zone names",
+      "da": "• Opdateret homey-api til 3.0.0-rc.18 • Forbedret hentning af zonenavne",
+      "de": "• Homey-API auf 3.0.0-rc.18 aktualisiert • Verbessertes Abrufen von Zonennamen",
+      "fr": "• Mise à jour de homey-api en version 3.0.0-rc.18 • Amélioration de la récupération des noms de zones",
+      "it": "• Aggiornato homey-api alla versione 3.0.0-rc.18 • Migliorato il recupero dei nomi delle zone",
+      "nl": "• homey-api bijgewerkt naar 3.0.0-rc.18 • Ophalen van zonenamen vebeterd",
+      "no": "• Oppdatert homey-api til 3.0.0-rc.18 • Forbedret henting av sonenavn",
+      "es": "• Actualizada la homey-api a la versión 3.0.0-rc.18 • Mejora en la obtención de nombres de zonas",
+      "sv": "• Uppdaterat homey-api till version 3.0.0-rc.18 • Förbättrad hämtning av zonnnamn"
      } 
 }
