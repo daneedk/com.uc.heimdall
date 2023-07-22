@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 //const { HomeyAPIApp } = require('homey-api');
-const { HomeyAPI } = require('./homey-api'); // 3.0.0-rc.18 01-04-2023
+const { HomeyAPI } = require('./homey-api'); // 3.0.6 22-07-2023
 
 const delay = time => new Promise(res=>setTimeout(res,time));
 

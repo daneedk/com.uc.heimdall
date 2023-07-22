@@ -169,6 +169,7 @@ function onHomeyReady(homeyReady){
                     this.devices = array
                 });
             },
+            /*
             getZones() {
                 Homey.api('GET', '/zones', null, (err, result) => {
                     if (err)
@@ -180,6 +181,8 @@ function onHomeyReady(homeyReady){
                     return this.zones
                 });
             },
+            */
+            /*
             getZoneName: function(zoneId) {
                 var result = "unknown";
                 //var zones = this.zones;
@@ -190,6 +193,7 @@ function onHomeyReady(homeyReady){
                 };
                 return result;
             },
+            */
             async addMonitorFull(device) {
                 var i;
                 var addDeviceMonitorFull = true;
@@ -453,7 +457,7 @@ function onHomeyReady(homeyReady){
             }
         },
         async mounted() {
-            await this.getZones();
+            // await this.getZones();
             await this.getDevices();
             await this.getDeviceSettings();
         },
@@ -1009,7 +1013,7 @@ async function showStatus() {
             if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
-                for ( let rCapability in device.capabilitiesObj ) {
+                for ( let capability in device.capabilitiesObj ) {
                     let lu = Date.parse(device.capabilitiesObj[capability].lastUpdated)
 
                     if ( lu > mostRecentComE  ) {
