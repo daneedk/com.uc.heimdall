@@ -1,6 +1,6 @@
 {
     "settings": {
-        "benefit": "Let Homey watch over your home."
+        "benefit": "Anna Homeyn valvoa kotiasi."
     },
     "devices": {
         "surveillancemode": {
