@@ -508,6 +508,10 @@
                             <div class="users-input">
                                 <input id="userName" class="hy-nostyle" type="text" value="" autocomplete="off" onkeyup="checkSave()"></input>
                             </div>
+                            <span id="userEnabledLbl" data-i18n="tab4.users.usersgroup.enabled">Enabled</span><br />
+                            <div id="userEnabledCbx" class="user-checkbox">
+                                <label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label><br /><br />
+                            </div>
                             <span id="userAdminLbl" data-i18n="tab4.users.usersgroup.administrator">-Administrator-</span><br />
                             <div id="userAdminCbx" class="user-checkbox">
                                 <label class="form-switch"><input id="userAdmin" type="checkbox" onclick="checkAdmin()"><i></i></label><br /><br />
@@ -518,9 +522,13 @@
                             <div class="users-input">
                                 <input id="userPIN" class="hy-nostyle" type="text" inputmode="numeric" value="" autocomplete="off" maxlength="6" onkeyup="checkSave()"></input>
                             </div>
-                            <span id="userEnabledLbl" data-i18n="tab4.users.usersgroup.enabled">Enabled</span><br />
-                            <div id="userEnabledCbx" class="user-checkbox">
-                                <label class="form-switch"><input id="userEnabled" type="checkbox"><i></i></label><br /><br />
+                            <span data-i18n="tab4.users.usersgroup.tag">-RFID tag-</span>
+                            <div class="users-input">
+                                <input id="userRFIDTag" class="hy-nostyle" type="text" inputmode="text" value="" autocomplete="off" maxlength="10" onkeyup="checkSave()"></input>
+                            </div>
+                            <span>&nbsp;</span>
+                            <div class="users-input">
+                                <label class="hy-nostyle">&nbsp;<br />&nbsp;<br />&nbsp;</label>
                             </div>
                         </div>
                     </div>

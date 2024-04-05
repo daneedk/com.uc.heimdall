@@ -67,10 +67,25 @@ function onHomeyReady(homeyReady){
         }
     });
 
-    // Listen to the 'Surveillance Mode' events emitted by the systemEvent(event, details) function in app.js
+    // Listen to the 'Surveillance Mode' events emitted by the systemEvent("Surveillance Mode", value) function in app.js
     Homey.on('Surveillance Mode', function(data)
     {
         console.log("Surveillance Mode event received:", data);
+    });
+
+    // Listen to the 'Add RFID tag' events emitted by the systemEvent("Add RFID tag", eventValue) function in app.js
+    Homey.on('Add RFID tag', function(data)
+    {
+        console.log("Add RFID tag event received:", data);
+        // todo: determine is the correct user is displayed, take appropriate action
+
+        if ( document.getElementById('useredit').style.display == "block" ) {
+            document.getElementById('userRFIDTag').value = data;
+            
+        } else {
+            console.error("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
+
+        }
     });
 
     heimdallSettings = defaultSettings;
@@ -720,12 +735,13 @@ function saveUser() {
     let userId = document.getElementById("userId").value*1;
     let userName = document.getElementById("userName").value;
     let userPIN = document.getElementById("userPIN").value;
+    let userRFIDTag = document.getElementById("userRFIDTag").value;
 
     if ( userId != 0 ) { 
         userAdmin = document.getElementById("userAdmin").checked;
         userEnabled = document.getElementById("userEnabled").checked;
     }
-    let user = {id: userId, name: userName, pincode: userPIN, admin: userAdmin, valid: userEnabled};
+    let user = {id: userId, name: userName, pincode: userPIN, rfidtag: userRFIDTag, admin: userAdmin, valid: userEnabled};
     processUser(user,"save");
 }
 
@@ -737,6 +753,7 @@ function cancelUser() {
     document.getElementById("userId").value = "";
     document.getElementById("userName").value = "";
     document.getElementById("userPIN").value = "";
+    document.getElementById("userRFIDTag").value = "";
     document.getElementById("userAdmin").checked = false;
     document.getElementById("userEnabled").checked = false;
 }
@@ -744,7 +761,7 @@ function cancelUser() {
 function deleteUser() {
     if ( !canDelete ) return;
     let userId = document.getElementById("userId").value;
-    let user = {id: userId, name: false, pincode: false, admin: false, valid: false};
+    let user = {id: userId, name: false, pincode: false, rfidtag: false, admin: false, valid: false};
     processUser(user,"delete");
 }
 
@@ -786,6 +803,12 @@ function editUser(userId) {
     document.getElementById("userId").value = userId;
     document.getElementById("userName").value = user.name;
     document.getElementById("userPIN").value = user.pincode;
+    let currentRFIDtag = user.rfidtag;
+    if ( !currentRFIDtag ) { 
+        document.getElementById("userRFIDTag").value = "";
+    } else {
+        document.getElementById("userRFIDTag").value = user.rfidtag;
+    }
     document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
 

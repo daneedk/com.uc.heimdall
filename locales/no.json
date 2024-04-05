@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "Bruker",
                 "pin": "PIN-kode",
+                "tag": "RFID-merke",
                 "enabled": "Aktivert",
                 "disabled": "Funksjonshemmet",
                 "editdescription": "Opprett din første bruker. Denne brukeren vil alltid være administrator og kan ikke deaktiveres eller slettes"

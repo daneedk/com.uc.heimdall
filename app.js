@@ -717,6 +717,24 @@ module.exports = class Heimdall extends Homey.App {
                 }
             } else if ( type == "battery" ) {
 
+            } else if ( type == "addtag" ) {
+                // this action type will add an rfid tag to a user account.
+
+                let tagCode = post.rfidtag
+
+                logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || RFIDtag: " + tagCode + " was received from " + post.diagnostics.sourceDevice;
+                // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + this.homey.__("XXXX.XXXX1") + tagCode + this.homey.__("XXXX.XXXX2") + post.diagnostics.sourceDevice;
+                // todo: add to translations XXXX.XXXX1 and XXXX.XXXX2
+                this.writeLog(logLine);
+
+                //this.log("Add tag:              A valid code and RFIDtag " + tagCode + " was received from " + post.diagnostics.sourceDevice + " to add to user " + userObject["name"]);
+                this.log("Add tag:                    RFIDtag " + tagCode + " was received from " + post.diagnostics.sourceDevice);
+                
+                let eventValue = tagCode;
+                this.systemEvent("Add RFID tag", eventValue);
+
+                this.log("Add tag:                    Send out system event with RFID tag")
+                return "RFID tag received and send out to Heimdall's settings"
             }
             
         } else {

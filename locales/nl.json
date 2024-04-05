@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "Gebruiker",
                 "pin": "Pincode",
+                "tag": "RFID tag",
                 "enabled": "Ingeschakeld",
                 "Disabled": "Uitgeschakeld",
                 "editdescription": "Maak uw eerste gebruiker aan. Deze gebruiker zal altijd Administrator zijn en kan niet worden uitgeschakeld of verwijderd"            }

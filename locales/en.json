@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "User",
                 "pin": "PIN",
+                "tag": "RFID tag",
                 "enabled": "Enabled",
                 "disabled": "Disabled",
                 "editdescription": "Please create your first user. This user will always be Administrator and can't be disabled or deleted"

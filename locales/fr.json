@@ -126,6 +126,7 @@
                 "administrator": "Administrateur",
                 "user": "Utilisateur",
                 "pin": "Code PIN",
+                "tag": "tag RFID",
                 "enabled": "Activé",
                 "disabled": "Désactivé",
                 "editdescription": "Veuillez créer votre premier utilisateur. Cet utilisateur sera toujours administrateur et ne peut pas être désactivé ou supprimé"
