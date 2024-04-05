@@ -12,6 +12,7 @@ var dashboardVisible = true;
 var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
+var logLine = {};
 var platformVersion = 1;
 var language = "en";
 var newUser = 0;
@@ -81,10 +82,28 @@ function onHomeyReady(homeyReady){
 
         if ( document.getElementById('useredit').style.display == "block" ) {
             document.getElementById('userRFIDTag').value = data;
+            let selectedUser = document.getElementById('userName').value
             
-        } else {
-            console.error("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
+            logLine.type = 'Succes';
+            logLine.text = 'RFID tag ' + data + ' was added to user ' + selectedUser ;
 
+            Homey.set('logforme', logLine , (err, result) => {
+                if (err)
+                    return Homey.alert(err);
+            })
+
+        } else {
+            // console.error("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
+
+            logLine.type = 'No Succes';
+            logLine.text = 'RFID tag ' + data + ' has been received but no user is selected to add it to. Please open a user and try again.';
+
+            Homey.set('logforme', logLine , (err, result) => {
+                if (err)
+                    return Homey.alert(err);
+            })
+
+            Homey.alert("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
         }
     });
 
@@ -488,6 +507,10 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    if ( document.getElementById("useredit").style.display == "block") {
+        Homey.alert('The user is not saved, please use the Save or Cancel button to exit');
+        return;
+    }
     loading = false
     document.getElementById("tabs").style.display = "inline";
     if ( illegalValue ) {
@@ -743,19 +766,38 @@ function saveUser() {
     }
     let user = {id: userId, name: userName, pincode: userPIN, rfidtag: userRFIDTag, admin: userAdmin, valid: userEnabled};
     processUser(user,"save");
+
+    logLine.type = 'Succes';
+    logLine.text = 'Changes to user ' + userName + ' were saved. ';
+
+    Homey.set('logforme', logLine , (err, result) => {
+        if (err)
+            return Homey.alert(err);
+    })
 }
 
-function cancelUser() {
+function cancelUser(action) {
     if ( !canCancel ) return;
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
     document.getElementById("usereditdescription").style.display = "none";
     document.getElementById("userId").value = "";
+    let userName = document.getElementById("userName").value;
     document.getElementById("userName").value = "";
     document.getElementById("userPIN").value = "";
     document.getElementById("userRFIDTag").value = "";
     document.getElementById("userAdmin").checked = false;
     document.getElementById("userEnabled").checked = false;
+
+    if ( action != 'save' ) {
+        logLine.type = 'No Succes';
+        logLine.text = 'Changes to user ' + userName + ' were not saved, Cancel button was clicked. ';
+
+        Homey.set('logforme', logLine , (err, result) => {
+            if (err)
+                return Homey.alert(err);
+        })
+    }
 }
 
 function deleteUser() {
@@ -780,7 +822,7 @@ function processUser(modifiedUser, action) {
             console.error('Heimdall API ERROR reply: ', error);
         });
     canCancel = true;
-    cancelUser();
+    cancelUser('save');
 
     if ( noUser ) {
         document.getElementById('pin').value = modifiedUser.pincode;

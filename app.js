@@ -371,6 +371,24 @@ module.exports = class Heimdall extends Homey.App {
             if ( variable === 'settings' ) {
                 heimdallSettings = this.homey.settings.get('settings')
             }
+            if ( variable === 'logforme') {
+                let logInfo = this.homey.settings.get('logforme');
+
+                if ( logInfo['type'] && logInfo['text'] ) {
+                    let colorCode = "al "; // error
+                    if ( logInfo['type'] == 'Succes' ) { 
+                        colorCode = "ao "; // no error
+                    } 
+                    
+                    let nu =this.getDateTime();
+                    let logLine = colorCode + nu + this.readableMode(surveillance) + " || Add RFID tag to user || " + logInfo['text']
+                    this.writeLog(logLine)
+                    
+                }
+
+                // need to clear out the setting so homey.settings.on will always be triggered
+                this.homey.settings.set('logforme', '');
+            }
         });
 
         //this.homey.on('memwarn', async (data) => await this.onMemwarn(data));
