@@ -201,10 +201,12 @@
         "noreport": " no ha informado en ",
         "lastreport": " horas. Último reporte: ",
         "validcode": " ingresó un código válido y presionó ",
+        "validrfidtag": "presentó una etiqueta RFID válida y presionó ",
         "on": " en ",
         "sendcommand": "Comando ",
         "tosurveillancemode": " enviado al interruptor de modo de vigilancia",
         "invalidcode": "se ingresó un código inválido antes de presionar ",
+        "invalidrfidtag": "se presentó una etiqueta RFID no válida antes de presionar ",
         "key": "Se presionó la tecla ",
         "pressed": " en "
     },

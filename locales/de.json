@@ -201,10 +201,12 @@
         "noreport": " wurde nicht gemeldet in ",
         "lastreport": " Stunden. Letzte Meldung: ",
         "validcode": " gab einen gültigen Code ein und drückte ",
+        "validrfidtag": "präsentierte einen gültigen RFID-Tag und drückte ",
         "on": " auf ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " an Surveillance Mode Switch gesendet",
         "invalidcode": "Ein ungültiger Code wurde eingegeben vor dem Drücken auf ",
+        "invalidrfidtag": "ein ungültiger RFID-Tag wurde vor dem Drücken präsentiert ",
         "key": "Taste ",
         "pressed": " wurde gedrückt auf "
     },

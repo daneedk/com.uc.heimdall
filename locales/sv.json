@@ -201,10 +201,12 @@
         "noreport": " har inte rapporterat på ",
         "lastreport": " timmar. Senaste rapporten: ",
         "validcode": " angav en giltig kod och tryckte ",
+        "validrfidtag": "presenterade en giltig RFID-tag och tryckte på ",
         "on": " på ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " skickas till Surveillance Mode Switch",
         "invalidcode": "en ogiltig kod anges innan du trycker på ",
+        "invalidrfidtag": "en ogiltig RFID-tag presenterades innan det trycktes ",
         "key": "Knapp ",
         "pressed": " trycktes på "
     },

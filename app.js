@@ -683,21 +683,33 @@ module.exports = class Heimdall extends Homey.App {
             let silentCode = null;
 
             if ( type == "action" ) {
-                let pinCode = post.value;
-                let userObject = this.getUserInfo(pinCode, this.users);
-                if ( !userObject["valid"] ) {
-                    let shortPinCode = pinCode.substr(0, pinCode.length - 1);
-                    userObject = this.getUserInfo(shortPinCode, this.users);
-                    if ( userObject["valid"] ) {
-                        silentCode = pinCode.substr(pinCode.length - 1, 1);
-                        // todo: write code to handle silentCode
-                        
+                let RFIDtag = post.rfidtag;
+                let userObject = [];
+                if  ( RFIDtag ) {
+                    userObject = this.getUserInfoRFID(RFIDtag, this.users);
+                } else {
+                    let pinCode = post.value;
+                    userObject = this.getUserInfo(pinCode, this.users);
+                    if ( !userObject["valid"] ) {
+                        let shortPinCode = pinCode.substr(0, pinCode.length - 1);
+                        userObject = this.getUserInfo(shortPinCode, this.users);
+                        if ( userObject["valid"] ) {
+                            silentCode = pinCode.substr(pinCode.length - 1, 1);
+                            // todo: write code to handle silentCode
+                            
+                        }
                     }
                 }
                 if ( userObject["valid"] ) {
-                    // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
-                    logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
-                    this.writeLog(logLine);
+                    if ( RFIDtag ) { 
+                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " presented a valid RFID tag and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validrfidtag") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                    } else {
+                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                    }
                     if ( post.action == "armed" || post.action == "disarmed" || post.action == "partially_armed" ) {
                         // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || Send command " + post.actionReadable + " to Surveillance Mode Switch";
                         logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.actionReadable + this.homey.__("history.tosurveillancemode");
@@ -719,7 +731,13 @@ module.exports = class Heimdall extends Homey.App {
                         return "Found user, action " + post.action + " is unknown"
                     }
                 } else {
-                    if ( post.value.length > 0 ) {
+                    if ( RFIDtag ) { 
+                        // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || an invalid RFID tag was presented before pressing " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.invalidrfidtag") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        this.writeLog(logLine);
+                        this.log("Invalid RFID tag presented: " + userObject["rfidtag"])
+                        return "Invalid RFID tag presented. Logline written, no further action"
+                    } else if ( post.value.length > 0 ) {
                         // logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || an invalid code was entered before pressing " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
                         logLine = "ad " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.invalidcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
                         this.writeLog(logLine);
@@ -1627,6 +1645,17 @@ module.exports = class Heimdall extends Homey.App {
         this.homey.api.realtime(event, details)
     }
 
+    // Check if there is a user with the provide RFIDtag and return the userObject if so
+    // - Called from processKeypadCommands(post, type)
+    getUserInfoRFID(RFIDtag, userList) {
+        let userObject = userList.find( user => user.rfidtag === RFIDtag);
+        if ( userObject ) {
+            return userObject
+        } else {
+            return { "name": "null", "pincode": "", "rfidtag": RFIDtag, "admin": null, "valid": false }
+        }   
+    }
+
     // Check if there is a user with the provide PIN and return the userObject if so
     // - Called from processKeypadCommands(post, type), processUsers(modifiedUser, action) and getUsers(pin)
     getUserInfo(codeString, userList) {
@@ -1635,10 +1664,10 @@ module.exports = class Heimdall extends Homey.App {
             if ( userObject ) {
                 return userObject
             } else {
-                return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
+                return { "name": "null", "pincode": codeString, "rfidtag": "", "admin": null, "valid": false }
             }   
         } else {
-            return { "name": "null", "pincode": codeString, "admin": null, "valid": false }
+            return { "name": "null", "pincode": codeString,"rfidtag": "", "admin": null, "valid": false }
         }
     }
 

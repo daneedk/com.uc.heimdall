@@ -508,7 +508,7 @@ function onHomeyReady(homeyReady){
 
 function showTab(tab){
     if ( document.getElementById("useredit").style.display == "block") {
-        Homey.alert('The user is not saved, please use the Save or Cancel button to exit');
+        Homey.alert('Please exit the user settings by pressing either the Save or Cancel button.');
         return;
     }
     loading = false

@@ -201,10 +201,12 @@
         "noreport": " n'a pas signalé dans ",
         "lastreport": " heures. Dernier rapport: ",
         "validcode": " entré un code valide et appuyé ",
+        "validrfidtag": "a présenté un tag RFID valide et a appuyé sur ",
         "on": " sur ",
         "sendcommand": "Commande ",
         "tosurveillancemode": " envoyée au commutateur de mode de surveillance",
         "invalidcode": "un code invalide a été entré avant d'appuyer sur ",
+        "invalidrfidtag": "un tag RFID invalide a été présenté avant d'appuyer sur ",
         "key": "La touche ",
         "pressed": " a été enfoncée "
     },

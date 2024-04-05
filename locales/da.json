@@ -201,10 +201,12 @@
         "noreport": " har ikke meldt ind ",
         "lastreport": " timer. Sidste indmelding: ",
         "validcode": " indtastede en gyldig kode og trykkede på ",
+        "validrfidtag": "præsenterede en gyldig RFID-tag og trykkede ",
         "on": " på ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " sendt til Surveillance Mode Switch",
         "invalidcode": "en ugyldig kode blev indtastet, før der trykkes på ",
+        "invalidrfidtag": "en ugyldig RFID-tag blev præsenteret før tryk ",
         "key": "tast ",
         "pressed": " blev trykket på "
     },

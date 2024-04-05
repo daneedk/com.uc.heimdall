@@ -200,10 +200,12 @@
         "noreport": " heeft al  ",
         "lastreport": " uren geen info gestuurd. Laatste info: ",
         "validcode": " voerde een geldige code in en drukte op ",
+        "validrfidtag": "presenteerde een geldige RFID-tag en drukte op ",
         "on": " op ",
         "sendcommand": "Commando ",
         "tosurveillancemode": " verstuurd naar de Surveillance Mode Switch",
         "invalidcode": " voerde een ongeldige code in en drukte op ",
+        "invalidrfidtag": "een ongeldige RFID-tag werd gepresenteerd voordat er werd gedrukt ",
         "key": "Toets ",
         "pressed": " in ingedrukt op "
     },
