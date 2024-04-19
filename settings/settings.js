@@ -74,39 +74,6 @@ function onHomeyReady(homeyReady){
         console.log("Surveillance Mode event received:", data);
     });
 
-    // Listen to the 'Add RFID tag' events emitted by the systemEvent("Add RFID tag", eventValue) function in app.js
-    Homey.on('Add RFID tag', function(data)
-    {
-        console.log("Add RFID tag event received:", data);
-        // todo: determine is the correct user is displayed, take appropriate action
-
-        if ( document.getElementById('useredit').style.display == "block" ) {
-            document.getElementById('userRFIDTag').value = data;
-            let selectedUser = document.getElementById('userName').value
-            
-            logLine.type = 'Succes';
-            logLine.text = 'RFID tag ' + data + ' was added to user ' + selectedUser ;
-
-            Homey.set('logforme', logLine , (err, result) => {
-                if (err)
-                    return Homey.alert(err);
-            })
-
-        } else {
-            // console.error("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
-
-            logLine.type = 'No Succes';
-            logLine.text = 'RFID tag ' + data + ' has been received but no user is selected to add it to. Please open a user and try again.';
-
-            Homey.set('logforme', logLine , (err, result) => {
-                if (err)
-                    return Homey.alert(err);
-            })
-
-            Homey.alert("An RFID tag has been received but no user is selected to add it to. Please open a user and try again.");
-        }
-    });
-
     heimdallSettings = defaultSettings;
     Homey.get('settings', function(err, savedSettings) {
         if ( err ) {
@@ -507,10 +474,12 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    /*
     if ( document.getElementById("useredit").style.display == "block") {
         Homey.alert('Please exit the user settings by pressing either the Save or Cancel button.');
         return;
     }
+    */
     loading = false
     document.getElementById("tabs").style.display = "inline";
     if ( illegalValue ) {
@@ -768,6 +737,7 @@ function saveUser() {
     processUser(user,"save");
 
     logLine.type = 'Succes';
+    // todo translation
     logLine.text = 'Changes to user ' + userName + ' were saved. ';
 
     Homey.set('logforme', logLine , (err, result) => {
@@ -791,6 +761,7 @@ function cancelUser(action) {
 
     if ( action != 'save' ) {
         logLine.type = 'No Succes';
+        // todo translation
         logLine.text = 'Changes to user ' + userName + ' were not saved, Cancel button was clicked. ';
 
         Homey.set('logforme', logLine , (err, result) => {
@@ -887,6 +858,70 @@ function editUser(userId) {
             document.getElementById("userEnabledCbx").style.display = "none";
         }
     }
+
+    Homey.get('taginfo')
+        .then((taginfo) => {
+            if ( taginfo ) {
+                console.log("tagCode",taginfo.rfidtag);
+                console.log("source",taginfo.source);
+                console.log("saved time  ",taginfo.time);
+                console.log("current time",Date.now());
+
+                if ( Date.now() - taginfo.time < 300000) {
+                    // taginfo is younger then 5 minutes
+                    // todo translation
+                    let message = "New RFID tag received from " + taginfo.source + ". Do you want to add it to this user?"
+                    if ( document.getElementById("userRFIDTag").value != '') {
+                        // todo translation
+                        message = "New RFID tag received from " + taginfo.source + ". Do you want to replace this users current RFID tag?"
+                    }
+                    Homey.confirm(message)
+                        .then((result) => {
+                            if ( result ) {
+                                document.getElementById("userRFIDTag").value = taginfo.rfidtag;
+                                Homey.set('taginfo',null);
+
+                                let selectedUser = document.getElementById('userName').value
+            
+                                logLine.type = 'Succes';
+                                // todo translation
+                                logLine.text = 'RFID tag ' + taginfo.rfidtag + ' was added to user ' + selectedUser ;
+                    
+                                Homey.set('logforme', logLine , (err, result) => {
+                                    if (err)
+                                        return Homey.alert(err);
+
+                                        canSave = true;
+                                        saveUser();
+
+                                })
+                                Homey.alert("RFID tag saved to " + selectedUser);
+
+                            } else {
+
+                            }
+                            
+                        })
+                        .catch(error => {
+                            
+                        });
+                } else {
+                    logLine.type = 'No succes';
+                    // todo translation
+                    logLine.text = 'RFID tag expired, it can not be added to a user. Please reregister the tag';
+        
+                    Homey.set('logforme', logLine , (err, result) => {
+                        if (err)
+                            return Homey.alert(err);
+                    })    
+                    Homey.set('taginfo',null);                
+                }
+            };
+        })
+        .catch(error => {
+            return Homey.alert('taginfo: ' + error); 
+        });
+
 }
 
 function saveSettings() {

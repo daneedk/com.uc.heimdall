@@ -562,5 +562,16 @@
       "no": "• Oppdatert homey-api til 3.0.6",
       "es": "• Actualizada la homey-api a la versión 3.0.6",
       "sv": "• Uppdaterat homey-api till version 3.0.6"
-     }
+     },
+     "2.10.14": {
+      "en": "• Added RDIF tag to user settings",
+      "da": "• Tilføjet RDIF-tag til brugerindstillinger",
+      "de": "• RDIF-Tag zu Benutzereinstellungen hinzugefügt",
+      "fr": "• Ajouté l'étiquette RDIF aux paramètres utilisateur",
+      "it": "• Aggiunto tag RDIF alle impostazioni utente",
+      "nl": "• RDIF-tag toegevoegd aan gebruikersinstellingen",
+      "no": "• Lagt til RDIF-tag til brukerinnstillinger",
+      "es": "• Agregado etiqueta RDIF a la configuración del usuario",
+      "sv": "• Lade till RDIF-tag till användarinställningar"
+    }       
 }
