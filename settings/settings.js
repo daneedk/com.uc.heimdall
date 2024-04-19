@@ -862,13 +862,8 @@ function editUser(userId) {
     Homey.get('taginfo')
         .then((taginfo) => {
             if ( taginfo ) {
-                console.log("tagCode",taginfo.rfidtag);
-                console.log("source",taginfo.source);
-                console.log("saved time  ",taginfo.time);
-                console.log("current time",Date.now());
-
-                if ( Date.now() - taginfo.time < 300000) {
-                    // taginfo is younger then 5 minutes
+                if ( Date.now() - taginfo.time < 300000 ) {
+                    // taginfo is younger than 5 minutes
                     // todo translation
                     let message = "New RFID tag received from " + taginfo.source + ". Do you want to add it to this user?"
                     if ( document.getElementById("userRFIDTag").value != '') {
@@ -900,12 +895,13 @@ function editUser(userId) {
                             } else {
 
                             }
-                            
+
                         })
                         .catch(error => {
                             
                         });
                 } else {
+                    // taginfo is older than 5 minutes
                     logLine.type = 'No succes';
                     // todo translation
                     logLine.text = 'RFID tag expired, it can not be added to a user. Please reregister the tag';
@@ -1031,15 +1027,7 @@ function showHistory(run) {
             console.error('showHistory: Could not get history', err);
             return
         }
-    /*
-    console.log("---------------------------");
-    console.log("---------------------------");
-    console.log(_myLog);
-    console.log("---------------------------");
-    console.log(logging);
-    console.log("---------------------------");
-    console.log("---------------------------");
-    */
+
         if (_myLog !== logging || run == 1 ){
             console.log("_myLog !== logging || run == 1")
             _myLog = logging
@@ -1053,6 +1041,7 @@ function showHistory(run) {
             let headerstring = '<div class="rTableRow"><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
         
             historyArray.forEach(element => {
+                console.log(element);
                 element = element.replace(/ \|\| /g,'</div><div class="rTableCell line">')
                 if ( element != "") {
                     if ( dark ) {

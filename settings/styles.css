@@ -508,16 +508,24 @@ a:active {
     background-color: rgb(255, 190, 190);
 }
 
-.sa {
+.sad {
     background-color: rgb(255, 190, 190);
+}
+
+.sal {
+    background-color: rgb(255, 160, 160);
 }
 
 .st {
     background-color: rgb(255, 210, 210);
 }
 
-.sd {
+.sdd {
     background-color: rgb(190, 255, 190);
+}
+
+.sdl {
+    background-color: rgb(160, 255, 160);
 }
 
 .lh {

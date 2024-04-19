@@ -183,7 +183,8 @@ module.exports = class Heimdall extends Homey.App {
             .registerRunListener(( args, state ) => {
                 let nu = this.getDateTime();
                 surveillance = this.homey.settings.get('surveillanceStatus');
-                let logLine = "lh " + nu + this.readableMode(surveillance) + " || Flowcard || " + args.log;
+                //let logLine = "lh " + nu + this.readableMode(surveillance) + " || Flowcard || " + args.log;
+                let logLine = "l- " + nu + this.readableMode(surveillance) + " || Flowcard || " + args.log;
                 this.homey.app.writeLog(logLine)
                 return Promise.resolve( true );
             })
@@ -372,7 +373,7 @@ module.exports = class Heimdall extends Homey.App {
             if ( variable === 'settings' ) {
                 heimdallSettings = this.homey.settings.get('settings')
             }
-            if ( variable === 'logforme') {
+            if ( variable === 'logforme' ) {
                 let logInfo = this.homey.settings.get('logforme');
 
                 if ( logInfo['type'] && logInfo['text'] ) {
@@ -389,6 +390,9 @@ module.exports = class Heimdall extends Homey.App {
 
                 // need to clear out the setting so homey.settings.on will always be triggered
                 this.homey.settings.set('logforme', '');
+            }
+            if ( variable === 'taginfo' ) {
+                this.log('taginfo',this.homey.settings.get('taginfo'))
             }
         });
 
@@ -675,7 +679,7 @@ module.exports = class Heimdall extends Homey.App {
         return "Succes";
     }
 
-    // Process infromation received from a keypad, 
+    // Process information received from a keypad, 
     // - Called by 3rd party apps via api.js
     async processKeypadCommands(post, type) {
         if ( this.checkAPIKEY(post.APIKEY) ) {
@@ -703,17 +707,21 @@ module.exports = class Heimdall extends Homey.App {
                 }
                 if ( userObject["valid"] ) {
                     if ( RFIDtag ) { 
-                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " presented a valid RFID tag and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
-                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validrfidtag") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        // logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " presented a valid RFID tag and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validrfidtag") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                     } else {
-                        // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
-                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
+                        // logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + " entered a valid code and pressed " + post.actionReadable + " on " + post.diagnostics.sourceDevice;
+                        logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + userObject["name"] + this.homey.__("history.validcode") + post.actionReadable + this.homey.__("history.on") + post.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                     }
                     if ( post.action == "armed" || post.action == "disarmed" || post.action == "partially_armed" ) {
+                        let color = "sa-";
+                        if ( post.action == "disarmed" ) {
+                            color = "sd-";
+                        }
                         // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || Send command " + post.actionReadable + " to Surveillance Mode Switch";
-                        logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.actionReadable + this.homey.__("history.tosurveillancemode");
+                        logLine = color + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceDevice + " || " + this.homey.__("history.sendcommand") + post.actionReadable + this.homey.__("history.tosurveillancemode");
                         this.writeLog(logLine);
                         if ( sModeDevice != undefined ) {
                             sModeDevice.setCapabilityValue('homealarm_state', post.action).catch(() => {});
@@ -745,8 +753,8 @@ module.exports = class Heimdall extends Homey.App {
                         this.log("Invalid code entered: " + userObject["pincode"])
                         return "Invalid code entered. Logline written, no further action"
                     } else {
-                        //logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || Key " + post.actionReadable + " was pressed on " + post.diagnostics.sourceDevice;
-                        logLine = "sd " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.key") + post.actionReadable + this.homey.__("history.pressed") + post.diagnostics.sourceDevice;
+                        //logLine = "sd- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || Key " + post.actionReadable + " was pressed on " + post.diagnostics.sourceDevice;
+                        logLine = "sd- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.key") + post.actionReadable + this.homey.__("history.pressed") + post.diagnostics.sourceDevice;
                         this.writeLog(logLine);
                         this.log("No code entered ")
                         return "No code entered. Logline written, no further action"
@@ -756,7 +764,6 @@ module.exports = class Heimdall extends Homey.App {
 
             } else if ( type == "addtag" ) {
                 // this action type will save an rfid tag to add to a user account.
-                
                 this.homey.settings.set('taginfo', null);
 
                 newtag = {
@@ -767,13 +774,12 @@ module.exports = class Heimdall extends Homey.App {
 
                 this.homey.settings.set('taginfo', newtag);
 
-                logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || RFID tag was received from " + post.diagnostics.sourceDevice + ". Please go to Users and select a user to add it to.";
-                // logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + this.homey.__("XXXX.XXXX1") + post.rfidtag + this.homey.__("XXXX.XXXX2") + post.diagnostics.sourceDevice + this.homey.__("XXXX.XXXX3");
-                // todo translations XXXX.XXXX1, XXXX.XXXX2 and XXXX.XXXX3
+                logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || RFID tag was received from " + post.diagnostics.sourceDevice + ". Please go to Users and select a user to add it to.";
+                //logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + this.homey.__("XXXX.XXXX1") + post.diagnostics.sourceDevice + this.homey.__("XXXX.XXXX2");
+                // todo translations XXXX.XXXX1 and XXXX.XXXX2
                 this.writeLog(logLine);
 
-                //this.log("Add tag:              A valid code and RFIDtag " + post.rfidtag + " was received from " + post.diagnostics.sourceDevice + " to add to user " + userObject["name"]);
-                this.log("Add tag:                    RFID tag " + post.rfidtag + " was received from " + post.diagnostics.sourceDevice);
+                this.log("Add tag:                    RFID tag " + post.rfidtag + " was received from " + post.diagnostics.sourceDevice+ " to add to user " + userObject["name"]);
 
                 return "RFID tag received and saved tot add to a user account"
             }
@@ -983,7 +989,7 @@ module.exports = class Heimdall extends Homey.App {
         if ( value === 'disarmed' ) {
             // Surveillance Mode is set to Disarmed
             logLine = this.readableMode(value) + " || " + source + " || " + this.homey.__("history.smodedisarmed")
-            this.setSurveillanceValue("sd ",value, logLine, false)
+            this.setSurveillanceValue("sd-",value, logLine, false)
             this.homey.app.deactivateAlarm(false, this.homey.__("devices.surveillancemode.name"))
             if ( armCounterRunning ) {
                 // code to cancel an arm command during delayArming
@@ -1010,7 +1016,7 @@ module.exports = class Heimdall extends Homey.App {
                 this.speak("armCountdown", this.homey.__("speech.startarmcountdown") + this.readableMode(value) + this.homey.__("speech.in") + heimdallSettings.armingDelay + this.homey.__("speech.seconds"))
                 armCounterRunning = true;
                 let tta = heimdallSettings.armingDelay;
-                this.ttArmedCountdown(tta,"sa ", value, logLine);
+                this.ttArmedCountdown(tta,"sa-", value, logLine);
 
                 var tokens= { 'Duration': heimdallSettings.armingDelay * 1 };
                 this.homey.flow.getTriggerCard('ArmDelayActivated').trigger(tokens)
@@ -1034,7 +1040,7 @@ module.exports = class Heimdall extends Homey.App {
                 // (Partially) Arming is not delayed
                 this.log('Arming is delayed:          No')
                 armCounterRunning = true;
-                this.setSurveillanceValue("sa ",value, logLine, true)
+                this.setSurveillanceValue("sa-",value, logLine, true)
             }
             if ( value === 'armed' || value === 'partially_armed' ) {
                 this.homey.app.checkDevicesLastCom(value)
@@ -1074,7 +1080,7 @@ module.exports = class Heimdall extends Homey.App {
                 this.homey.app.checkDevicesState(value, nu)
             }
         } else {
-            logLine = "sd " + nu + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.smodechangedisabled")
+            logLine = "sd-" + nu + this.readableMode(surveillance) + " || Heimdall || " + this.homey.__("history.smodechangedisabled")
         }
         this.writeLog(logLine)   
         armCounterRunning = false;
