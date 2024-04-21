@@ -208,7 +208,17 @@
         "invalidcode": "un code invalide a été entré avant d'appuyer sur ",
         "invalidrfidtag": "un tag RFID invalide a été présenté avant d'appuyer sur ",
         "key": "La touche ",
-        "pressed": " a été enfoncée "
+        "pressed": " a été enfoncée ",
+        "changeuser": "Changements pour l'utilisateur ",
+        "saved": " ont été enregistrés.",
+        "notsaved": " n'ont pas été enregistrés, le bouton Annuler a été cliqué.",
+        "tagreceived": "Nouveau tag RFID reçu de ",
+        "gototuser": ". Veuillez vous rendre dans Utilisateurs et sélectionner un utilisateur à ajouter.",
+        "tagadd": ". Voulez-vous l'ajouter à cet utilisateur ?",
+        "tagreplace": ". Voulez-vous remplacer le tag RFID actuel de cet utilisateur ?",
+        "rfidtag": "Tag RFID ",
+        "tagaddedto": " a été ajouté à l'utilisateur ",
+        "rfidtagexpired": "Le tag RFID a expiré, il ne peut pas être ajouté à un utilisateur. Veuillez enregistrer à nouveau le tag"    
     },
     "notification": {
         "smodeset1": "**Mode surveillance** réglé sur ",

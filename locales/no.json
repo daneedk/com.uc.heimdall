@@ -208,7 +208,17 @@
         "invalidcode": "en ugyldig kode ble angitt før du trykket på ",
         "invalidrfidtag": "en ugyldig RFID-tag ble presentert før det ble trykket",
         "key": "Tast ",
-        "pressed": " ble trykket på "
+        "pressed": " ble trykket på ",
+        "changeuser": "Endringer til bruker ",
+        "saved": " ble lagret.",
+        "notsaved": " ble ikke lagret, Avbryt-knappen ble trykket.",
+        "tagreceived": "Ny RFID-tag mottatt fra ",
+        "gototuser": ". Vennligst gå til Brukere og velg en bruker å legge den til.",
+        "tagadd": ". Vil du legge den til denne brukeren?",
+        "tagreplace": ". Vil du erstatte denne brukerens gjeldende RFID-tag?",
+        "rfidtag": "RFID-tag ",
+        "tagaddedto": " ble lagt til bruker ",
+        "rfidtagexpired": "RFID-tag utløpt, den kan ikke legges til en bruker. Vennligst registrer taggen på nytt"    
     },
     "notification": {
         "smodeset1": "**Overvåkningsmodus** satt til ",

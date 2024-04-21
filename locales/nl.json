@@ -207,7 +207,17 @@
         "invalidcode": " voerde een ongeldige code in en drukte op ",
         "invalidrfidtag": "een ongeldige RFID-tag werd gepresenteerd voordat er werd gedrukt ",
         "key": "Toets ",
-        "pressed": " in ingedrukt op "
+        "pressed": " in ingedrukt op ",
+        "changeuser": "Wijzigingen voor gebruiker ",
+        "saved": " zijn opgeslagen.",
+        "notsaved": " zijn niet opgeslagen, Annuleerknop is ingedrukt.",
+        "tagreceived": "Nieuwe RFID-tag ontvangen van ",
+        "gototuser": ". Ga naar Gebruikers en selecteer een gebruiker om deze toe te voegen.",
+        "tagadd": ". Wil je het aan deze gebruiker toevoegen?",
+        "tagreplace": ". Wil je de huidige RFID-tag van deze gebruiker vervangen?",
+        "rfidtag": "RFID-tag ",
+        "tagaddedto": " is toegevoegd aan gebruiker ",
+        "rfidtagexpired": "RFID-tag verlopen, kan niet aan een gebruiker worden toegevoegd. Registreer de tag opnieuw"    
     },
     "notification": {
         "smodeset1": "**Toezicht Mode** is ",

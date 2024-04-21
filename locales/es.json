@@ -208,7 +208,17 @@
         "invalidcode": "se ingresó un código inválido antes de presionar ",
         "invalidrfidtag": "se presentó una etiqueta RFID no válida antes de presionar ",
         "key": "Se presionó la tecla ",
-        "pressed": " en "
+        "pressed": " en ",
+        "changeuser": "Cambios para usuario ",
+        "saved": " se guardaron.",
+        "notsaved": " no se guardaron, se hizo clic en el botón Cancelar.",
+        "tagreceived": "Nueva etiqueta RFID recibida de ",
+        "gototuser": ". Por favor, vaya a Usuarios y seleccione un usuario para agregarlo.",
+        "tagadd": ". ¿Desea agregarlo a este usuario?",
+        "tagreplace": ". ¿Desea reemplazar la etiqueta RFID actual de este usuario?",
+        "rfidtag": "Etiqueta RFID ",
+        "tagaddedto": " se agregó al usuario ",
+        "rfidtagexpired": "La etiqueta RFID ha caducado, no se puede agregar a un usuario. Por favor, vuelva a registrar la etiqueta"    
     },
     "notification": {
         "smodeset1": "** Modo de vigilancia ** establecido en ",

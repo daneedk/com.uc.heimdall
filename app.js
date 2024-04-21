@@ -377,9 +377,9 @@ module.exports = class Heimdall extends Homey.App {
                 let logInfo = this.homey.settings.get('logforme');
 
                 if ( logInfo['type'] && logInfo['text'] ) {
-                    let colorCode = "al "; // error
+                    let colorCode = "sa-"; // error
                     if ( logInfo['type'] == 'Succes' ) { 
-                        colorCode = "ao "; // no error
+                        colorCode = "sd-"; // no error
                     } 
                     
                     let nu = this.getDateTime();
@@ -761,7 +761,7 @@ module.exports = class Heimdall extends Homey.App {
                     }
                 }
             } else if ( type == "battery" ) {
-
+ 
             } else if ( type == "addtag" ) {
                 // this action type will save an rfid tag to add to a user account.
                 this.homey.settings.set('taginfo', null);
@@ -774,12 +774,12 @@ module.exports = class Heimdall extends Homey.App {
 
                 this.homey.settings.set('taginfo', newtag);
 
-                logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || RFID tag was received from " + post.diagnostics.sourceDevice + ". Please go to Users and select a user to add it to.";
-                //logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + this.homey.__("XXXX.XXXX1") + post.diagnostics.sourceDevice + this.homey.__("XXXX.XXXX2");
+                //logLine = "l- " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || New RFID tag received from " + post.diagnostics.sourceDevice + ". Please go to Users and select a user to add it to.";
+                logLine = "   " + nu + this.readableMode(surveillance) + " || " + post.diagnostics.sourceApp + " || " + this.homey.__("history.tagreceived") + post.diagnostics.sourceDevice + this.homey.__("history.gototuser");
                 // todo translations XXXX.XXXX1 and XXXX.XXXX2
                 this.writeLog(logLine);
 
-                this.log("Add tag:                    RFID tag " + post.rfidtag + " was received from " + post.diagnostics.sourceDevice+ " to add to user " + userObject["name"]);
+                this.log("Add tag:                    RFID tag " + post.rfidtag + " was received from " + post.diagnostics.sourceDevice+ " to add to user")
 
                 return "RFID tag received and saved tot add to a user account"
             }
