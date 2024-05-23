@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "Bruger",
                 "pin": "PIN",
+                "tag": "RFID-mærke",
                 "enabled": "Aktiveret",
                 "disabled": "Deaktiveret",
                 "editdescription": "Opret din første bruger. Denne bruger vil altid være administrator og kan ikke deaktiveres eller slettes"
@@ -200,12 +201,23 @@
         "noreport": " har ikke meldt ind ",
         "lastreport": " timer. Sidste indmelding: ",
         "validcode": " indtastede en gyldig kode og trykkede på ",
+        "validrfidtag": "præsenterede en gyldig RFID-tag og trykkede ",
         "on": " på ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " sendt til Surveillance Mode Switch",
         "invalidcode": "en ugyldig kode blev indtastet, før der trykkes på ",
+        "invalidrfidtag": "en ugyldig RFID-tag blev præsenteret før tryk ",
         "key": "tast ",
-        "pressed": " blev trykket på "
+        "pressed": " blev trykket på ",
+        "saved": " blev gemt.",
+        "notsaved": " blev ikke gemt, Annuller-knappen blev trykket.",
+        "tagreceived": "Ny RFID-tag modtaget fra ",
+        "gototuser": ". Gå venligst til Brugere og vælg en bruger at tilføje den til.",
+        "tagadd": ". Vil du tilføje den til denne bruger?",
+        "tagreplace": ". Vil du erstatte denne brugers nuværende RFID-tag?",
+        "rfidtag": "RFID-tag ",
+        "tagaddedto": " blev tilføjet til bruger ",
+        "rfidtagexpired": "RFID-tag er udløbet, den kan ikke tilføjes til en bruger. Venligst registrer tagget igen"    
     },
     "notification": {
         "smodeset1": "**Overvågnings Tilstand** sat til ",

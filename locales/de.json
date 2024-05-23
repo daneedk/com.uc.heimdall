@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "Benutzer",
                 "pin": "PIN",
+                "tag": "RFID tag",
                 "enabled": "Aktiviert",
                 "disabled": "Deaktiviert",
                 "editdescription": "Bitte erstellen Sie Ihren ersten Benutzer. Dieser Benutzer ist immer Administrator und kann nicht deaktiviert oder gelöscht werden."
@@ -200,12 +201,24 @@
         "noreport": " wurde nicht gemeldet in ",
         "lastreport": " Stunden. Letzte Meldung: ",
         "validcode": " gab einen gültigen Code ein und drückte ",
+        "validrfidtag": "präsentierte einen gültigen RFID-Tag und drückte ",
         "on": " auf ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " an Surveillance Mode Switch gesendet",
         "invalidcode": "Ein ungültiger Code wurde eingegeben vor dem Drücken auf ",
+        "invalidrfidtag": "ein ungültiger RFID-Tag wurde vor dem Drücken präsentiert ",
         "key": "Taste ",
-        "pressed": " wurde gedrückt auf "
+        "pressed": " wurde gedrückt auf ",
+        "changeuser": "Änderungen für Benutzer ",
+        "saved": " wurden gespeichert.",
+        "notsaved": " wurden nicht gespeichert, Abbrechen wurde gedrückt.",
+        "tagreceived": "Neuer RFID-Tag empfangen von ",
+        "gototuser": ". Bitte gehen Sie zu Benutzer und wählen Sie einen Benutzer aus, um ihn hinzuzufügen.",
+        "tagadd": ". Möchten Sie es diesem Benutzer hinzufügen?",
+        "tagreplace": ". Möchten Sie diesen Benutzer aktuellen RFID-Tag ersetzen?",
+        "rfidtag": "RFID-Tag ",
+        "tagaddedto": " wurde Benutzer hinzugefügt ",
+        "rfidtagexpired": "RFID-Tag ist abgelaufen, es kann nicht einem Benutzer hinzugefügt werden. Bitte registrieren Sie den Tag erneut"    
     },
     "notification": {
         "smodeset1": "**Überwachungsmodus** auf ",

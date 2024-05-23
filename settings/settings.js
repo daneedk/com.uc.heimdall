@@ -12,6 +12,7 @@ var dashboardVisible = true;
 var statusVisible = false;
 var illegalValue = false;
 var heimdallSettings = {};
+var logLine = {};
 var platformVersion = 1;
 var language = "en";
 var newUser = 0;
@@ -67,7 +68,7 @@ function onHomeyReady(homeyReady){
         }
     });
 
-    // Listen to the 'Surveillance Mode' events emitted by the systemEvent(event, details) function in app.js
+    // Listen to the 'Surveillance Mode' events emitted by the systemEvent("Surveillance Mode", value) function in app.js
     Homey.on('Surveillance Mode', function(data)
     {
         console.log("Surveillance Mode event received:", data);
@@ -473,6 +474,12 @@ function onHomeyReady(homeyReady){
 }
 
 function showTab(tab){
+    /*
+    if ( document.getElementById("useredit").style.display == "block") {
+        Homey.alert('Please exit the user settings by pressing either the Save or Cancel button.');
+        return;
+    }
+    */
     loading = false
     document.getElementById("tabs").style.display = "inline";
     if ( illegalValue ) {
@@ -612,7 +619,7 @@ function enterPIN() {
             transferedUsers = Object.keys(result).map(function (key) {
                 return result[key];
             });
-            console.log(transferedUsers);
+            //console.log(transferedUsers);
             let numUsers = transferedUsers.length
 
             if (numUsers == 1 ) {
@@ -720,31 +727,56 @@ function saveUser() {
     let userId = document.getElementById("userId").value*1;
     let userName = document.getElementById("userName").value;
     let userPIN = document.getElementById("userPIN").value;
+    let userRFIDTag = document.getElementById("userRFIDTag").value;
 
     if ( userId != 0 ) { 
         userAdmin = document.getElementById("userAdmin").checked;
         userEnabled = document.getElementById("userEnabled").checked;
     }
-    let user = {id: userId, name: userName, pincode: userPIN, admin: userAdmin, valid: userEnabled};
+    let user = {id: userId, name: userName, pincode: userPIN, rfidtag: userRFIDTag, admin: userAdmin, valid: userEnabled};
     processUser(user,"save");
+
+    logLine.type = 'Succes';
+    // todo translation
+    //logLine.text = 'Changes to user ' + userName + ' were saved. ';
+    logLine.text = Homey.__("history.changeuser") + userName + Homey.__("history.saved");
+
+    Homey.set('logforme', logLine , (err, result) => {
+        if (err)
+            return Homey.alert(err);
+    })
 }
 
-function cancelUser() {
+function cancelUser(action) {
     if ( !canCancel ) return;
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
     document.getElementById("usereditdescription").style.display = "none";
     document.getElementById("userId").value = "";
+    let userName = document.getElementById("userName").value;
     document.getElementById("userName").value = "";
     document.getElementById("userPIN").value = "";
+    document.getElementById("userRFIDTag").value = "";
     document.getElementById("userAdmin").checked = false;
     document.getElementById("userEnabled").checked = false;
+
+    if ( action != 'save' ) {
+        logLine.type = 'No Succes';
+        // todo translation
+        //logLine.text = 'Changes to user ' + userName + ' were not saved, Cancel button was clicked. ';
+        logLine.text = Homey.__("history.changeuser") + userName + Homey.__("history.notsaved");
+
+        Homey.set('logforme', logLine , (err, result) => {
+            if (err)
+                return Homey.alert(err);
+        })
+    }
 }
 
 function deleteUser() {
     if ( !canDelete ) return;
     let userId = document.getElementById("userId").value;
-    let user = {id: userId, name: false, pincode: false, admin: false, valid: false};
+    let user = {id: userId, name: false, pincode: false, rfidtag: false, admin: false, valid: false};
     processUser(user,"delete");
 }
 
@@ -763,7 +795,7 @@ function processUser(modifiedUser, action) {
             console.error('Heimdall API ERROR reply: ', error);
         });
     canCancel = true;
-    cancelUser();
+    cancelUser('save');
 
     if ( noUser ) {
         document.getElementById('pin').value = modifiedUser.pincode;
@@ -786,6 +818,12 @@ function editUser(userId) {
     document.getElementById("userId").value = userId;
     document.getElementById("userName").value = user.name;
     document.getElementById("userPIN").value = user.pincode;
+    let currentRFIDtag = user.rfidtag;
+    if ( !currentRFIDtag ) { 
+        document.getElementById("userRFIDTag").value = "";
+    } else {
+        document.getElementById("userRFIDTag").value = user.rfidtag;
+    }
     document.getElementById("userAdmin").checked = user.admin;
     document.getElementById("userEnabled").checked = user.valid;
 
@@ -822,6 +860,77 @@ function editUser(userId) {
             document.getElementById("userEnabledCbx").style.display = "none";
         }
     }
+
+    Homey.get('taginfo')
+        .then((taginfo) => {
+            if ( taginfo ) {
+                if ( Date.now() - taginfo.time < 300000 ) {
+                    // taginfo is younger than 5 minutes
+                    // todo translation
+                    //let message = "New RFID tag received from " + taginfo.source + ". Do you want to add it to this user?"
+                    let message = Homey.__("history.tagreceived") + taginfo.source + Homey.__("history.tagadd")
+                    if ( document.getElementById("userRFIDTag").value != '') {
+                        // todo translation
+                        //message = "New RFID tag received from " + taginfo.source + ". Do you want to replace this users current RFID tag?"
+                        message = Homey.__("history.tagreceived") + taginfo.source + Homey.__("history.tagreplace")
+                    }
+                    Homey.confirm(message)
+                        .then((result) => {
+                            if ( result ) {
+                                document.getElementById("userRFIDTag").value = taginfo.rfidtag;
+                                //console.log('taginfo.time',taginfo.time);
+                                taginfo.time = 0;
+                                Homey.set('taginfo',taginfo);
+                                //console.log('taginfo.time',taginfo.time);
+
+                                let selectedUser = document.getElementById('userName').value
+            
+                                logLine.type = 'Succes';
+                                // todo translation
+                                //logLine.text = 'RFID tag ' + taginfo.rfidtag + ' was added to user ' + selectedUser ;
+                                logLine.text = Homey.__("history.rfidtag") + taginfo.rfidtag + Homey.__("history.tagaddedto") + selectedUser ;
+                    
+                                Homey.set('logforme', logLine , (err, result) => {
+                                    if (err)
+                                        return Homey.alert(err);
+
+                                        canSave = true;
+                                        saveUser();
+
+                                })
+                                // todo translation
+                                //Homey.alert("RFID tag was added to user " + selectedUser);
+                                Homey.alert(Homey.__("history.rfidtag") + Homey.__("history.tagaddedto") + selectedUser);
+
+                            } else {
+
+                            }
+
+                        })
+                        .catch(error => {
+                            
+                        });
+                } else {
+                    if ( taginfo.time !=0 ) {
+                        // taginfo is older than 5 minutes
+                        logLine.type = 'No succes';
+                        // todo translation
+                        //logLine.text = 'RFID tag expired, it can not be added to a user. Please reregister the tag';
+                        logLine.text = Homey.__("history.rfidtagexpired");
+                        
+                        Homey.set('logforme', logLine , (err, result) => {
+                            if (err)
+                                return Homey.alert(err);
+                        })    
+                        Homey.set('taginfo',null);                
+                    }
+                }
+            };
+        })
+        .catch(error => {
+            return Homey.alert('taginfo: ' + error); 
+        });
+
 }
 
 function saveSettings() {
@@ -931,15 +1040,7 @@ function showHistory(run) {
             console.error('showHistory: Could not get history', err);
             return
         }
-    /*
-    console.log("---------------------------");
-    console.log("---------------------------");
-    console.log(_myLog);
-    console.log("---------------------------");
-    console.log(logging);
-    console.log("---------------------------");
-    console.log("---------------------------");
-    */
+
         if (_myLog !== logging || run == 1 ){
             console.log("_myLog !== logging || run == 1")
             _myLog = logging

@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "User",
                 "pin": "PIN",
+                "tag": "RFID tag",
                 "enabled": "Enabled",
                 "disabled": "Disabled",
                 "editdescription": "Please create your first user. This user will always be Administrator and can't be disabled or deleted"
@@ -200,12 +201,24 @@
         "noreport": " has not reported in ",
         "lastreport": " hours. Last report: ",
         "validcode": " entered a valid code and pressed ",
+        "validrfidtag": " presented a valid RFID tag and pressed ",
         "on": " on ",
         "sendcommand": "Command ",
         "tosurveillancemode": " sent to Surveillance Mode Switch",
         "invalidcode": "an invalid code was entered before pressing ",
+        "invalidrfidtag": "an invalid RFID tag was presented before pressing ",
         "key": "key ",
-        "pressed": " was pressed on "
+        "pressed": " was pressed on ",
+        "changeuser": "Changes to user ",
+        "saved": " were saved.",
+        "notsaved": " were not saved, Cancel button was clicked.",
+        "tagreceived": "New RFID tag received from ",
+        "gototuser": ". Please go to Users and select a user to add it to.",
+        "tagadd": ". Do you want to add it to this user?",
+        "tagreplace": ". Do you want to replace this users current RFID tag?",
+        "rfidtag": "RFID tag ",
+        "tagaddedto": " was added to user ",
+        "rfidtagexpired": "RFID tag expired, it can not be added to a user. Please reregister the tag"
     },
     "notification": {
         "smodeset1": "**Surveillance Mode** set to ",

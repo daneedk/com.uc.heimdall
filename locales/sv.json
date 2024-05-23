@@ -126,6 +126,7 @@
                 "administrator": "Administratör",
                 "user": "Användare",
                 "pin": "Pinkod",
+                "tag": "RFID tag",
                 "enabled": "Aktiverad",
                 "disabled": "Inaktiverad",
                 "editdescription": "Skapa din första användare. Den här användaren är alltid administratör och kan inte inaktiveras eller raderas"
@@ -200,12 +201,24 @@
         "noreport": " har inte rapporterat på ",
         "lastreport": " timmar. Senaste rapporten: ",
         "validcode": " angav en giltig kod och tryckte ",
+        "validrfidtag": "presenterade en giltig RFID-tag och tryckte på ",
         "on": " på ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": " skickas till Surveillance Mode Switch",
         "invalidcode": "en ogiltig kod anges innan du trycker på ",
+        "invalidrfidtag": "en ogiltig RFID-tag presenterades innan det trycktes ",
         "key": "Knapp ",
-        "pressed": " trycktes på "
+        "pressed": " trycktes på ",
+        "changeuser": "Ändringar för användare ",
+        "saved": " sparades.",
+        "notsaved": " sparades inte, Avbryt-knappen trycktes.",
+        "tagreceived": "Nytt RFID-tag mottaget från ",
+        "gototuser": ". Gå till Användare och välj en användare att lägga till den till.",
+        "tagadd": ". Vill du lägga till den här användaren?",
+        "tagreplace": ". Vill du ersätta denna användares aktuella RFID-tag?",
+        "rfidtag": "RFID-tag ",
+        "tagaddedto": " lades till användare ",
+        "rfidtagexpired": "RFID-taggen har löpt ut, den kan inte läggas till en användare. Registrera taggen på nytt"    
     },
     "notification": {
         "smodeset1": "**Övervakningsläge** inställt på ",

@@ -126,6 +126,7 @@
                 "administrator": "Administrator",
                 "user": "Bruker",
                 "pin": "PIN-kode",
+                "tag": "RFID-merke",
                 "enabled": "Aktivert",
                 "disabled": "Funksjonshemmet",
                 "editdescription": "Opprett din første bruker. Denne brukeren vil alltid være administrator og kan ikke deaktiveres eller slettes"
@@ -200,12 +201,24 @@
         "noreport": " har ikke rapportert på ",
         "lastreport": " timer. Siste rapporting: ",
         "validcode": " tastet inn en gyldig kode og trykket ",
+        "validrfidtag": "presenterte en gyldig RFID-tag og trykket ",
         "on": " på ",
         "sendcommand": "Kommando ",
         "tosurveillancemode": "  sendt til overvåkingsmodusbryter",
         "invalidcode": "en ugyldig kode ble angitt før du trykket på ",
+        "invalidrfidtag": "en ugyldig RFID-tag ble presentert før det ble trykket",
         "key": "Tast ",
-        "pressed": " ble trykket på "
+        "pressed": " ble trykket på ",
+        "changeuser": "Endringer til bruker ",
+        "saved": " ble lagret.",
+        "notsaved": " ble ikke lagret, Avbryt-knappen ble trykket.",
+        "tagreceived": "Ny RFID-tag mottatt fra ",
+        "gototuser": ". Vennligst gå til Brukere og velg en bruker å legge den til.",
+        "tagadd": ". Vil du legge den til denne brukeren?",
+        "tagreplace": ". Vil du erstatte denne brukerens gjeldende RFID-tag?",
+        "rfidtag": "RFID-tag ",
+        "tagaddedto": " ble lagt til bruker ",
+        "rfidtagexpired": "RFID-tag utløpt, den kan ikke legges til en bruker. Vennligst registrer taggen på nytt"    
     },
     "notification": {
         "smodeset1": "**Overvåkningsmodus** satt til ",

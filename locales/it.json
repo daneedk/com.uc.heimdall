@@ -126,6 +126,7 @@
                 "administrator": "Amministratore",
                 "user": "Utente",
                 "pin": "Codice PIN",
+                "tag": "etiqueta RFID",
                 "enabled": "Abilitato",
                 "disabled": "Disabilitato",
                 "editdescription": "Crea il tuo primo utente. Questo utente sarà sempre amministratore e non può essere disattivato o eliminato"
@@ -200,12 +201,24 @@
         "noreport": " non ha segnalato in ",
         "lastreport": " ore. Ultimo rapporto: ",
         "validcode": " inserito un codice valido e premuto ",
+        "validrfidtag": "ha presentato un tag RFID valido e ha premuto ",
         "on": " su ",
         "sendcommand": "Il comando ",
         "tosurveillancemode": "  è stato inviato al cambio modalità di sorveglianza",
         "invalidcode": "è stato inserito un codice non valido prima di premere ",
+        "invalidrfidtag": "è stato presentato un tag RFID non valido prima di premere ",
         "key": "Il tasto ",
-        "pressed": "  è stato premuto "
+        "pressed": "  è stato premuto ",
+        "changeuser": "Modifiche per l'utente ",
+        "saved": " sono stati salvati.",
+        "notsaved": " non sono stati salvati, è stato premuto il pulsante Annulla.",
+        "tagreceived": "Nuovo tag RFID ricevuto da ",
+        "gototuser": ". Si prega di andare agli Utenti e selezionare un utente da aggiungere.",
+        "tagadd": ". Vuoi aggiungerlo a questo utente?",
+        "tagreplace": ". Vuoi sostituire il tag RFID attuale di questo utente?",
+        "rfidtag": "Tag RFID ",
+        "tagaddedto": " è stato aggiunto all'utente ",
+        "rfidtagexpired": "Il tag RFID è scaduto, non può essere aggiunto a un utente. Si prega di registrare nuovamente il tag"    
     },
     "notification": {
         "smodeset1": "**Modalità di Sorveglianza**  impostata su ",
