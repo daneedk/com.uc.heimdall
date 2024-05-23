@@ -391,9 +391,9 @@ module.exports = class Heimdall extends Homey.App {
                 // need to clear out the setting so homey.settings.on will always be triggered
                 this.homey.settings.set('logforme', '');
             }
-            if ( variable === 'taginfo' ) {
-                this.log('taginfo',this.homey.settings.get('taginfo'))
-            }
+            //if ( variable === 'taginfo' ) {
+            //    this.log('taginfo',this.homey.settings.get('taginfo'))
+            //}
         });
 
         //this.homey.on('memwarn', async (data) => await this.onMemwarn(data));

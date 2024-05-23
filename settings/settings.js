@@ -619,7 +619,7 @@ function enterPIN() {
             transferedUsers = Object.keys(result).map(function (key) {
                 return result[key];
             });
-            console.log(transferedUsers);
+            //console.log(transferedUsers);
             let numUsers = transferedUsers.length
 
             if (numUsers == 1 ) {
@@ -878,10 +878,10 @@ function editUser(userId) {
                         .then((result) => {
                             if ( result ) {
                                 document.getElementById("userRFIDTag").value = taginfo.rfidtag;
-                                console.log('taginfo.time',taginfo.time);
+                                //console.log('taginfo.time',taginfo.time);
                                 taginfo.time = 0;
                                 Homey.set('taginfo',taginfo);
-                                console.log('taginfo.time',taginfo.time);
+                                //console.log('taginfo.time',taginfo.time);
 
                                 let selectedUser = document.getElementById('userName').value
             
