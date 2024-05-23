@@ -494,8 +494,15 @@ module.exports = class Heimdall extends Homey.App {
     async addDevice(device) {
         // newly created devices are not passed as instance anymore Thanks Athom!
         if (! device.makeCapabilityInstance) {
-            device = await this.homeyApi.devices.getDevice({ id : device.id });
+            try {
+                device = await this.homeyApi.devices.getDevice({ id : device.id });
+            } catch (error) {
+                // Log the timeout error and skip the action
+                this.log(`Failed to fetch device with ID ${device.id}: ${error.message}`);
+                return; // Skip the action if fetching the device failed
+            }
         }
+        
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
