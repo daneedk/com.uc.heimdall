@@ -1552,7 +1552,9 @@ module.exports = class Heimdall extends Homey.App {
     //  and calling itself every second until the timer is 0
     // - Calling setSurveillanceValue(color, value, logLine, false) when timer is 0
     ttArmedCountdown(delay, color, value, logLine) {
-      this.systemEvent('Surveillance Mode Arming Delayed', value+'+'+delay);
+        //this.log('ttArmedCountdown:           ' + delay)
+        // next line added for Frient keypad
+        this.systemEvent('Surveillance Mode Arming Delayed', value + '+' + delay);
         if ( armCounterRunning ) {
             if ( changeTta && delay > 9 ) {
                 delay = 10;
