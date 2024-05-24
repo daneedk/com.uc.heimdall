@@ -575,15 +575,14 @@
       "sv": "• Lade till RDIF-tag till användarinställningar"
     },
     "2.10.15": {
-      "en": "Improved error handling.",
-      "da": "Forbedret fejlhåndtering.",
-      "de": "Verbesserte Fehlerbehandlung.",
-      "es": "Mejora en el manejo de errores.",
-      "fr": "Amélioration de la gestion des erreurs.",
-      "it": "Migliorata gestione degli errori.",
-      "nl": "Verbeterde foutafhandeling.",
-      "no": "Forbedret feilhåndtering.",
-      "pl": "Udoskonalone zarządzanie błędami.",
-      "sv": "Förbättrad felhantering."
+      "en": "• Added RDIF tag to user settings",
+      "da": "• Tilføjet RDIF-tag til brugerindstillinger",
+      "de": "• RDIF-Tag zu Benutzereinstellungen hinzugefügt",
+      "fr": "• Ajouté l'étiquette RDIF aux paramètres utilisateur",
+      "it": "• Aggiunto tag RDIF alle impostazioni utente",
+      "nl": "• RDIF-tag toegevoegd aan gebruikersinstellingen",
+      "no": "• Lagt til RDIF-tag til brukerinnstillinger",
+      "es": "• Agregado etiqueta RDIF a la configuración del usuario",
+      "sv": "• Lade till RDIF-tag till användarinställningar"
     }       
 }
