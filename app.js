@@ -1190,19 +1190,22 @@ module.exports = class Heimdall extends Homey.App {
         let sensorState
         let sensorStateReadable
         let sensorType
-
-        if ( 'alarm_motion' in device.capabilitiesObj && heimdallSettings.checkMotionAtArming ) {
-            sensorState = device.capabilitiesObj.alarm_motion.value
-            sensorStateReadable =this.readableState(sensorState, 'motion')
-            sensorType = 'motion'
-            this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
-        }
-        if ( 'alarm_contact' in device.capabilitiesObj && heimdallSettings.checkContactAtArming ) {
-            sensorState = device.capabilitiesObj.alarm_contact.value
-            sensorStateReadable =this.readableState(sensorState, 'contact')
-            sensorType = 'contact'
-            this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
-        };
+        if ( device.capabilitiesObj ) {
+            if ( 'alarm_motion' in device.capabilitiesObj && heimdallSettings.checkMotionAtArming ) {
+                sensorState = device.capabilitiesObj.alarm_motion.value
+                sensorStateReadable =this.readableState(sensorState, 'motion')
+                sensorType = 'motion'
+                this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
+            if ( 'alarm_contact' in device.capabilitiesObj && heimdallSettings.checkContactAtArming ) {
+                sensorState = device.capabilitiesObj.alarm_contact.value
+                sensorStateReadable =this.readableState(sensorState, 'contact')
+                sensorType = 'contact'
+                this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            };
+        } else {
+            this.log("checkAllDeviceState:        " + device.name + " - capabilitiesObj is null or undefined");
+        }    
         if ( value == 'armed' ) {
             if ( this.isMonitoredFull(device) ) {
                 if ( sensorState ) {
@@ -1281,18 +1284,22 @@ module.exports = class Heimdall extends Homey.App {
         let sensorState = false
         let sensorStateReadable
         let sensorType
-        if ( 'alarm_motion' in device.capabilitiesObj ) {
-            sensorState = device.capabilitiesObj.alarm_motion.value
-            sensorStateReadable =this.readableState(sensorState, 'motion')
-            sensorType = 'Motion'
-            this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+        if ( device.capabilitiesObj ) {
+            if ( 'alarm_motion' in device.capabilitiesObj ) {
+                sensorState = device.capabilitiesObj.alarm_motion.value
+                sensorStateReadable =this.readableState(sensorState, 'motion')
+                sensorType = 'Motion'
+                this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
+            if ( 'alarm_contact' in device.capabilitiesObj ) {
+                sensorState = device.capabilitiesObj.alarm_contact.value
+                sensorStateReadable =this.readableState(sensorState, 'contact')
+                sensorType = 'Contact'
+                this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            };
+        } else {
+            this.log("checkAllDeviceState:        " + device.name + " - capabilitiesObj is null or undefined");
         }
-        if ( 'alarm_contact' in device.capabilitiesObj ) {
-            sensorState = device.capabilitiesObj.alarm_contact.value
-            sensorStateReadable =this.readableState(sensorState, 'contact')
-            sensorType = 'Contact'
-            this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
-        };
         if ( sensorState ) {
             this.alertSensorActive (device, sensorType, sensorStateReadable)
         }
