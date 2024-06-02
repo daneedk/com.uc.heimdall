@@ -512,7 +512,11 @@ module.exports = class Heimdall extends Homey.App {
         }
         devicesAdded.push(device.id);
 
-        device.zoneName = zones[device.zone].name;
+        if ( zones[device.zone] && zones[device.zone].name ) {
+            device.zoneName = zones[device.zone].name;
+        } else {
+            device.zoneName = 'Unknown Zone';
+        }
 
 
         // Find Surveillance Mode Switch
