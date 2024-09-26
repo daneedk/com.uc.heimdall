@@ -1,0 +1,67 @@
+{
+  "id": "AlarmDelayActivated",
+  "title": {
+    "en": "The alarm delay is activated.",
+    "nl": "De alarm vertraging is geactiveerd.",
+    "de": "Alarmverzögerung ist aktiviert.",
+    "fr": "Le délai d'alarme est activé.",
+    "it": "Il ritardo dell'allarme è attivato.",
+    "no": "Forsinket alarm er aktivert",
+    "sv": "Larmfördröjning är aktiverad",
+    "da": "Forsinket alarm er aktiveret.",
+    "es": "El retardo de la alarma está activado."
+  },
+  "hint": {
+    "en": "This card is triggered when the Alarm Delay is activated. The length of the delay, Zone and Reason are available in the tags."
+  },
+  "tokens": [
+    {
+      "name": "Zone",
+      "type": "string",
+      "title": {
+        "en": "Zone",
+        "nl": "Zone",
+        "de": "Zone",
+        "fr": "Zone",
+        "it": "Zona",
+        "no": "Sone",
+        "sv": "Zon",
+        "da": "Zone",
+        "es": "Zona"
+      },
+      "example": "Hallway"
+    },
+    {
+      "name": "Reason",
+      "type": "string",
+      "title": {
+        "en": "Reason",
+        "nl": "Reden",
+        "de": "Grund",
+        "fr": "Raison",
+        "it": "Ragione",
+        "no": "Årsak",
+        "sv": "Orsak",
+        "da": "Årsag",
+        "es": "Razón"
+      },
+      "example": "Door Sensor: Open"
+    },
+    {
+      "name": "Duration",
+      "type": "number",
+      "title": {
+        "en": "Duration",
+        "nl": "Duur",
+        "de": "Dauer",
+        "fr": "Durée",
+        "it": "Durata",
+        "no": "Varighet",
+        "sv": "Varaktighet",
+        "da": "Varighed",
+        "es": "Duración"
+      },
+      "example": 30
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Home Alarm state",
+    "nl": "Thuisalarm status",
+    "de": "Heim Alarm Status",
+    "fr": "État d'alarme à la maison",
+    "it": "Stato di Allarme Casa",
+    "no": "Alarmstatus for hjemmet",
+    "sv": "Alarmstatus för hemmet",
+    "da": "Alarm status for hjemmet",
+    "es": "Estado de alarma de casa"
+  },
+  "values": [
+    {
+      "id": "armed",
+      "title": {
+        "en": "Armed",
+        "nl": "Ingeschakeld",
+        "de": "Gesichert",
+        "fr": "Activée",
+        "it": "Armato",
+        "no": "Tilkoblet",
+        "sv": "Tillkopplad",
+        "da": "Tilkoblet",
+        "es": "Armada"
+      }
+    },
+    {
+      "id": "disarmed",
+      "title": {
+        "en": "Disarmed",
+        "nl": "Uitgeschakeld",
+        "de": "Entsichert",
+        "fr": "Desactivée",
+        "it": "Disarmato",
+        "no": "Frakoblet",
+        "sv": "Frånkopplad",
+        "da": "Frakoblet",
+        "es": "Desarmada"
+      }
+    },
+    {
+      "id": "partially_armed",
+      "title": {
+        "en": "Partially armed",
+        "nl": "Deels ingeschakeld",
+        "de": "Teils gesichert",
+        "fr": "Partiellement activé",
+        "it": "Parzialmente Armato",
+        "no": "Delvis tilkoblet",
+        "sv": "Delvis tillkopplad",
+        "da": "Delvis Tilkoblet",
+        "es": "Parcialmante armada"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker"
+}

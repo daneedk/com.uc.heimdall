@@ -1,0 +1,17 @@
+{
+  "id": "DevicesStateCheck",
+  "title": {
+    "en": "Check Status of all sensors",
+    "nl": "Controleer de status van alle sensoren",
+    "de": "Überprüfe Status aller Sensoren",
+    "fr": "Vérifier l'état de tous les capteurs",
+    "it": "Verifica lo stato di tutti i sensori",
+    "no": "Sjekk status på alle sensorer",
+    "sv": "Kontrollera status på alla sensorer",
+    "da": "Kontroler status for alle sensorer",
+    "es": "Verificar el estado de todos los sensores"
+  },
+  "hint": {
+    "en": "Checks the status of all Motion- and Door/Windows sensors. Make a flow with the triggercard Sensor active at Status Check to process the results."
+  }
+}

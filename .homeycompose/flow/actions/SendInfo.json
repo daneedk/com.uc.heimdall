@@ -1,0 +1,34 @@
+{
+  "id": "SendInfo",
+  "title": {
+    "en": "Send information to Heimdall",
+    "nl": "Stuur informatie naar Heimdall",
+    "de": "Sende Informationen an Heimdall",
+    "fr": "Envoyer des informations à Heimdall",
+    "it": "Invia informazioni a Heimdall",
+    "no": "Send informasjon til Heimdall",
+    "sv": "Sänd information till Heimdall",
+    "da": "Send information til Heimdall",
+    "es": "Enviar información a Heimdall"
+  },
+  "hint": {
+    "en": "The text that is sent to Heimdall will be written to Heimdalls history log."
+  },
+  "titleFormatted": {
+    "en": "Send [[log]] to Heimdall",
+    "nl": "Stuur [[log]] naar Heimdall",
+    "de": "Sende [[log]] an Heimdall",
+    "fr": "Envoyer des [[log]] à Heimdall",
+    "it": "Invia [[log]] a Heimdall",
+    "no": "Send [[log]] til Heimdall",
+    "sv": "Sänd [[log]] till Heimdall",
+    "da": "Send [[log]] til Heimdall",
+    "es": "Enviar [[log]] a Heimdall"
+  },
+  "args": [
+    {
+      "name": "log",
+      "type": "text"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "AlarmActivated",
+  "title": {
+    "en": "The alarm is activated.",
+    "nl": "Het alarm is geactiveerd.",
+    "de": "Alarm ausgelöst",
+    "fr": "L'alarme est activée.",
+    "it": "L'allarme è inserito.",
+    "no": "Alarmen er utløst.",
+    "sv": "Alarmet är utlöst.",
+    "da": "Alarm er udløst.",
+    "es": "La alarma está activada."
+  },
+  "hint": {
+    "en": "This card is triggered when the Alarm State is activated. The Zone and Reason are available in the tags."
+  },
+  "tokens": [
+    {
+      "name": "Zone",
+      "type": "string",
+      "title": {
+        "en": "Zone",
+        "nl": "Zone",
+        "de": "Zone",
+        "fr": "Zone",
+        "it": "Zona",
+        "no": "Sone",
+        "sv": "Zon",
+        "da": "Zone",
+        "es": "Zona"
+      },
+      "example": "Hallway"
+    },
+    {
+      "name": "Reason",
+      "type": "string",
+      "title": {
+        "en": "Reason",
+        "nl": "Reden",
+        "de": "Grund",
+        "fr": "Raison",
+        "it": "Ragione",
+        "no": "Årsak",
+        "sv": "Orsak",
+        "da": "Årsag",
+        "es": "Razón"
+      },
+      "example": "A door opened"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "RemoveDeviceFromFull",
+  "title": {
+    "en": "Remove device from Full Surveillance Mode",
+    "nl": "Verwijder apparaat uit Volledige Toezicht Mode",
+    "de": "Gerät aus dem Vollständigen Überwachungsmodus entfernen",
+    "fr": "Supprimer l'appareil du Mode de Surveillance Complète",
+    "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Completa",
+    "no": "Fjern enhet fra Full overvåkning",
+    "sv": "Ta bort en enhet från fullt övervakningsläge",
+    "da": "Fjern en enhed fra Fuld Overvågnings Tilstand",
+    "es": "Eliminar dispositivo del modo de vigilancia completa"
+  },
+  "titleFormatted": {
+    "en": "Remove [[device]] from Full Surveillance Mode",
+    "nl": "Verwijder [[device]] uit Volledige Toezicht Mode",
+    "de": "[[device]] aus dem Vollständigen Überwachungsmodus entfernen",
+    "fr": "Supprimer [[device]] du Mode de Surveillance Complète",
+    "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Completa",
+    "no": "Fjern [[device]] fra Full overvåkning",
+    "sv": "Ta bort en [[device]] från fullt övervakningsläge",
+    "da": "Fjern en [[device]] fra Fuld Overvågnings Tilstand",
+    "es": "Eliminar [[device]] del modo de vigilancia completa"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

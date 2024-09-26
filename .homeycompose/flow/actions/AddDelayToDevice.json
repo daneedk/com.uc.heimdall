@@ -1,0 +1,42 @@
+{
+  "id": "AddDelayToDevice",
+  "title": {
+    "en": "Add Delay to device",
+    "nl": "Voeg Vertraging toe aan apparaat",
+    "de": "Verzögerung zum Gerät hinzufügen",
+    "fr": "Ajouter un délai à l'appareil",
+    "it": "Aggiungi ritardo al dispositivo",
+    "no": "Legg forsinkelse til enhet",
+    "sv": "Addera en fördröjning till en enhet",
+    "da": "Tilføj forsinkelse til enhed",
+    "es": "añadir retardo al dispositivo"
+  },
+  "titleFormatted": {
+    "en": "Add Delay to [[device]]",
+    "nl": "Voeg Vertraging toe aan [[device]]",
+    "de": "Verzögerung zum [[device]] hinzufügen",
+    "fr": "Ajouter un délai à [[device]]",
+    "it": "Aggiungi ritardo al [[device]]",
+    "no": "Legg forsinkelse til [[device]]",
+    "sv": "Addera en fördröjning till en [[device]]",
+    "da": "Tilføj forsinkelse til [[device]]",
+    "es": "añadir retardo al [[device]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "Enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

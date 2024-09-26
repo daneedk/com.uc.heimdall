@@ -1,0 +1,35 @@
+{
+  "id": "TimeTillArmed",
+  "title": {
+    "en": "The time until armed changed",
+    "nl": "De tijd tot ingeschakeld wijzigt",
+    "de": "Zeit bis Aktivierung geändert",
+    "fr": "Le temps jusqu'à armé changé",
+    "it": "Il tempo prima dell'inserimento è cambiato",
+    "no": "Tid til tilkobling endres",
+    "sv": "Tid till dess tillkoppling ändras",
+    "da": "Til til tilkoblingen ændres",
+    "es": "El tiempo hasta que cambió el armado"
+  },
+  "hint": {
+    "en": "This card is triggered when the Arming Counter changes. The seconds left are available in the Seconds until armed tag."
+  },
+  "tokens": [
+    {
+      "name": "ArmedTimer",
+      "type": "number",
+      "title": {
+        "en": "Seconds until armed",
+        "nl": "Seconden tot armed",
+        "de": "Sekunden bis Aktivierung",
+        "fr": "Secondes jusqu'à armé",
+        "it": "Secondi prima dell'attivazione",
+        "no": "Sekunder til tilkobling",
+        "sv": "Sekunder kvar till aktivering",
+        "da": "Sekunder til tilkobling",
+        "es": "Segundos hasta armado"
+      },
+      "example": 30
+    }
+  ]
+}

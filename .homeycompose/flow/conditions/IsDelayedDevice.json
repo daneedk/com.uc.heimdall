@@ -1,0 +1,45 @@
+{
+  "id": "IsDelayedDevice",
+  "title": {
+    "en": "Device is !{{delayed |not delayed}}",
+    "nl": "Apparaat is !{{vertraagd |niet vertraagd}}",
+    "de": "Gerät ist !{{verzögert |nicht verzögert}}",
+    "fr": "L'appareil !{{est en retard |n'est pas retardé}}",
+    "it": "Il dispositivo !{{ |non }} è in ritardo ",
+    "no": "Enhet er !{{forsinket |ikke forsinket}}",
+    "sv": "Enhet är !{{fördröjd |inte fördröjd}}",
+    "da": "Enhed er !{{forsinket |ikke forsinket}}",
+    "es": "Es dispositivo está !{{retardado |no retardado}}"
+  },
+  "titleFormatted": {
+    "en": "[[device]] is !{{delayed |not delayed}}",
+    "nl": "[[device]] is !{{vertraagd |niet vertraagd}}",
+    "de": "[[device]] ist !{{verzögert |nicht verzögert}}",
+    "fr": "[[device]] !{{est en retard |n'est pas retardé}}",
+    "it": "[[device]] !{{ |non }} è in ritardo ",
+    "no": "[[device]] er !{{forsinket |ikke forsinket}}",
+    "sv": "[[device]] är !{{fördröjd |inte fördröjd}}",
+    "da": "[[device]] er !{{forsinket |ikke forsinket}}",
+    "es": "[[device]] está !{{retardado |no retardado}}"
+  },
+  "hint": {
+    "en": "Evaluates if the chosen device has the delayed setting."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "device",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

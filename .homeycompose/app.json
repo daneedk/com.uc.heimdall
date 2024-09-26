@@ -1,0 +1,212 @@
+{
+  "id": "com.uc.heimdall",
+  "version": "2.10.17",
+  "compatibility": ">=8.1.3",
+  "platforms": [
+    "local"
+  ],
+  "sdk": 3,
+  "brandColor": "#4BD762",
+  "name": {
+    "en": "Heimdall"
+  },
+  "description": {
+    "en": "Turn your Homey into a surveillance system",
+    "nl": "Verander uw Homey in een bewakingssysteem",
+    "de": "Verwandeln Sie Ihren Homey in ein Überwachungssystem",
+    "fr": "Transformez votre Homey en système de surveillance",
+    "it": "Trasforma il tuo Homey in un sistema di sorveglianza",
+    "no": "Gjør din Homey til et overvåkningssystem",
+    "sv": "Förvandla din Homey till ett övervakningssystem",
+    "da": "Forvandl din Homey til et overvågningssystem",
+    "es": "Convierte tu Homey en un sistema de vigilancia"
+  },
+  "category": "security",
+  "images": {
+    "large": "assets/images/large.png",
+    "small": "assets/images/small.png"
+  },
+  "permissions": [
+    "homey:manager:api",
+    "homey:manager:speech-output"
+  ],
+  "author": {
+    "name": "Danee de Kruyff",
+    "email": "daneedekruyff@outlook.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Danee de Kruyff",
+        "email": "daneedekruyff@outlook.com"
+      }
+    ],
+    "translators": [
+      {
+        "name": "🇬🇧Danee de Kruyff"
+      },
+      {
+        "name": "🇳🇱Danee de Kruyff"
+      },
+      {
+        "name": "🇩🇪Philipp Schnittger"
+      },
+      {
+        "name": "🇫🇷Julien Moors"
+      },
+      {
+        "name": "🇮🇹Massimiliano Massari"
+      },
+      {
+        "name": "🇸🇪Johan Bendz"
+      },
+      {
+        "name": "🇳🇴Espen Ljosland"
+      },
+      {
+        "name": "🇪🇸Eduardo Riveiro Rodríguez"
+      },
+      {
+        "name": "🇩🇰Erik Madsen"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "daneedekruyff"
+      }
+    }
+  },
+  "tags": {
+    "en": [
+      "Home",
+      "Alarm",
+      "Alert",
+      "Homeyalarm",
+      "System",
+      "Security",
+      "Tools",
+      "Log",
+      "Surveillance"
+    ],
+    "nl": [
+      "Huis",
+      "Alarm",
+      "Homeyalarm",
+      "Systeem",
+      "Beveilig",
+      "Beveiliging",
+      "Toezicht"
+    ],
+    "de": [
+      "Heim",
+      "Alarm",
+      "Warnung",
+      "Homeyalarm",
+      "System",
+      "Werkzeuge",
+      "Log",
+      "Überwachung"
+    ],
+    "fr": [
+      "Maisson",
+      "Alarme",
+      "Alerte",
+      "Homeyalarm",
+      "Système",
+      "Sécurité",
+      "Outils",
+      "Journal",
+      "Surveillance"
+    ],
+    "it": [
+      "Casa",
+      "Allarme",
+      "Avvertimento",
+      "Homeyalarm",
+      "Sistema",
+      "Sicurezza",
+      "Tools",
+      "Log",
+      "Sorveglianza"
+    ],
+    "no": [
+      "hjem",
+      "Alarm",
+      "Varsling",
+      "Homeyalarm",
+      "System",
+      "Sikkerhet",
+      "Verktøy",
+      "Logg",
+      "Overvåkning"
+    ],
+    "sv": [
+      "Hem",
+      "Alarm",
+      "Varning",
+      "Homeyalarm",
+      "System",
+      "Säkerhet",
+      "Verktyg",
+      "Logg",
+      "Övervakning"
+    ],
+    "da": [
+      "Hjem",
+      "Alarm",
+      "Advarsel",
+      "Homeyalarm",
+      "System",
+      "Sikkerhed",
+      "Værktøjer",
+      "Log",
+      "Overvågning"
+    ],
+    "es": [
+      "Casa",
+      "Alarma",
+      "Alerta",
+      "Homeyalarm",
+      "Sistema",
+      "Seguridad",
+      "Herramientas",
+      "Registro",
+      "Vigilancia"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/daneedk/com.uc.heimdall/issues"
+  },
+  "homeyCommunityTopicId": 134,
+  "source": "https://github.com/daneedk/com.uc.heimdall",
+  "support": "https://community.athom.com/t/134",
+  "api": {
+    "getDevices": {
+      "method": "GET",
+      "path": "/devices"
+    },
+    "getZones": {
+      "method": "GET",
+      "path": "/zones"
+    },
+    "getStatus": {
+      "description": "",
+      "method": "GET",
+      "path": "/state/:type"
+    },
+    "getUsers": {
+      "method": "GET",
+      "path": "/users/:pin"
+    },
+    "processUsers": {
+      "method": "POST",
+      "path": "/users/:action"
+    },
+    "processKeypadCommands": {
+      "method": "POST",
+      "path": "/keypad/:type"
+    }
+  }
+}

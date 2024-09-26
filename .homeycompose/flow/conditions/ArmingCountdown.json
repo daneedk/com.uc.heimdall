@@ -1,0 +1,17 @@
+{
+  "id": "ArmingCountdown",
+  "title": {
+    "en": "Arming countdown !{{active |not active}}",
+    "nl": "Inschakel vertraging !{{actief |niet actief}}",
+    "de": "Aktivierungcountdown !{{aktiv |nicht aktiv}}",
+    "fr": "Compte à rebours d'armement !{{ |pas }} actif",
+    "it": "Countdown Inserimento !{{attivo |non attivo}}",
+    "no": "Nedtelling for tilkobling !{{aktiv |ikke aktiv}}",
+    "sv": "Nedräkning för tillkoppling !{{aktiv |inte aktiv}}",
+    "da": "Nedtælling for tilkobling !{{aktiv |ikke aktiv}}",
+    "es": "Cuenta atrás de armado !{{activa |no activa}}"
+  },
+  "hint": {
+    "en": "Evaluates if an Arming Countdown is (not) active."
+  }
+}

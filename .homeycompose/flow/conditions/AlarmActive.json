@@ -1,0 +1,17 @@
+{
+  "id": "AlarmActive",
+  "title": {
+    "en": "Alarm state is !{{active |not active}}",
+    "nl": "Alarm status is !{{actief |niet actief}}",
+    "de": "Alarmstatus !{{aktiv |nicht aktiv}}",
+    "fr": "L'état d'alarme !{{est |n'est pas }} actif",
+    "it": "Stato Allarme è !{{attivo |non attivo}}",
+    "no": "Alarmstatus et !{{utløst |ikke utløst}}",
+    "sv": "Alarmstatus är !{{aktiv |inte aktiv}}",
+    "da": "Alarm status er !{{aktiv |ikke aktiv}}",
+    "es": "El estado de alarma es !{{activo |no activo}}"
+  },
+  "hint": {
+    "en": "Evaluates if the Alarm State is (not) active."
+  }
+}

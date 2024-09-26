@@ -1,11 +1,16 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.uc.heimdall",
   "version": "2.10.17",
   "compatibility": ">=8.1.3",
-  "platforms": ["local"],
+  "platforms": [
+    "local"
+  ],
   "sdk": 3,
   "brandColor": "#4BD762",
-  "name": { "en": "Heimdall"  },
+  "name": {
+    "en": "Heimdall"
+  },
   "description": {
     "en": "Turn your Homey into a surveillance system",
     "nl": "Verander uw Homey in een bewakingssysteem",
@@ -25,7 +30,7 @@
   "permissions": [
     "homey:manager:api",
     "homey:manager:speech-output"
-  ],  
+  ],
   "author": {
     "name": "Danee de Kruyff",
     "email": "daneedekruyff@outlook.com"
@@ -178,162 +183,35 @@
   "homeyCommunityTopicId": 134,
   "source": "https://github.com/daneedk/com.uc.heimdall",
   "support": "https://community.athom.com/t/134",
+  "api": {
+    "getDevices": {
+      "method": "GET",
+      "path": "/devices"
+    },
+    "getZones": {
+      "method": "GET",
+      "path": "/zones"
+    },
+    "getStatus": {
+      "description": "",
+      "method": "GET",
+      "path": "/state/:type"
+    },
+    "getUsers": {
+      "method": "GET",
+      "path": "/users/:pin"
+    },
+    "processUsers": {
+      "method": "POST",
+      "path": "/users/:action"
+    },
+    "processKeypadCommands": {
+      "method": "POST",
+      "path": "/keypad/:type"
+    }
+  },
   "flow": {
     "triggers": [
-      {
-        "id": "SurveillanceChanged",
-        "title": {
-          "en": "Surveillance Mode changed.",
-          "nl": "Toezicht modus is gewijzigd.",
-          "de": "Überwachungsmodus geändert.",
-          "fr": "Le Mode Surveillance a changé.",
-          "it": "La Modalità Sorveglianza è cambiata.",
-          "no": "Overvåkningsmodus er endret.",
-          "sv": "Övervakningsläget har ändrats.",
-          "da": "Overvågnings tilstand er ændret.",
-          "es": "Modo de vigilancia ha cambiado."
-        },
-        "hint": {
-          "en": "This card is triggered when the Surveillance Mode is changed, the new Mode is available in the Surveillance Mode tag.",
-          "nl": "Deze kaart wordt geactiveerd als de Toezicht Modus gewijzigd wordt, de nieuwe mode is beschikbaar in de Toezicht modus tag."
-        },
-        "tokens": [
-          {
-            "name": "mode",
-            "type": "string",
-            "title": {
-              "en": "Surveillance Mode",
-              "nl": "Toezicht Modus",
-              "de": "Überwachungsmodus",
-              "fr": "Mode Surveillance",
-              "it": "Modalità Sorveglianza",
-              "no": "Overvåkningsmodus",
-              "sv": "Övervakningsläge",
-              "da": "Overvågnings tilstand",
-              "es": "Modo de vigilancia"
-            },
-            "example": "Disarmed"
-          }
-        ]
-      },
-      {
-        "id": "sensorActiveAtArming",
-        "title": {
-          "en": "Sensor active at arming.",
-          "nl": "Sensor actief bij inschakelen.",
-          "de": "Sensor aktiv bei Einschaltung.",
-          "fr": "Capteur actif à l'armement.",
-          "it": "Sensore attivo all'inserimento.",
-          "no": "Sensor aktiv ved tilkobling.",
-          "sv": "Sensor aktiv vid tillkoppling.",
-          "da": "Sensor aktiv ved tilkobling.",
-          "es": "Sensor activo en el armado."
-        },
-        "hint": {
-          "en": "This card is triggered when there is a sensor in active state when the Surveillance Mode is set to Armed or Partially Armed."
-        },
-        "tokens": [
-          {
-            "name": "warning",
-            "type": "string",
-            "title": {
-              "en": "Warning",
-              "nl": "Waarschuwing",
-              "de": "Warnung",
-              "fr": "Attention",
-              "it": "Attenzione",
-              "no": "Advarsel",
-              "sv": "Varning",
-              "da": "Advarsel",
-              "es": "Aviso"
-            },
-            "example": "Warning, sensor is active."
-          }
-        ]
-      },
-      {
-        "id": "sensorActiveAtSensorCheck",
-        "title": {
-          "en": "Sensor active at Status Check.",
-          "nl": "Sensor actief bij status controle.",
-          "de": "Sensor aktiv bei Status Überprufing.",
-          "fr": "Capteur actif lors de la vérification de l'état.",
-          "it": "Sensore attivo durante il controllo dello stato.",
-          "no": "Sensor aktiv ved statuskontroll.",
-          "sv": "Sensor aktiv vid statuskontroll.",
-          "da": "Sensor aktiv ved status kontrol.",
-          "es": "Sensor activo en la comprobación de estado."
-        },
-        "hint": {
-          "en": "This card is triggered when there is a sensor in active state when a Sensor Check is run."
-        },
-        "tokens": [
-          {
-            "name": "Zone",
-            "type": "string",
-            "title": {
-              "en": "Zone",
-              "nl": "Zone",
-              "de": "Zone",
-              "fr": "Zone",
-              "it": "Zona",
-              "no": "Sone",
-              "sv": "Zon",
-              "da": "Zone",
-              "es": "Zona"
-            },
-            "example": "Hallway"
-          },
-          {
-            "name": "Device",
-            "type": "string",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "Enhet",
-              "sv": "Enhet",
-              "da": "Enhed",
-              "es": "Dispositivo"
-            },
-            "example": "Front door"
-          },
-          {
-            "name": "Device type",
-            "type": "string",
-            "title": {
-              "en": "Device type",
-              "nl": "Apparaat type",
-              "de": "Gerätetyp",
-              "fr": "Type d'appareil",
-              "it": "Tipo di dispositivo",
-              "no": "Device type",
-              "sv": "Enhetstyp",
-              "da": "Enheds type",
-              "es": "Tipo de dispositivo"
-            },
-            "example": "Contact"
-          },
-          {
-            "name": "State",
-            "type": "string",
-            "title": {
-              "en": "State",
-              "nl": "Status",
-              "de": "Status",
-              "fr": "Etat",
-              "it": "Stato",
-              "no": "Status",
-              "sv": "Status",
-              "da": "Status",
-              "es": "Estado"
-            },
-            "example": "Open"
-          }
-        ]
-      },
       {
         "id": "AlarmActivated",
         "title": {
@@ -523,76 +401,6 @@
         ]
       },
       {
-        "id": "TimeTillAlarm",
-        "title": {
-          "en": "The time until alarm changed",
-          "nl": "De tijd tot alarm wijzigt",
-          "de": "Zeit bis zum Alarm geändert",
-          "fr": "Le temps jusqu'à ce que l'alarme a changé",
-          "it": "Il tempo prima dell'allarme è cambiato",
-          "no": "Tid til alarmen endres",
-          "sv": "Tid till dess larmet ändras",
-          "da": "Tid til alarmen ændres",
-          "es": "El tiempo hasta que la alarma cambió"
-        },
-        "hint": {
-          "en": "This card is triggered when the Alarm Counter changes. The seconds left are available in the Seconds until alarm tag."
-        },
-        "tokens": [
-          {
-            "name": "AlarmTimer",
-            "type": "number",
-            "title": {
-              "en": "Seconds until alarm",
-              "nl": "Seconden tot alarm",
-              "de": "Sekunden",
-              "fr": "Secondes avant l'alarme",
-              "it": "Secondi prima dell'allarme",
-              "no": "Sekunder til alarm",
-              "sv": "Sekunder kvar till alarm",
-              "da": "Sekunder til alarm",
-              "es": "Segundos hasta alarma"
-            },
-            "example": 30
-          }
-        ]
-      },
-      {
-        "id": "TimeTillArmed",
-        "title": {
-          "en": "The time until armed changed",
-          "nl": "De tijd tot ingeschakeld wijzigt",
-          "de": "Zeit bis Aktivierung geändert",
-          "fr": "Le temps jusqu'à armé changé",
-          "it": "Il tempo prima dell'inserimento è cambiato",
-          "no": "Tid til tilkobling endres",
-          "sv": "Tid till dess tillkoppling ändras",
-          "da": "Til til tilkoblingen ændres",
-          "es": "El tiempo hasta que cambió el armado"
-        },
-        "hint": {
-          "en": "This card is triggered when the Arming Counter changes. The seconds left are available in the Seconds until armed tag."
-        },
-        "tokens": [
-          {
-            "name": "ArmedTimer",
-            "type": "number",
-            "title": {
-              "en": "Seconds until armed",
-              "nl": "Seconden tot armed",
-              "de": "Sekunden bis Aktivierung",
-              "fr": "Secondes jusqu'à armé",
-              "it": "Secondi prima dell'attivazione",
-              "no": "Sekunder til tilkobling",
-              "sv": "Sekunder kvar till aktivering",
-              "da": "Sekunder til tilkobling",
-              "es": "Segundos hasta armado"
-            },
-            "example": 30
-          }
-        ]
-      },
-      {
         "id": "LogLineWritten",
         "title": {
           "en": "A logline was written",
@@ -607,73 +415,6 @@
         },
         "hint": {
           "en": "This card is triggered when a line is written to the log for a device that has logging enabled. The Zone, Device and State are available in the tags."
-        },
-        "tokens": [
-          {
-            "name": "Zone",
-            "type": "string",
-            "title": {
-              "en": "Zone",
-              "nl": "Zone",
-              "de": "Zone",
-              "fr": "Zone",
-              "it": "Zona",
-              "no": "sone",
-              "sv": "Zon",
-              "da": "Zone",
-              "es": "Zona"
-            },
-            "example": "Hallway"
-          },
-          {
-            "name": "Device",
-            "type": "string",
-            "title": {
-              "en": "Device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "Enhet",
-              "sv": "Enhet",
-              "da": "Enhed",
-              "es": "Dispositivo"
-            },
-            "example": "Motion Sensor"
-          },
-          {
-            "name": "State",
-            "type": "string",
-            "title": {
-              "en": "State",
-              "nl": "Status",
-              "de": "Status",
-              "fr": "State",
-              "it": "Stato",
-              "no": "Status",
-              "sv": "Status",
-              "da": "Status",
-              "es": "Estado"
-            },
-            "example": "Motion detected"
-          }
-        ]
-      },
-      {
-        "id": "SensorTrippedInAlarmstate",
-        "title": {
-          "en": "Sensor tripped in Alarmstate",
-          "nl": "Sensor actief in Alarmstatus",
-          "de": "Sensor ausgelöst in Alarmstatus",
-          "fr": "Sensor tripped in Alarmstate",
-          "it": "Sensore attivato in Alarmstate",
-          "no": "Sensor utløst i alarmstatus",
-          "sv": "Sensor utlöst i larmläge",
-          "da": "Sensor udløst alarm status",
-          "es": "Sensor disparado en estado de alarma"
-        },
-        "hint": {
-          "en": "This card is triggered when a sensor is tripped while the Alarm State is active. The Zone, Device and State are available in the tags."
         },
         "tokens": [
           {
@@ -808,9 +549,612 @@
             "example": "Motion Sensor"
           }
         ]
+      },
+      {
+        "id": "sensorActiveAtArming",
+        "title": {
+          "en": "Sensor active at arming.",
+          "nl": "Sensor actief bij inschakelen.",
+          "de": "Sensor aktiv bei Einschaltung.",
+          "fr": "Capteur actif à l'armement.",
+          "it": "Sensore attivo all'inserimento.",
+          "no": "Sensor aktiv ved tilkobling.",
+          "sv": "Sensor aktiv vid tillkoppling.",
+          "da": "Sensor aktiv ved tilkobling.",
+          "es": "Sensor activo en el armado."
+        },
+        "hint": {
+          "en": "This card is triggered when there is a sensor in active state when the Surveillance Mode is set to Armed or Partially Armed."
+        },
+        "tokens": [
+          {
+            "name": "warning",
+            "type": "string",
+            "title": {
+              "en": "Warning",
+              "nl": "Waarschuwing",
+              "de": "Warnung",
+              "fr": "Attention",
+              "it": "Attenzione",
+              "no": "Advarsel",
+              "sv": "Varning",
+              "da": "Advarsel",
+              "es": "Aviso"
+            },
+            "example": "Warning, sensor is active."
+          }
+        ]
+      },
+      {
+        "id": "sensorActiveAtSensorCheck",
+        "title": {
+          "en": "Sensor active at Status Check.",
+          "nl": "Sensor actief bij status controle.",
+          "de": "Sensor aktiv bei Status Überprufing.",
+          "fr": "Capteur actif lors de la vérification de l'état.",
+          "it": "Sensore attivo durante il controllo dello stato.",
+          "no": "Sensor aktiv ved statuskontroll.",
+          "sv": "Sensor aktiv vid statuskontroll.",
+          "da": "Sensor aktiv ved status kontrol.",
+          "es": "Sensor activo en la comprobación de estado."
+        },
+        "hint": {
+          "en": "This card is triggered when there is a sensor in active state when a Sensor Check is run."
+        },
+        "tokens": [
+          {
+            "name": "Zone",
+            "type": "string",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone",
+              "de": "Zone",
+              "fr": "Zone",
+              "it": "Zona",
+              "no": "Sone",
+              "sv": "Zon",
+              "da": "Zone",
+              "es": "Zona"
+            },
+            "example": "Hallway"
+          },
+          {
+            "name": "Device",
+            "type": "string",
+            "title": {
+              "en": "Device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "Enhet",
+              "sv": "Enhet",
+              "da": "Enhed",
+              "es": "Dispositivo"
+            },
+            "example": "Front door"
+          },
+          {
+            "name": "Device type",
+            "type": "string",
+            "title": {
+              "en": "Device type",
+              "nl": "Apparaat type",
+              "de": "Gerätetyp",
+              "fr": "Type d'appareil",
+              "it": "Tipo di dispositivo",
+              "no": "Device type",
+              "sv": "Enhetstyp",
+              "da": "Enheds type",
+              "es": "Tipo de dispositivo"
+            },
+            "example": "Contact"
+          },
+          {
+            "name": "State",
+            "type": "string",
+            "title": {
+              "en": "State",
+              "nl": "Status",
+              "de": "Status",
+              "fr": "Etat",
+              "it": "Stato",
+              "no": "Status",
+              "sv": "Status",
+              "da": "Status",
+              "es": "Estado"
+            },
+            "example": "Open"
+          }
+        ]
+      },
+      {
+        "id": "SensorTrippedInAlarmstate",
+        "title": {
+          "en": "Sensor tripped in Alarmstate",
+          "nl": "Sensor actief in Alarmstatus",
+          "de": "Sensor ausgelöst in Alarmstatus",
+          "fr": "Sensor tripped in Alarmstate",
+          "it": "Sensore attivato in Alarmstate",
+          "no": "Sensor utløst i alarmstatus",
+          "sv": "Sensor utlöst i larmläge",
+          "da": "Sensor udløst alarm status",
+          "es": "Sensor disparado en estado de alarma"
+        },
+        "hint": {
+          "en": "This card is triggered when a sensor is tripped while the Alarm State is active. The Zone, Device and State are available in the tags."
+        },
+        "tokens": [
+          {
+            "name": "Zone",
+            "type": "string",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone",
+              "de": "Zone",
+              "fr": "Zone",
+              "it": "Zona",
+              "no": "sone",
+              "sv": "Zon",
+              "da": "Zone",
+              "es": "Zona"
+            },
+            "example": "Hallway"
+          },
+          {
+            "name": "Device",
+            "type": "string",
+            "title": {
+              "en": "Device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "Enhet",
+              "sv": "Enhet",
+              "da": "Enhed",
+              "es": "Dispositivo"
+            },
+            "example": "Motion Sensor"
+          },
+          {
+            "name": "State",
+            "type": "string",
+            "title": {
+              "en": "State",
+              "nl": "Status",
+              "de": "Status",
+              "fr": "State",
+              "it": "Stato",
+              "no": "Status",
+              "sv": "Status",
+              "da": "Status",
+              "es": "Estado"
+            },
+            "example": "Motion detected"
+          }
+        ]
+      },
+      {
+        "id": "SurveillanceChanged",
+        "title": {
+          "en": "Surveillance Mode changed.",
+          "nl": "Toezicht modus is gewijzigd.",
+          "de": "Überwachungsmodus geändert.",
+          "fr": "Le Mode Surveillance a changé.",
+          "it": "La Modalità Sorveglianza è cambiata.",
+          "no": "Overvåkningsmodus er endret.",
+          "sv": "Övervakningsläget har ändrats.",
+          "da": "Overvågnings tilstand er ændret.",
+          "es": "Modo de vigilancia ha cambiado."
+        },
+        "hint": {
+          "en": "This card is triggered when the Surveillance Mode is changed, the new Mode is available in the Surveillance Mode tag.",
+          "nl": "Deze kaart wordt geactiveerd als de Toezicht Modus gewijzigd wordt, de nieuwe mode is beschikbaar in de Toezicht modus tag."
+        },
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "string",
+            "title": {
+              "en": "Surveillance Mode",
+              "nl": "Toezicht Modus",
+              "de": "Überwachungsmodus",
+              "fr": "Mode Surveillance",
+              "it": "Modalità Sorveglianza",
+              "no": "Overvåkningsmodus",
+              "sv": "Övervakningsläge",
+              "da": "Overvågnings tilstand",
+              "es": "Modo de vigilancia"
+            },
+            "example": "Disarmed"
+          }
+        ]
+      },
+      {
+        "id": "TimeTillAlarm",
+        "title": {
+          "en": "The time until alarm changed",
+          "nl": "De tijd tot alarm wijzigt",
+          "de": "Zeit bis zum Alarm geändert",
+          "fr": "Le temps jusqu'à ce que l'alarme a changé",
+          "it": "Il tempo prima dell'allarme è cambiato",
+          "no": "Tid til alarmen endres",
+          "sv": "Tid till dess larmet ändras",
+          "da": "Tid til alarmen ændres",
+          "es": "El tiempo hasta que la alarma cambió"
+        },
+        "hint": {
+          "en": "This card is triggered when the Alarm Counter changes. The seconds left are available in the Seconds until alarm tag."
+        },
+        "tokens": [
+          {
+            "name": "AlarmTimer",
+            "type": "number",
+            "title": {
+              "en": "Seconds until alarm",
+              "nl": "Seconden tot alarm",
+              "de": "Sekunden",
+              "fr": "Secondes avant l'alarme",
+              "it": "Secondi prima dell'allarme",
+              "no": "Sekunder til alarm",
+              "sv": "Sekunder kvar till alarm",
+              "da": "Sekunder til alarm",
+              "es": "Segundos hasta alarma"
+            },
+            "example": 30
+          }
+        ]
+      },
+      {
+        "id": "TimeTillArmed",
+        "title": {
+          "en": "The time until armed changed",
+          "nl": "De tijd tot ingeschakeld wijzigt",
+          "de": "Zeit bis Aktivierung geändert",
+          "fr": "Le temps jusqu'à armé changé",
+          "it": "Il tempo prima dell'inserimento è cambiato",
+          "no": "Tid til tilkobling endres",
+          "sv": "Tid till dess tillkoppling ändras",
+          "da": "Til til tilkoblingen ændres",
+          "es": "El tiempo hasta que cambió el armado"
+        },
+        "hint": {
+          "en": "This card is triggered when the Arming Counter changes. The seconds left are available in the Seconds until armed tag."
+        },
+        "tokens": [
+          {
+            "name": "ArmedTimer",
+            "type": "number",
+            "title": {
+              "en": "Seconds until armed",
+              "nl": "Seconden tot armed",
+              "de": "Sekunden bis Aktivierung",
+              "fr": "Secondes jusqu'à armé",
+              "it": "Secondi prima dell'attivazione",
+              "no": "Sekunder til tilkobling",
+              "sv": "Sekunder kvar till aktivering",
+              "da": "Sekunder til tilkobling",
+              "es": "Segundos hasta armado"
+            },
+            "example": 30
+          }
+        ]
+      },
+      {
+        "id": "homealarm_state_changed",
+        "title": {
+          "en": "The state changed",
+          "nl": "De status is veranderd",
+          "de": "Der Status hat sich geändert",
+          "fr": "L'état a été modifié",
+          "it": "Lo stato è cambiato",
+          "sv": "Statusen ändrad",
+          "no": "Statusen ble endret",
+          "es": "El estado ha cambiado",
+          "da": "Status ændret",
+          "ru": "Состояние изменено",
+          "pl": "Zmiana stanu",
+          "ko": "상태 변경됨"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=surveillanceModeSwitch"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "armed",
+                "title": {
+                  "en": "Armed",
+                  "nl": "Geactiveerd",
+                  "de": "scharf",
+                  "fr": "Armé",
+                  "it": "Attivato",
+                  "sv": "Larmat",
+                  "no": "Aktivert",
+                  "es": "Activada",
+                  "da": "Aktiveret",
+                  "ru": "Готова",
+                  "pl": "Uzbrojony",
+                  "ko": "경보 활성화됨"
+                }
+              },
+              {
+                "id": "disarmed",
+                "title": {
+                  "en": "Disarmed",
+                  "nl": "Gedeactiveerd",
+                  "de": "unscharf",
+                  "fr": "Désarmé",
+                  "it": "Disattivato",
+                  "sv": "Avlarmat",
+                  "no": "Deaktivert",
+                  "es": "Desactivada",
+                  "da": "Deaktiveret",
+                  "ru": "Не готова",
+                  "pl": "Rozbrojony",
+                  "ko": "경보 해제됨"
+                }
+              },
+              {
+                "id": "partially_armed",
+                "title": {
+                  "en": "Partially armed",
+                  "nl": "Deels geactiveerd",
+                  "de": "Teilweise scharf",
+                  "fr": "Partiellement armé",
+                  "it": "Parzialmente attivato",
+                  "sv": "Delvis larmat",
+                  "no": "Delvis aktivert",
+                  "es": "Parcialmente activada",
+                  "da": "Delvist aktiveret",
+                  "ru": "Частично готова",
+                  "pl": "Częściowo uzbrojony",
+                  "ko": "경보 부분 활성화됨"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "conditions": [
+      {
+        "id": "AlarmActive",
+        "title": {
+          "en": "Alarm state is !{{active |not active}}",
+          "nl": "Alarm status is !{{actief |niet actief}}",
+          "de": "Alarmstatus !{{aktiv |nicht aktiv}}",
+          "fr": "L'état d'alarme !{{est |n'est pas }} actif",
+          "it": "Stato Allarme è !{{attivo |non attivo}}",
+          "no": "Alarmstatus et !{{utløst |ikke utløst}}",
+          "sv": "Alarmstatus är !{{aktiv |inte aktiv}}",
+          "da": "Alarm status er !{{aktiv |ikke aktiv}}",
+          "es": "El estado de alarma es !{{activo |no activo}}"
+        },
+        "hint": {
+          "en": "Evaluates if the Alarm State is (not) active."
+        }
+      },
+      {
+        "id": "AlarmCountdown",
+        "title": {
+          "en": "Alarm countdown !{{active |not active}}",
+          "nl": "Alarm vertraging !{{actief |niet actief}}",
+          "de": "Alarmcountdown !{{aktiv |nicht aktiv}}",
+          "fr": "Compte à rebours d'alarme !{{ |pas }} actif",
+          "it": "Countdown Allarme !{{attivo |non attivo}}",
+          "no": "Nedtelling for alarm !{{aktiv |ikke aktiv}}",
+          "sv": "Nedräkning för alarm !{{aktiv |inte aktiv}}",
+          "da": "Nedtælling for alarm !{{aktiv |ikke aktiv}}",
+          "es": "Cuenta atrás de alarma !{{activa |no activa}}"
+        },
+        "hint": {
+          "en": "Evaluates if an Alarm Countdown is (not) active."
+        }
+      },
+      {
+        "id": "ArmingCountdown",
+        "title": {
+          "en": "Arming countdown !{{active |not active}}",
+          "nl": "Inschakel vertraging !{{actief |niet actief}}",
+          "de": "Aktivierungcountdown !{{aktiv |nicht aktiv}}",
+          "fr": "Compte à rebours d'armement !{{ |pas }} actif",
+          "it": "Countdown Inserimento !{{attivo |non attivo}}",
+          "no": "Nedtelling for tilkobling !{{aktiv |ikke aktiv}}",
+          "sv": "Nedräkning för tillkoppling !{{aktiv |inte aktiv}}",
+          "da": "Nedtælling for tilkobling !{{aktiv |ikke aktiv}}",
+          "es": "Cuenta atrás de armado !{{activa |no activa}}"
+        },
+        "hint": {
+          "en": "Evaluates if an Arming Countdown is (not) active."
+        }
+      },
+      {
+        "id": "IsDelayedDevice",
+        "title": {
+          "en": "Device is !{{delayed |not delayed}}",
+          "nl": "Apparaat is !{{vertraagd |niet vertraagd}}",
+          "de": "Gerät ist !{{verzögert |nicht verzögert}}",
+          "fr": "L'appareil !{{est en retard |n'est pas retardé}}",
+          "it": "Il dispositivo !{{ |non }} è in ritardo ",
+          "no": "Enhet er !{{forsinket |ikke forsinket}}",
+          "sv": "Enhet är !{{fördröjd |inte fördröjd}}",
+          "da": "Enhed er !{{forsinket |ikke forsinket}}",
+          "es": "Es dispositivo está !{{retardado |no retardado}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{delayed |not delayed}}",
+          "nl": "[[device]] is !{{vertraagd |niet vertraagd}}",
+          "de": "[[device]] ist !{{verzögert |nicht verzögert}}",
+          "fr": "[[device]] !{{est en retard |n'est pas retardé}}",
+          "it": "[[device]] !{{ |non }} è in ritardo ",
+          "no": "[[device]] er !{{forsinket |ikke forsinket}}",
+          "sv": "[[device]] är !{{fördröjd |inte fördröjd}}",
+          "da": "[[device]] er !{{forsinket |ikke forsinket}}",
+          "es": "[[device]] está !{{retardado |no retardado}}"
+        },
+        "hint": {
+          "en": "Evaluates if the chosen device has the delayed setting."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "device",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "IsFullDevice",
+        "title": {
+          "en": "Device is !{{part|not part}} of Full Surveillance Mode",
+          "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+          "de": "Gerät ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+          "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+          "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
+          "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
+          "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge",
+          "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
+          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{part|not part}} of Full Surveillance Mode",
+          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+          "de": "[[device]] ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
+          "no": "[[device]] er !{{del|ikke del}} av Full overvåkning",
+          "sv": "[[device]] är !{{del|inte del}} av Fullt Övervakningsläge",
+          "da": "[[device]] er !{{del|ikke del}} af Fuld Overvågning tilstand",
+          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia completa"
+        },
+        "hint": {
+          "en": "Evaluates if the chosen device is used in the Full Surveillance Mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "Enhed",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "IsLoggedDevice",
+        "title": {
+          "en": "Device is !{{logged |not logged}}",
+          "nl": "Apparaat wordt !{{gelogd |niet gelogd}}",
+          "de": "Gerät wird !{{gelogd |nicht gelogd}}",
+          "fr": "L'appareil !{{est |n'est pas}} connecté",
+          "it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}",
+          "no": "Enhet er !{{logget |ikke logget}}",
+          "sv": "Enhet är !{{loggad |inte loggad}}",
+          "da": "Enhed er !{{logget |ikke logget}}",
+          "es": "El dispositivo está !{{registrado |no registrado}}"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{logged |not logged}}",
+          "nl": "[[device]] wordt !{{gelogd |niet gelogd}}",
+          "de": "[[device]] wird !{{gelogd |nicht gelogd}}",
+          "fr": "[[device]] !{{est |n'est pas}} connecté",
+          "it": "[[device]] !{{è in fase di registrazione |non viene registrato}}",
+          "no": "[[device]] er !{{logget |ikke logget}}",
+          "sv": "[[device]] är !{{loggad |inte loggad}}",
+          "da": "[[device]] er !{{logget |ikke logget}}",
+          "es": "[[device]] está !{{registrado |no registrado}}"
+        },
+        "hint": {
+          "en": "Evaluates if the chosen device has the logged setting."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "Enhed",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "IsPartialDevice",
+        "title": {
+          "en": "Device is !{{part|not part}} of Partial Surveillance Mode",
+          "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+          "de": "Gerät ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+          "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+          "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
+          "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
+          "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
+          "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
+          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
+        },
+        "titleFormatted": {
+          "en": "[[device]] is !{{part|not part}} of Partial Surveillance Mode",
+          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+          "de": "[[device]] ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
+          "no": "[[device]] er !{{del|ikke del}} av Delvis overvåkning",
+          "sv": "[[device]] är !{{del|inte del}} av partiellt övervakningsläge",
+          "da": "[[device]] er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
+          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia parcial"
+        },
+        "hint": {
+          "en": "Evaluates if the chosen device is used in the Partial Surveillance Mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "Enhed",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
       {
         "id": "SurveillanceIs",
         "title": {
@@ -890,366 +1234,88 @@
         ]
       },
       {
-        "id": "ArmingCountdown",
+        "id": "homealarm_state_is",
         "title": {
-          "en": "Arming countdown !{{active |not active}}",
-          "nl": "Inschakel vertraging !{{actief |niet actief}}",
-          "de": "Aktivierungcountdown !{{aktiv |nicht aktiv}}",
-          "fr": "Compte à rebours d'armement !{{ |pas }} actif",
-          "it": "Countdown Inserimento !{{attivo |non attivo}}",
-          "no": "Nedtelling for tilkobling !{{aktiv |ikke aktiv}}",
-          "sv": "Nedräkning för tillkoppling !{{aktiv |inte aktiv}}",
-          "da": "Nedtælling for tilkobling !{{aktiv |ikke aktiv}}",
-          "es": "Cuenta atrás de armado !{{activa |no activa}}"
-        },
-        "hint": {
-          "en": "Evaluates if an Arming Countdown is (not) active."
-        }
-      },
-      {
-        "id": "AlarmCountdown",
-        "title": {
-          "en": "Alarm countdown !{{active |not active}}",
-          "nl": "Alarm vertraging !{{actief |niet actief}}",
-          "de": "Alarmcountdown !{{aktiv |nicht aktiv}}",
-          "fr": "Compte à rebours d'alarme !{{ |pas }} actif",
-          "it": "Countdown Allarme !{{attivo |non attivo}}",
-          "no": "Nedtelling for alarm !{{aktiv |ikke aktiv}}",
-          "sv": "Nedräkning för alarm !{{aktiv |inte aktiv}}",
-          "da": "Nedtælling for alarm !{{aktiv |ikke aktiv}}",
-          "es": "Cuenta atrás de alarma !{{activa |no activa}}"
-        },
-        "hint": {
-          "en": "Evaluates if an Alarm Countdown is (not) active."
-        }
-      },
-      {
-        "id": "AlarmActive",
-        "title": {
-          "en": "Alarm state is !{{active |not active}}",
-          "nl": "Alarm status is !{{actief |niet actief}}",
-          "de": "Alarmstatus !{{aktiv |nicht aktiv}}",
-          "fr": "L'état d'alarme !{{est |n'est pas }} actif",
-          "it": "Stato Allarme è !{{attivo |non attivo}}",
-          "no": "Alarmstatus et !{{utløst |ikke utløst}}",
-          "sv": "Alarmstatus är !{{aktiv |inte aktiv}}",
-          "da": "Alarm status er !{{aktiv |ikke aktiv}}",
-          "es": "El estado de alarma es !{{activo |no activo}}"
-        },
-        "hint": {
-          "en": "Evaluates if the Alarm State is (not) active."
-        }
-      },
-      {
-        "id": "IsDelayedDevice",
-        "title": {
-          "en": "Device is !{{delayed |not delayed}}",
-          "nl": "Apparaat is !{{vertraagd |niet vertraagd}}",
-          "de": "Gerät ist !{{verzögert |nicht verzögert}}",
-          "fr": "L'appareil !{{est en retard |n'est pas retardé}}",
-          "it": "Il dispositivo !{{ |non }} è in ritardo ",
-          "no": "Enhet er !{{forsinket |ikke forsinket}}",
-          "sv": "Enhet är !{{fördröjd |inte fördröjd}}",
-          "da": "Enhed er !{{forsinket |ikke forsinket}}",
-          "es": "Es dispositivo está !{{retardado |no retardado}}"
-        },
-        "titleFormatted": {
-          "en": "[[device]] is !{{delayed |not delayed}}",
-          "nl": "[[device]] is !{{vertraagd |niet vertraagd}}",
-          "de": "[[device]] ist !{{verzögert |nicht verzögert}}",
-          "fr": "[[device]] !{{est en retard |n'est pas retardé}}",
-          "it": "[[device]] !{{ |non }} è in ritardo ",
-          "no": "[[device]] er !{{forsinket |ikke forsinket}}",
-          "sv": "[[device]] är !{{fördröjd |inte fördröjd}}",
-          "da": "[[device]] er !{{forsinket |ikke forsinket}}",
-          "es": "[[device]] está !{{retardado |no retardado}}"
-        },
-        "hint": {
-          "en": "Evaluates if the chosen device has the delayed setting."
+          "en": "The state is !{{|not}}",
+          "nl": "De status is !{{|niet}}",
+          "de": "Der Status ist !{{|nicht}}",
+          "fr": "L'état !{{est|n'est pas}}",
+          "it": "Lo stato è !{{|non}}",
+          "sv": "Statusen är !{{|inte}}",
+          "no": "Statusen er !{{|ikke}}",
+          "es": "El estado !{{|no}} es",
+          "da": "Status er !{{|ikke}}",
+          "ru": "Состояние — !{{|не}}",
+          "pl": "Stan to !{{|nie}}",
+          "ko": "상태가 다음!{{임| 아님}}"
         },
         "args": [
           {
+            "type": "device",
             "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "device",
-              "es": "dispositivo"
-            }
-          }
-        ]
-      },
-      {
-        "id": "IsLoggedDevice",
-        "title": {
-          "en": "Device is !{{logged |not logged}}",
-          "nl": "Apparaat wordt !{{gelogd |niet gelogd}}",
-          "de": "Gerät wird !{{gelogd |nicht gelogd}}",
-          "fr": "L'appareil !{{est |n'est pas}} connecté",
-          "it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}",
-          "no": "Enhet er !{{logget |ikke logget}}",
-          "sv": "Enhet är !{{loggad |inte loggad}}",
-          "da": "Enhed er !{{logget |ikke logget}}",
-          "es": "El dispositivo está !{{registrado |no registrado}}"
-        },
-        "titleFormatted": {
-          "en": "[[device]] is !{{logged |not logged}}",
-          "nl": "[[device]] wordt !{{gelogd |niet gelogd}}",
-          "de": "[[device]] wird !{{gelogd |nicht gelogd}}",
-          "fr": "[[device]] !{{est |n'est pas}} connecté",
-          "it": "[[device]] !{{è in fase di registrazione |non viene registrato}}",
-          "no": "[[device]] er !{{logget |ikke logget}}",
-          "sv": "[[device]] är !{{loggad |inte loggad}}",
-          "da": "[[device]] er !{{logget |ikke logget}}",
-          "es": "[[device]] está !{{registrado |no registrado}}"
-        },
-        "hint": {
-          "en": "Evaluates if the chosen device has the logged setting."
-        },
-        "args": [
+            "filter": "driver_id=surveillanceModeSwitch"
+          },
           {
-            "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "Enhed",
-              "es": "dispositivo"
-            }
-          }
-        ]
-      },
-      {
-        "id": "IsFullDevice",
-        "title": {
-          "en": "Device is !{{part|not part}} of Full Surveillance Mode",
-          "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
-          "de": "Gerät ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
-          "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
-          "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
-          "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
-          "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge",
-          "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
-          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
-        },
-        "titleFormatted": {
-          "en": "[[device]] is !{{part|not part}} of Full Surveillance Mode",
-          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
-          "de": "[[device]] ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
-          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
-          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
-          "no": "[[device]] er !{{del|ikke del}} av Full overvåkning",
-          "sv": "[[device]] är !{{del|inte del}} av Fullt Övervakningsläge",
-          "da": "[[device]] er !{{del|ikke del}} af Fuld Overvågning tilstand",
-          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia completa"
-        },
-        "hint": {
-          "en": "Evaluates if the chosen device is used in the Full Surveillance Mode."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "Enhed",
-              "es": "dispositivo"
-            }
-          }
-        ]
-      },
-      {
-        "id": "IsPartialDevice",
-        "title": {
-          "en": "Device is !{{part|not part}} of Partial Surveillance Mode",
-          "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
-          "de": "Gerät ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
-          "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
-          "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
-          "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
-          "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
-          "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
-          "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
-        },
-        "titleFormatted": {
-          "en": "[[device]] is !{{part|not part}} of Partial Surveillance Mode",
-          "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
-          "de": "[[device]] ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
-          "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
-          "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
-          "no": "[[device]] er !{{del|ikke del}} av Delvis overvåkning",
-          "sv": "[[device]] är !{{del|inte del}} av partiellt övervakningsläge",
-          "da": "[[device]] er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
-          "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia parcial"
-        },
-        "hint": {
-          "en": "Evaluates if the chosen device is used in the Partial Surveillance Mode."
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "Enhed",
-              "es": "dispositivo"
-            }
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "armed",
+                "title": {
+                  "en": "Armed",
+                  "nl": "Geactiveerd",
+                  "de": "scharf",
+                  "fr": "Armé",
+                  "it": "Attivato",
+                  "sv": "Larmat",
+                  "no": "Aktivert",
+                  "es": "Activada",
+                  "da": "Aktiveret",
+                  "ru": "Готова",
+                  "pl": "Uzbrojony",
+                  "ko": "경보 활성화됨"
+                }
+              },
+              {
+                "id": "disarmed",
+                "title": {
+                  "en": "Disarmed",
+                  "nl": "Gedeactiveerd",
+                  "de": "unscharf",
+                  "fr": "Désarmé",
+                  "it": "Disattivato",
+                  "sv": "Avlarmat",
+                  "no": "Deaktivert",
+                  "es": "Desactivada",
+                  "da": "Deaktiveret",
+                  "ru": "Не готова",
+                  "pl": "Rozbrojony",
+                  "ko": "경보 해제됨"
+                }
+              },
+              {
+                "id": "partially_armed",
+                "title": {
+                  "en": "Partially armed",
+                  "nl": "Deels geactiveerd",
+                  "de": "Teilweise scharf",
+                  "fr": "Partiellement armé",
+                  "it": "Parzialmente attivato",
+                  "sv": "Delvis larmat",
+                  "no": "Delvis aktivert",
+                  "es": "Parcialmente activada",
+                  "da": "Delvist aktiveret",
+                  "ru": "Частично готова",
+                  "pl": "Częściowo uzbrojony",
+                  "ko": "경보 부분 활성화됨"
+                }
+              }
+            ]
           }
         ]
       }
     ],
     "actions": [
-      {
-        "id": "SetSurveillance",
-        "title": {
-          "en": "Set Surveillance Mode",
-          "nl": "Stel Toezicht Modus in",
-          "de": "Überwachungsmodus stellen",
-          "fr": "Définir le Mode de Surveillance",
-          "it": "Imposta Modalità di Sorveglianza",
-          "no": "Sett overvåkningsmodus",
-          "sv": "Ange övervakningsläge",
-          "da": "Sæt Overvågnings Tilstand",
-          "es": "Establecer modo de vigilancia"
-        },
-        "titleFormatted": {
-          "en": "Set Surveillance Mode to [[surveillance]]",
-          "nl": "Stel Toezicht Modus in op [[surveillance]]",
-          "de": "Überwachungsmodus stellen [[surveillance]]",
-          "fr": "Définir le Mode de Surveillance [[surveillance]]",
-          "it": "Imposta Modalità di Sorveglianza [[surveillance]]",
-          "no": "Sett overvåkningsmodus [[surveillance]]",
-          "sv": "Ange övervakningsläge [[surveillance]]",
-          "da": "Sæt Overvågnings Tilstand [[surveillance]]",
-          "es": "Establecer modo de vigilancia [[surveillance]]"
-        },
-        "args": [
-          {
-            "name": "surveillance",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "armed",
-                "label": {
-                  "en": "Armed",
-                  "nl": "Ingeschakeld",
-                  "de": "Aktiviert",
-                  "fr": "Activée",
-                  "it": "Armato",
-                  "no": "Tilkoblet",
-                  "sv": "Tillkopplad",
-                  "da": "Tilkoblet",
-                  "es": "Armado"
-                }
-              },
-              {
-                "id": "disarmed",
-                "label": {
-                  "en": "Disarmed",
-                  "nl": "Uitgeschakeld",
-                  "de": "Deaktiviert",
-                  "fr": "Desactivée",
-                  "it": "Disarmato",
-                  "no": "Frakoblet",
-                  "sv": "Frånkopplad",
-                  "da": "Frakoblet",
-                  "es": "Desarmado"
-                }
-              },
-              {
-                "id": "partially_armed",
-                "label": {
-                  "en": "Partially Armed",
-                  "nl": "Deels ingeschakeld",
-                  "de": "Teilweise aktiviert",
-                  "fr": "Partiellement activé",
-                  "it": "Parzialmente Armato",
-                  "no": "Delvis tilkoblet",
-                  "sv": "Delvis tillkopplad",
-                  "da": "Delvis tilkoblet",
-                  "es": "Parcialmente armado"
-                }
-              }
-            ]
-          },
-          {
-            "name": "device",
-            "type": "device",
-            "filter": "driver_id=surveillanceModeSwitch"
-          }
-        ]
-      },
-      {
-        "id": "SendInfo",
-        "title": {
-          "en": "Send information to Heimdall",
-          "nl": "Stuur informatie naar Heimdall",
-          "de": "Sende Informationen an Heimdall",
-          "fr": "Envoyer des informations à Heimdall",
-          "it": "Invia informazioni a Heimdall",
-          "no": "Send informasjon til Heimdall",
-          "sv": "Sänd information till Heimdall",
-          "da": "Send information til Heimdall",
-          "es": "Enviar información a Heimdall"
-        },
-        "hint": {
-          "en": "The text that is sent to Heimdall will be written to Heimdalls history log."
-        },
-        "titleFormatted": {
-          "en": "Send [[log]] to Heimdall",
-          "nl": "Stuur [[log]] naar Heimdall",
-          "de": "Sende [[log]] an Heimdall",
-          "fr": "Envoyer des [[log]] à Heimdall",
-          "it": "Invia [[log]] a Heimdall",
-          "no": "Send [[log]] til Heimdall",
-          "sv": "Sänd [[log]] till Heimdall",
-          "da": "Send [[log]] til Heimdall",
-          "es": "Enviar [[log]] a Heimdall"
-        },
-        "args": [
-          {
-            "name": "log",
-            "type": "text"
-          }
-        ]
-      },
-      {
-        "id": "ClearHistory",
-        "title": {
-          "en": "Clear Heimdall history",
-          "nl": "Verwijder Heimdall geschiedenis",
-          "de": "Lösche alle Heimdall Ereignisse",
-          "fr": "Effacer l'historique de Heimdall",
-          "it": "Cancella la storia di Heimdall",
-          "no": "Slett historikk Heimdall",
-          "sv": "Rensa historik för Heimdall",
-          "da": "Nulstil Heimdall historik",
-          "es": "Borrar el historial de Heimdall"
-        }
-      },
       {
         "id": "ActivateAlarm",
         "title": {
@@ -1263,85 +1329,6 @@
           "da": "Aktiver alarm",
           "es": "Activar Alarma"
         }
-      },
-      {
-        "id": "DeactivateAlarm",
-        "title": {
-          "en": "Deactivate Alarm",
-          "nl": "Deactiveer Alarm",
-          "de": "Deaktiviere Alarm",
-          "fr": "Désactiver l'alarme",
-          "it": "Disattiva Allarme",
-          "no": "Deaktiver Alarm",
-          "sv": "Deaktivera Alarm",
-          "da": "Deaktiver Alarm",
-          "es": "Desactivar Alarma"
-        }
-      },
-      {
-        "id": "CheckLastCommunication",
-        "title": {
-          "en": "Check Last Communication",
-          "nl": "Controleer laatste communicatie",
-          "de": "Kontrolliere letzte Kommunikation",
-          "fr": "Vérifier la dernière communication",
-          "it": "Verifica l'ultima comunicazione",
-          "no": "Sjekk siste kommunikasjon",
-          "sv": "Kontrollera den senaste kommunikationen",
-          "da": "Kontroller seneste kommunikation",
-          "es": "Comprobar última comunicación"
-        },
-        "hint": {
-          "en": "Checks if devices that are included in a Surveillance Mode have communcicated with Homey in the last 24 hours. Make a flow with the triggercard No information received to process the results."
-        }
-      },
-      {
-        "id": "DevicesStateCheck",
-        "title": {
-          "en": "Check Status of all sensors",
-          "nl": "Controleer de status van alle sensoren",
-          "de": "Überprüfe Status aller Sensoren",
-          "fr": "Vérifier l'état de tous les capteurs",
-          "it": "Verifica lo stato di tutti i sensori",
-          "no": "Sjekk status på alle sensorer",
-          "sv": "Kontrollera status på alla sensorer",
-          "da": "Kontroler status for alle sensorer",
-          "es": "Verificar el estado de todos los sensores"
-        },
-        "hint": {
-          "en": "Checks the status of all Motion- and Door/Windows sensors. Make a flow with the triggercard Sensor active at Status Check to process the results."
-        }
-      },
-      {
-        "id": "SendNotification",
-        "title": {
-          "en": "Send information to Timeline",
-          "nl": "Stuur informatie naar Timeline",
-          "de": "Sende Informationen an Timeline",
-          "fr": "Envoyer des informations à Timeline",
-          "it": "Invia informazioni alla Timeline",
-          "no": "Send informasjon til Tidslinjen",
-          "sv": "Sänd information till Tidslinjen",
-          "da": "Send information til Tidslinie",
-          "es": "Enviar información a la línea temporal"
-        },
-        "titleFormatted": {
-          "en": "Send [[message]] to Timeline",
-          "nl": "Stuur [[message]] naar Timeline",
-          "de": "Sende [[message]] an Timeline",
-          "fr": "Envoyer des [[message]] à Timeline",
-          "it": "Invia [[message]] alla Timeline",
-          "no": "Send [[message]] til Tidslinjen",
-          "sv": "Sänd [[message]] till Tidslinjen",
-          "da": "Send [[message]] til Tidslinie",
-          "es": "Enviar [[message]] a la línea temporal"
-        },
-        "args": [
-          {
-            "name": "message",
-            "type": "text"
-          }
-        ]
       },
       {
         "id": "AddDelayToDevice",
@@ -1386,112 +1373,28 @@
         ]
       },
       {
-        "id": "RemoveDelayFromDevice",
+        "id": "AddDeviceToFull",
         "title": {
-          "en": "Remove Delay from device",
-          "nl": "Verwijder Vertraging van apparaat",
-          "de": "Verzögerung vom Gerät entfernen",
-          "fr": "Supprimer le délai de l'appareil",
-          "it": "Rimuovi ritardo dal dispositivo",
-          "no": "Fjern forsinkelse fra enhet",
-          "sv": "Ta bort en fördröjning från en enhet",
-          "da": "Fjern forsinkelse fra enhed",
-          "es": "retirar retardo al dispositivo"
+          "en": "Add device to Full Surveillance Mode",
+          "nl": "Voeg apparaat toe aan Volledige Toezicht Mode",
+          "de": "Gerät zum vollständigen Überwachungsmodus hinzufügen",
+          "fr": "Ajouter un appareil en Mode de Surveillance Complète",
+          "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Completa",
+          "no": "Legg enhet til Full overvåkning",
+          "sv": "Addera en enhet till fullt övervakningsläge",
+          "da": "Tilføj en enhed til Fuld Overvågnings Tilstand",
+          "es": "Agregar dispositivo al modo de vigilancia completa"
         },
         "titleFormatted": {
-          "en": "Remove Delay from [[device]]",
-          "nl": "Verwijder Vertraging van [[device]]",
-          "de": "Verzögerung vom [[device]] entfernen",
-          "fr": "Supprimer le délai de [[device]]",
-          "it": "Rimuovi ritardo dal [[device]]",
-          "no": "Fjern forsinkelse fra [[device]]",
-          "sv": "Ta bort en fördröjning från en [[device]]",
-          "da": "Fjern forsinkelse fra [[device]]",
-          "es": "retirar retardo al [[device]]"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "enhed",
-              "es": "dispositivo"
-            }
-          }
-        ]
-      },
-      {
-        "id": "AddLoggingToDevice",
-        "title": {
-          "en": "Add Logging to device",
-          "nl": "Voeg Loggen toe aan apparaat",
-          "de": "Loging zum Gerät hinzufügen",
-          "fr": "Ajouter un Connexion à l'appareil",
-          "it": "Aggiungi Registro Eventi al dispositivo",
-          "no": "Legg til logging for enhet",
-          "sv": "Addera loggning till en enhet",
-          "da": "Tilføj logning for enhed",
-          "es": "Añadir registro al dispositivo"
-        },
-        "titleFormatted": {
-          "en": "Add Logging to [[device]]",
-          "nl": "Voeg Loggen toe aan [[device]]",
-          "de": "Loging zum [[device]] hinzufügen",
-          "fr": "Ajouter un Connexion à [[device]]",
-          "it": "Aggiungi Registro Eventi al [[device]]",
-          "no": "Legg til logging for [[device]]",
-          "sv": "Addera loggning till en [[device]]",
-          "da": "Tilføj logning for [[device]]",
-          "es": "Añadir registro al [[device]]"
-        },
-        "args": [
-          {
-            "name": "device",
-            "type": "autocomplete",
-            "placeholder": {
-              "en": "device",
-              "nl": "Apparaat",
-              "de": "Gerät",
-              "fr": "Appareil",
-              "it": "Dispositivo",
-              "no": "enhet",
-              "sv": "enhet",
-              "da": "enhed",
-              "es": "dispositivo"
-            }
-          }
-        ]
-      },
-      {
-        "id": "RemoveLoggingFromDevice",
-        "title": {
-          "en": "Remove Logging from device",
-          "nl": "Verwijder Loggen van apparaat",
-          "de": "Loging vom Gerät entfernen",
-          "fr": "Supprimer le Connexion de l'appareil",
-          "it": "Rimuovi Registro Eventi dal dispositivo",
-          "no": "Fjern logging fra enhet",
-          "sv": "Ta bort loggning från en enhet",
-          "da": "Fjern logning fra enhed",
-          "es": "retirar registro al dispositivo"
-        },
-        "titleFormatted": {
-          "en": "Remove Logging from [[device]]",
-          "nl": "Verwijder Loggen van [[device]]",
-          "de": "Loging vom [[device]] entfernen",
-          "fr": "Supprimer le Connexion de [[device]]",
-          "it": "Rimuovi Registro Eventi dal [[device]]",
-          "no": "Fjern logging fra [[device]]",
-          "sv": "Ta bort loggning från en [[device]]",
-          "da": "Fjern logning fra [[device]]",
-          "es": "retirar registro al [[device]]"
+          "en": "Add [[device]] to Full Surveillance Mode",
+          "nl": "Voeg [[device]] toe aan Volledige Toezicht Mode",
+          "de": "[[device]] zum vollständigen Überwachungsmodus hinzufügen",
+          "fr": "Ajouter [[device]] en Mode de Surveillance Complète",
+          "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Completa",
+          "no": "Legg [[device]] til Full overvåkning",
+          "sv": "Addera en [[device]] till fullt övervakningsläge",
+          "da": "Tilføj en [[device]] til Fuld Overvågnings Tilstand",
+          "es": "Agregar [[device]] al modo de vigilancia completa"
         },
         "args": [
           {
@@ -1554,28 +1457,28 @@
         ]
       },
       {
-        "id": "RemoveDeviceFromPartial",
+        "id": "AddLoggingToDevice",
         "title": {
-          "en": "Remove device from Partial Surveillance Mode",
-          "nl": "Verwijder apparaat uit Gedeeltelijke Toezicht Mode",
-          "de": "Gerät aus dem Teilüberwachungsmodus entfernen",
-          "fr": "Supprimer l'appareil du Mode de Surveillance Partielle",
-          "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Parziale",
-          "no": "Fjern enhet fra Delvis overvåkning",
-          "sv": "To bort en enhet från partiellt övervakningsläge",
-          "da": "Fjern enhed fra Delvis Overvågnings Tilstand",
-          "es": "Eliminar dispositivo del modo de vigilancia parcial"
+          "en": "Add Logging to device",
+          "nl": "Voeg Loggen toe aan apparaat",
+          "de": "Loging zum Gerät hinzufügen",
+          "fr": "Ajouter un Connexion à l'appareil",
+          "it": "Aggiungi Registro Eventi al dispositivo",
+          "no": "Legg til logging for enhet",
+          "sv": "Addera loggning till en enhet",
+          "da": "Tilføj logning for enhed",
+          "es": "Añadir registro al dispositivo"
         },
         "titleFormatted": {
-          "en": "Remove [[device]] from Partial Surveillance Mode",
-          "nl": "Verwijder [[device]] uit Gedeeltelijke Toezicht Mode",
-          "de": "[[device]] aus dem Teilüberwachungsmodus entfernen",
-          "fr": "Supprimer [[device]] du Mode de Surveillance Partielle",
-          "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Parziale",
-          "no": "Fjern [[device]] fra Delvis overvåkning",
-          "sv": "To bort en [[device]] från partiellt övervakningsläge",
-          "da": "Fjern [[device]] fra Delvis Overvågnings Tilstand",
-          "es": "Eliminar [[device]] del modo de vigilancia parcial"
+          "en": "Add Logging to [[device]]",
+          "nl": "Voeg Loggen toe aan [[device]]",
+          "de": "Loging zum [[device]] hinzufügen",
+          "fr": "Ajouter un Connexion à [[device]]",
+          "it": "Aggiungi Registro Eventi al [[device]]",
+          "no": "Legg til logging for [[device]]",
+          "sv": "Addera loggning till en [[device]]",
+          "da": "Tilføj logning for [[device]]",
+          "es": "Añadir registro al [[device]]"
         },
         "args": [
           {
@@ -1596,28 +1499,90 @@
         ]
       },
       {
-        "id": "AddDeviceToFull",
+        "id": "ClearHistory",
         "title": {
-          "en": "Add device to Full Surveillance Mode",
-          "nl": "Voeg apparaat toe aan Volledige Toezicht Mode",
-          "de": "Gerät zum vollständigen Überwachungsmodus hinzufügen",
-          "fr": "Ajouter un appareil en Mode de Surveillance Complète",
-          "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Completa",
-          "no": "Legg enhet til Full overvåkning",
-          "sv": "Addera en enhet till fullt övervakningsläge",
-          "da": "Tilføj en enhed til Fuld Overvågnings Tilstand",
-          "es": "Agregar dispositivo al modo de vigilancia completa"
+          "en": "Clear Heimdall history",
+          "nl": "Verwijder Heimdall geschiedenis",
+          "de": "Lösche alle Heimdall Ereignisse",
+          "fr": "Effacer l'historique de Heimdall",
+          "it": "Cancella la storia di Heimdall",
+          "no": "Slett historikk Heimdall",
+          "sv": "Rensa historik för Heimdall",
+          "da": "Nulstil Heimdall historik",
+          "es": "Borrar el historial de Heimdall"
+        }
+      },
+      {
+        "id": "DeactivateAlarm",
+        "title": {
+          "en": "Deactivate Alarm",
+          "nl": "Deactiveer Alarm",
+          "de": "Deaktiviere Alarm",
+          "fr": "Désactiver l'alarme",
+          "it": "Disattiva Allarme",
+          "no": "Deaktiver Alarm",
+          "sv": "Deaktivera Alarm",
+          "da": "Deaktiver Alarm",
+          "es": "Desactivar Alarma"
+        }
+      },
+      {
+        "id": "DevicesStateCheck",
+        "title": {
+          "en": "Check Status of all sensors",
+          "nl": "Controleer de status van alle sensoren",
+          "de": "Überprüfe Status aller Sensoren",
+          "fr": "Vérifier l'état de tous les capteurs",
+          "it": "Verifica lo stato di tutti i sensori",
+          "no": "Sjekk status på alle sensorer",
+          "sv": "Kontrollera status på alla sensorer",
+          "da": "Kontroler status for alle sensorer",
+          "es": "Verificar el estado de todos los sensores"
+        },
+        "hint": {
+          "en": "Checks the status of all Motion- and Door/Windows sensors. Make a flow with the triggercard Sensor active at Status Check to process the results."
+        }
+      },
+      {
+        "id": "CheckLastCommunication",
+        "title": {
+          "en": "Check Last Communication",
+          "nl": "Controleer laatste communicatie",
+          "de": "Kontrolliere letzte Kommunikation",
+          "fr": "Vérifier la dernière communication",
+          "it": "Verifica l'ultima comunicazione",
+          "no": "Sjekk siste kommunikasjon",
+          "sv": "Kontrollera den senaste kommunikationen",
+          "da": "Kontroller seneste kommunikation",
+          "es": "Comprobar última comunicación"
+        },
+        "hint": {
+          "en": "Checks if devices that are included in a Surveillance Mode have communcicated with Homey in the last 24 hours. Make a flow with the triggercard No information received to process the results."
+        }
+      },
+      {
+        "id": "RemoveDelayFromDevice",
+        "title": {
+          "en": "Remove Delay from device",
+          "nl": "Verwijder Vertraging van apparaat",
+          "de": "Verzögerung vom Gerät entfernen",
+          "fr": "Supprimer le délai de l'appareil",
+          "it": "Rimuovi ritardo dal dispositivo",
+          "no": "Fjern forsinkelse fra enhet",
+          "sv": "Ta bort en fördröjning från en enhet",
+          "da": "Fjern forsinkelse fra enhed",
+          "es": "retirar retardo al dispositivo"
         },
         "titleFormatted": {
-          "en": "Add [[device]] to Full Surveillance Mode",
-          "nl": "Voeg [[device]] toe aan Volledige Toezicht Mode",
-          "de": "[[device]] zum vollständigen Überwachungsmodus hinzufügen",
-          "fr": "Ajouter [[device]] en Mode de Surveillance Complète",
-          "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Completa",
-          "no": "Legg [[device]] til Full overvåkning",
-          "sv": "Addera en [[device]] till fullt övervakningsläge",
-          "da": "Tilføj en [[device]] til Fuld Overvågnings Tilstand",
-          "es": "Agregar [[device]] al modo de vigilancia completa"
+          "en": "Remove Delay from [[device]]",
+          "nl": "Verwijder Vertraging van [[device]]",
+          "de": "Verzögerung vom [[device]] entfernen",
+          "fr": "Supprimer le délai de [[device]]",
+          "it": "Rimuovi ritardo dal [[device]]",
+          "no": "Fjern forsinkelse fra [[device]]",
+          "sv": "Ta bort en fördröjning från en [[device]]",
+          "da": "Fjern forsinkelse fra [[device]]",
+          "es": "retirar retardo al [[device]]"
         },
         "args": [
           {
@@ -1678,113 +1643,399 @@
             }
           }
         ]
+      },
+      {
+        "id": "RemoveDeviceFromPartial",
+        "title": {
+          "en": "Remove device from Partial Surveillance Mode",
+          "nl": "Verwijder apparaat uit Gedeeltelijke Toezicht Mode",
+          "de": "Gerät aus dem Teilüberwachungsmodus entfernen",
+          "fr": "Supprimer l'appareil du Mode de Surveillance Partielle",
+          "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Parziale",
+          "no": "Fjern enhet fra Delvis overvåkning",
+          "sv": "To bort en enhet från partiellt övervakningsläge",
+          "da": "Fjern enhed fra Delvis Overvågnings Tilstand",
+          "es": "Eliminar dispositivo del modo de vigilancia parcial"
+        },
+        "titleFormatted": {
+          "en": "Remove [[device]] from Partial Surveillance Mode",
+          "nl": "Verwijder [[device]] uit Gedeeltelijke Toezicht Mode",
+          "de": "[[device]] aus dem Teilüberwachungsmodus entfernen",
+          "fr": "Supprimer [[device]] du Mode de Surveillance Partielle",
+          "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Parziale",
+          "no": "Fjern [[device]] fra Delvis overvåkning",
+          "sv": "To bort en [[device]] från partiellt övervakningsläge",
+          "da": "Fjern [[device]] fra Delvis Overvågnings Tilstand",
+          "es": "Eliminar [[device]] del modo de vigilancia parcial"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "enhed",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "RemoveLoggingFromDevice",
+        "title": {
+          "en": "Remove Logging from device",
+          "nl": "Verwijder Loggen van apparaat",
+          "de": "Loging vom Gerät entfernen",
+          "fr": "Supprimer le Connexion de l'appareil",
+          "it": "Rimuovi Registro Eventi dal dispositivo",
+          "no": "Fjern logging fra enhet",
+          "sv": "Ta bort loggning från en enhet",
+          "da": "Fjern logning fra enhed",
+          "es": "retirar registro al dispositivo"
+        },
+        "titleFormatted": {
+          "en": "Remove Logging from [[device]]",
+          "nl": "Verwijder Loggen van [[device]]",
+          "de": "Loging vom [[device]] entfernen",
+          "fr": "Supprimer le Connexion de [[device]]",
+          "it": "Rimuovi Registro Eventi dal [[device]]",
+          "no": "Fjern logging fra [[device]]",
+          "sv": "Ta bort loggning från en [[device]]",
+          "da": "Fjern logning fra [[device]]",
+          "es": "retirar registro al [[device]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "device",
+              "nl": "Apparaat",
+              "de": "Gerät",
+              "fr": "Appareil",
+              "it": "Dispositivo",
+              "no": "enhet",
+              "sv": "enhet",
+              "da": "enhed",
+              "es": "dispositivo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "SendInfo",
+        "title": {
+          "en": "Send information to Heimdall",
+          "nl": "Stuur informatie naar Heimdall",
+          "de": "Sende Informationen an Heimdall",
+          "fr": "Envoyer des informations à Heimdall",
+          "it": "Invia informazioni a Heimdall",
+          "no": "Send informasjon til Heimdall",
+          "sv": "Sänd information till Heimdall",
+          "da": "Send information til Heimdall",
+          "es": "Enviar información a Heimdall"
+        },
+        "hint": {
+          "en": "The text that is sent to Heimdall will be written to Heimdalls history log."
+        },
+        "titleFormatted": {
+          "en": "Send [[log]] to Heimdall",
+          "nl": "Stuur [[log]] naar Heimdall",
+          "de": "Sende [[log]] an Heimdall",
+          "fr": "Envoyer des [[log]] à Heimdall",
+          "it": "Invia [[log]] a Heimdall",
+          "no": "Send [[log]] til Heimdall",
+          "sv": "Sänd [[log]] till Heimdall",
+          "da": "Send [[log]] til Heimdall",
+          "es": "Enviar [[log]] a Heimdall"
+        },
+        "args": [
+          {
+            "name": "log",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "SendNotification",
+        "title": {
+          "en": "Send information to Timeline",
+          "nl": "Stuur informatie naar Timeline",
+          "de": "Sende Informationen an Timeline",
+          "fr": "Envoyer des informations à Timeline",
+          "it": "Invia informazioni alla Timeline",
+          "no": "Send informasjon til Tidslinjen",
+          "sv": "Sänd information till Tidslinjen",
+          "da": "Send information til Tidslinie",
+          "es": "Enviar información a la línea temporal"
+        },
+        "titleFormatted": {
+          "en": "Send [[message]] to Timeline",
+          "nl": "Stuur [[message]] naar Timeline",
+          "de": "Sende [[message]] an Timeline",
+          "fr": "Envoyer des [[message]] à Timeline",
+          "it": "Invia [[message]] alla Timeline",
+          "no": "Send [[message]] til Tidslinjen",
+          "sv": "Sänd [[message]] till Tidslinjen",
+          "da": "Send [[message]] til Tidslinie",
+          "es": "Enviar [[message]] a la línea temporal"
+        },
+        "args": [
+          {
+            "name": "message",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "id": "SetSurveillance",
+        "title": {
+          "en": "Set Surveillance Mode",
+          "nl": "Stel Toezicht Modus in",
+          "de": "Überwachungsmodus stellen",
+          "fr": "Définir le Mode de Surveillance",
+          "it": "Imposta Modalità di Sorveglianza",
+          "no": "Sett overvåkningsmodus",
+          "sv": "Ange övervakningsläge",
+          "da": "Sæt Overvågnings Tilstand",
+          "es": "Establecer modo de vigilancia"
+        },
+        "titleFormatted": {
+          "en": "Set Surveillance Mode to [[surveillance]]",
+          "nl": "Stel Toezicht Modus in op [[surveillance]]",
+          "de": "Überwachungsmodus stellen [[surveillance]]",
+          "fr": "Définir le Mode de Surveillance [[surveillance]]",
+          "it": "Imposta Modalità di Sorveglianza [[surveillance]]",
+          "no": "Sett overvåkningsmodus [[surveillance]]",
+          "sv": "Ange övervakningsläge [[surveillance]]",
+          "da": "Sæt Overvågnings Tilstand [[surveillance]]",
+          "es": "Establecer modo de vigilancia [[surveillance]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=surveillanceModeSwitch"
+          },
+          {
+            "name": "surveillance",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "armed",
+                "label": {
+                  "en": "Armed",
+                  "nl": "Ingeschakeld",
+                  "de": "Aktiviert",
+                  "fr": "Activée",
+                  "it": "Armato",
+                  "no": "Tilkoblet",
+                  "sv": "Tillkopplad",
+                  "da": "Tilkoblet",
+                  "es": "Armado"
+                }
+              },
+              {
+                "id": "disarmed",
+                "label": {
+                  "en": "Disarmed",
+                  "nl": "Uitgeschakeld",
+                  "de": "Deaktiviert",
+                  "fr": "Desactivée",
+                  "it": "Disarmato",
+                  "no": "Frakoblet",
+                  "sv": "Frånkopplad",
+                  "da": "Frakoblet",
+                  "es": "Desarmado"
+                }
+              },
+              {
+                "id": "partially_armed",
+                "label": {
+                  "en": "Partially Armed",
+                  "nl": "Deels ingeschakeld",
+                  "de": "Teilweise aktiviert",
+                  "fr": "Partiellement activé",
+                  "it": "Parzialmente Armato",
+                  "no": "Delvis tilkoblet",
+                  "sv": "Delvis tillkopplad",
+                  "da": "Delvis tilkoblet",
+                  "es": "Parcialmente armado"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_homealarm_state",
+        "title": {
+          "en": "Set state",
+          "nl": "Zet de status",
+          "de": "Status setzen",
+          "fr": "Définir l'état",
+          "it": "Imposta stato",
+          "sv": "Ställ in status",
+          "no": "Innstill status",
+          "es": "Definir estado",
+          "da": "Indstil status",
+          "ru": "Установить состояние",
+          "pl": "Ustaw stan",
+          "ko": "상태 설정"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=surveillanceModeSwitch&capabilities=homealarm_state"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "armed",
+                "title": {
+                  "en": "Armed",
+                  "nl": "Geactiveerd",
+                  "de": "scharf",
+                  "fr": "Armé",
+                  "it": "Attivato",
+                  "sv": "Larmat",
+                  "no": "Aktivert",
+                  "es": "Activada",
+                  "da": "Aktiveret",
+                  "ru": "Готова",
+                  "pl": "Uzbrojony",
+                  "ko": "경보 활성화됨"
+                }
+              },
+              {
+                "id": "disarmed",
+                "title": {
+                  "en": "Disarmed",
+                  "nl": "Gedeactiveerd",
+                  "de": "unscharf",
+                  "fr": "Désarmé",
+                  "it": "Disattivato",
+                  "sv": "Avlarmat",
+                  "no": "Deaktivert",
+                  "es": "Desactivada",
+                  "da": "Deaktiveret",
+                  "ru": "Не готова",
+                  "pl": "Rozbrojony",
+                  "ko": "경보 해제됨"
+                }
+              },
+              {
+                "id": "partially_armed",
+                "title": {
+                  "en": "Partially armed",
+                  "nl": "Deels geactiveerd",
+                  "de": "Teilweise scharf",
+                  "fr": "Partiellement armé",
+                  "it": "Parzialmente attivato",
+                  "sv": "Delvis larmat",
+                  "no": "Delvis aktivert",
+                  "es": "Parcialmente activada",
+                  "da": "Delvist aktiveret",
+                  "ru": "Частично готова",
+                  "pl": "Częściowo uzbrojony",
+                  "ko": "경보 부분 활성화됨"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
   },
-  "capabilities": {
-    "homealarm_state": {
-      "type": "enum",
-      "title": {
-        "en": "Home Alarm state",
-        "nl": "Thuisalarm status",
-        "de": "Heim Alarm Status",
-        "fr": "État d'alarme à la maison",
-        "it": "Stato di Allarme Casa",
-        "no": "Alarmstatus for hjemmet",
-        "sv": "Alarmstatus för hemmet",
-        "da": "Alarm status for hjemmet",
-        "es": "Estado de alarma de casa"
-      },
-      "values": [
-        {
-          "id": "armed",
-          "title": {
-            "en": "Armed",
-            "nl": "Ingeschakeld",
-            "de": "Gesichert",
-            "fr": "Activée",
-            "it": "Armato",
-            "no": "Tilkoblet",
-            "sv": "Tillkopplad",
-            "da": "Tilkoblet",
-            "es": "Armada"
-          }
-        },
-        {
-          "id": "disarmed",
-          "title": {
-            "en": "Disarmed",
-            "nl": "Uitgeschakeld",
-            "de": "Entsichert",
-            "fr": "Desactivée",
-            "it": "Disarmato",
-            "no": "Frakoblet",
-            "sv": "Frånkopplad",
-            "da": "Frakoblet",
-            "es": "Desarmada"
-          }
-        },
-        {
-          "id": "partially_armed",
-          "title": {
-            "en": "Partially armed",
-            "nl": "Deels ingeschakeld",
-            "de": "Teils gesichert",
-            "fr": "Partiellement activé",
-            "it": "Parzialmente Armato",
-            "no": "Delvis tilkoblet",
-            "sv": "Delvis tillkopplad",
-            "da": "Delvis Tilkoblet",
-            "es": "Parcialmante armada"
-          }
-        }
-      ],
-      "getable": true,
-      "setable": true,
-      "uiComponent": "picker"
-    },
-    "alarm_heimdall": {
-      "type": "boolean",
-      "title": {
-        "en": "Alarm state",
-        "da": "Alarmtilstand",
-        "de": "Alarmzustand",
-        "fr": "État d'alarme",
-        "it": "Stato allarme",
-        "nl": "Alarmtoestand",
-        "no": "Alarmtilstand",
-        "es": "Estado de alarma",
-        "sv": "Larmläge"
-      },
-      "desc": "The Alarm state",
-      "getable": true,
-      "setable": true,
-      "uiComponent": "sensor",
-      "icon": "drivers/alarmOffSwitch/assets/alarm.svg"
-    },
-    "alarm_generic": {
-      "type": "boolean",
-      "title": {
-        "en": "Alarm state",
-        "da": "Alarmtilstand",
-        "de": "Alarmzustand",
-        "fr": "État d'alarme",
-        "it": "Stato allarme",
-        "nl": "Alarmtoestand",
-        "no": "Alarmtilstand",
-        "es": "Estado de alarma",
-        "sv": "Larmläge"
-      },
-      "desc": "The Alarm status",
-      "getable": true,
-      "setable": true,
-      "uiComponent": null,
-      "icon": "drivers/alarmOffSwitch/assets/alarm.svg"
-    }
-  },
   "drivers": [
     {
-      "id": "surveillanceModeSwitch",
+      "name": {
+        "en": "Alarm",
+        "nl": "Alarm",
+        "de": "Alarm",
+        "fr": "Alarm",
+        "it": "Allarme",
+        "no": "Alarm",
+        "sv": "Alarm",
+        "da": "Alarm",
+        "es": "Alarma"
+      },
+      "images": {
+        "large": "drivers/alarmOffSwitch/assets/images/large.png",
+        "small": "drivers/alarmOffSwitch/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "button",
+        "alarm_heimdall"
+      ],
+      "capabilitiesOptions": {
+        "button": {
+          "title": {
+            "en": "Turn off",
+            "nl": "Deactiveer",
+            "de": "Ausschalten",
+            "fr": "Éteindre",
+            "it": "Disattivare",
+            "no": "Skru av",
+            "sv": "Stäng av",
+            "da": "Slå fra",
+            "es": "Apagar"
+          },
+          "desc": "Button to turn Alarm off",
+          "preventTag": true
+        },
+        "alarm_heimdall": {
+          "preventTag": true,
+          "titleTrue": {
+            "en": "ALARM",
+            "nl": "ALARM",
+            "de": "ALARM",
+            "fr": "ALARM",
+            "it": "ALLARME",
+            "no": "ALARM",
+            "sv": "ALARM",
+            "da": "ALARM",
+            "es": "ALARMA"
+          },
+          "titleFalse": {
+            "en": "All is quiet",
+            "nl": "Alles ok",
+            "de": "Alles ok",
+            "fr": "Tout est calme",
+            "it": "Tutto Ok",
+            "no": "Alt er ok",
+            "sv": "Allt är lugnt",
+            "da": "Alt er OK",
+            "es": "Todo esta tranquilo"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "list_triggers",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_triggers"
+          }
+        },
+        {
+          "id": "add_triggers",
+          "template": "add_devices"
+        }
+      ],
+      "id": "alarmOffSwitch"
+    },
+    {
       "name": {
         "en": "Mode",
         "nl": "Modus",
@@ -1864,112 +2115,109 @@
           "id": "add_triggers",
           "template": "add_devices"
         }
-      ]
-    },
-    {
-      "id": "alarmOffSwitch",
-      "name": {
-        "en": "Alarm",
-        "nl": "Alarm",
-        "de": "Alarm",
-        "fr": "Alarm",
-        "it": "Allarme",
-        "no": "Alarm",
-        "sv": "Alarm",
-        "da": "Alarm",
-        "es": "Alarma"
-      },
-      "images": {
-        "large": "drivers/alarmOffSwitch/assets/images/large.png",
-        "small": "drivers/alarmOffSwitch/assets/images/small.png"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "button",
-        "alarm_heimdall"
       ],
-      "capabilitiesOptions": {
-        "button": {
-          "title": {
-            "en": "Turn off",
-            "nl": "Deactiveer",
-            "de": "Ausschalten",
-            "fr": "Éteindre",
-            "it": "Disattivare",
-            "no": "Skru av",
-            "sv": "Stäng av",
-            "da": "Slå fra",
-            "es": "Apagar"
-          },
-          "desc": "Button to turn Alarm off",
-          "preventTag": true
-        },
-        "alarm_heimdall": {
-          "preventTag": true,
-          "titleTrue": {
-            "en": "ALARM",
-            "nl": "ALARM",
-            "de": "ALARM",
-            "fr": "ALARM",
-            "it": "ALLARME",
-            "no": "ALARM",
-            "sv": "ALARM",
-            "da": "ALARM",
-            "es": "ALARMA"
-          },
-          "titleFalse": {
-            "en": "All is quiet",
-            "nl": "Alles ok",
-            "de": "Alles ok",
-            "fr": "Tout est calme",
-            "it": "Tutto Ok",
-            "no": "Alt er ok",
-            "sv": "Allt är lugnt",
-            "da": "Alt er OK",
-            "es": "Todo esta tranquilo"
-          }
-        }
-      },
-      "pair": [
-        {
-          "id": "list_triggers",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_triggers"
-          }
-        },
-        {
-          "id": "add_triggers",
-          "template": "add_devices"
-        }
-      ]
+      "id": "surveillanceModeSwitch"
     }
   ],
-  "api": {
-    "getDevices": {
-      "method": "GET",
-      "path":"/devices"
+  "capabilities": {
+    "alarm_generic": {
+      "type": "boolean",
+      "title": {
+        "en": "Alarm state",
+        "da": "Alarmtilstand",
+        "de": "Alarmzustand",
+        "fr": "État d'alarme",
+        "it": "Stato allarme",
+        "nl": "Alarmtoestand",
+        "no": "Alarmtilstand",
+        "es": "Estado de alarma",
+        "sv": "Larmläge"
+      },
+      "desc": "The Alarm status",
+      "getable": true,
+      "setable": true,
+      "uiComponent": null,
+      "icon": "drivers/alarmOffSwitch/assets/alarm.svg"
     },
-    "getZones": {
-      "method": "GET",
-      "path":"/zones"
+    "alarm_heimdall": {
+      "type": "boolean",
+      "title": {
+        "en": "Alarm state",
+        "da": "Alarmtilstand",
+        "de": "Alarmzustand",
+        "fr": "État d'alarme",
+        "it": "Stato allarme",
+        "nl": "Alarmtoestand",
+        "no": "Alarmtilstand",
+        "es": "Estado de alarma",
+        "sv": "Larmläge"
+      },
+      "desc": "The Alarm state",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "sensor",
+      "icon": "drivers/alarmOffSwitch/assets/alarm.svg"
     },
-    "getStatus": {
-      "description": "",
-      "method": "GET",
-      "path":"/state/:type"
-    },
-    "getUsers": {
-      "method": "GET",
-      "path":"/users/:pin"
-    },
-    "processUsers": {
-      "method": "POST",
-      "path":"/users/:action"
-    },
-    "processKeypadCommands": {
-      "method": "POST",
-      "path":"/keypad/:type"
+    "homealarm_state": {
+      "type": "enum",
+      "title": {
+        "en": "Home Alarm state",
+        "nl": "Thuisalarm status",
+        "de": "Heim Alarm Status",
+        "fr": "État d'alarme à la maison",
+        "it": "Stato di Allarme Casa",
+        "no": "Alarmstatus for hjemmet",
+        "sv": "Alarmstatus för hemmet",
+        "da": "Alarm status for hjemmet",
+        "es": "Estado de alarma de casa"
+      },
+      "values": [
+        {
+          "id": "armed",
+          "title": {
+            "en": "Armed",
+            "nl": "Ingeschakeld",
+            "de": "Gesichert",
+            "fr": "Activée",
+            "it": "Armato",
+            "no": "Tilkoblet",
+            "sv": "Tillkopplad",
+            "da": "Tilkoblet",
+            "es": "Armada"
+          }
+        },
+        {
+          "id": "disarmed",
+          "title": {
+            "en": "Disarmed",
+            "nl": "Uitgeschakeld",
+            "de": "Entsichert",
+            "fr": "Desactivée",
+            "it": "Disarmato",
+            "no": "Frakoblet",
+            "sv": "Frånkopplad",
+            "da": "Frakoblet",
+            "es": "Desarmada"
+          }
+        },
+        {
+          "id": "partially_armed",
+          "title": {
+            "en": "Partially armed",
+            "nl": "Deels ingeschakeld",
+            "de": "Teils gesichert",
+            "fr": "Partiellement activé",
+            "it": "Parzialmente Armato",
+            "no": "Delvis tilkoblet",
+            "sv": "Delvis tillkopplad",
+            "da": "Delvis Tilkoblet",
+            "es": "Parcialmante armada"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker"
     }
   }
 }

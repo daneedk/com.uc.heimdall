@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Alarm state",
+    "da": "Alarmtilstand",
+    "de": "Alarmzustand",
+    "fr": "État d'alarme",
+    "it": "Stato allarme",
+    "nl": "Alarmtoestand",
+    "no": "Alarmtilstand",
+    "es": "Estado de alarma",
+    "sv": "Larmläge"
+  },
+  "desc": "The Alarm status",
+  "getable": true,
+  "setable": true,
+  "uiComponent": null,
+  "icon": "drivers/alarmOffSwitch/assets/alarm.svg"
+}

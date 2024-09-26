@@ -1,0 +1,36 @@
+{
+  "id": "SurveillanceChanged",
+  "title": {
+    "en": "Surveillance Mode changed.",
+    "nl": "Toezicht modus is gewijzigd.",
+    "de": "Überwachungsmodus geändert.",
+    "fr": "Le Mode Surveillance a changé.",
+    "it": "La Modalità Sorveglianza è cambiata.",
+    "no": "Overvåkningsmodus er endret.",
+    "sv": "Övervakningsläget har ändrats.",
+    "da": "Overvågnings tilstand er ændret.",
+    "es": "Modo de vigilancia ha cambiado."
+  },
+  "hint": {
+    "en": "This card is triggered when the Surveillance Mode is changed, the new Mode is available in the Surveillance Mode tag.",
+    "nl": "Deze kaart wordt geactiveerd als de Toezicht Modus gewijzigd wordt, de nieuwe mode is beschikbaar in de Toezicht modus tag."
+  },
+  "tokens": [
+    {
+      "name": "mode",
+      "type": "string",
+      "title": {
+        "en": "Surveillance Mode",
+        "nl": "Toezicht Modus",
+        "de": "Überwachungsmodus",
+        "fr": "Mode Surveillance",
+        "it": "Modalità Sorveglianza",
+        "no": "Overvåkningsmodus",
+        "sv": "Övervakningsläge",
+        "da": "Overvågnings tilstand",
+        "es": "Modo de vigilancia"
+      },
+      "example": "Disarmed"
+    }
+  ]
+}

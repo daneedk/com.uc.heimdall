@@ -1,0 +1,17 @@
+{
+  "id": "CheckLastCommunication",
+  "title": {
+    "en": "Check Last Communication",
+    "nl": "Controleer laatste communicatie",
+    "de": "Kontrolliere letzte Kommunikation",
+    "fr": "Vérifier la dernière communication",
+    "it": "Verifica l'ultima comunicazione",
+    "no": "Sjekk siste kommunikasjon",
+    "sv": "Kontrollera den senaste kommunikationen",
+    "da": "Kontroller seneste kommunikation",
+    "es": "Comprobar última comunicación"
+  },
+  "hint": {
+    "en": "Checks if devices that are included in a Surveillance Mode have communcicated with Homey in the last 24 hours. Make a flow with the triggercard No information received to process the results."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "AddLoggingToDevice",
+  "title": {
+    "en": "Add Logging to device",
+    "nl": "Voeg Loggen toe aan apparaat",
+    "de": "Loging zum Gerät hinzufügen",
+    "fr": "Ajouter un Connexion à l'appareil",
+    "it": "Aggiungi Registro Eventi al dispositivo",
+    "no": "Legg til logging for enhet",
+    "sv": "Addera loggning till en enhet",
+    "da": "Tilføj logning for enhed",
+    "es": "Añadir registro al dispositivo"
+  },
+  "titleFormatted": {
+    "en": "Add Logging to [[device]]",
+    "nl": "Voeg Loggen toe aan [[device]]",
+    "de": "Loging zum [[device]] hinzufügen",
+    "fr": "Ajouter un Connexion à [[device]]",
+    "it": "Aggiungi Registro Eventi al [[device]]",
+    "no": "Legg til logging for [[device]]",
+    "sv": "Addera loggning till en [[device]]",
+    "da": "Tilføj logning for [[device]]",
+    "es": "Añadir registro al [[device]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

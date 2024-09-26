@@ -1,0 +1,42 @@
+{
+  "id": "AddDeviceToPartial",
+  "title": {
+    "en": "Add device to Partial Surveillance Mode",
+    "nl": "Voeg apparaat toe aan Gedeeltelijke Toezicht Mode",
+    "de": "Gerät zum Teilüberwachungsmodus hinzufügen",
+    "fr": "Ajouter un appareil au Mode de Surveillance Partielle",
+    "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Parziale",
+    "no": "Legg enhet til for Delvis overvåkning",
+    "sv": "Addera en enhet till partiellt övervakningsläge",
+    "da": "Tilføj en enhed til Delvis Overvågnings Tilstand",
+    "es": "Agregar dispositivo al modo de vigilancia parcial"
+  },
+  "titleFormatted": {
+    "en": "Add [[device]] to Partial Surveillance Mode",
+    "nl": "Voeg [[device]] toe aan Gedeeltelijke Toezicht Mode",
+    "de": "[[device]] zum Teilüberwachungsmodus hinzufügen",
+    "fr": "Ajouter [[device]] au Mode de Surveillance Partielle",
+    "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Parziale",
+    "no": "Legg [[device]] til for Delvis overvåkning",
+    "sv": "Addera en [[device]] till partiellt övervakningsläge",
+    "da": "Tilføj en [[device]] til Delvis Overvågnings Tilstand",
+    "es": "Agregar [[device]] al modo de vigilancia parcial"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}
