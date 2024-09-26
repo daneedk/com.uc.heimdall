@@ -5,3 +5,4 @@ env.json
 
 # Added by Homey CLI
 /.homeybuild/
+package-lock.json
