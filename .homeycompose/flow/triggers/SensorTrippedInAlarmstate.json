@@ -1,0 +1,67 @@
+{
+  "id": "SensorTrippedInAlarmstate",
+  "title": {
+    "en": "Sensor tripped in Alarmstate",
+    "nl": "Sensor actief in Alarmstatus",
+    "de": "Sensor ausgelöst in Alarmstatus",
+    "fr": "Sensor tripped in Alarmstate",
+    "it": "Sensore attivato in Alarmstate",
+    "no": "Sensor utløst i alarmstatus",
+    "sv": "Sensor utlöst i larmläge",
+    "da": "Sensor udløst alarm status",
+    "es": "Sensor disparado en estado de alarma"
+  },
+  "hint": {
+    "en": "This card is triggered when a sensor is tripped while the Alarm State is active. The Zone, Device and State are available in the tags."
+  },
+  "tokens": [
+    {
+      "name": "Zone",
+      "type": "string",
+      "title": {
+        "en": "Zone",
+        "nl": "Zone",
+        "de": "Zone",
+        "fr": "Zone",
+        "it": "Zona",
+        "no": "sone",
+        "sv": "Zon",
+        "da": "Zone",
+        "es": "Zona"
+      },
+      "example": "Hallway"
+    },
+    {
+      "name": "Device",
+      "type": "string",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "Enhet",
+        "sv": "Enhet",
+        "da": "Enhed",
+        "es": "Dispositivo"
+      },
+      "example": "Motion Sensor"
+    },
+    {
+      "name": "State",
+      "type": "string",
+      "title": {
+        "en": "State",
+        "nl": "Status",
+        "de": "Status",
+        "fr": "State",
+        "it": "Stato",
+        "no": "Status",
+        "sv": "Status",
+        "da": "Status",
+        "es": "Estado"
+      },
+      "example": "Motion detected"
+    }
+  ]
+}

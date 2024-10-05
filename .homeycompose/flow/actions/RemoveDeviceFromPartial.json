@@ -1,0 +1,42 @@
+{
+  "id": "RemoveDeviceFromPartial",
+  "title": {
+    "en": "Remove device from Partial Surveillance Mode",
+    "nl": "Verwijder apparaat uit Gedeeltelijke Toezicht Mode",
+    "de": "Gerät aus dem Teilüberwachungsmodus entfernen",
+    "fr": "Supprimer l'appareil du Mode de Surveillance Partielle",
+    "it": "Rimuovere il dispositivo dalla Modalità di Sorveglianza Parziale",
+    "no": "Fjern enhet fra Delvis overvåkning",
+    "sv": "To bort en enhet från partiellt övervakningsläge",
+    "da": "Fjern enhed fra Delvis Overvågnings Tilstand",
+    "es": "Eliminar dispositivo del modo de vigilancia parcial"
+  },
+  "titleFormatted": {
+    "en": "Remove [[device]] from Partial Surveillance Mode",
+    "nl": "Verwijder [[device]] uit Gedeeltelijke Toezicht Mode",
+    "de": "[[device]] aus dem Teilüberwachungsmodus entfernen",
+    "fr": "Supprimer [[device]] du Mode de Surveillance Partielle",
+    "it": "Rimuovere [[device]] dalla Modalità di Sorveglianza Parziale",
+    "no": "Fjern [[device]] fra Delvis overvåkning",
+    "sv": "To bort en [[device]] från partiellt övervakningsläge",
+    "da": "Fjern [[device]] fra Delvis Overvågnings Tilstand",
+    "es": "Eliminar [[device]] del modo de vigilancia parcial"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

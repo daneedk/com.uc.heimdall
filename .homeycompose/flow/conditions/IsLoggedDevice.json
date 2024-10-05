@@ -1,0 +1,45 @@
+{
+  "id": "IsLoggedDevice",
+  "title": {
+    "en": "Device is !{{logged |not logged}}",
+    "nl": "Apparaat wordt !{{gelogd |niet gelogd}}",
+    "de": "Gerät wird !{{gelogd |nicht gelogd}}",
+    "fr": "L'appareil !{{est |n'est pas}} connecté",
+    "it": "Il dispositivo !{{è in fase di registrazione |non viene registrato}}",
+    "no": "Enhet er !{{logget |ikke logget}}",
+    "sv": "Enhet är !{{loggad |inte loggad}}",
+    "da": "Enhed er !{{logget |ikke logget}}",
+    "es": "El dispositivo está !{{registrado |no registrado}}"
+  },
+  "titleFormatted": {
+    "en": "[[device]] is !{{logged |not logged}}",
+    "nl": "[[device]] wordt !{{gelogd |niet gelogd}}",
+    "de": "[[device]] wird !{{gelogd |nicht gelogd}}",
+    "fr": "[[device]] !{{est |n'est pas}} connecté",
+    "it": "[[device]] !{{è in fase di registrazione |non viene registrato}}",
+    "no": "[[device]] er !{{logget |ikke logget}}",
+    "sv": "[[device]] är !{{loggad |inte loggad}}",
+    "da": "[[device]] er !{{logget |ikke logget}}",
+    "es": "[[device]] está !{{registrado |no registrado}}"
+  },
+  "hint": {
+    "en": "Evaluates if the chosen device has the logged setting."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "Enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "TimeTillAlarm",
+  "title": {
+    "en": "The time until alarm changed",
+    "nl": "De tijd tot alarm wijzigt",
+    "de": "Zeit bis zum Alarm geändert",
+    "fr": "Le temps jusqu'à ce que l'alarme a changé",
+    "it": "Il tempo prima dell'allarme è cambiato",
+    "no": "Tid til alarmen endres",
+    "sv": "Tid till dess larmet ändras",
+    "da": "Tid til alarmen ændres",
+    "es": "El tiempo hasta que la alarma cambió"
+  },
+  "hint": {
+    "en": "This card is triggered when the Alarm Counter changes. The seconds left are available in the Seconds until alarm tag."
+  },
+  "tokens": [
+    {
+      "name": "AlarmTimer",
+      "type": "number",
+      "title": {
+        "en": "Seconds until alarm",
+        "nl": "Seconden tot alarm",
+        "de": "Sekunden",
+        "fr": "Secondes avant l'alarme",
+        "it": "Secondi prima dell'allarme",
+        "no": "Sekunder til alarm",
+        "sv": "Sekunder kvar till alarm",
+        "da": "Sekunder til alarm",
+        "es": "Segundos hasta alarma"
+      },
+      "example": 30
+    }
+  ]
+}

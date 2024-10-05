@@ -1,0 +1,42 @@
+{
+  "id": "RemoveDelayFromDevice",
+  "title": {
+    "en": "Remove Delay from device",
+    "nl": "Verwijder Vertraging van apparaat",
+    "de": "Verzögerung vom Gerät entfernen",
+    "fr": "Supprimer le délai de l'appareil",
+    "it": "Rimuovi ritardo dal dispositivo",
+    "no": "Fjern forsinkelse fra enhet",
+    "sv": "Ta bort en fördröjning från en enhet",
+    "da": "Fjern forsinkelse fra enhed",
+    "es": "retirar retardo al dispositivo"
+  },
+  "titleFormatted": {
+    "en": "Remove Delay from [[device]]",
+    "nl": "Verwijder Vertraging van [[device]]",
+    "de": "Verzögerung vom [[device]] entfernen",
+    "fr": "Supprimer le délai de [[device]]",
+    "it": "Rimuovi ritardo dal [[device]]",
+    "no": "Fjern forsinkelse fra [[device]]",
+    "sv": "Ta bort en fördröjning från en [[device]]",
+    "da": "Fjern forsinkelse fra [[device]]",
+    "es": "retirar retardo al [[device]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

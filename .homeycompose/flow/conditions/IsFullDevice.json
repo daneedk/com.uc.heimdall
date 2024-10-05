@@ -1,0 +1,45 @@
+{
+  "id": "IsFullDevice",
+  "title": {
+    "en": "Device is !{{part|not part}} of Full Surveillance Mode",
+    "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+    "de": "Gerät ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+    "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+    "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
+    "no": "Enhet er !{{del|ikke del}} av Full overvåkning",
+    "sv": "Enhet är !{{del|inte del}} av Fullt Övervakningsläge",
+    "da": "Enhed er !{{del|ikke del}} af Fuld Overvågning tilstand",
+    "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia completa"
+  },
+  "titleFormatted": {
+    "en": "[[device]] is !{{part|not part}} of Full Surveillance Mode",
+    "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Volledige Beveiligings Mode",
+    "de": "[[device]] ist !{{Teil|nicht Teil}} des Vollständigen Überwachungsmodus",
+    "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Complète",
+    "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Completa",
+    "no": "[[device]] er !{{del|ikke del}} av Full overvåkning",
+    "sv": "[[device]] är !{{del|inte del}} av Fullt Övervakningsläge",
+    "da": "[[device]] er !{{del|ikke del}} af Fuld Overvågning tilstand",
+    "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia completa"
+  },
+  "hint": {
+    "en": "Evaluates if the chosen device is used in the Full Surveillance Mode."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "Enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "sensorActiveAtArming",
+  "title": {
+    "en": "Sensor active at arming.",
+    "nl": "Sensor actief bij inschakelen.",
+    "de": "Sensor aktiv bei Einschaltung.",
+    "fr": "Capteur actif à l'armement.",
+    "it": "Sensore attivo all'inserimento.",
+    "no": "Sensor aktiv ved tilkobling.",
+    "sv": "Sensor aktiv vid tillkoppling.",
+    "da": "Sensor aktiv ved tilkobling.",
+    "es": "Sensor activo en el armado."
+  },
+  "hint": {
+    "en": "This card is triggered when there is a sensor in active state when the Surveillance Mode is set to Armed or Partially Armed."
+  },
+  "tokens": [
+    {
+      "name": "warning",
+      "type": "string",
+      "title": {
+        "en": "Warning",
+        "nl": "Waarschuwing",
+        "de": "Warnung",
+        "fr": "Attention",
+        "it": "Attenzione",
+        "no": "Advarsel",
+        "sv": "Varning",
+        "da": "Advarsel",
+        "es": "Aviso"
+      },
+      "example": "Warning, sensor is active."
+    }
+  ]
+}

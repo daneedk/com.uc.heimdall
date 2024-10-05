@@ -1,0 +1,31 @@
+{
+  "id": "SendNotification",
+  "title": {
+    "en": "Send information to Timeline",
+    "nl": "Stuur informatie naar Timeline",
+    "de": "Sende Informationen an Timeline",
+    "fr": "Envoyer des informations à Timeline",
+    "it": "Invia informazioni alla Timeline",
+    "no": "Send informasjon til Tidslinjen",
+    "sv": "Sänd information till Tidslinjen",
+    "da": "Send information til Tidslinie",
+    "es": "Enviar información a la línea temporal"
+  },
+  "titleFormatted": {
+    "en": "Send [[message]] to Timeline",
+    "nl": "Stuur [[message]] naar Timeline",
+    "de": "Sende [[message]] an Timeline",
+    "fr": "Envoyer des [[message]] à Timeline",
+    "it": "Invia [[message]] alla Timeline",
+    "no": "Send [[message]] til Tidslinjen",
+    "sv": "Sänd [[message]] till Tidslinjen",
+    "da": "Send [[message]] til Tidslinie",
+    "es": "Enviar [[message]] a la línea temporal"
+  },
+  "args": [
+    {
+      "name": "message",
+      "type": "text"
+    }
+  ]
+}

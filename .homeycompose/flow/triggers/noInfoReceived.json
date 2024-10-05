@@ -1,0 +1,83 @@
+{
+  "id": "noInfoReceived",
+  "title": {
+    "en": "No information received",
+    "nl": "Geen informatie ontvangen",
+    "de": "Keine Informationen empfangen",
+    "fr": "Aucune information reçue",
+    "it": "Nessuna informazione ricevuta",
+    "no": "Ingen informasjon mottatt",
+    "sv": "Ingen information mottagen",
+    "da": "Ingen information modtaget",
+    "es": "No se recibió información."
+  },
+  "hint": {
+    "en": "This card is triggered when a device has not communicated with Homey for 24 Hours. All devices are checked when changing the Surveillance Mode or using the Check Last Communication Flow card. The Duration, Last communicationtime, Zone and Device are available in the tags."
+  },
+  "tokens": [
+    {
+      "name": "Duration",
+      "type": "number",
+      "title": {
+        "en": "Hours no information",
+        "nl": "Uren geen informatie",
+        "de": "Stunden keine Informationen",
+        "fr": "Heures aucune information",
+        "it": "Ore senza informazioni",
+        "no": "Timer uten informasjon",
+        "sv": "Timmar utan information",
+        "da": "Timer uden information",
+        "es": "Horas sin información"
+      },
+      "example": 24
+    },
+    {
+      "name": "LastUpdate",
+      "type": "string",
+      "title": {
+        "en": "Last update",
+        "nl": "Laatste bericht",
+        "de": "Letztes Update",
+        "fr": "Dernière mise à jour",
+        "it": "Ultimo Aggiornamento",
+        "no": "Sist oppdatert",
+        "sv": "Senaste uppdateringen",
+        "da": "Sidst opdateret",
+        "es": "Última actualización"
+      },
+      "example": "2019-01-15 13:37:00"
+    },
+    {
+      "name": "Zone",
+      "type": "string",
+      "title": {
+        "en": "Zone",
+        "nl": "Zone",
+        "de": "Zone",
+        "fr": "Zone",
+        "it": "Zona",
+        "no": "sone",
+        "sv": "Zon",
+        "da": "Zone",
+        "es": "Zona"
+      },
+      "example": "Living Room"
+    },
+    {
+      "name": "Device",
+      "type": "string",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "Enhet",
+        "sv": "Enhet",
+        "da": "Enhed",
+        "es": "Dispositivo"
+      },
+      "example": "Motion Sensor"
+    }
+  ]
+}

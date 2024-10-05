@@ -1,0 +1,42 @@
+{
+  "id": "RemoveLoggingFromDevice",
+  "title": {
+    "en": "Remove Logging from device",
+    "nl": "Verwijder Loggen van apparaat",
+    "de": "Loging vom Gerät entfernen",
+    "fr": "Supprimer le Connexion de l'appareil",
+    "it": "Rimuovi Registro Eventi dal dispositivo",
+    "no": "Fjern logging fra enhet",
+    "sv": "Ta bort loggning från en enhet",
+    "da": "Fjern logning fra enhed",
+    "es": "retirar registro al dispositivo"
+  },
+  "titleFormatted": {
+    "en": "Remove Logging from [[device]]",
+    "nl": "Verwijder Loggen van [[device]]",
+    "de": "Loging vom [[device]] entfernen",
+    "fr": "Supprimer le Connexion de [[device]]",
+    "it": "Rimuovi Registro Eventi dal [[device]]",
+    "no": "Fjern logging fra [[device]]",
+    "sv": "Ta bort loggning från en [[device]]",
+    "da": "Fjern logning fra [[device]]",
+    "es": "retirar registro al [[device]]"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

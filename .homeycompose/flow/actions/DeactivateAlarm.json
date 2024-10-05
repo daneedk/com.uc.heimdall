@@ -1,0 +1,14 @@
+{
+  "id": "DeactivateAlarm",
+  "title": {
+    "en": "Deactivate Alarm",
+    "nl": "Deactiveer Alarm",
+    "de": "Deaktiviere Alarm",
+    "fr": "Désactiver l'alarme",
+    "it": "Disattiva Allarme",
+    "no": "Deaktiver Alarm",
+    "sv": "Deaktivera Alarm",
+    "da": "Deaktiver Alarm",
+    "es": "Desactivar Alarma"
+  }
+}

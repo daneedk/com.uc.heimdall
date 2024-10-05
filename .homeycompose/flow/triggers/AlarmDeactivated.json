@@ -1,0 +1,35 @@
+{
+  "id": "AlarmDeactivated",
+  "title": {
+    "en": "The alarm is deactivated.",
+    "nl": "Het alarm is gedeactiveerd.",
+    "de": "Alarm ist deaktiviert.",
+    "fr": "L'alarme est desactivée.",
+    "it": "L'allarme è disattivato.",
+    "no": "Alarmen er deaktivert.",
+    "sv": "Alarmet är frånkopplat.",
+    "da": "Alarm er deaktiveret.",
+    "es": "La alarma está desactivada."
+  },
+  "hint": {
+    "en": "This card is triggered when the Alarm State is deactivated. The way the Alarm State is deactivated is available in the Source tag."
+  },
+  "tokens": [
+    {
+      "name": "Source",
+      "type": "string",
+      "title": {
+        "en": "Source",
+        "nl": "Bron",
+        "de": "Quelle",
+        "fr": "La source",
+        "it": "Fonte",
+        "no": "Kilde",
+        "sv": "Källa",
+        "da": "Kilde",
+        "es": "Fuente"
+      },
+      "example": "Alarm Off Button"
+    }
+  ]
+}

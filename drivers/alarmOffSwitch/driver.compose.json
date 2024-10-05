@@ -1,0 +1,77 @@
+{
+  "name": {
+    "en": "Alarm",
+    "nl": "Alarm",
+    "de": "Alarm",
+    "fr": "Alarm",
+    "it": "Allarme",
+    "no": "Alarm",
+    "sv": "Alarm",
+    "da": "Alarm",
+    "es": "Alarma"
+  },
+  "images": {
+    "large": "drivers/alarmOffSwitch/assets/images/large.png",
+    "small": "drivers/alarmOffSwitch/assets/images/small.png"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "button",
+    "alarm_heimdall"
+  ],
+  "capabilitiesOptions": {
+    "button": {
+      "title": {
+        "en": "Turn off",
+        "nl": "Deactiveer",
+        "de": "Ausschalten",
+        "fr": "Éteindre",
+        "it": "Disattivare",
+        "no": "Skru av",
+        "sv": "Stäng av",
+        "da": "Slå fra",
+        "es": "Apagar"
+      },
+      "desc": "Button to turn Alarm off",
+      "preventTag": true
+    },
+    "alarm_heimdall": {
+      "preventTag": true,
+      "titleTrue": {
+        "en": "ALARM",
+        "nl": "ALARM",
+        "de": "ALARM",
+        "fr": "ALARM",
+        "it": "ALLARME",
+        "no": "ALARM",
+        "sv": "ALARM",
+        "da": "ALARM",
+        "es": "ALARMA"
+      },
+      "titleFalse": {
+        "en": "All is quiet",
+        "nl": "Alles ok",
+        "de": "Alles ok",
+        "fr": "Tout est calme",
+        "it": "Tutto Ok",
+        "no": "Alt er ok",
+        "sv": "Allt är lugnt",
+        "da": "Alt er OK",
+        "es": "Todo esta tranquilo"
+      }
+    }
+  },
+  "pair": [
+    {
+      "id": "list_triggers",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_triggers"
+      }
+    },
+    {
+      "id": "add_triggers",
+      "template": "add_devices"
+    }
+  ]
+}

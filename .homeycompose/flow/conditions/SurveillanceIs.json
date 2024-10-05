@@ -1,0 +1,78 @@
+{
+  "id": "SurveillanceIs",
+  "title": {
+    "en": "Surveillance mode is !{{ |not }}",
+    "nl": "Toezicht mode is !{{ |niet }}",
+    "de": "Überwachungsmodus ist !{{ |nicht }}",
+    "fr": "Le Mode Surveillance !{{est |n'est pas }}",
+    "it": "La Modalità Sorveglianza  !{{è |non è }}",
+    "no": "Overvåkningsmodus er !{{ |ikke }}",
+    "sv": "Övervakningsläge är !{{ |inte }}",
+    "da": "Overvågnings tilstand er !{{ |ikke }}",
+    "es": "El modo de vigilancia es !{{ |no }}"
+  },
+  "titleFormatted": {
+    "en": "Surveillance mode is !{{ |not }} [[surveillance]]",
+    "nl": "Toezicht mode is !{{ |niet }} [[surveillance]]",
+    "de": "Überwachungsmodus ist !{{ |nicht }} [[surveillance]]",
+    "fr": "Le Mode Surveillance !{{est |n'est pas }} [[surveillance]]",
+    "it": "La Modalità Sorveglianza !{{è |non è }} [[surveillance]]",
+    "no": "Overvåkningsmodus er !{{ |ikke }} [[surveillance]]",
+    "sv": "Övervakningsläge är !{{ |inte }} [[surveillance]]",
+    "da": "Overvågnings tilstand er !{{ |ikke }} [[surveillance]]",
+    "es": "El modo de vigilancia es !{{ |no }} [[surveillance]]"
+  },
+  "hint": {
+    "en": "Evaluates if the Surveillance Mode is a certain value."
+  },
+  "args": [
+    {
+      "name": "surveillance",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "armed",
+          "label": {
+            "en": "Armed",
+            "nl": "Ingeschakeld",
+            "de": "Aktiviert",
+            "fr": "Activée",
+            "it": "Armato",
+            "no": "Tilkoblet",
+            "sv": "Aktiverad",
+            "da": "Tilkoblet",
+            "es": "Armado"
+          }
+        },
+        {
+          "id": "disarmed",
+          "label": {
+            "en": "Disarmed",
+            "nl": "Uitgeschakeld",
+            "de": "Deaktiviert",
+            "fr": "Désactivé",
+            "it": "Disarmato",
+            "no": "Frakoblet",
+            "sv": "Inaktiverad",
+            "da": "Frakoblet",
+            "es": "Desarmado"
+          }
+        },
+        {
+          "id": "partially_armed",
+          "label": {
+            "en": "Partially Armed",
+            "nl": "Deels ingeschakeld",
+            "de": "Teilweise aktiviert",
+            "fr": "Partiellement activé",
+            "it": "Parzialmente Armato",
+            "no": "Delvis tilkoblet",
+            "sv": "Delvis aktiverad",
+            "da": "Delvis tilkoblet",
+            "es": "Parcialmente armado"
+          }
+        }
+      ]
+    }
+  ]
+}

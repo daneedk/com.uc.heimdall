@@ -1,0 +1,42 @@
+{
+  "id": "AddDeviceToFull",
+  "title": {
+    "en": "Add device to Full Surveillance Mode",
+    "nl": "Voeg apparaat toe aan Volledige Toezicht Mode",
+    "de": "Gerät zum vollständigen Überwachungsmodus hinzufügen",
+    "fr": "Ajouter un appareil en Mode de Surveillance Complète",
+    "it": "Aggiungi dispositivo alla Modalità di Sorveglianza Completa",
+    "no": "Legg enhet til Full overvåkning",
+    "sv": "Addera en enhet till fullt övervakningsläge",
+    "da": "Tilføj en enhed til Fuld Overvågnings Tilstand",
+    "es": "Agregar dispositivo al modo de vigilancia completa"
+  },
+  "titleFormatted": {
+    "en": "Add [[device]] to Full Surveillance Mode",
+    "nl": "Voeg [[device]] toe aan Volledige Toezicht Mode",
+    "de": "[[device]] zum vollständigen Überwachungsmodus hinzufügen",
+    "fr": "Ajouter [[device]] en Mode de Surveillance Complète",
+    "it": "Aggiungi [[device]] alla Modalità di Sorveglianza Completa",
+    "no": "Legg [[device]] til Full overvåkning",
+    "sv": "Addera en [[device]] till fullt övervakningsläge",
+    "da": "Tilføj en [[device]] til Fuld Overvågnings Tilstand",
+    "es": "Agregar [[device]] al modo de vigilancia completa"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

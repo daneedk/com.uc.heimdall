@@ -1,0 +1,35 @@
+{
+  "id": "ArmDelayActivated",
+  "title": {
+    "en": "The arming delay is activated.",
+    "nl": "De inschakel vertraging is geactiveerd.",
+    "de": "Aktivierungcountdown ist aktiviert.",
+    "fr": "Le délai d’armement est activé.",
+    "it": "Il ritardo di inserimento è attivato.",
+    "no": "Tilkoblingsforinkelse er aktivert.",
+    "sv": "Fördröjd tillkoppling är aktiverad.",
+    "da": "Tilkoblings forsinkelsen er aktiveret.",
+    "es": "El retardo de armado está activado."
+  },
+  "hint": {
+    "en": "This card is triggered when the Arming Delay is activated. The length of the delay is available in the Duration tag."
+  },
+  "tokens": [
+    {
+      "name": "Duration",
+      "type": "number",
+      "title": {
+        "en": "Duration",
+        "nl": "Duur",
+        "de": "Dauer",
+        "fr": "Durée",
+        "it": "Durata",
+        "no": "Varighet",
+        "sv": "Varaktighet",
+        "da": "Varighed",
+        "es": "Duración"
+      },
+      "example": 30
+    }
+  ]
+}

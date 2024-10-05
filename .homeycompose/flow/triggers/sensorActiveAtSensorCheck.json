@@ -1,0 +1,83 @@
+{
+  "id": "sensorActiveAtSensorCheck",
+  "title": {
+    "en": "Sensor active at Status Check.",
+    "nl": "Sensor actief bij status controle.",
+    "de": "Sensor aktiv bei Status Überprufing.",
+    "fr": "Capteur actif lors de la vérification de l'état.",
+    "it": "Sensore attivo durante il controllo dello stato.",
+    "no": "Sensor aktiv ved statuskontroll.",
+    "sv": "Sensor aktiv vid statuskontroll.",
+    "da": "Sensor aktiv ved status kontrol.",
+    "es": "Sensor activo en la comprobación de estado."
+  },
+  "hint": {
+    "en": "This card is triggered when there is a sensor in active state when a Sensor Check is run."
+  },
+  "tokens": [
+    {
+      "name": "Zone",
+      "type": "string",
+      "title": {
+        "en": "Zone",
+        "nl": "Zone",
+        "de": "Zone",
+        "fr": "Zone",
+        "it": "Zona",
+        "no": "Sone",
+        "sv": "Zon",
+        "da": "Zone",
+        "es": "Zona"
+      },
+      "example": "Hallway"
+    },
+    {
+      "name": "Device",
+      "type": "string",
+      "title": {
+        "en": "Device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "Enhet",
+        "sv": "Enhet",
+        "da": "Enhed",
+        "es": "Dispositivo"
+      },
+      "example": "Front door"
+    },
+    {
+      "name": "Device type",
+      "type": "string",
+      "title": {
+        "en": "Device type",
+        "nl": "Apparaat type",
+        "de": "Gerätetyp",
+        "fr": "Type d'appareil",
+        "it": "Tipo di dispositivo",
+        "no": "Device type",
+        "sv": "Enhetstyp",
+        "da": "Enheds type",
+        "es": "Tipo de dispositivo"
+      },
+      "example": "Contact"
+    },
+    {
+      "name": "State",
+      "type": "string",
+      "title": {
+        "en": "State",
+        "nl": "Status",
+        "de": "Status",
+        "fr": "Etat",
+        "it": "Stato",
+        "no": "Status",
+        "sv": "Status",
+        "da": "Status",
+        "es": "Estado"
+      },
+      "example": "Open"
+    }
+  ]
+}

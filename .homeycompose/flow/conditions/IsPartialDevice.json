@@ -1,0 +1,45 @@
+{
+  "id": "IsPartialDevice",
+  "title": {
+    "en": "Device is !{{part|not part}} of Partial Surveillance Mode",
+    "nl": "Apparaat is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+    "de": "Gerät ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+    "fr": "L'appareil !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+    "it": "Il dispositivo !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
+    "no": "Enhet er !{{del|ikke del}} av Delvis overvåkning",
+    "sv": "Enhet är !{{del|inte del}} av partiellt övervakningsläge",
+    "da": "Enhed er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
+    "es": "El dispositivo !{{hace parte|no hace pare}} del modo de vigilancia parcial"
+  },
+  "titleFormatted": {
+    "en": "[[device]] is !{{part|not part}} of Partial Surveillance Mode",
+    "nl": "[[device]] is !{{onderdeel |geen onderdeel}} van Gedeeltelijke Beveiligings Mode",
+    "de": "[[device]] ist !{{Teil|nicht Teil}} des Teilüberwachungsmodus",
+    "fr": "[[device]] !{{fait|ne fait pas}} partie du Mode de Surveillance Partielle",
+    "it": "[[device]] !{{fa parte|non fa parte}} della Modalità di Sorveglianza Parziale",
+    "no": "[[device]] er !{{del|ikke del}} av Delvis overvåkning",
+    "sv": "[[device]] är !{{del|inte del}} av partiellt övervakningsläge",
+    "da": "[[device]] er !{{del|ikke del}} af Delvis Overvågnings Tilstand",
+    "es": "[[device]] !{{hace parte|no hace pare}} del modo de vigilancia parcial"
+  },
+  "hint": {
+    "en": "Evaluates if the chosen device is used in the Partial Surveillance Mode."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "device",
+        "nl": "Apparaat",
+        "de": "Gerät",
+        "fr": "Appareil",
+        "it": "Dispositivo",
+        "no": "enhet",
+        "sv": "enhet",
+        "da": "Enhed",
+        "es": "dispositivo"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "AlarmCountdown",
+  "title": {
+    "en": "Alarm countdown !{{active |not active}}",
+    "nl": "Alarm vertraging !{{actief |niet actief}}",
+    "de": "Alarmcountdown !{{aktiv |nicht aktiv}}",
+    "fr": "Compte à rebours d'alarme !{{ |pas }} actif",
+    "it": "Countdown Allarme !{{attivo |non attivo}}",
+    "no": "Nedtelling for alarm !{{aktiv |ikke aktiv}}",
+    "sv": "Nedräkning för alarm !{{aktiv |inte aktiv}}",
+    "da": "Nedtælling for alarm !{{aktiv |ikke aktiv}}",
+    "es": "Cuenta atrás de alarma !{{activa |no activa}}"
+  },
+  "hint": {
+    "en": "Evaluates if an Alarm Countdown is (not) active."
+  }
+}

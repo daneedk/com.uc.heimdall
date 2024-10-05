@@ -92,6 +92,9 @@ module.exports = class Heimdall extends Homey.App {
         this.homey.flow.getTriggerCard('LogLineWritten');
         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate');
         this.homey.flow.getTriggerCard('noInfoReceived');
+        this.homey.flow.getDeviceTriggerCard('homealarm_state_changed').registerRunListener((args, state) => {
+            return args.device.getCapabilityValue('homealarm_state') === args.state;
+        });
 
         // Flow conditions
         const conditionSurveillanceIs = this.homey.flow.getConditionCard('SurveillanceIs');
@@ -102,6 +105,9 @@ module.exports = class Heimdall extends Homey.App {
         const conditionIsLoggedDevice = this.homey.flow.getConditionCard('IsLoggedDevice');
         const conditionIsFullDevice = this.homey.flow.getConditionCard('IsFullDevice');
         const conditionIsPartialDevice = this.homey.flow.getConditionCard('IsPartialDevice');
+        this.homey.flow.getConditionCard('homealarm_state_is').registerRunListener((args, state) => {
+            return args.device.getCapabilityValue('homealarm_state') === args.state;
+        });
 
         // Flow actions
         const actionInputHistory = this.homey.flow.getActionCard('SendInfo');
@@ -119,6 +125,9 @@ module.exports = class Heimdall extends Homey.App {
         const actionRemoveDeviceFromPartial = this.homey.flow.getActionCard('RemoveDeviceFromPartial');
         const actionAddDeviceToFull = this.homey.flow.getActionCard('AddDeviceToFull');
         const actionRemoveDeviceFromFull = this.homey.flow.getActionCard('RemoveDeviceFromFull');
+        this.homey.flow.getActionCard('set_homealarm_state').registerRunListener((args, state) => {
+            return args.device.setCapabilityValue('homealarm_state', args.state).catch(this.error);
+        });
 
         // Flow Condition functions
         conditionSurveillanceIs
