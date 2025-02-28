@@ -92,6 +92,7 @@ module.exports = class Heimdall extends Homey.App {
         this.homey.flow.getTriggerCard('LogLineWritten');
         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate');
         this.homey.flow.getTriggerCard('noInfoReceived');
+        this.homey.flow.getTriggerCard('silentCode');
 
         // Flow conditions
         const conditionSurveillanceIs = this.homey.flow.getConditionCard('SurveillanceIs');
@@ -711,8 +712,11 @@ module.exports = class Heimdall extends Homey.App {
                         userObject = this.getUserInfo(shortPinCode, this.users);
                         if ( userObject["valid"] ) {
                             silentCode = pinCode.substr(pinCode.length - 1, 1);
-                            // todo: write code to handle silentCode
-
+                            // activate triggercard
+                            var tokens = { 'silentCode': silentCode };
+                            this.homey.flow.getTriggerCard('silentCode').trigger(tokens)
+                                .catch(this.error)
+                                .then()
                         }
                     }
                 }

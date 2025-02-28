@@ -1,6 +1,6 @@
 {
   "id": "com.uc.heimdall",
-  "version": "2.10.17",
+  "version": "2.10.20",
   "compatibility": ">=8.1.3",
   "platforms": ["local"],
   "sdk": 3,
@@ -806,6 +806,24 @@
               "es": "Dispositivo"
             },
             "example": "Motion Sensor"
+          }
+        ]
+      },
+      {
+        "id": "silentCode",
+        "title": {
+          "en": "A Silentcode was received"
+        },
+        "hint": {
+          "en": "This card is triggered when an extra digit is added to the PIN at setting the Surveillance Mode to Disarmed from a keypad."
+        },
+        "tokens": [
+          {
+            "name": "silentCode",
+            "type": "string",
+            "title": {
+              "en": "Silent Code"
+            }
           }
         ]
       }

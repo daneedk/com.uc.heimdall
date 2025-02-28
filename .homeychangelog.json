@@ -606,5 +606,22 @@
       "no": "• Lagt til RDIF-tag til brukerinnstillinger • Forbedret feilhåndtering",
       "es": "• Agregado etiqueta RDIF a la configuración del usuario • Mejora en el manejo de errores",
       "sv": "• Lade till RDIF-tag till användarinställningar • Förbättrad felhantering"
-    } 
+    },
+    "2.10.18": {
+      "en": "Test version for using a Silent Code at disarming"
+    },
+    "2.10.19": {
+      "en": "Test version for using a Silent Code at disarming"
+    },
+    "2.10.20": {
+      "en": "Added a Silent Code to disarming from a 3rd party keypad",
+      "da": "Tilføjet en Silent Code til deaktivering fra et tredjepartstastatur",
+      "de": "Stiller Code zum Deaktivieren von einer Drittanbieter-Tastatur hinzugefügt",
+      "fr": "Ajout d'un code silencieux pour désarmer à partir d'un clavier tiers",
+      "it": "Aggiunto un Codice Silenzioso per disarmare da una tastiera di terze parti",
+      "nl": "Stille Code toegevoegd voor uitschakelen vanaf een toetsenbord van derden",
+      "no": "Lagt til en Silent Code for deaktivering fra et tredjepartstastatur",
+      "es": "Añadido un Código Silencioso para desarmar desde un teclado de terceros",
+      "sv": "Lagt till en Silent Code för avaktivering från ett tredjepartstangentbord"
+    }
 }
