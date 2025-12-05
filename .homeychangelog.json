@@ -625,14 +625,14 @@
       "sv": "Lagt till en Silent Code för avaktivering från ett tredjepartstangentbord"
     },
     "2.10.21": {
-      "en": "Fixed small display bug in device settings",
-      "da": "",
-      "de": "",
-      "fr": "",
-      "it": "",
-      "nl": "",
-      "no": "",
-      "es": "",
-      "sv": ""
+      "en": "Fixed small display bug in device settings, change in retrieving zone names",
+      "da": "Rettet en lille visningsfejl i enhedsindstillingerne, ændring i hentning af zonenavne",
+      "de": "Kleinen Anzeigefehler in den Geräteeinstellungen behoben, Änderung beim Abrufen von Zonennamen",
+      "fr": "Correction d’un petit bug d’affichage dans les paramètres de l’appareil, modification de la récupération des noms de zones",
+      "it": "Corretto un piccolo bug di visualizzazione nelle impostazioni del dispositivo, modifica nel recupero dei nomi delle zone",
+      "nl": "Kleine weergavefout in apparaatinstellingen opgelost, wijziging in het ophalen van zonenamen",
+      "no": "Fikset en liten visningsfeil i enhetsinnstillinger, endring i henting av sonenavn",
+      "es": "Corregido un pequeño error de visualización en la configuración del dispositivo, cambio en la obtención de los nombres de zonas",
+      "sv": "Fixat en liten visningsbugg i enhetsinställningarna, ändring i hämtning av zonnamn"
     }
 }
