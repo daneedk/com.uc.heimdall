@@ -427,30 +427,30 @@ function onHomeyReady(homeyReady){
                 for ( let capability in device.capabilitiesObj ) {
                     if ( capability === "alarm_contact" ) {
                         if ( device.capabilitiesObj.alarm_contact.value ) {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/contact.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability active\"/>"    
                         } else {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/contact.svg\" class=\"icon-capability\"/>"
+                            result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_motion" ) {
                         if ( device.capabilitiesObj.alarm_motion.value ) {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"    
                         } else {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/motion.svg\" class=\"icon-capability\"/>"
+                            result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_vibration" ) {
                         if ( device.capabilitiesObj.alarm_vibration.value ) {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "v\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
                         } else {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
+                            result += "<img id=\"" + device.id + "v\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_tamper" ) {
                         if ( device.capabilitiesObj.alarm_tamper.value ) {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper active\"/>"    
+                            result += "<img id=\"" + device.id + "t\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper active\"/>"    
                         } else {
-                            result += "<img id=\"" + device.id + "\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper\"/>"
+                            result += "<img id=\"" + device.id + "t\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper\"/>"
                         }
                     }
                 }
@@ -1085,30 +1085,30 @@ async function showStatus() {
         for ( let capability in device.capabilitiesObj ) {
             if ( capability === "alarm_contact" ) {
                 if ( device.capabilitiesObj.alarm_contact.value ) {
-                    $('#'+device.id).addClass('active')
+                    $('#'+device.id+"c").addClass('active')
                 } else {
-                    $('#'+device.id).removeClass('active')
+                    $('#'+device.id+"c").removeClass('active')
                 }
             }
             if ( capability === "alarm_motion" ) {
                 if ( device.capabilitiesObj.alarm_motion.value ) {
-                    $('#'+device.id).addClass('active')
+                    $('#'+device.id+"m").addClass('active')
                 } else {
-                    $('#'+device.id).removeClass('active')
+                    $('#'+device.id+"m").removeClass('active')
                 }
             }
             if ( capability === "alarm_vibration" ) {
                 if ( device.capabilitiesObj.alarm_vibration.value ) {
-                    $('#'+device.id).addClass('active')
+                    $('#'+device.id+"v").addClass('active')
                 } else {
-                    $('#'+device.id).removeClass('active')
+                    $('#'+device.id+"v").removeClass('active')
                 }
             }
             if ( capability === "alarm_tamper" ) {
                 if ( device.capabilitiesObj.alarm_tamper.value ) {
-                    $('#'+device.id).addClass('active')
+                    $('#'+device.id+"t").addClass('active')
                 } else {
-                    $('#'+device.id).removeClass('active')
+                    $('#'+device.id+"t").removeClass('active')
                 }
             }
             if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {

@@ -623,5 +623,16 @@
       "no": "Lagt til en Silent Code for deaktivering fra et tredjepartstastatur",
       "es": "Añadido un Código Silencioso para desarmar desde un teclado de terceros",
       "sv": "Lagt till en Silent Code för avaktivering från ett tredjepartstangentbord"
+    },
+    "2.10.21": {
+      "en": "Fixed small display bug in device settings",
+      "da": "",
+      "de": "",
+      "fr": "",
+      "it": "",
+      "nl": "",
+      "no": "",
+      "es": "",
+      "sv": ""
     }
 }
