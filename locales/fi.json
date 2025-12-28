@@ -1,0 +1,214 @@
+{
+    "settings": {
+        "benefit": "Anna Homeyn valvoa kotiasi."
+    },
+    "devices": {
+        "surveillancemode": {
+            "name": "Valvontatilan kytkin"
+        },
+        "alarmoff": {
+            "name": "Hälytys pois -painike"
+        },
+        "flowcard": "Tilakortti"
+    },
+    "tab1": {
+        "title": "Aloitussivu", 
+        "settings": {
+            "settingsgroup": {
+                "logsettings": "Login asetukset"
+            }
+        },
+        "status": {
+            "title": "Tila",
+            "smode": "Valvontatila",
+            "smodeFull": "Täysi valvontatila",
+            "smodePartial": "Osittainen valvontatila",
+            "alarm": "Hälytys"
+        },
+        "history": {
+            "title": "History",
+            "autoRefresh": "Automaattinen päivitys",
+            "manualRefresh": "Päivitä",
+            "useColors": "Käytä värejä",
+            "btnClearHistory": "Tyhjennä historia",
+            "btnDownload": "Lataa",
+            "date": "Päiväys",
+            "time": "Aika",
+            "smode": "Valvontatila",
+            "source": "Lähde",
+            "action": "Tapahtuma"
+        }
+    },
+    "tab2": {
+        "title": "Laitteet",
+        "subtab1": {
+            "title": "Tila",
+            "lastseen": "Viimeksi nähty:",
+            "na": "ei saatavilla"
+        },
+        "subtab2": {
+            "title": "Asetukset"
+        },
+        "devices": {
+            "devices": "Laitteet",
+            "zone": "Vyöhyke",
+            "device": "Laite",
+            "monitor": "Tarkkailulaite",
+            "dTrigger": "Viivästetty laukaisu",
+            "justLog": "Vain kirjaus",
+            "delay": "Viive",
+            "log": "Kirjaa logiin",
+            "full": "Täysi",
+            "partial": "Osittainen"
+        }
+    },
+    "tab3": {
+        "title": "Asetukset",
+        "settings": {
+            "settingsgroup": {
+                "delays": "Viiveet",
+                "logging": "Kirjaukset",
+                "check": "Viritystä edeltävä tarkistus",
+                "speech": "Anna Homeyn kertoa sinulle milloin",
+                "notifications": "Kirjoita aikajanalle milloin"
+            },
+            "title": "Asetukset",
+            "arDelay": "Virityksen viive",
+            "alDelay": "Hälytyksen viive",
+            "seconds": "Sekuntia",
+            "save": "Tallenna",
+            "secondsFail": "Arvo ei kelpaa, anna viive välillä 0-300 sekuntia",
+            "saveSucces": "Uudet asetukset tallennetaan.",
+            "logarmedonly": "Vain kun valvontatila on aktiivinen",
+            "logtrueonly": "Ei anturien deaktivointiin",
+            "usetampering": "Käytä peukaloinnin tunnistusta",
+            "delayarmingfull": "Käytä viritettäessä",
+            "delayarmingpartial": "Käytä osittain viritetyn tilan kanssa",
+            "alarmwhiledelayed" : "Salli hälytys hälytysviiveen aikana",
+            "alarmwhiledelayeddescription": "Anturin laukeaminen hälytysviiveen ollessa käynnissä aktivoi hälytystilan välittömästi.",
+            "checkMotionAtArming": "Tarkista liiketunnistimet",
+            "checkContactAtArming": "Tarkista ovi/ikkuna-anturit",
+            "checkbeforecountdown": "Suorita tarkistus ennen virityksen viivettä"
+        },
+        "speech": {
+            "spokenalarmcountdown": "Hälytyslaskenta on aktiivinen",
+            "spokenarmcountdown": "Virityslaskenta on aktiivinen",
+            "smodechange": "valvontatila vaihtui",
+            "alarmchange": "Hälytys on päällä tai pois päältä",
+            "motiontrue": "liikettä havaittu virityksen aikana",
+            "tampertrue": "peukalointi havaittu virityksen aikana",
+            "dooropen": "ovi tai ikkuna auki virityksen aikana",
+            "motionatarming": "liiketunnistin on aktiivinen virityksen aikana",
+            "dooropenatarming": "ovi tai ikkuna on auki virityksen aikana"
+        },
+        "notification": {
+            "smodechange": "valvontatila vaihtui",
+            "alarmchange": "Hälytys on päällä tai pois päältä",
+            "nocommunicationmotion": "Liikkentunnistimeen ei saada yhteyttä",
+            "nocommunicationcontact": "Yhteyslaitteeseen ei saada yhteyttä",
+            "nocommunicationdescription": "Kun valvontatila on valittuna, Heimdall tarkistaa, ovatko laitteet kommunikoineet viimeisen 24 tunnin aikana.",
+            "alarmwhiledelayeddescription": "Anturin laukeaminen hälytysviiveen ollessa käynnissä aktivoi hälytystilan välittömästi."
+        }
+    },
+    "tab4": {
+        "title": "Käyttäjät",
+        "users": {
+            "usersgroup": {
+                "users": "Käyttäjien hallinta",
+                "enterpin": "Syötä PIN",
+                "enter": "Ok",
+                "validating": "Vahvistetaan",
+                "invalidpin": "Väärä PIN",
+                "save": "Tallenna",
+                "cancel": "Peruuta",
+                "delete": "Poista",
+                "username": "Käyttäjätunnus",
+                "administrator": "Ylläpitäjä",
+                "user": "Käyttäjä",
+                "pin": "PIN",
+                "enabled": "Käytössä",
+                "disabled": "Pois käytöstä",
+                "editdescription": "Luo ensimmäinen käyttäjä. Tämä käyttäjä on aina järjestelmänvalvoja, eikä häntä voi poistaa käytöstä tai poistaa"
+            }
+        }
+    },
+    "tab5": {
+        "title": "(I)",
+        "instructions": {
+            "title": "Ohjeet"
+        }
+    },
+    "modes": {
+        "disarmed": "Ei viritetty",
+        "armed": "Viritetty",
+        "partiallyarmed": "Osittain viritetty"
+    },
+    "enumerate": {
+        "source": "Aloitustarkistus",
+        "warning": " ei ole valmis Heimdallin käynnistyessä"
+    },
+    "devicecheck": {
+        "source": "Laitetarkistus",
+        "warning": " ei ole enää valmis",
+        "ready": " on valmis",
+        "readyagain": " on jälleen valmkis"
+    },
+    "states": {
+        "open": "Auki",
+        "closed": "Suljettu",
+        "motion": "Liike havaittu",
+        "nomotion": "Ei liikettä havaittu",
+        "vibration": "Värinä havaittu",
+        "novibration": "Ei värinää havaittu",
+        "tamper": "Peukalointi havaittu",
+        "notamper": "Ei peukalointia havaittavissa"
+    },
+    "speech": {
+        "startalarmcountdown": "Hälytys menee pois päältä ",
+        "startarmcountdown": "Valvontatilaksi asetetaan ",
+        "in": " ",
+        "seconds": " sekunnin kuluttua",
+        "smodeset": "Valvontilaksi on asetettu ",
+        "alarmactivated": "Hälytys on viritetty",
+        "alarmdeactivated": "Hälytys ei ole viritetty"
+    },
+    "atarming": {
+        "on": " ",
+        "is": " on ",
+        "delayText": ". Tässä laitteessa on viivästetty laukaisu.",
+        "warningMotion": "Varoitus, anturi aktiivinen. ",
+        "warningContact": "Varoitus, anturi "
+    },
+    "history": {
+        "smodedisarmed": "Valvontatila on kytketty pois päältä.",
+        "smodearmed": "Valvontatila on viritetty.",
+        "smodepartiallyarmed": "Valvontatila on osittain viritetty.",
+        "smodedelayarmed": "Valvontatila viritetään ",
+        "smodedelaypartiallyarmed": "Valvontatila viritetään osittain ",
+        "seconds": " sekunnin kuluttua.",
+        "smodedelaychanged": "Viritystilan laskentaa on nopeutettu 10 sekunnilla",
+        "alarmdeactivated": "Hälytyksen poisti ",
+        "alarmactivated": "Hälytys on aktivoitu. ",
+        "alarmactivatedflowcard": "Hälytys on aktivoitu tilakortista. ",
+        "smodechangedisabled": "Valvontatilan vaihtaminen on poissa käytöstä poiskytkennän vuoksi.",
+        "triggerdalarm": " laukaisi hälytyksen",
+        "delayoverruled": ", viivästetty hälytyslaukaisu ohitetaan.",
+        "alarmdelayed": "Hälytyksen laukaisu viivästyy: ", 
+        "alarmnotactivated": "Hälytys ei aktivoidu poiskytkennän vuoksi.",
+        "noalarmtriggercountdown": ", ei hälytyslaukaisua käyntiviiveen vuoksi.",
+        "noalarmtriggeralarmstate": ", ei hälytyslaukaisua aktiivisen hälytystilan takia.",
+        "noreport": " ei ole ollut yhteydessä ",
+        "lastreport": " tuntiin. Viimeisin yhteys: ",
+        "validcode": " syötti kelvollisen koodin ja painoi ",
+        "on": " ",
+        "sendcommand": "Komento ",
+        "tosurveillancemode": " lähetetty valvontatilan kytkimeen",
+        "invalidcode": "virheellinen koodi syötettiin ennen painamista ",
+        "key": "näppäintä ",
+        "pressed": " painettiin "
+    },
+    "notification": {
+        "smodeset1": "**Valvontatila** asetettiin moodiin ",
+        "smodeset2": "."
+    }
+}
