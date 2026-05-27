@@ -634,5 +634,16 @@
       "no": "Fikset en liten visningsfeil i enhetsinnstillinger, endring i henting av sonenavn",
       "es": "Corregido un pequeño error de visualización en la configuración del dispositivo, cambio en la obtención de los nombres de zonas",
       "sv": "Fixat en liten visningsbugg i enhetsinställningarna, ändring i hämtning av zonnamn"
+    },
+    "2.10.22": {
+      "en": "Change in retrieving zone names",
+      "da": "ændring i hentning af zonenavne",
+      "de": "Änderung beim Abrufen von Zonennamen",
+      "fr": "Modification de la récupération des noms de zones",
+      "it": "Modifica nel recupero dei nomi delle zone",
+      "nl": "Kleine weergavefout in apparaatinstellingen opgelost, wijziging in het ophalen van zonenamen",
+      "no": "Endring i henting av sonenavn",
+      "es": "Cambio en la obtención de los nombres de zonas",
+      "sv": "Ändring i hämtning av zonnamn"
     }
 }

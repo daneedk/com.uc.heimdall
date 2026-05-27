@@ -884,7 +884,7 @@ module.exports = class Heimdall extends Homey.App {
                         this.log('sourceDevicePartial:        ' + sourceDevicePartial);
                         this.log('sourceDeviceLog:            ' + sourceDeviceLog);
                         this.log('Alarm is triggered:         Yes')
-                        const zone = await this.getZoneName(device.zone);
+                        //const zone = await this.getZoneName(device.zone);
                         let delayOverruled = ".";
                         if ( alarmCounterRunning && !this.isDelayed(device) ) {
                             this.log('Alarm counter active:       Yes');
@@ -954,7 +954,7 @@ module.exports = class Heimdall extends Homey.App {
                     if ( ( surveillance == 'armed' && sourceDeviceFull ) || ( surveillance == 'partially_armed' && sourceDevicePartial ) ) {
                         this.log('Alarmstate Active:          The Alarm State is active so just log the sensorstate')
                         logLine = color + nu + this.readableMode(surveillance) + " || Heimdall || " + device.name + ": " + sensorStateReadable + this.homey.__("history.noalarmtriggeralarmstate");
-                        const zone = await this.getZoneName(device.zone);
+                        //const zone = await this.getZoneName(device.zone);
                         //var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
                         var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
                         this.homey.flow.getTriggerCard('SensorTrippedInAlarmstate').trigger(tokens)
@@ -990,7 +990,7 @@ module.exports = class Heimdall extends Homey.App {
             }
             if ( sourceDeviceLog ) {
                 // trigger the flowcard when a device with logging changes state
-                const zone = await this.getZoneName(device.zone);  
+                //const zone = await this.getZoneName(device.zone);  
                 //var tokens = {'Zone': device.zoneName, 'Device': device.name, 'State': sensorStateReadable};
                 var tokens = {'Zone': zone, 'Device': device.name, 'State': sensorStateReadable};
                 this.homey.flow.getTriggerCard('LogLineWritten').trigger(tokens)
@@ -1114,9 +1114,10 @@ module.exports = class Heimdall extends Homey.App {
     async checkDevicesLastCom(value) {
         try {
             let allDevices = await this.getDevices()
+            const allZones = await this.getZones() 
 
             for (let device in allDevices) {
-                this.checkDeviceLastCom(allDevices[device], value)
+                this.checkDeviceLastCom(allDevices[device], value, allZones)
             };
         } catch(err) {
             this.log("checkDevicesLastCom:        ", err)
@@ -1126,7 +1127,7 @@ module.exports = class Heimdall extends Homey.App {
     // Check the last communication per device
     // Write result to the log and trigger triggerNoInfoReceived when needed.
     // - Called from checkDevicesLastCom(value)
-    async checkDeviceLastCom(device, value) {
+    async checkDeviceLastCom(device, value, allZones) {
         if ( !device.ready || !device.capabilitiesObj) return       
         if ( this.isMonitoredFull(device) || this.isMonitoredPartial(device) ) {
             let nu = this.getDateTime();
@@ -1152,7 +1153,7 @@ module.exports = class Heimdall extends Homey.App {
                     let lastUpdateTime = d.toLocaleString();
 
                     let tempColor = 'mp-'
-                    const zone = await this.getZoneName(device.zone);                 
+                    const zone = allZones[device.zone]?.name ?? 'Unknown Zone'; // await this.getZoneName(device.zone);
                     //let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + device.zoneName + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                     let tempLogLine = tempColor + nu + this.readableMode(value) + " || Heimdall || " + device.name + " in " + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                     this.writeLog(tempLogLine)
@@ -1283,8 +1284,9 @@ module.exports = class Heimdall extends Homey.App {
     async checkAllDevicesState() {
         try {
             let allDevices = await this.getDevices()
+            const allZones = await this.getZones()
             for (let device in allDevices) {
-                this.checkAllDeviceState(allDevices[device])
+                this.checkAllDeviceState(allDevices[device], allZones)
             };
         } catch(err) {
             this.log("checkAllDevicesState:       ", err)
@@ -1294,7 +1296,7 @@ module.exports = class Heimdall extends Homey.App {
     // Check the state per device
     // Write result to the log and call alertSensorActive(device, sensorType, sensorStateReadable) when needed
     // - Called from checkAllDevicesState()
-    async checkAllDeviceState(device) {
+    async checkAllDeviceState(device, allZones) {
         if ( await this.checkReadyState(device) ) return
         let sensorState = false
         let sensorStateReadable
@@ -1316,15 +1318,15 @@ module.exports = class Heimdall extends Homey.App {
             this.log("checkAllDeviceState:        " + device.name + " - capabilitiesObj is null or undefined");
         }
         if ( sensorState ) {
-            this.alertSensorActive (device, sensorType, sensorStateReadable)
+            this.alertSensorActive(device, sensorType, sensorStateReadable, allZones)
         }
     }
 
     // When a sensor is active when the Device State is checked from a flow
     // Trigger triggerSensorActive
     // - Called from checkAllDeviceState(device)
-    async alertSensorActive( device, sensorType, sensorstateReadable ) {
-        const zone = await this.getZoneName(device.zone);
+    async alertSensorActive( device, sensorType, sensorstateReadable, allZones ) {
+        const zone = allZones[device.zone]?.name ?? 'Unknown Zone'; // await this.getZoneName(device.zone);
         //var tokens = { 'Zone': device.zoneName, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
         var tokens = { 'Zone': zone, 'Device': device.name, 'Device type': sensorType, 'State': sensorstateReadable }
         this.homey.flow.getTriggerCard('sensorActiveAtSensorCheck').trigger(tokens)
