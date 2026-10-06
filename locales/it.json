@@ -127,6 +127,11 @@
                 "user": "Utente",
                 "pin": "Codice PIN",
                 "tag": "etiqueta RFID",
+                "learnTag": "Aggiungi nuovo tag RFID",
+                "waitingForTag": "In attesa del tag RFID...",
+                "tagCaptured": "Tag RFID acquisito. Salva l’utente per conservarlo.",
+                "tagAlreadyAssigned": "Il tag RFID è già assegnato a ",
+                "tagEnrollmentExpired": "Tempo per la registrazione RFID scaduto.",
                 "enabled": "Abilitato",
                 "disabled": "Disabilitato",
                 "editdescription": "Crea il tuo primo utente. Questo utente sarà sempre amministratore e non può essere disattivato o eliminato"

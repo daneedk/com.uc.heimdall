@@ -1985,6 +1985,10 @@
       "method": "POST",
       "path":"/users/:action"
     },
+    "processRFIDEnrollment": {
+      "method": "POST",
+      "path":"/rfid-enrollment"
+    },
     "processKeypadCommands": {
       "method": "POST",
       "path":"/keypad/:type"

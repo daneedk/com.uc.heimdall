@@ -22,6 +22,8 @@ var isAdmin = false;
 var canSave = false;
 var canCancel = true;
 var canDelete = false;
+var rfidEnrollmentActive = false;
+var rfidEnrollmentUserId = null;
 var defaultSettings = {
     "armingDelay": "30",
     "alarmDelay": "30",
@@ -72,6 +74,30 @@ function onHomeyReady(homeyReady){
     Homey.on('Surveillance Mode', function(data)
     {
         console.log("Surveillance Mode event received:", data);
+    });
+
+    Homey.on('RFID Enrollment Captured', function(data)
+    {
+        if ( Number(document.getElementById("userId").value) !== data.userId ) return;
+        document.getElementById("userRFIDTag").value = data.rfidtag;
+        checkSave();
+        setRFIDEnrollment(false, Homey.__("tab4.users.usersgroup.tagCaptured"));
+    });
+
+    Homey.on('RFID Enrollment Error', function(data)
+    {
+        if ( Number(document.getElementById("userId").value) !== data.userId ) return;
+        Homey.alert(Homey.__("tab4.users.usersgroup.tagAlreadyAssigned") + data.userName);
+    });
+
+    Homey.on('RFID Enrollment Cancelled', function(data)
+    {
+        if ( Number(document.getElementById("userId").value) !== data.userId ) return;
+        if ( data.reason === "expired" ) {
+            setRFIDEnrollment(false, Homey.__("tab4.users.usersgroup.tagEnrollmentExpired"));
+        } else {
+            setRFIDEnrollment(false, "");
+        }
     });
 
     heimdallSettings = defaultSettings;
@@ -676,6 +702,8 @@ function displayUsers(users) {
 }
 
 function addUser(userId) {
+    setRFIDEnrollment(false, "");
+    document.getElementById("rfidEnrollmentButton").style.display = "none";
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";
     document.getElementById("userEnabled").checked = true;
@@ -704,6 +732,41 @@ function checkSave() {
         $('#saveButton').removeClass('btn-active');
         $('#saveButton').addClass('btn-inactive');
     }
+}
+
+function setRFIDEnrollment(active, status) {
+    rfidEnrollmentActive = active;
+    rfidEnrollmentUserId = active ? Number(document.getElementById("userId").value) : null;
+    document.getElementById("rfidEnrollmentButton").innerText = Homey.__(active ? "tab4.users.usersgroup.cancel" : "tab4.users.usersgroup.learnTag");
+    document.getElementById("rfidEnrollmentStatus").innerText = status;
+}
+
+async function toggleRFIDEnrollment() {
+    let userId = Number(document.getElementById("userId").value);
+    if ( rfidEnrollmentActive ) {
+        setRFIDEnrollment(false, "");
+        try {
+            await apiRequest('POST', '/rfid-enrollment', { action: "cancel", userId: userId, pin: document.getElementById('pin').value });
+        } catch (error) {
+            setRFIDEnrollment(true, Homey.__("tab4.users.usersgroup.waitingForTag"));
+            Homey.alert(error);
+        }
+        return;
+    }
+    setRFIDEnrollment(true, Homey.__("tab4.users.usersgroup.waitingForTag"));
+    try {
+        await apiRequest('POST', '/rfid-enrollment', { action: "start", userId: userId, pin: document.getElementById('pin').value });
+    } catch (error) {
+        setRFIDEnrollment(false, "");
+        Homey.alert(error);
+    }
+}
+
+function cancelRFIDEnrollmentForUser(userId) {
+    if ( !rfidEnrollmentActive || rfidEnrollmentUserId !== Number(userId) ) return;
+    setRFIDEnrollment(false, "");
+    apiRequest('POST', '/rfid-enrollment', { action: "cancel", userId: Number(userId), pin: document.getElementById('pin').value })
+        .catch(error => Homey.alert(error));
 }
 
 function checkAdmin() {
@@ -750,6 +813,7 @@ function saveUser() {
 
 function cancelUser(action) {
     if ( !canCancel ) return;
+    cancelRFIDEnrollmentForUser(document.getElementById("userId").value);
     document.getElementById("userspane").style.display = "block";
     document.getElementById("useredit").style.display = "none";
     document.getElementById("usereditdescription").style.display = "none";
@@ -813,6 +877,8 @@ function processUser(modifiedUser, action) {
 }
 
 function editUser(userId) {
+    setRFIDEnrollment(false, "");
+    document.getElementById("rfidEnrollmentButton").style.display = "";
     let user = JSON.parse(document.getElementById("userAll"+userId).value);
     document.getElementById("userspane").style.display = "none";
     document.getElementById("useredit").style.display = "block";

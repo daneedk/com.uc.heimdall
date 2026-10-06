@@ -526,6 +526,10 @@
                             <div class="users-input">
                                 <input id="userRFIDTag" class="hy-nostyle" type="text" inputmode="text" value="" autocomplete="off" maxlength="10" onkeyup="checkSave()"></input>
                             </div>
+                            <div class="users-input">
+                                <a id="rfidEnrollmentButton" @click="toggleRFIDEnrollment()" class="btn middle btn-active" data-i18n="tab4.users.usersgroup.learnTag">-Add new RFID tag-</a>
+                                <span id="rfidEnrollmentStatus"></span>
+                            </div>
                             <span>&nbsp;</span>
                             <div class="users-input">
                                 <label class="hy-nostyle">&nbsp;<br />&nbsp;<br />&nbsp;</label>

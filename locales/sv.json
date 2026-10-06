@@ -127,6 +127,11 @@
                 "user": "Användare",
                 "pin": "Pinkod",
                 "tag": "RFID tag",
+                "learnTag": "Lägg till ny RFID-tagg",
+                "waitingForTag": "Väntar på RFID-tagg...",
+                "tagCaptured": "RFID-tagg mottagen. Spara användaren för att behålla den.",
+                "tagAlreadyAssigned": "RFID-taggen är redan tilldelad ",
+                "tagEnrollmentExpired": "Tidsgränsen för RFID-registrering har överskridits.",
                 "enabled": "Aktiverad",
                 "disabled": "Inaktiverad",
                 "editdescription": "Skapa din första användare. Den här användaren är alltid administratör och kan inte inaktiveras eller raderas"

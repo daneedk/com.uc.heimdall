@@ -127,6 +127,11 @@
                 "user": "Benutzer",
                 "pin": "PIN",
                 "tag": "RFID tag",
+                "learnTag": "Neuen RFID-Tag hinzufügen",
+                "waitingForTag": "Warte auf RFID-Tag...",
+                "tagCaptured": "RFID-Tag erfasst. Speichern Sie den Benutzer, um ihn zu behalten.",
+                "tagAlreadyAssigned": "RFID-Tag ist bereits zugewiesen an ",
+                "tagEnrollmentExpired": "Zeitlimit für RFID-Erfassung überschritten.",
                 "enabled": "Aktiviert",
                 "disabled": "Deaktiviert",
                 "editdescription": "Bitte erstellen Sie Ihren ersten Benutzer. Dieser Benutzer ist immer Administrator und kann nicht deaktiviert oder gelöscht werden."

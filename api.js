@@ -25,6 +25,10 @@ module.exports =  {
         return homey.app.processUsers(body, params.action);
     },
 
+    async processRFIDEnrollment({ homey, body }) {
+        return homey.app.processRFIDEnrollment(body);
+    },
+
     async processKeypadCommands({ homey, params, body }) {
         return homey.app.processKeypadCommands(body, params.type)
     }

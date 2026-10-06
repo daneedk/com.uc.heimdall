@@ -127,6 +127,11 @@
                 "usur": "Usuario",
                 "pin": "PIN",
                 "tag": "RFID tag",
+                "learnTag": "Añadir nueva etiqueta RFID",
+                "waitingForTag": "Esperando etiqueta RFID...",
+                "tagCaptured": "Etiqueta RFID capturada. Guarde el usuario para conservarla.",
+                "tagAlreadyAssigned": "La etiqueta RFID ya está asignada a ",
+                "tagEnrollmentExpired": "Se agotó el tiempo para registrar la etiqueta RFID.",
                 "enabled": "Habilitado",
                 "disabled": "Discapacitado",
                 "editdescription": "Cree su primer usuario. Este usuario siempre será el administrador y no se puede inhabilitar ni eliminar"

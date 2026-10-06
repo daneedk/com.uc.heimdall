@@ -127,6 +127,11 @@
                 "user": "Bruker",
                 "pin": "PIN-kode",
                 "tag": "RFID-merke",
+                "learnTag": "Legg til ny RFID-brikke",
+                "waitingForTag": "Venter på RFID-brikke...",
+                "tagCaptured": "RFID-brikke registrert. Lagre brukeren for å beholde den.",
+                "tagAlreadyAssigned": "RFID-brikken er allerede tildelt ",
+                "tagEnrollmentExpired": "Tidsavbrudd for RFID-registrering.",
                 "enabled": "Aktivert",
                 "disabled": "Funksjonshemmet",
                 "editdescription": "Opprett din første bruker. Denne brukeren vil alltid være administrator og kan ikke deaktiveres eller slettes"

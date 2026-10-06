@@ -51,6 +51,8 @@ var newtag = [];
 module.exports = class Heimdall extends Homey.App {
 
     async onInit() {
+        this.rfidEnrollment = null;
+        this.rfidEnrollmentTimeout = null;
         this.log(`${Homey.manifest.id} ${Homey.manifest.version} initialising --------------`)
         this.log('Platform:                  ', this.homey.platform);
         this.log('PlatformVersion:           ', this.homey.platformVersion);
@@ -683,6 +685,69 @@ module.exports = class Heimdall extends Homey.App {
         return "Succes";
     }
 
+    processRFIDEnrollment(body) {
+        if ( !body || typeof body !== 'object' ) {
+            throw new Error("Invalid RFID enrollment request");
+        }
+        let userId = Number(body.userId);
+        let requestingUser = Array.isArray(this.users) ? this.users.find(user => user.pincode === body.pin) : null;
+        let targetUser = Array.isArray(this.users) ? this.users.find(user => user.id == userId) : null;
+        if ( !Number.isInteger(userId) || !requestingUser || !targetUser || (!requestingUser.admin && requestingUser.id != userId) ) {
+            throw new Error("Invalid RFID enrollment request");
+        }
+        if ( body.action === "start" ) {
+            return this.startRFIDEnrollment(userId);
+        } else if ( body.action === "cancel" ) {
+            return this.cancelRFIDEnrollment(userId);
+        }
+        throw new Error("Invalid RFID enrollment action");
+    }
+
+    startRFIDEnrollment(userId) {
+        userId = Number(userId);
+        if ( !Number.isInteger(userId) || !Array.isArray(this.users) || !this.users.some(user => user.id == userId) ) {
+            throw new Error("A valid existing user is required for RFID enrollment");
+        }
+        if ( this.rfidEnrollment ) {
+            if ( Date.now() < this.rfidEnrollment.expiresAt ) {
+                throw new Error("RFID enrollment is already active");
+            }
+            clearTimeout(this.rfidEnrollmentTimeout);
+            this.rfidEnrollment = null;
+            this.rfidEnrollmentTimeout = null;
+        }
+        let startedAt = Date.now();
+        let expiresAt = startedAt + 60000;
+        this.rfidEnrollment = {
+            active: true,
+            userId: userId,
+            startedAt: startedAt,
+            expiresAt: expiresAt
+        };
+        this.rfidEnrollmentTimeout = setTimeout(() => {
+            if (this.rfidEnrollment && this.rfidEnrollment.expiresAt === expiresAt) {
+                this.cancelRFIDEnrollment(userId, "expired");
+            }
+        }, 60000);
+        return { userId: userId, expiresAt: expiresAt };
+    }
+
+    cancelRFIDEnrollment(userId, reason = "cancelled") {
+        userId = Number(userId);
+        if ( !Number.isInteger(userId) ) {
+            throw new Error("A valid user is required for RFID enrollment");
+        }
+        if ( !this.rfidEnrollment || this.rfidEnrollment.userId !== userId ) {
+            return false;
+        }
+        clearTimeout(this.rfidEnrollmentTimeout);
+        let enrollment = this.rfidEnrollment;
+        this.rfidEnrollment = null;
+        this.rfidEnrollmentTimeout = null;
+        this.systemEvent("RFID Enrollment Cancelled", { userId: enrollment.userId, reason: reason });
+        return true;
+    }
+
     // Process information received from a keypad,
     // - Called by 3rd party apps via api.js
     async processKeypadCommands(post, type) {
@@ -693,6 +758,22 @@ module.exports = class Heimdall extends Homey.App {
 
             if ( type == "action" ) {
                 let RFIDtag = post.rfidtag;
+                if ( RFIDtag && this.rfidEnrollment && Date.now() >= this.rfidEnrollment.expiresAt ) {
+                    this.cancelRFIDEnrollment(this.rfidEnrollment.userId, "expired");
+                }
+                if ( RFIDtag && this.rfidEnrollment && this.rfidEnrollment.active ) {
+                    let enrollment = this.rfidEnrollment;
+                    let existingUser = (this.users || []).find(user => user.rfidtag === RFIDtag);
+                    if ( existingUser ) {
+                        this.systemEvent("RFID Enrollment Error", { userId: enrollment.userId, userName: existingUser.name });
+                        return "RFID tag is already assigned";
+                    }
+                    clearTimeout(this.rfidEnrollmentTimeout);
+                    this.rfidEnrollment = null;
+                    this.rfidEnrollmentTimeout = null;
+                    this.systemEvent("RFID Enrollment Captured", { userId: enrollment.userId, rfidtag: RFIDtag });
+                    return "RFID tag captured";
+                }
                 let userObject = [];
                 if  ( RFIDtag ) {
                     userObject = this.getUserInfoRFID(RFIDtag, this.users);

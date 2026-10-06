@@ -127,6 +127,11 @@
                 "user": "Gebruiker",
                 "pin": "Pincode",
                 "tag": "RFID tag",
+                "learnTag": "Nieuwe RFID-tag toevoegen",
+                "waitingForTag": "Wachten op RFID-tag...",
+                "tagCaptured": "RFID-tag ontvangen. Sla de gebruiker op om deze te bewaren.",
+                "tagAlreadyAssigned": "RFID-tag is al toegewezen aan ",
+                "tagEnrollmentExpired": "Registreren van de RFID-tag is verlopen.",
                 "enabled": "Ingeschakeld",
                 "Disabled": "Uitgeschakeld",
                 "editdescription": "Maak uw eerste gebruiker aan. Deze gebruiker zal altijd Administrator zijn en kan niet worden uitgeschakeld of verwijderd"            }

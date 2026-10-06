@@ -127,6 +127,11 @@
                 "user": "Bruger",
                 "pin": "PIN",
                 "tag": "RFID-mærke",
+                "learnTag": "Tilføj nyt RFID-mærke",
+                "waitingForTag": "Venter på RFID-mærke...",
+                "tagCaptured": "RFID-mærke registreret. Gem brugeren for at beholde det.",
+                "tagAlreadyAssigned": "RFID-mærket er allerede tildelt til ",
+                "tagEnrollmentExpired": "Tidsgrænsen for RFID-registrering er overskredet.",
                 "enabled": "Aktiveret",
                 "disabled": "Deaktiveret",
                 "editdescription": "Opret din første bruger. Denne bruger vil altid være administrator og kan ikke deaktiveres eller slettes"
