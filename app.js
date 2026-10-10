@@ -544,11 +544,11 @@ module.exports = class Heimdall extends Homey.App {
             this.attachEventListener(device,'open');
         }
         if ( 'alarm_vibration' in device.capabilitiesObj ) {
-            this.log(' Found vibration sensor:    ' + device.name, 'in', zoneName);
+            this.log(' Found vibration sensor:     ' + device.name, 'in', zoneName);
             this.attachEventListener(device,'vibration');
         }
         if ( 'alarm_tamper' in device.capabilitiesObj ) {
-            this.log(' Found tamper sensor:       ' + device.name, 'in', zoneName);
+            this.log(' Found tamper sensor:        ' + device.name, 'in', zoneName);
             this.attachEventListener(device,'tamper');
         }
     }
