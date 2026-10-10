@@ -50,7 +50,7 @@ var defaultSettings = {
 function onHomeyReady(homeyReady){
     Homey = homeyReady;
     Homey.ready();
-    
+
     // Get platformVersion to determine if Speech options should be shown
     // Homey Pro -2023: Yes
     // Homey Pro 2023:  No
@@ -63,7 +63,7 @@ function onHomeyReady(homeyReady){
                 platformVersion = savedSettings;
             }
             if ( platformVersion == 2 ) {
-                useSpeech = false;    
+                useSpeech = false;
             }
         }
     });
@@ -371,17 +371,18 @@ function onHomeyReady(homeyReady){
             displayDevice: function(device) {
                 showDevice = false
                 for ( let id in device.capabilities ) {
-                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
+                    // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
                         showDevice = true
                     }
-                }    
+                }
             },
             getIcon: function(device) {
                 try {
                     if ( device.ready ) {
                         return "<img src=\"" + device.iconObj.url + "\" class=\"icon-device\"/>";
                     } else {
-                        return "<img src=\"./images/broken.svg\" class=\"icon-device\"/>";                        
+                        return "<img src=\"./images/broken.svg\" class=\"icon-device\"/>";
                     }
                 } catch(e) {
                     return "<!-- Error fetching image -->";
@@ -403,9 +404,9 @@ function onHomeyReady(homeyReady){
                         s < .3 && (closestClass = "20"),
                         s < .1 && (closestClass = "0"),
                         waarde = waarde + "%"
-                    } 
+                    }
                     return "<span class=\"component component-battery charge-" + closestClass + "\">"+waarde+"</span>"
-                } catch(e) { 
+                } catch(e) {
                     return "<!-- no capabilitiesObj.measure_battery.value -->"
                 }
             },
@@ -426,30 +427,32 @@ function onHomeyReady(homeyReady){
             getCapabilityImage: function(device) {
                 let result = "";
                 for ( let capability in device.capabilitiesObj ) {
-                    if ( capability === "alarm_contact" ) {
-                        if ( device.capabilitiesObj.alarm_contact.value ) {
-                            result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability active\"/>"    
+                    // if ( capability === "alarm_contact" ) {
+                    //     if ( device.capabilitiesObj.alarm_contact.value ) {
+                    if ( capability === "alarm_contact" || ( capability === "alarm_open" && !( "alarm_contact" in device.capabilitiesObj ) ) ) {
+                        if ( device.capabilitiesObj[capability].value ) {
+                            result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability active\"/>"
                         } else {
                             result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_motion" ) {
                         if ( device.capabilitiesObj.alarm_motion.value ) {
-                            result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"
                         } else {
                             result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_vibration" ) {
                         if ( device.capabilitiesObj.alarm_vibration.value ) {
-                            result += "<img id=\"" + device.id + "v\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"    
+                            result += "<img id=\"" + device.id + "v\" src=\"./images/vibration.svg\" class=\"icon-capability active\"/>"
                         } else {
                             result += "<img id=\"" + device.id + "v\" src=\"./images/vibration.svg\" class=\"icon-capability\"/>"
                         }
                     }
                     if ( capability === "alarm_tamper" ) {
                         if ( device.capabilitiesObj.alarm_tamper.value ) {
-                            result += "<img id=\"" + device.id + "t\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper active\"/>"    
+                            result += "<img id=\"" + device.id + "t\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper active\"/>"
                         } else {
                             result += "<img id=\"" + device.id + "t\" src=\"./images/tamper.svg\" class=\"icon-capability-tamper\"/>"
                         }
@@ -494,13 +497,13 @@ function showTab(tab){
     $('.panel').hide()
     $('#tab' + tab).show()
     dashboardVisible = ( tab == 1 ) ? true : false
-    statusVisible = ( tab == 2 ) ? true : false   
+    statusVisible = ( tab == 2 ) ? true : false
     if ( tab != 4 ) {
         document.getElementById("pinentry").style.display = "";
         document.getElementById("userspane").style.display = "none";
         document.getElementById("useredit").style.display = "none";
         document.getElementById("usereditdescription").style.display = "none";
-        document.getElementById("invalidpin").style.display = "none"; 
+        document.getElementById("invalidpin").style.display = "none";
         document.getElementById("validating").style.display = "none";
         document.getElementById("pin").value = "";
         document.getElementById("userspane").innerHTML = "";
@@ -538,7 +541,7 @@ function prepareUsersTab() {
             };
         })
         .catch((error) => {
-            return Homey.alert('prepareUsersTab(): ' + errror); 
+            return Homey.alert('prepareUsersTab(): ' + errror);
         });
 }
 
@@ -553,7 +556,7 @@ async function getLanguage() {
                 language = "en"
             }
         }
-        document.getElementById("instructions"+language).style.display = "inline";   
+        document.getElementById("instructions"+language).style.display = "inline";
     });
 }
 
@@ -637,12 +640,12 @@ function enterPIN() {
             document.getElementById("pinentry").style.display = "none";
             document.getElementById("userspane").style.display = "block";
             document.getElementById("validating").style.display = "none";
-            displayUsers(transferedUsers);       
+            displayUsers(transferedUsers);
         })
         .catch((error) => {
             document.getElementById("validating").style.display = "none";
             document.getElementById("invalidpin").style.display = "block";
-            return Homey.alert('enterPIN: ' + error); 
+            return Homey.alert('enterPIN: ' + error);
         });
 }
 
@@ -686,7 +689,7 @@ function addUser(userId) {
         document.getElementById("userEnabled").disabled = false;
     }
     checkSave();
-    canDelete = false; 
+    canDelete = false;
     $('#deleteButton').removeClass('btn-active');
     $('#deleteButton').addClass('btn-inactive');
 }
@@ -730,7 +733,7 @@ function saveUser() {
     let userPIN = document.getElementById("userPIN").value;
     let userRFIDTag = document.getElementById("userRFIDTag").value;
 
-    if ( userId != 0 ) { 
+    if ( userId != 0 ) {
         userAdmin = document.getElementById("userAdmin").checked;
         userEnabled = document.getElementById("userEnabled").checked;
     }
@@ -820,7 +823,7 @@ function editUser(userId) {
     document.getElementById("userName").value = user.name;
     document.getElementById("userPIN").value = user.pincode;
     let currentRFIDtag = user.rfidtag;
-    if ( !currentRFIDtag ) { 
+    if ( !currentRFIDtag ) {
         document.getElementById("userRFIDTag").value = "";
     } else {
         document.getElementById("userRFIDTag").value = user.rfidtag;
@@ -838,7 +841,7 @@ function editUser(userId) {
     checkSave();
 
     if ( userId == 0 ) {
-        canDelete = false; 
+        canDelete = false;
         $('#deleteButton').removeClass('btn-active');
         $('#deleteButton').addClass('btn-inactive');
         document.getElementById("userAdmin").checked = true;
@@ -846,7 +849,7 @@ function editUser(userId) {
         document.getElementById("userEnabled").checked = true;
         document.getElementById("userEnabled").disabled = true;
     } else {
-        canDelete = true; 
+        canDelete = true;
         $('#deleteButton').removeClass('btn-inactive');
         $('#deleteButton').addClass('btn-active');
         if ( isAdmin ) {
@@ -885,12 +888,12 @@ function editUser(userId) {
                                 //console.log('taginfo.time',taginfo.time);
 
                                 let selectedUser = document.getElementById('userName').value
-            
+
                                 logLine.type = 'Succes';
                                 // todo translation
                                 //logLine.text = 'RFID tag ' + taginfo.rfidtag + ' was added to user ' + selectedUser ;
                                 logLine.text = Homey.__("history.rfidtag") + taginfo.rfidtag + Homey.__("history.tagaddedto") + selectedUser ;
-                    
+
                                 Homey.set('logforme', logLine , (err, result) => {
                                     if (err)
                                         return Homey.alert(err);
@@ -909,7 +912,7 @@ function editUser(userId) {
 
                         })
                         .catch(error => {
-                            
+
                         });
                 } else {
                     if ( taginfo.time !=0 ) {
@@ -918,18 +921,18 @@ function editUser(userId) {
                         // todo translation
                         //logLine.text = 'RFID tag expired, it can not be added to a user. Please reregister the tag';
                         logLine.text = Homey.__("history.rfidtagexpired");
-                        
+
                         Homey.set('logforme', logLine , (err, result) => {
                             if (err)
                                 return Homey.alert(err);
-                        })    
-                        Homey.set('taginfo',null);                
+                        })
+                        Homey.set('taginfo',null);
                     }
                 }
             };
         })
         .catch(error => {
-            return Homey.alert('taginfo: ' + error); 
+            return Homey.alert('taginfo: ' + error);
         });
 
 }
@@ -972,7 +975,7 @@ function saveSettings() {
     heimdallSettings.notificationSmodeChange = document.getElementById('notificationSmodeChange').checked;
     heimdallSettings.notificationAlarmChange = document.getElementById('notificationAlarmChange').checked;
     heimdallSettings.notificationNoCommunicationMotion = document.getElementById('notificationNoCommunicationMotion').checked;
-    heimdallSettings.notificationNoCommunicationContact = document.getElementById('notificationNoCommunicationContact').checked; 
+    heimdallSettings.notificationNoCommunicationContact = document.getElementById('notificationNoCommunicationContact').checked;
     heimdallSettings.noCommunicationTime = 24;
     if (useSpeech) {
         if ( heimdallSettings.spokenMotionAtArming ) {
@@ -1047,13 +1050,13 @@ function showHistory(run) {
             _myLog = logging
             // Need work here -> done!
             document.getElementById('logtextarea').value = logging;
-            
+
             let color = ""
-            let htmlstring = "" 
+            let htmlstring = ""
             let historyArray = logging.split("\n")
             let dark = false
             let headerstring = '<div class="rTableRow"><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.date") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.time") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.smode") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.source") + '</div><div class="rTableCell line rTableHead">' + Homey.__("tab1.history.action") + '</div></div>'
-        
+
             historyArray.forEach(element => {
                 element = element.replace(/ \|\| /g,'</div><div class="rTableCell line">')
                 if ( element != "") {
@@ -1084,8 +1087,10 @@ async function showStatus() {
     for ( let id in allDevices ) {
         let device = allDevices[id]
         for ( let capability in device.capabilitiesObj ) {
-            if ( capability === "alarm_contact" ) {
-                if ( device.capabilitiesObj.alarm_contact.value ) {
+            // if ( capability === "alarm_contact" ) {
+            //     if ( device.capabilitiesObj.alarm_contact.value ) {
+            if ( capability === "alarm_contact" || ( capability === "alarm_open" && !( "alarm_contact" in device.capabilitiesObj ) ) ) {
+                if ( device.capabilitiesObj[capability].value ) {
                     $('#'+device.id+"c").addClass('active')
                 } else {
                     $('#'+device.id+"c").removeClass('active')
@@ -1112,7 +1117,8 @@ async function showStatus() {
                     $('#'+device.id+"t").removeClass('active')
                 }
             }
-            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
+            // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
+            if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
                 for ( let capability in device.capabilitiesObj ) {
@@ -1124,7 +1130,7 @@ async function showStatus() {
                 }
                 if ( mostRecentComE == 0 ) {
                     lastUpdateDate = "not available"
-                } else { 
+                } else {
                     lastUpdateDate = new Date( mostRecentComE ).toLocaleString()
                 }
                 let lastSeen = "ls-" + device.id

@@ -430,7 +430,8 @@ module.exports = class Heimdall extends Homey.App {
         this.homeyApi.devices.on('device.update', async(device) => {
             if ( device.ready && device.capabilitiesObj ) {
                 for ( let cap in device.capabilities ) {
-                    if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
+                    // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
+                    if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
                         this.log('device.update: Ready now:  ',device.name, 'state:', device.ready);
                         this.addDevice(device);
                     }
@@ -481,7 +482,8 @@ module.exports = class Heimdall extends Homey.App {
         this.log(" Found Device, not ready:   " + device.name)
         devicesNotReadyAtStart.push(device.id)
         for ( let cap in device.capabilities ) {
-            if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+            // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+            if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                 let nu = this.getDateTime();
                 // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
                 let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("enumerate.source") + " || " + device.name + this.homey.__("enumerate.warning")
@@ -506,7 +508,7 @@ module.exports = class Heimdall extends Homey.App {
                 return; // Skip the action if fetching the device failed
             }
         }
-        
+
         for (let deviceItem in devicesAdded) {
             if ( device.id == devicesAdded[deviceItem] ) {
                 // The device has been through this function before, exit
@@ -537,6 +539,9 @@ module.exports = class Heimdall extends Homey.App {
         if ( 'alarm_contact' in device.capabilitiesObj ) {
             this.log(' Found contact sensor:       ' + device.name, 'in', zoneName);
             this.attachEventListener(device,'contact');
+        } else if ( 'alarm_open' in device.capabilitiesObj ) {
+            this.log(' Found contact (open) sensor:' + device.name, 'in', zoneName);
+            this.attachEventListener(device,'open');
         }
         if ( 'alarm_vibration' in device.capabilitiesObj ) {
             this.log(' Found vibration sensor:    ' + device.name, 'in', zoneName);
@@ -576,6 +581,11 @@ module.exports = class Heimdall extends Homey.App {
             case "contact":
                 device.makeCapabilityInstance('alarm_contact',function(device, state) {
                     this.stateChange(device,state,sensorType)
+                }.bind(this, device));
+                break;
+            case "open":
+                device.makeCapabilityInstance('alarm_open',function(device, state) {
+                    this.stateChange(device,state,'contact')
                 }.bind(this, device));
                 break;
             case "vibration":
@@ -806,7 +816,8 @@ module.exports = class Heimdall extends Homey.App {
         for (let id in allDevices) {
             var device = allDevices[id]
             for ( let cap in device.capabilities ) {
-                if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                     usableDevices.push(device)
                 }
             }
@@ -1092,7 +1103,7 @@ module.exports = class Heimdall extends Homey.App {
     async checkDevicesLastCom(value) {
         try {
             let allDevices = await this.getDevices()
-            const allZones = await this.getZones() 
+            const allZones = await this.getZones()
 
             for (let device in allDevices) {
                 this.checkDeviceLastCom(allDevices[device], value, allZones)
@@ -1106,12 +1117,13 @@ module.exports = class Heimdall extends Homey.App {
     // Write result to the log and trigger triggerNoInfoReceived when needed.
     // - Called from checkDevicesLastCom(value)
     async checkDeviceLastCom(device, value, allZones) {
-        if ( !device.ready || !device.capabilitiesObj) return       
+        if ( !device.ready || !device.capabilitiesObj) return
         if ( this.isMonitoredFull(device) || this.isMonitoredPartial(device) ) {
             let nu = this.getDateTime();
             let nuEpoch = Date.now();
 
-            if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj ) {
+            // if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj ) {
+            if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) {
                 let mostRecentComE = 0
 
                 for ( let capability in device.capabilitiesObj ) {
@@ -1139,7 +1151,8 @@ module.exports = class Heimdall extends Homey.App {
                         let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
-                    if ( heimdallSettings.notificationNoCommunicationContact && 'alarm_contact' in device.capabilitiesObj ) {
+                    // if ( heimdallSettings.notificationNoCommunicationContact && 'alarm_contact' in device.capabilitiesObj ) {
+                    if ( heimdallSettings.notificationNoCommunicationContact && ( 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) ) {
                         let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
@@ -1193,9 +1206,15 @@ module.exports = class Heimdall extends Homey.App {
                 sensorType = 'contact'
                 this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
             };
+            if ( 'alarm_open' in device.capabilitiesObj && !('alarm_contact' in device.capabilitiesObj) && heimdallSettings.checkContactAtArming ) {
+                sensorState = device.capabilitiesObj.alarm_open.value
+                sensorStateReadable =this.readableState(sensorState, 'contact')
+                sensorType = 'contact'
+                this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
         } else {
             this.log("checkAllDeviceState:        " + device.name + " - capabilitiesObj is null or undefined");
-        }    
+        }
         if ( value == 'armed' ) {
             if ( this.isMonitoredFull(device) ) {
                 if ( sensorState ) {
@@ -1288,6 +1307,12 @@ module.exports = class Heimdall extends Homey.App {
                 sensorType = 'Contact'
                 this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
             };
+            if ( 'alarm_open' in device.capabilitiesObj && !('alarm_contact' in device.capabilitiesObj) ) {
+                sensorState = device.capabilitiesObj.alarm_open.value
+                sensorStateReadable =this.readableState(sensorState, 'contact')
+                sensorType = 'Contact'
+                this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
         } else {
             this.log("checkAllDeviceState:        " + device.name + " - capabilitiesObj is null or undefined");
         }
@@ -1328,7 +1353,8 @@ module.exports = class Heimdall extends Homey.App {
             let nu = this.getDateTime();
             let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.warning")
             for ( let cap in device.capabilities ) {
-                if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                     this.writeLog(logLine)
                 }
             }
@@ -1349,7 +1375,8 @@ module.exports = class Heimdall extends Homey.App {
                     let nu = this.getDateTime();
                     let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.ready")
                     for ( let cap in device.capabilities ) {
-                        if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                             this.writeLog(logLine)
                         }
                     }
@@ -1367,7 +1394,8 @@ module.exports = class Heimdall extends Homey.App {
                     let nu = this.getDateTime();
                     let logLine = "ao " + nu + this.readableMode(surveillance) + " || " + this.homey.__("devicecheck.source") + " || " + device.name + this.homey.__("devicecheck.readyagain")
                     for ( let cap in device.capabilities ) {
-                        if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                             this.writeLog(logLine)
                         }
                     }
