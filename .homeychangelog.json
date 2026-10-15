@@ -317,7 +317,7 @@
     "fr": "Changement mineur dans la gestion des erreurs",
     "it": "Piccola modifica nella gestione degli errori",
     "nl": "Kleine wijziging in foutafhandeling",
-    "no": "Mindre endring i feilhåndtering",    
+    "no": "Mindre endring i feilhåndtering",
     "es": "Cambio menor en el manejo de errores",
     "sv": "Mindre förändring i felhanteringen"
   },
@@ -328,7 +328,7 @@
     "fr": "Correction de l'état incorrect de l'appareil dans les paramètres de l'application",
     "it": "Risolto il problema con lo stato errato del dispositivo nelle impostazioni dell'app",
     "nl": "Onjuiste apparaatstatus in app-instellingen opgelost",
-    "no": "Rettet feil enhetsstatus i appinnstillinger",    
+    "no": "Rettet feil enhetsstatus i appinnstillinger",
     "es": "Se corrigió el estado incorrecto del dispositivo en la configuración de la aplicación",
     "sv": "Fixade felaktig enhetsstatus i appinställningar"
   },
@@ -429,7 +429,7 @@
       "nl": "• Verbeterde 'look and feel' van de instellingspagina's • Alarm_generic-capaciteit verwijderd van Alarm Off Switch en Surveillance Mode Switch",
       "no": "• Forbedret utseende og følelse av innstillingssidene • Fjernet alarm_generic-evne fra Alarm Off Switch og Surveillance Mode Switch",
       "es": "• Mejorado aspecto y sensación de las páginas de configuración • Eliminada la capacidad alarm_generic del interruptor Alarm Off y el interruptor Surveillance Mode",
-      "sv": "• Förbättrat utseende och känsla på inställningssidorna • Borttagen alarm_generic-förmåga från Alarm Off Switch och Surveillance Mode Switch"    
+      "sv": "• Förbättrat utseende och känsla på inställningssidorna • Borttagen alarm_generic-förmåga från Alarm Off Switch och Surveillance Mode Switch"
   },
   "2.10.2": {
     "en": "• Updated homey-api to 3.0.0-rc.6 • Workaround for Homey Pro before 2023 compatibility",
@@ -667,5 +667,16 @@
       "no": "• Oppdatert homey-api til 3.19.1",
       "es": "• Actualizada la homey-api a la versión 3.19.1",
       "sv": "• Uppdaterat homey-api till version 3.19.1"
-     }    
+     },
+     "2.12.0": {
+      "en": "• Added support for alarm_open capability",
+      "da": "• Tilføjet understøttelse af alarm_open-kapabilitet",
+      "de": "• Unterstützung für die alarm_open-Fähigkeit hinzugefügt",
+      "fr": "• Ajout de la prise en charge de la capacité alarm_open",
+      "it": "• Aggiunto il supporto per la capacità alarm_open",
+      "nl": "• Ondersteuning voor alarm_open-capability toegevoegd",
+      "no": "• Lagt til støtte for alarm_open-kapabilitet",
+      "es": "• Se agregó compatibilidad con la capacidad alarm_open",
+      "sv": "• Lagt till stöd för alarm_open-förmåga"
+     }
 }
