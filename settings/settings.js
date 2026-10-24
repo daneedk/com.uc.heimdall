@@ -372,7 +372,8 @@ function onHomeyReady(homeyReady){
                 showDevice = false
                 for ( let id in device.capabilities ) {
                     // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
-                    if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
+                    // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
+                    if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( device.capabilities[id] ) ) {
                         showDevice = true
                     }
                 }
@@ -436,8 +437,10 @@ function onHomeyReady(homeyReady){
                             result += "<img id=\"" + device.id + "c\" src=\"./images/contact.svg\" class=\"icon-capability\"/>"
                         }
                     }
-                    if ( capability === "alarm_motion" ) {
-                        if ( device.capabilitiesObj.alarm_motion.value ) {
+                    // if ( capability === "alarm_motion" ) {
+                    //     if ( device.capabilitiesObj.alarm_motion.value ) {
+                    if ( capability === "alarm_motion" || ( capability === "alarm_occupancy" && !( "alarm_motion" in device.capabilitiesObj ) ) ) {
+                        if ( device.capabilitiesObj[capability].value ) {
                             result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability active\"/>"
                         } else {
                             result += "<img id=\"" + device.id + "m\" src=\"./images/motion.svg\" class=\"icon-capability\"/>"
@@ -1096,8 +1099,10 @@ async function showStatus() {
                     $('#'+device.id+"c").removeClass('active')
                 }
             }
-            if ( capability === "alarm_motion" ) {
-                if ( device.capabilitiesObj.alarm_motion.value ) {
+            // if ( capability === "alarm_motion" ) {
+            //     if ( device.capabilitiesObj.alarm_motion.value ) {
+            if ( capability === "alarm_motion" || ( capability === "alarm_occupancy" && !( "alarm_motion" in device.capabilitiesObj ) ) ) {
+                if ( device.capabilitiesObj[capability].value ) {
                     $('#'+device.id+"m").addClass('active')
                 } else {
                     $('#'+device.id+"m").removeClass('active')
@@ -1118,7 +1123,8 @@ async function showStatus() {
                 }
             }
             // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
-            if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
+            // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
+            if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper" ].includes( capability) ) {
                 let mostRecentComE = 0
                 let lastUpdateDate = ""
                 for ( let capability in device.capabilitiesObj ) {
