@@ -678,5 +678,16 @@
       "no": "• Lagt til støtte for alarm_open-kapabilitet",
       "es": "• Se agregó compatibilidad con la capacidad alarm_open",
       "sv": "• Lagt till stöd för alarm_open-förmåga"
+     },
+     "2.12.1": {
+      "en": "• Fixed false 'did not report' warnings at arming for sensors that hadn't changed state",
+      "da": "• Rettet falske 'har ikke rapporteret'-advarsler ved tilkobling for sensorer uden tilstandsændring",
+      "de": "• Falsche 'hat nicht gemeldet'-Warnungen beim Scharfschalten für Sensoren ohne Zustandsänderung behoben",
+      "fr": "• Correction des fausses alertes 'n'a pas signalé' à l'armement pour les capteurs sans changement d'état",
+      "it": "• Corretti falsi avvisi 'non ha segnalato' all'attivazione per sensori senza cambio di stato",
+      "nl": "• Onterechte 'heeft niet gerapporteerd'-meldingen bij inschakelen opgelost voor sensoren zonder statuswijziging",
+      "no": "• Rettet falske 'har ikke rapportert'-varsler ved aktivering for sensorer uten tilstandsendring",
+      "es": "• Corregidos avisos falsos de 'no ha informado' al armar para sensores sin cambio de estado",
+      "sv": "• Åtgärdat falska 'har inte rapporterat'-varningar vid aktivering för sensorer utan tillståndsändring"
      }
 }

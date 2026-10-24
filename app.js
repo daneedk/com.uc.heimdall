@@ -615,8 +615,8 @@ module.exports = class Heimdall extends Homey.App {
     // Get all devices from the homey-api,
     // - Called via api.js from settings and several other functions
     async getDevices() {
-        // return await this.homeyApi.devices.getDevices({ $cache : false });
-        return await this.homeyApi.devices.getDevices();
+        return await this.homeyApi.devices.getDevices({ $cache : false });
+        // return await this.homeyApi.devices.getDevices();
     }
 
     // Get all zones from homey-api
