@@ -432,7 +432,8 @@ module.exports = class Heimdall extends Homey.App {
                 for ( let cap in device.capabilities ) {
                     // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
                     // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
-                    if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
+                    // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
+                    if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration", "alarm_tamper", "alarm_heimdall" ].includes( device.capabilities[cap] ) ) {
                         this.log('device.update: Ready now:  ',device.name, 'state:', device.ready);
                         this.addDevice(device);
                     }
@@ -485,7 +486,8 @@ module.exports = class Heimdall extends Homey.App {
         for ( let cap in device.capabilities ) {
             // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
             // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
-            if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+            // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+            if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                 let nu = this.getDateTime();
                 // let logLine = "al " + nu + this.readableMode(surveillance) + " || Enumerate Devices || " + device.name + " is not ready at Enumerating Devices"
                 let logLine = "al " + nu + this.readableMode(surveillance) + " || " + this.homey.__("enumerate.source") + " || " + device.name + this.homey.__("enumerate.warning")
@@ -540,6 +542,9 @@ module.exports = class Heimdall extends Homey.App {
         } else if ( 'alarm_occupancy' in device.capabilitiesObj ) {
             this.log(' Found occupancy sensor:     ' + device.name, 'in', zoneName);
             this.attachEventListener(device,'occupancy');
+        } else if ( 'alarm_presence' in device.capabilitiesObj ) {
+            this.log(' Found presence sensor:      ' + device.name, 'in', zoneName);
+            this.attachEventListener(device,'presence');
         }
         if ( 'alarm_contact' in device.capabilitiesObj ) {
             this.log(' Found contact sensor:       ' + device.name, 'in', zoneName);
@@ -585,6 +590,11 @@ module.exports = class Heimdall extends Homey.App {
                 break;
             case "occupancy":
                 device.makeCapabilityInstance('alarm_occupancy',function(device, state) {
+                    this.stateChange(device,state,'motion')
+                }.bind(this, device));
+                break;
+            case "presence":
+                device.makeCapabilityInstance('alarm_presence',function(device, state) {
                     this.stateChange(device,state,'motion')
                 }.bind(this, device));
                 break;
@@ -828,7 +838,8 @@ module.exports = class Heimdall extends Homey.App {
             for ( let cap in device.capabilities ) {
                 // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                 // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
-                if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                     usableDevices.push(device)
                 }
             }
@@ -1135,7 +1146,8 @@ module.exports = class Heimdall extends Homey.App {
 
             // if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj ) {
             // if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) {
-            if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) {
+            // if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) {
+            if ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj || 'alarm_presence' in device.capabilitiesObj || 'alarm_contact' in device.capabilitiesObj || 'alarm_open' in device.capabilitiesObj ) {
                 let mostRecentComE = 0
 
                 for ( let capability in device.capabilitiesObj ) {
@@ -1160,7 +1172,8 @@ module.exports = class Heimdall extends Homey.App {
                     this.writeLog(tempLogLine)
                     this.log("checkDeviceLastCom:         " + device.name + " - did not communicate in last 24 hours")
                     // if ( heimdallSettings.notificationNoCommunicationMotion && 'alarm_motion' in device.capabilitiesObj ) {
-                    if ( heimdallSettings.notificationNoCommunicationMotion && ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj ) ) {
+                    // if ( heimdallSettings.notificationNoCommunicationMotion && ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj ) ) {
+                    if ( heimdallSettings.notificationNoCommunicationMotion && ( 'alarm_motion' in device.capabilitiesObj || 'alarm_occupancy' in device.capabilitiesObj || 'alarm_presence' in device.capabilitiesObj ) ) {
                         let message = '**' + device.name + '** in ' + zone + this.homey.__("history.noreport") + heimdallSettings.noCommunicationTime + this.homey.__("history.lastreport") + lastUpdateTime
                         this.writeNotification(message)
                     }
@@ -1215,6 +1228,12 @@ module.exports = class Heimdall extends Homey.App {
             }
             if ( 'alarm_occupancy' in device.capabilitiesObj && !('alarm_motion' in device.capabilitiesObj) && heimdallSettings.checkMotionAtArming ) {
                 sensorState = device.capabilitiesObj.alarm_occupancy.value
+                sensorStateReadable =this.readableState(sensorState, 'motion')
+                sensorType = 'motion'
+                this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
+            if ( 'alarm_presence' in device.capabilitiesObj && !('alarm_motion' in device.capabilitiesObj) && !('alarm_occupancy' in device.capabilitiesObj) && heimdallSettings.checkMotionAtArming ) {
+                sensorState = device.capabilitiesObj.alarm_presence.value
                 sensorStateReadable =this.readableState(sensorState, 'motion')
                 sensorType = 'motion'
                 this.log("checkDeviceState:           " + device.name + " - " + sensorType + ": " + sensorStateReadable)
@@ -1326,6 +1345,12 @@ module.exports = class Heimdall extends Homey.App {
                 sensorType = 'Motion'
                 this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
             }
+            if ( 'alarm_presence' in device.capabilitiesObj && !('alarm_motion' in device.capabilitiesObj) && !('alarm_occupancy' in device.capabilitiesObj) ) {
+                sensorState = device.capabilitiesObj.alarm_presence.value
+                sensorStateReadable =this.readableState(sensorState, 'motion')
+                sensorType = 'Motion'
+                this.log("checkAllDeviceState:        " + device.name + " - " + sensorType + ": " + sensorStateReadable)
+            }
             if ( 'alarm_contact' in device.capabilitiesObj ) {
                 sensorState = device.capabilitiesObj.alarm_contact.value
                 sensorStateReadable =this.readableState(sensorState, 'contact')
@@ -1380,7 +1405,8 @@ module.exports = class Heimdall extends Homey.App {
             for ( let cap in device.capabilities ) {
                 // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                 // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
-                if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                     this.writeLog(logLine)
                 }
             }
@@ -1403,7 +1429,8 @@ module.exports = class Heimdall extends Homey.App {
                     for ( let cap in device.capabilities ) {
                         // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                         // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
-                        if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                             this.writeLog(logLine)
                         }
                     }
@@ -1423,7 +1450,8 @@ module.exports = class Heimdall extends Homey.App {
                     for ( let cap in device.capabilities ) {
                         // if ( [ "alarm_motion", "alarm_contact", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                         // if ( [ "alarm_motion", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
-                        if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        // if ( [ "alarm_motion", "alarm_occupancy", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
+                        if ( [ "alarm_motion", "alarm_occupancy", "alarm_presence", "alarm_contact", "alarm_open", "alarm_vibration" ].includes( device.capabilities[cap] ) ) {
                             this.writeLog(logLine)
                         }
                     }

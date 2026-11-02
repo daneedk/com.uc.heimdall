@@ -689,5 +689,16 @@
       "no": "• Rettet falske 'har ikke rapportert'-varsler ved aktivering for sensorer uten tilstandsendring • Lagt til støtte for alarm_occupancy-kapabilitet (håndteres som bevegelsessensor)",
       "es": "• Corregidos avisos falsos de 'no ha informado' al armar para sensores sin cambio de estado • Se agregó compatibilidad con la capacidad alarm_occupancy (tratada como sensor de movimiento)",
       "sv": "• Åtgärdat falska 'har inte rapporterat'-varningar vid aktivering för sensorer utan tillståndsändring • Lagt till stöd för alarm_occupancy-förmåga (hanteras som rörelsesensor)"
+     },
+     "2.14.0": {
+      "en": "• Added support for alarm_presence capability (handled as motion sensor)",
+      "da": "• Tilføjet understøttelse af alarm_presence-kapabilitet (håndteres som bevægelsessensor)",
+      "de": "• Unterstützung für die alarm_presence-Fähigkeit hinzugefügt (wird als Bewegungssensor behandelt)",
+      "fr": "• Ajout de la prise en charge de la capacité alarm_presence (traitée comme détecteur de mouvement)",
+      "it": "• Aggiunto il supporto per la capacità alarm_presence (gestita come sensore di movimento)",
+      "nl": "• Ondersteuning voor alarm_presence-capability toegevoegd (behandeld als bewegingssensor)",
+      "no": "• Lagt til støtte for alarm_presence-kapabilitet (håndteres som bevegelsessensor)",
+      "es": "• Se agregó compatibilidad con la capacidad alarm_presence (tratada como sensor de movimiento)",
+      "sv": "• Lagt till stöd för alarm_presence-förmåga (hanteras som rörelsesensor)"
      }
 }
